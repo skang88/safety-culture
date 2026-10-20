@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 2: Analyzing the Organizational Culture — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 280px;
+  --ai-panel-w: 380px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-cyan: #0891b2;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #7e22ce;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  height: var(--header-h);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-title span.sub {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.action-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.action-btn.primary {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border-color: var(--accent-blue);
+}
+.action-btn.primary:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
+/* App Wrapper: 3-column layout */
+.app-wrapper {
+  display: flex;
+  min-height: calc(100vh - var(--header-h));
+  position: relative;
+}
+
+/* Left Sidebar Navigation */
+aside.left-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  overflow-y: auto;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 13px;
+}
+.nav-search:focus {
+  outline: 2px solid var(--accent-blue);
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: all 0.15s ease;
+}
+.nav-link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent-blue);
+  transform: translateX(2px);
+}
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 700;
+  border-left: 3px solid var(--accent-blue);
+}
+.nav-link .icon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Center Content */
+main.main-content {
+  flex: 1;
+  padding: 32px 40px 100px;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-y: visible;
+}
+
+/* Right AI Panel */
+aside.right-ai-panel {
+  width: var(--ai-panel-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 950;
+}
+aside.right-ai-panel.collapsed {
+  transform: translateX(100%);
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+.ai-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ai-panel-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-status-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.ai-mode-bar {
+  padding: 10px 16px;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.ai-mode-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat-bubble {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 90%;
+  word-break: break-word;
+}
+.chat-bubble.ai {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  color: var(--text-main);
+}
+.chat-bubble.user {
+  background: var(--accent-blue);
+  color: #0b1120;
+  align-self: flex-end;
+  font-weight: 500;
+}
+.chat-bubble code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.ai-quick-questions {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.quick-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.quick-chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.ai-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+.ai-form {
+  display: flex;
+  gap: 8px;
+}
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  height: 44px;
+  min-height: 44px;
+  max-height: 100px;
+}
+.ai-input:focus {
+  outline: 2px solid var(--accent-blue);
+}
+.ai-send-btn {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+.ai-send-btn:hover { background: #0284c7; color: #fff; }
+
+/* API Key Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.modal-title { font-size: 18px; font-weight: 700; }
+.close-modal-btn { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+.modal-body { display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; }
+.modal-footer { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+
+/* Typography & Subnote Styles */
+h1.content-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+.content-meta {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 30px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+h2.sec-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3.sub-heading {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+p { margin-bottom: 14px; color: var(--text-sub); }
+strong { color: var(--text-main); }
+ul, ol { margin-left: 20px; margin-bottom: 16px; color: var(--text-sub); }
+li { margin-bottom: 6px; }
+
+/* Callouts / Alerts */
+.callout {
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 18px 0;
+  border-left: 4px solid;
+  background: var(--bg-card-sub);
+}
+.callout.quote {
+  border-color: var(--accent-purple);
+  font-style: italic;
+  background: rgba(168, 85, 247, 0.08);
+}
+.callout.info {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.08);
+}
+.callout.warning {
+  border-color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.08);
+}
+.callout.danger {
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.08);
+}
+.callout.success {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.08);
+}
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+}
+.callout.info .callout-title { color: var(--accent-blue); }
+.callout.warning .callout-title { color: var(--accent-gold); }
+.callout.danger .callout-title { color: var(--accent-red); }
+.callout.success .callout-title { color: var(--accent-green); }
+.callout.quote .callout-title { color: var(--accent-purple); font-style: normal; }
+
+/* Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 18px 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+table.custom-table th {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+}
+table.custom-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+table.custom-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Figures / Media Cards */
+.media-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  text-align: center;
+}
+.media-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+.media-card img:hover {
+  transform: scale(1.01);
+}
+.media-caption {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 12px;
+}
+.media-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+  line-height: 1.6;
+}
+
+/* Mermaid Wrapper */
+.mermaid-wrapper {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* Cards & Accordions */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+.sub-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.sub-card h4 {
+  font-size: 14.5px;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+details.custom-accordion {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.custom-accordion summary {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg-input);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details.custom-accordion summary:hover {
+  color: var(--accent-blue);
+}
+details.custom-accordion .accordion-body {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+}
+
+/* Interactive Prompt Box */
+.prompt-box {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(56, 189, 248, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.prompt-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.prompt-actions {
+  display: flex;
+  gap: 8px;
+}
+.copy-prompt-btn, .send-prompt-btn {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.copy-prompt-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.send-prompt-btn:hover { background: var(--accent-blue); color: #0b1120; border-color: var(--accent-blue); }
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #10b981;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 3000;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  aside.left-sidebar { width: 240px; }
+  aside.right-ai-panel { width: 340px; }
+}
+@media (max-width: 992px) {
+  aside.left-sidebar { display: none; }
+  main.main-content { padding: 24px 20px 80px; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="brand-area">
+    <div class="brand-badge">Chapter 02</div>
+    <div class="brand-title">조직문화 분석 <span class="sub">Analyzing the Organizational Culture</span></div>
+  </div>
+  <div class="header-actions">
+    <button class="action-btn" id="theme-toggle-btn" title="테마 전환">🌓 테마</button>
+    <button class="action-btn" id="api-key-btn" title="API 설정">🔑 API 설정</button>
+    <button class="action-btn primary" id="toggle-ai-btn" title="AI 학습 튜터 열기/닫기">💬 AI 학습 튜터</button>
+  </div>
+</header>
+
+<div class="app-wrapper">
+
+    <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <div class="sidebar-title">목차 바로가기 (Chapter 2)</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="목차 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-1-1-introduction" class="nav-link active">📌 1. INTRODUCTION (도입)</a></li>
+      <li><a href="#sec-2-2-what-is-organizational-cultu" class="nav-link">🏛️ 2. WHAT IS ORGANIZATIONAL CULTURE? (조직문화란 무엇인가?)</a></li>
+      <li><a href="#sec-3-3-recent-history" class="nav-link">📜 3. RECENT HISTORY (안전문화의 역사적 배경과 대형 참사의 교훈)</a></li>
+      <li><a href="#sec-4-4-three-levels-of-culture-defi" class="nav-link">🔺 4. THREE LEVELS OF CULTURE DEFINED (에드가 샤인의 3단계 문화 모델)</a></li>
+      <li><a href="#sec-5-5-safety-culture-defined" class="nav-link">🛡️ 5. SAFETY CULTURE DEFINED (안전문화의 정의와 복합적 속성)</a></li>
+      <li><a href="#sec-6-6-assessing-the-current-safety" class="nav-link">🔍 6. ASSESSING THE CURRENT SAFETY CULTURE (현재 안전문화의 진단과 평가)</a></li>
+      <li><a href="#sec-7-7-habits-as-part-of-the-cultur" class="nav-link">🔄 7. HABITS AS PART OF THE CULTURE (문화의 구성 요소로서의 습관)</a></li>
+      <li><a href="#sec-8-8-possible-characteristics-of-" class="nav-link">📊 8. POSSIBLE CHARACTERISTICS OF A CULTURE (안전문화를 구성하는 5대 핵심 특성)</a></li>
+      <li><a href="#sec-9-9-communication" class="nav-link">🗣️ 9. COMMUNICATION (소통과 심리적 안전감)</a></li>
+      <li><a href="#sec-10-10-silo-management" class="nav-link">🧱 10. SILO MANAGEMENT (사일로 경영의 폐해와 극복)</a></li>
+      <li><a href="#sec-11-11-national-and-occupational-c" class="nav-link">🌍 11. NATIONAL AND OCCUPATIONAL CULTURES (국가 문화 및 직종 문화의 영향)</a></li>
+      <li><a href="#sec-12-12-safety-culture-as-mission-e" class="nav-link">🎯 12. SAFETY CULTURE AS MISSION-ESSENTIAL BUSINESS PRIORITY (미션 필수적 비즈니스 최우선 순위로서의 안전문화)</a></li>
+      <li><a href="#sec-13-13-can-a-culture-be-changed" class="nav-link">🌱 13. CAN A CULTURE BE CHANGED? (문화는 과연 변화될 수 있는가?)</a></li>
+      <li><a href="#sec-14-14-conducting-a-basic-gap-anal" class="nav-link">📐 14. CONDUCTING A BASIC GAP ANALYSIS (기본 갭 분석 수행법)</a></li>
+      <li><a href="#sec-15-15-nine-warning-flags-factors-" class="nav-link">🚩 15. NINE WARNING FLAGS FACTORS THAT DEFEAT CONTROL (안전 통제를 무너뜨리는 9대 치명적 경고 깃발)</a></li>
+      <li><a href="#sec-16-16-summary" class="nav-link">📝 16. SUMMARY (요약 및 핵심 결론)</a></li>
+      <li><a href="#sec-17-17-chapter-review-questions-10" class="nav-link">❓ 17. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</a></li>
+      <li><a href="#sec-18-18-appendix-2-1-safety-culture" class="nav-link">📁 18. [APPENDIX 2.1] SAFETY CULTURE TRAITS AND INDICATORS (안전문화 특성 및 지표)</a></li>
+      <li><a href="#sec-19-19-appendix-2-2-do-you-know-yo" class="nav-link">📋 19. [APPENDIX 2.2] DO YOU KNOW YOUR SAFETY CULTURE: A BASIC CHECKLIST (안전문화 기초 진단 체크리스트)</a></li>
+      <li><a href="#sec-20-20-appendix-2-3-nasa-culture-a" class="nav-link">🚀 20. [APPENDIX 2.3] NASA CULTURE AS AN ORGANIZATIONAL FLAW (NASA 챌린저 및 컬럼비아호 참사 분석)</a></li>
+      <li><a href="#sec-21-21-bibliography" class="nav-link">📚 21. BIBLIOGRAPHY (참고 문헌)</a></li>
+    </ul>
+  </aside>
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="content-title">Chapter 2 Analyzing the Organizational Culture</h1>
+    <div class="content-meta">
+      조직문화 분석 심층 서브노트 | 출처: Safety Culture (Elsevier, 2019) | Academic Sub-Note &amp; Interactive Learning Suite
+    </div>
+
+    <section class="section-box" id="sec-1-1-introduction">
+      <h2 class="sec-heading">📌 1. INTRODUCTION (도입)</h2>
+<p>조직의 문화를 깊이 있게 이해하는 것은 효과적인 안전경영시스템(Safety Management System)을 개발하고 안착시키기 위한 필수적 전제조건입니다. 문화는 조직이 외부 환경에 적응하고 내부 통합을 달성하기 위해 발전시켜 온 암묵적 규범이자 신념 체계이므로, 안전 전문가는 문화적 맥락을 정확히 읽어내야만 실효성 있는 변화를 이끌어낼 수 있습니다.</p>
+<h3 class="sub-heading">📊 1.1 제2장의 6대 핵심 학습 목표</h3>
+<p>본 장을 학습한 후 연구자 및 안전 전문가는 다음 6가지 핵심 과제를 논의하고 분석할 수 있어야 합니다:</p>
+<ul>
+<li><strong>조직문화의 구성 요소(Elements of Organizational Culture)를 식별할 수 있다.</strong></li>
+<li><strong>에드가 샤인(Edgar Schein)의 조직문화 3단계(Three Levels of Culture)를 식별하고 상호작용을 논의할 수 있다.</strong></li>
+<li><strong>안전문화의 본질적 요소와 다차원적 속성을 정의하고 설명할 수 있다.</strong></li>
+<li><strong>조직의 가능한 문화적 유형과 특성을 진단할 수 있다.</strong></li>
+<li><strong>문화 변혁(Culture Change)을 달성하기 위한 체계적인 접근 방법을 도출할 수 있다.</strong></li>
+<li><strong>안전 통제를 무너뜨리는 9대 치명적 경고 깃발(Nine Red Flags)을 식별하고 예방할 수 있다.</strong></li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-2-2-what-is-organizational-cultu">
+      <h2 class="sec-heading">🏛️ 2. WHAT IS ORGANIZATIONAL CULTURE? (조직문화란 무엇인가?)</h2>
+<p>조직문화는 단순히 벽에 걸린 사훈이나 슬로건이 아니며, "이곳에서 일이 실제로 어떻게 처리되는가(The way we do things around here)"를 규정하는 보이지 않는 규칙과 신념의 집합체입니다.</p>
+<ul>
+<li><strong>기저 문화의 지배력</strong>:</li>
+</ul>
+<p>조직문화는 사물이 어떻게 작동하는지에 대한 <strong>기본 가정(Basic Assumptions)</strong>, 구성원들이 공유하는 신념, 가치관, 그리고 일상적인 행동 규칙으로 정의됩니다.</p>
+<ul>
+<li><strong>표면적 시스템과 문화의 충돌</strong>:</li>
+</ul>
+<p>문화적 기반이 취약한 상태에서 정교한 절차서나 규정만을 도입하면 현장의 냉소주의와 저항에 부딪힙니다. 안전 프로세스는 조직의 고유한 문화적 토양에 뿌리를 내려야만 지속 가능성을 확보할 수 있습니다.</p>
+<p>---</p>
+<h3 class="sub-heading">📊 [표 2.1 상세 분석] 조직문화의 핵심 구성 요소 (Components of Organizational Culture)</h3>
+<div class="media-card"><img src="image-38.png" alt="Table 2.1"><div class="media-caption">Table 2.1</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[표 2.1 상세 보충설명: 조직문화를 형성하는 4대 기본 지주]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **1. 기본 가정 (Basic Assumptions)**: 사물이 어떻게 작동하고 세상이 어떻게 돌아가는지에 대한 의심할 여지 없는 무의식적 믿음.</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **2. 공유된 가치 (Shared Values)**: 조직 내에서 무엇이 옳고 그른지, 무엇이 더 중요하고 가치 있는지를 판단하는 집단적 도덕·규범적 기준.</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **3. 불문율과 규범 (Unspoken Rules & Norms)**: 명문화되어 있지는 않으나 구성원들이 암묵적으로 지키고 따르는 일상적 행동 규칙.</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **4. 행동 양식 (Behavioral Patterns)**: 매일 반복되는 업무 수행 습관, 소통 방식, 갈등 해결 태도 등의 가시적 패턴.</p></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-3-3-recent-history">
+      <h2 class="sec-heading">📜 3. RECENT HISTORY (안전문화의 역사적 배경과 대형 참사의 교훈)</h2>
+<p>현대 안전 관리 역사에서 대형 참사는 단순한 기계적 결함이나 작업자의 일회성 실수로 발생하지 않고, 조직 내부의 문화적 결함과 결합하여 발생한다는 사실이 입증되었습니다.</p>
+<ul>
+<li><strong>1977년 테네리페 공항 참사 (Tenerife Airport Disaster)</strong>:</li>
+</ul>
+<p>항공 역사상 최악의 참사(583명 사망)로 기록된 이 사고는 짙은 안개 속에서 기장의 권위주의적 위계 문화(권력 거리)와 부기장의 침묵, 관제탑과의 소통 오해가 결합하여 발생했습니다. 이는 조종실 자원 관리(CRM)와 안전문화 개념 도입의 직접적 도화선이 되었습니다.</p>
+<ul>
+<li><strong>1986년 체르노빌 원전 사고 (Chernobyl Accident)</strong>:</li>
+</ul>
+<p>국제원자력기구(IAEA/INSAG, 1986)는 사고 조사 보고서에서 <strong>'안전문화(Safety Culture)'</strong>라는 용어를 공식적으로 최초 사용하며, 안전을 경시하는 소련 특유의 관료주의적 멘탈 모델과 상명하복식 조직 분위기가 파국의 근본 원인임을 밝혔습니다.</p>
+<ul>
+<li><strong>역사적 교훈과 통념의 함정</strong>:</li>
+</ul>
+<p>"사고가 없으면 안전하다"는 사후적 착각은 조직을 극도로 취약하게 만듭니다:</p>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">*"만약 안전을 단지 '사고가 없는 상태'로만 정의한다면, 직원들은 '사고가 나지 않거나 다치지 않는 한 내가 하는 모든 행동은 안전하다'는 치명적인 오만에 빠지게 된다. 이 순간 리스크는 간과되고, 자만심(Complacency)이 뿌리내리며, 조직은 뜻밖의 파국 앞에서 경악하게 된다."*</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">— **갤러웨이 (Galloway, 2012)**</p></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-4-4-three-levels-of-culture-defi">
+      <h2 class="sec-heading">🔺 4. THREE LEVELS OF CULTURE DEFINED (에드가 샤인의 3단계 문화 모델)</h2>
+<p>조직문화의 대가 에드가 샤인(Edgar Schein, 2016)은 문화를 표면의 깊이에 따라 3단계로 분류하여 안전문화의 본질을 분석할 수 있는 결정적 틀을 제공했습니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 2.1 상세 분석] 문화 변혁의 정의와 전개도</h3>
+<div class="media-card"><img src="image-39.png" alt="Fig 2.1"><div class="media-caption">Fig 2.1</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 2.1 상세 보충설명: 문화적 변화의 동역학]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* 가시적인 물리적 환경과 행동의 변화가 점진적으로 내면화되어 가치관과 기본 가정을 변화시키는 선순환 과정을 시각화합니다.</p></div>
+<p>---</p>
+<h3 class="sub-heading">📌 4.1 제1단계: 인공물 (Artifacts)</h3>
+<ul>
+<li><strong>개념</strong>: 보고 만지고 들을 수 있는 조직의 가시적인 물리적 환경, 절차, 언어, 복장 등 표면적 구조물.</li>
+<li><strong>현장 사례</strong>: 작업장의 5S 정리정돈 상태, 보호구 착용 실태, 표지판, 안전 작업 표준서, 사무실 자리 배치.</li>
+<li><strong>한계</strong>: 눈으로 쉽게 관찰할 수 있지만, 구성원들이 "왜 그렇게 행동하는가"에 대한 심층적 의미를 파악하기는 어렵습니다.</li>
+</ul>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 1] 대형 표지판과 안전 메시지의 모순</h3>
+<ul>
+<li><strong>상황</strong>: 나단(Nathan)이 리스크 통제 기초 교육을 위해 고객사를 방문했을 때, 교육장 출구에 <strong>"위험을 감수하라(Take the risk!)"</strong>는 거대한 경영 슬로건 디스플레이가 걸려 있는 모순을 목격함.</li>
+<li><strong>시사점</strong>: 비즈니스적 모험(Risk-taking)과 작업장 안전 리스크(Safety risk)의 용어가 혼용되어 현장 직원들에게 혼란스럽고 상충되는 신호를 전달하고 있음을 보여줍니다.</li>
+</ul>
+<p>---</p>
+<h3 class="sub-heading">📌 4.2 제2단계: 신봉 가치 (Espoused Values)</h3>
+<ul>
+<li><strong>개념</strong>: 조직이 대외적으로 공표하고 표방하는 공식적인 전략, 철학, 목표, 행동 규범.</li>
+<li><strong>현장 사례</strong>: "안전은 우리의 제1 가치다", 안전 방침 선언문, 무재해 달성 구호.</li>
+<li><strong>위험성</strong>: 신봉 가치는 조직이 지향하는 이상일 뿐, 실제 현장의 일상적 행동 규범과 심각하게 괴리될 수 있습니다.</li>
+</ul>
+<p>---</p>
+<h3 class="sub-heading">📌 4.3 제3단계: 기본 가정과 불문율 (Underlying Assumptions and Unspoken Rules)</h3>
+<ul>
+<li><strong>개념</strong>: 구성원들이 너무나 당연하게 여겨 의문조차 품지 않는 무의식적이고 암묵적인 믿음과 지각.</li>
+<li><strong>현장 사례</strong>: "바쁠 때는 안전 수칙을 건너뛰어야 일 잘하는 사람이다", "사고를 보고하면 징계를 받는다".</li>
+<li><strong>핵심 본질</strong>: 조직문화의 진짜 실체는 1단계 인공물이나 2단계 신봉 가치가 아니라, 바로 <strong>이 3단계 무의식적 기본 가정</strong>입니다 (Schein, 2016).</li>
+</ul>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 2.2 상세 분석] 에드가 샤인의 3단계 문화 모델</h3>
+<div class="media-card"><img src="image-40.png" alt="Fig 2.2"><div class="media-caption">Fig 2.2</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 2.2 상세 보충설명: 빙산 모델과 문화의 3차원 깊이]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **수면 위**: **Artifacts (인공물)** — 눈에 보이는 가시적 현상 (해석 난해).</p></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">* **수면 경계**: **Espoused Values (신봉 가치)** — 공식 표명된 가치관 및 목표.</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **수면 아래**: **Underlying Assumptions (기본 가정)** — 무의식적이고 당연시되는 궁극적 신념의 원천.</p></div>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 2] 표방된 가치와 현장 불문율의 괴리</h3>
+<ul>
+<li>모든 저자들은 기업이 입으로는 "안전이 최우선"이라고 말하면서도, 현장 관찰(인공물)을 통해 드러나는 실제 행동은 "생산 속도가 진정한 불문율"로 작동하는 거대한 간극을 지속적으로 목격했습니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-5-5-safety-culture-defined">
+      <h2 class="sec-heading">🛡️ 5. SAFETY CULTURE DEFINED (안전문화의 정의와 복합적 속성)</h2>
+<p>안전문화는 독립된 단일 프로그램이 아니라, 전체 조직문화가 '안전'이라는 렌즈를 통해 투영된 하위 문화입니다.</p>
+<ul>
+<li><strong>ACSNI(1993)의 고전적 정의</strong>:</li>
+</ul>
+<p><em>"조직의 안전문화는 조직의 건강 및 안전 관리 프로그램에 대한 헌신, 역량 및 숙달을 결정하는 개인과 집단의 가치관, 태도, 지각, 역량, 행동 패턴의 산물이다."</em></p>
+<ul>
+<li><strong>상대적 리스크와 복합성</strong>:</li>
+</ul>
+<p>안전문화는 고정된 상태가 아니며, 외부 경영 환경, 기술 변화, 리더십 교체 등과 맞물려 끊임없이 흔들리는 동적 평형 상태를 유지합니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 3 & 4] 안전을 단순 규칙 준수로 보는 착각</h3>
+<ul>
+<li>"규칙을 철저히 지키면 안전이 달성된다"는 단순 논리는 돌발 상황에 대응할 수 없습니다. 규칙을 기계적으로 따르는 수동적 태도를 넘어, 현장의 위험을 주도적으로 식별하고 통제하는 능동적 숙달(Mastery)이 안전문화의 본질입니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-6-6-assessing-the-current-safety">
+      <h2 class="sec-heading">🔍 6. ASSESSING THE CURRENT SAFETY CULTURE (현재 안전문화의 진단과 평가)</h2>
+<p>조직의 안전문화를 개선하기 위한 출발점은 현재의 성숙도와 취약점을 객관적으로 진단하는 것입니다.</p>
+<ul>
+<li><strong>다각화 진단 기법 (Triangulation)</strong>:</li>
+</ul>
+<p>단순 설문조사에만 의존하지 않고, 심층 인터뷰, 비공식 현장 관찰, 과거 사고 데이터 분석을 결합하여 복합적으로 평가해야 합니다.</p>
+<ul>
+<li><strong>진단 시 유의사항</strong>:</li>
+</ul>
+<p>설문조사 시 직원들이 불이익을 두려워하여 '경영진이 듣고 싶어 하는 답'을 적어내는 편향을 극복해야 합니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 5 & 6] 현장 진단에서의 저항과 통찰</h3>
+<ul>
+<li>익명성이 철저히 보장되고 비처벌 원칙이 확인될 때에만 현장 작업자들은 "라인을 멈출 수 없는 실질적 압박" 등 숨겨진 문화적 진실을 토로합니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-7-7-habits-as-part-of-the-cultur">
+      <h2 class="sec-heading">🔄 7. HABITS AS PART OF THE CULTURE (문화의 구성 요소로서의 습관)</h2>
+<p>문화는 거창한 철학이기 이전에 매일 무의식적으로 반복되는 <strong>일상적 습관(Daily Habits)</strong>의 집적체입니다 (Duhigg, 2012).</p>
+<ul>
+<li><strong>핵심 습관 (Keystone Habits)</strong>:</li>
+</ul>
+<p>사소해 보이는 하나의 안전 습관(예: 작업 전 1분 위험 확인, 올바른 장갑 착용)이 정착되면, 이는 연쇄 반응을 일으켜 조직 전체의 작업 규율과 안전 분위기를 혁신합니다.</p>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-8-8-possible-characteristics-of-">
+      <h2 class="sec-heading">📊 8. POSSIBLE CHARACTERISTICS OF A CULTURE (안전문화를 구성하는 5대 핵심 특성)</h2>
+<p>제임스 리즌(James Reason, 1997)이 제시한 고신뢰조직(HRO)의 안전문화 5대 핵심 지표:</p>
+<ul>
+<li><strong>정보 문화 (Informed Culture)</strong>: 조직 전체가 유해위험요인과 사고 위험에 대한 최신 지식을 지속적으로 수집하고 큐레이션하는 문화.</li>
+<li><strong>보고 문화 (Reporting Culture)</strong>: 아차사고와 경미한 실수를 처벌에 대한 두려움 없이 즉각 자발적으로 보고하는 문화.</li>
+<li><strong>공정 문화 (Just Culture)</strong>: 성실한 인간의 오류와 고의적이고 무모한 규정 위반을 명확히 구분하여 신뢰를 형성하는 문화.</li>
+<li><strong>유연 문화 (Flexible Culture)</strong>: 위기나 비상 상황 발생 시 위계적 계급을 떠나 현장 전문성을 가진 실무자에게 권한이 위임되는 문화.</li>
+<li><strong>학습 문화 (Learning Culture)</strong>: 사고 보고서로부터 올바른 결론을 도출하고, 시스템을 근본적으로 개편하여 동일 재해를 방지하는 문화.</li>
+</ul>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Lesson Learned 1 & 2 & Observation 7] 형식주의와 수동적 순응의 함정</h3>
+<ul>
+<li>사고 건수가 '0'이라는 숫자에만 집착하는 조직은 사소한 부상을 보고하지 못하게 은폐를 유도하며, 이는 훗날 대형 참사로 이어집니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-9-9-communication">
+      <h2 class="sec-heading">🗣️ 9. COMMUNICATION (소통과 심리적 안전감)</h2>
+<p>소통은 안전문화의 혈액과 같습니다. 일방적인 상명하복식 훈화는 소통이 아닙니다.</p>
+<ul>
+<li><strong>양방향 소통 (Two-Way Communication)</strong>:</li>
+</ul>
+<p>관리자가 말하기보다 현장의 목소리를 경청(Active Listening)하고, 위험을 제기한 작업자에게 처리 결과를 반드시 피드백해야 합니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 8] 비공식 소통 채널의 위력</h3>
+<ul>
+<li>공식 게시판보다 휴게실 커피 타임이나 교대 시간의 짧은 대화 속에서 오고 가는 안전 이야기가 직원들의 지각을 형성하는 데 훨씬 강력한 영향을 미칩니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-10-10-silo-management">
+      <h2 class="sec-heading">🧱 10. SILO MANAGEMENT (사일로 경영의 폐해와 극복)</h2>
+<p>각 부서가 곡물 창고(Silo)처럼 담장을 쌓고 자기 부서의 이익과 성과에만 매몰되는 <strong>사일로 경영(Silo Management)</strong>은 전사적 안전을 파괴하는 주범입니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 2.3 & 2.4 상세 분석] 사일로 경영과 버블 경영</h3>
+<div class="media-card"><img src="image-41.png" alt="Fig 2.3"><div class="media-caption">Fig 2.3</div></div>
+<div class="media-card"><img src="image-42.png" alt="Fig 2.4"><div class="media-caption">Fig 2.4</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 2.3 및 2.4 상세 보충설명: 부서 간 장벽과 정보의 고립]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **Fig 2.3 Silo Management**: 생산, 공무, 품질, 안전 부서가 각각 독립된 수직 기둥 안에 갇혀 수평적 소통이 전면 차단된 상태.</p></div>
+<div class="callout warning"><div class="callout-title">⚠️ 주의 및 리스크</div><p style="margin-bottom:0;">* **Fig 2.4 Bubble Management**: 각 관리자가 자신의 거품(Bubble) 속에 갇혀 외부 위험과 부서 간 연동성을 보지 못하는 현상.</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **결과**: 생산 부서가 일정을 맞추기 위해 임의로 안전장치를 해제해도 유지보수팀이나 안전팀은 사고가 터질 때까지 전혀 알지 못합니다.</p></div>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 9] 부서 간 장벽이 부른 충돌</h3>
+<ul>
+<li>생산 일정을 맞추려는 생산 반장과 설비 정기 점검을 요구하는 안전/공무 부서 간의 만성적 갈등은 전형적인 사일로 구조에서 기인합니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-11-11-national-and-occupational-c">
+      <h2 class="sec-heading">🌍 11. NATIONAL AND OCCUPATIONAL CULTURES (국가 문화 및 직종 문화의 영향)</h2>
+<p>조직문화는 그 사회의 거시적 국가 문화 및 엔지니어, 생산직, 관리직 등 직종별 하위 문화와 얽혀 있습니다.</p>
+<ul>
+<li><strong>홉스테드(Hofstede)의 문화 차원 이론</strong>:</li>
+</ul>
+<p>권력 거리(Power Distance)가 높은 문화권에서는 하급자가 상급자의 안전 위반 행동을 지적하거나 작업을 중지시키기 매우 어렵습니다.</p>
+<ul>
+<li><strong>직종별 관점 차이</strong>:</li>
+</ul>
+<p>기술적 완벽성을 중시하는 엔지니어와 생산 속도를 중시하는 현장 조장 간의 직종 문화 차이를 조율해야 합니다.</p>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-12-12-safety-culture-as-mission-e">
+      <h2 class="sec-heading">🎯 12. SAFETY CULTURE AS MISSION-ESSENTIAL BUSINESS PRIORITY (미션 필수적 비즈니스 최우선 순위로서의 안전문화)</h2>
+<p>안전은 기업의 부수적인 복지나 비용이 아니라, 기업의 생존을 담보하는 <strong>'미션 필수적 우선순위(Mission-Essential Priority)'</strong>입니다.</p>
+<ul>
+<li><strong>사업 수행 면허 (License to Operate)</strong>:</li>
+</ul>
+<p>중대재해가 발생하면 천문학적 과징금과 법적 처벌뿐만 아니라, 고객사 이탈과 지역사회의 규제로 인해 기업의 존립 기반이 흔들립니다.</p>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-13-13-can-a-culture-be-changed">
+      <h2 class="sec-heading">🌱 13. CAN A CULTURE BE CHANGED? (문화는 과연 변화될 수 있는가?)</h2>
+<p>문화는 하루아침에 바뀌지 않지만, 전략적이고 일관된 개입을 통해 확실하게 변화시킬 수 있습니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 2.5 상세 분석] 문화와 비전의 상호작용 매트릭스</h3>
+<div class="media-card"><img src="image-43.png" alt="Fig 2.5"><div class="media-caption">Fig 2.5</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 2.5 상세 보충설명: 리더십 비전과 문화적 수용성의 관계]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* 강력한 리더십 비전과 현장 문화가 정렬될 때 안전문화 혁신이 폭발적인 성과를 거둡니다.</p></div>
+<ul>
+<li><strong>커트 레빈(Kurt Lewin)의 변화 3단계 모델</strong>:</li>
+<li><strong>해빙 (Unfreezing)</strong>: 과거의 잘못된 안전 관행과 멘탈 모델의 위험성을 체감하고 변화의 당위성에 합의.</li>
+<li><strong>변화 (Changing)</strong>: 새로운 안전 작업 표준, 투명한 보고 시스템, 참여형 리더십 행동 도입.</li>
+<li><strong>재동결 (Refreezing)</strong>: 새로운 안전 규범을 인사 고과, 포상, 일상적 습관으로 제도화하여 정착.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-14-14-conducting-a-basic-gap-anal">
+      <h2 class="sec-heading">📐 14. CONDUCTING A BASIC GAP ANALYSIS (기본 갭 분석 수행법)</h2>
+<p>조직의 안전문화 수준을 To-Be(목표)와 As-Is(현재)로 비교하여 구체적 실행 로드맵을 도출하는 기법입니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 2.6 및 표 2.2 상세 분석] 안전문화 갭 분석 매트릭스</h3>
+<div class="media-card"><img src="image-44.png" alt="Fig 2.6"><div class="media-caption">Fig 2.6</div></div>
+<div class="media-card"><img src="image-45.png" alt="Table 2.2"><div class="media-caption">Table 2.2</div></div>
+<div class="table-responsive"><table class="custom-table">
+<thead><tr><th>갭 분석 평가 영역</th><th>현재 운영 상태 (Current As-Is)</th><th>바람직한 목표 상태 (Desired To-Be)</th><th>구체적 극복 과제 (Action Plan)</th></tr></thead>
+<tbody>
+<tr><td><strong>경영진의 현장 참여</strong></td><td>연 1회 형식적 공장 순시</td><td>주 1회 현장 작업자와의 안전 대화(MBWA)</td><td>경영진 안전 코칭 프로그램 운영</td></tr>
+<tr><td><strong>위험성평가 참여도</strong></td><td>안전 부서 전담의 서류 작업</td><td>현장 작업자가 참여하는 일상 위험성평가</td><td>전 작업자 대상 JHA 실습 교육</td></tr>
+<tr><td><strong>아차사고 피드백</strong></td><td>보고 접수 후 처리 결과 미공유</td><td>72시간 이내 현장 조치 및 결과 공지</td><td>모바일 안전 앱 기반 실시간 피드백망 구축</td></tr>
+</tbody></table></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-15-15-nine-warning-flags-factors-">
+      <h2 class="sec-heading">🚩 15. NINE WARNING FLAGS FACTORS THAT DEFEAT CONTROL (안전 통제를 무너뜨리는 9대 치명적 경고 깃발)</h2>
+<p>대형 사고가 발생하기 전 조직 내에 반드시 펄럭이는 <strong>9가지 적신호(Nine Red Flags)</strong>:</p>
+<ul>
+<li><strong>과도한 생산 압박 (Production Pressure)</strong>: 납기와 일정을 맞추기 위해 안전 절차 무시를 묵인하는 분위기.</li>
+<li><strong>만성적 자원 결핍 (Chronic Under-Resourcing)</strong>: 설비 유지보수 및 안전 교육 예산을 가장 먼저 삭감하는 행태.</li>
+<li><strong>자만심과 안주 (Complacency)</strong>: "지금까지 수년간 사고 없었으니 우리 공장은 안전하다"는 치명적 착각.</li>
+<li><strong>사일로 장벽과 소통 단절</strong>: 부서 간 위험 정보를 차단하고 책임을 전가하는 행태.</li>
+<li><strong>규정 위반의 일상화 (Normalization of Deviance)</strong>: 작업 편의를 위한 지름길(Shortcut)이 관행으로 고착화됨.</li>
+<li><strong>침묵과 두려움의 분위기</strong>: 부당한 지시나 위험을 지적하면 인사상 불이익을 받을까 침묵하는 풍조.</li>
+<li><strong>비현실적 무재해 목표</strong>: 사고 보고를 억누르고 경미한 재해를 은폐하게 만드는 징벌적 목표 관리.</li>
+<li><strong>표면적이고 부실한 사고 조사</strong>: 근본적 시스템 원인을 보지 않고 작업자 부주의로만 서둘러 종결하는 태도.</li>
+<li><strong>리더십의 솔선수범 부재</strong>: 경영진과 관리자가 현장 보호구 착용 등 기본 규칙을 솔선수범하지 않는 행태.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-16-16-summary">
+      <h2 class="sec-heading">📝 16. SUMMARY (요약 및 핵심 결론)</h2>
+<ul>
+<li><strong>조직문화는 가시적인 인공물(Artifacts)이나 구호(Espoused Values)가 아니라, 무의식적으로 당연시되는 3단계 기본 가정(Underlying Assumptions)에 의해 결정됩니다.</strong></li>
+<li>안전문화는 전체 조직문화와 불가분의 관계이며, "사고가 없다는 것"이 곧 "안전하다는 증거"가 아님을 명심해야 합니다.</li>
+<li>부서 이기주의인 사일로 경영을 타파하고, 비공식 네트워크와 양방향 소통을 통해 전사적 위험을 상시 공유해야 합니다.</li>
+<li>9대 경고 깃발(Red Flags)을 선제적으로 감지하고, 갭 분석을 통해 지속적으로 안전경영시스템을 진화시켜야 합니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-17-17-chapter-review-questions-10">
+      <h2 class="sec-heading">❓ 17. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</h2>
+<ul>
+<li><strong>조직문화의 정의와 중요성</strong>: 조직문화가 안전 프로세스 성공에 결정적 영향을 미치는 학술적 이유는 무엇인가?</li>
+<li><strong>에드가 샤인의 문화 3단계 분석</strong>: 인공물, 신봉 가치, 기본 가정의 상관관계와 현장 적용 시 주의점은?</li>
+<li><strong>체르노빌 참사의 교훈</strong>: 체르노빌 사고 조사를 통해 정립된 '안전문화' 개념의 핵심은 무엇인가?</li>
+<li><strong>무손실 무재해 통념의 오류</strong>: "사고가 없는 상태가 곧 안전이다"라는 인식이 초래하는 파국적 위험은?</li>
+<li><strong>사일로 경영(Silo Management)의 폐해</strong>: 생산 부서와 안전 부서 간의 장벽이 위험 통제를 어떻게 무력화하는가?</li>
+<li><strong>5대 안전문화 특성</strong>: 정보, 보고, 공정, 유연, 학습 문화가 상호 연계되는 메커니즘은?</li>
+<li><strong>국가 및 직종 문화의 영향</strong>: 권력 거리와 직종별 관점이 현장 안전 소통에 미치는 영향은?</li>
+<li><strong>안전문화 갭 분석(Gap Analysis)</strong>: As-Is와 To-Be를 설정하고 실행 계획을 수립하는 절차는?</li>
+<li><strong>9대 경고 깃발(Nine Red Flags)</strong>: 조직 내 자만심(Complacency)과 규정 위반의 일상화를 감지하는 방법은?</li>
+<li><strong>문화 변혁의 3단계</strong>: 해빙, 변화, 재동결 과정을 안전 프로세스에 적용하는 구체적 방안은?</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-18-18-appendix-2-1-safety-culture">
+      <h2 class="sec-heading">📁 18. [APPENDIX 2.1] SAFETY CULTURE TRAITS AND INDICATORS (안전문화 특성 및 지표)</h2>
+<p>미국 원자력규제위원회(NRC) 및 선진 고신뢰 산업에서 규정한 9대 안전문화 핵심 특성:</p>
+<ul>
+<li>리더십 안전 가치 및 행동 (Leadership Safety Values and Actions)</li>
+<li>문제 식별 및 해결 역량 (Problem Identification and Resolution)</li>
+<li>지속적 학습 환경 (Continuous Learning)</li>
+<li>안전 최우선 의사결정 (Safety-Over-Production Decision Making)</li>
+<li>존중과 신뢰의 작업 환경 (Respectful Work Environment)</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-19-19-appendix-2-2-do-you-know-yo">
+      <h2 class="sec-heading">📋 19. [APPENDIX 2.2] DO YOU KNOW YOUR SAFETY CULTURE: A BASIC CHECKLIST (안전문화 기초 진단 체크리스트)</h2>
+<p>현업 관리자가 즉시 활용할 수 있는 15대 자가 진단 질문:</p>
+<ul>
+<li>최고경영진은 안전을 위해 생산 라인을 멈출 수 있는 실질적 권한을 현장에 부여하는가?</li>
+<li>현장 직원이 아차사고를 보고했을 때 칭찬과 감사를 받는 분위기인가?</li>
+<li>안전 회의에서 실질적인 유해위험요인 해결 방안이 논의되는가, 아니면 형식적 서류 확인에 그치는가?</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-20-20-appendix-2-3-nasa-culture-a">
+      <h2 class="sec-heading">🚀 20. [APPENDIX 2.3] NASA CULTURE AS AN ORGANIZATIONAL FLAW (NASA 챌린저 및 컬럼비아호 참사 분석)</h2>
+<p>다이앤 본(Diane Vaughan, 1996) 교수가 정립한 <strong>'비정상의 정상화(Normalization of Deviance)'</strong>의 대표적 비극:</p>
+<ul>
+<li><strong>발생 원인</strong>: 발사 일정 준수와 예산 삭감이라는 거대한 압박 속에서 O-링 손상 및 단열재 파편 탈락이라는 위험 징후를 "과거 발사에서도 별문제 없었다"며 수용 가능한 위험으로 자기합리화함.</li>
+<li><strong>학술적 시사점</strong>: 기술적 결함의 배후에는 문제를 제기하는 엔지니어의 경고를 묵살하고 일정을 우선시한 NASA의 관료적 조직문화 결함이 도사리고 있었음을 명백히 입증함.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-21-21-bibliography">
+      <h2 class="sec-heading">📚 21. BIBLIOGRAPHY (참고 문헌)</h2>
+<ul>
+<li>ACSNI. (1993). <em>Organising for Safety: Third Report of the Advisory Committee on the Safety of Nuclear Installations</em>. HSE Books.</li>
+<li>Duhigg, C. (2012). <em>The Power of Habit: Why We Do What We Do in Life and Business</em>. Random House.</li>
+<li>Galloway, S. M. (2012). <em>Culture: The Unspoken Truth</em>. Professional Safety, 57(1), 22-26.</li>
+<li>Gladwell, M. (2008). <em>Outliers: The Story of Success</em>. Little, Brown and Company.</li>
+<li>Hofstede, G. (2011). <em>Dimensionalizing Cultures: The Hofstede Model in Context</em>. Online Readings in Psychology and Culture.</li>
+<li>IAEA. (1986). <em>Summary Report on the Post-Accident Review Meeting on the Chernobyl Accident</em>. INSAG Series No. 1.</li>
+<li>Reason, J. (1997). <em>Managing the Risks of Organizational Accidents</em>. Ashgate Publishing.</li>
+<li>Schein, E. H. (2016). <em>Organizational Culture and Leadership</em> (5th ed.). John Wiley & Sons.</li>
+<li>Vaughan, D. (1996). <em>The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA</em>. University of Chicago Press.</li>
+</ul>
+    </section>
+  </main>
+
+
+  <!-- Right AI Tutor Panel -->
+  <aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-panel-header">
+      <h3>🤖 안전문화 AI 튜터 (Ch.2)</h3>
+      <span class="ai-status-tag" id="ai-status-tag">내장 지식엔진</span>
+    </div>
+    
+    <div class="ai-mode-bar">
+      <span>엔진 선택:</span>
+      <select class="ai-mode-select" id="ai-engine-select">
+        <option value="builtin">내장 지식 엔진 (Built-in)</option>
+        <option value="gemini">Google Gemini API</option>
+        <option value="openai">OpenAI API</option>
+      </select>
+    </div>
+
+    <!-- Quick Question Chips -->
+    <div class="ai-quick-questions">
+      <div class="quick-chip" data-q="발현적 속성(Emergent Property)이란 무엇인가요?">🌱 발현적 속성 정의</div>
+      <div class="quick-chip" data-q="몬탄테의 안전 정의와 'Safety First' 비판 이유는?">🔬 몬탄테의 안전 정의</div>
+      <div class="quick-chip" data-q="래드포드 모델에서 리더십과 안전 부서의 갈등 원인은?">🔀 래드포드 갈등 기제</div>
+      <div class="quick-chip" data-q="아이젠하워 제2분면과 안전문화 구축의 연관성은?">⏱️ 2분면 시간 관리</div>
+      <div class="quick-chip" data-q="오리엔테이션과 온보딩의 본질적 차이는?">🚀 온보딩 vs 오리엔테이션</div>
+      <div class="quick-chip" data-q="조직 마찰(Friction)과 윤활 메커니즘을 설명해주세요.">⚙️ 조직 마찰과 윤활</div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="chat-bubble ai">
+        반갑습니다! <strong>Chapter 1 (Defining the Perception of Safety)</strong> 전문 AI 학습 튜터입니다. 🎓<br><br>
+        발현적 속성, 몬탄테의 정의, 래드포드 의사결정 모델, 시간 관리 매트릭스, 온보딩 등 본 챕터의 핵심 이론과 실무 적용에 대해 무엇이든 질문해 주세요!
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="ai-input-area">
+      <form class="ai-form" id="ai-chat-form">
+        <textarea class="ai-input" id="ai-user-input" placeholder="질문을 입력하세요... (Enter로 전송)"></textarea>
+        <button type="submit" class="ai-send-btn">전송</button>
+      </form>
+    </div>
+  </aside>
+
+</div>
+
+<!-- Modal: API Settings -->
+<div class="modal-overlay" id="api-modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">🔑 API 연동 설정</h3>
+      <button class="close-modal-btn" id="close-modal-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13px; color: var(--text-muted);">
+        Google Gemini API Key 또는 OpenAI API Key를 등록하면 실시간 대규모 언어 모델을 통해 보다 정밀한 학술 분석 및 질의응답을 제공받을 수 있습니다. (키는 브라우저 로컬 스토리지에만 저장됩니다.)
+      </p>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini API Key</label>
+        <input type="password" id="gemini-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="AIzaSy...">
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini Model</label>
+        <select id="gemini-model-select" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;">
+          <option value="gemini-1.5-flash">gemini-1.5-flash (빠른 응답)</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro (심화 학술 분석)</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">OpenAI API Key (선택사항)</label>
+        <input type="password" id="openai-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="sk-...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" id="clear-key-btn">초기화</button>
+      <button class="action-btn primary" id="save-key-btn">저장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Message -->
+<div class="toast" id="toast-msg">알림 메시지</div>
+
+<script>
+// Built-in Knowledge Base for Chapter 1
+const CHAPTER1_KB = {
+  emergent: `[발현적 속성(Emergent Property) 핵심 해설]\n• 정의: 하위 구성 요소들이 상호 제약적 관계(Constraining relations) 속에서 결합할 때 상위 시스템 차원에서 새롭게 나타나는 예측 불가능한 고유 속성입니다 (Emergent Property, 2018).\n• 안전문화 연계: 안전은 특정 안전 부서만의 개별 프로그램이 아닙니다. 조직의 6대 영역(환경, 구조, 과업, 기술, 인간-사회, 목표)이 유기적으로 맞물려 작동할 때 비로소 조직 전체에서 '안전한 환경' 또는 '불안전한 환경'이 최종 발현됩니다.`,
+  montante: `[윌리엄 몬탄테의 안전 정의 및 비판]\n• 정의: "안전이란 리스크와 그로부터 파생된 유해위험요인이 수용 가능하거나(Acceptable) 통제 하에 있다(In control)고 판단되는 존재 상태(State of being)이다" (Montante, 2006).\n• 패러다임 전환: 몬탄테는 'Safety First', 'Think Safety'와 같은 공허한 전통적 구호(Mantra)를 폐기할 것을 촉구했습니다. 대신 현장의 모든 구성원이 스스로 '유해위험요인 제어 관리자(Hazard Control Manager)'로서 위험을 어떻게 통제하고 있는지 증명할 수 있는 개인적·조직적 숙달(Mastery)을 요구합니다.`,
+  radford: `[래드포드(Radford, 1988)의 의사결정 모델과 갈등 기제]\n• 경영 리더십(비구조화된 상황): 정보의 불완전성, 비용/편익 정량화 불가, 수많은 이해관계자와 다중 목표 속에서 수학적 최적해가 불가능하므로 타협안인 '만족화(Satisficing)' 결정을 내립니다.\n• 안전 부서(구조화된 상황): 단일 목표(무사고)와 단일 규정을 근거로 '단일 최적해(Rational decision)'만을 고집합니다.\n• 갈등의 본질: 리더십이 불확실성 속에서 비즈니스 결정을 내릴 때, 안전 부서가 단순 규제 위협("예산 안 주면 처벌받는다")만 가하면 상호 불신과 갈등이 폭발합니다.`,
+  eisenhower: `[시간 관리 매트릭스와 제2분면의 중요성]\n• 스티븐 코비와 아이젠하워의 4분면 매트릭스에서 안전문화가 발전하는 핵심 영역은 바로 제2분면(긴급하지 않지만 중요한 영역: DECIDE)입니다.\n• 위험성평가(JHA), 비상대응계획, 안전 교육 체계화 등은 당장 발등에 불이 떨어진 위기가 아니기 때문에 1분면(사고 수습)이나 3분면(잡무)에 밀리기 쉽습니다.\n• 안전 관리자는 '활동의 덫(Activity Trap)'에서 벗어나 의식적으로 제2분면에 시간을 투자해야 합니다.`,
+  onboarding: `[오리엔테이션 vs. 온보딩의 본질적 차이]\n• 오리엔테이션: 입사 직후 인사부서에서 복리후생, 사내 규정 등을 전달하는 1회성 단발 집체 교육(1일~2주).\n• 온보딩: 채용 합격부터 완전한 성과 창출 구성원으로 안착할 때까지 수개월~1년 이상 지속되는 맞춤형·진화형 프로세스.\n• 실무 수칙: 톰 피터스의 MBWA(Management By Wandering Around)를 실천하되, 현장 작업자의 말을 들을 때는 수첩을 적지 말고 전적으로 경청(Just Listen)해야 신뢰를 얻습니다.`,
+  friction: `[조직 마찰(Friction)과 윤활 메커니즘 (Fig 1.8)]\n• 조직 마찰은 상이한 부서의 전문성과 목표 불일치에서 자연스럽게 발생합니다.\n• 리더십(녹색 기어), 안전 부서(분홍 기어), 현장 직원(노란 기어)의 세 톱니바퀴가 중앙의 안전문화(파란 기어)를 구동합니다.\n• 리더십의 적극적인 제도적 지원과 왜곡 없는 열린 소통이 바로 기어가 맞물려 돌아가게 하는 '윤활유(Oil can)' 역할을 합니다.`
+};
+
+const PROMPTS_DATA = {
+  p1: `당신은 안전문화 및 주관성 연구(Q방법론) 전문 교수입니다.
+Elsevier의 'Safety Culture' Chapter 1(Defining the Perception of Safety)의 핵심 이론(상대적 위험 수용성, 몬탄테의 안전 정의, 래드포드의 복합 의사결정 모델, 6대 핵심 신념 간극 등)을 바탕으로 현장 작업자와 관리자 집단의 안전 지각 유형을 실증 분석하기 위한 Q-진술문(Q-Sample) 34개를 도출하고 범주별 설계 논리를 제시해 주십시오.`,
+  p2: `Chapter 1의 래드포드(Radford) 의사결정 모델(Fig 1.11)에 따르면 경영 리더십은 불확실성과 다중 목표 속에서 '만족화(Satisficing)' 결정을 내리는 반면, 안전 전문가는 단일 규범에 기반한 '단일 최적해'를 고집하여 갈등이 발생합니다.
+신임 안전 관리자가 이러한 구조적 갈등을 극복하고 경영진과 비즈니스 언어로 소통하며 안전 예산을 확보하기 위한 구체적 5단계 커뮤니케이션 전략을 수립해 주십시오.`
+};
+
+// DOM References
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const apiKeyBtn = document.getElementById('api-key-btn');
+const apiModalOverlay = document.getElementById('api-modal-overlay');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const saveKeyBtn = document.getElementById('save-key-btn');
+const clearKeyBtn = document.getElementById('clear-key-btn');
+const geminiKeyInput = document.getElementById('gemini-key-input');
+const geminiModelSelect = document.getElementById('gemini-model-select');
+const openaiKeyInput = document.getElementById('openai-key-input');
+const aiEngineSelect = document.getElementById('ai-engine-select');
+const aiStatusTag = document.getElementById('ai-status-tag');
+const aiChatForm = document.getElementById('ai-chat-form');
+const aiUserInput = document.getElementById('ai-user-input');
+const aiChatMessages = document.getElementById('ai-chat-messages');
+const toastMsg = document.getElementById('toast-msg');
+
+// LocalStorage State
+let storedGeminiKey = localStorage.getItem('chapter1_gemini_key') || '';
+let storedOpenaiKey = localStorage.getItem('chapter1_openai_key') || '';
+let storedModel = localStorage.getItem('chapter1_gemini_model') || 'gemini-1.5-flash';
+
+if (storedGeminiKey) {
+  geminiKeyInput.value = storedGeminiKey;
+  aiEngineSelect.value = 'gemini';
+  aiStatusTag.textContent = 'Gemini API 연동';
+  aiStatusTag.style.color = '#38bdf8';
+}
+
+// Theme Toggle
+themeToggleBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const target = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', target);
+  localStorage.setItem('chapter1_theme', target);
+});
+
+if (localStorage.getItem('chapter1_theme')) {
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('chapter1_theme'));
+}
+
+// AI Panel Toggle
+toggleAiBtn.addEventListener('click', () => {
+  rightAiPanel.classList.toggle('collapsed');
+});
+
+// Modal Logic
+apiKeyBtn.addEventListener('click', () => apiModalOverlay.classList.add('active'));
+closeModalBtn.addEventListener('click', () => apiModalOverlay.classList.remove('active'));
+apiModalOverlay.addEventListener('click', (e) => {
+  if (e.target === apiModalOverlay) apiModalOverlay.classList.remove('active');
+});
+
+saveKeyBtn.addEventListener('click', () => {
+  storedGeminiKey = geminiKeyInput.value.trim();
+  storedOpenaiKey = openaiKeyInput.value.trim();
+  storedModel = geminiModelSelect.value;
+  localStorage.setItem('chapter1_gemini_key', storedGeminiKey);
+  localStorage.setItem('chapter1_openai_key', storedOpenaiKey);
+  localStorage.setItem('chapter1_gemini_model', storedModel);
+
+  if (storedGeminiKey) {
+    aiEngineSelect.value = 'gemini';
+    aiStatusTag.textContent = 'Gemini API 연동';
+    aiStatusTag.style.color = '#38bdf8';
+  } else {
+    aiEngineSelect.value = 'builtin';
+    aiStatusTag.textContent = '내장 지식엔진';
+    aiStatusTag.style.color = '';
+  }
+  apiModalOverlay.classList.remove('active');
+  showToast('API 설정이 저장되었습니다. ✅');
+});
+
+clearKeyBtn.addEventListener('click', () => {
+  geminiKeyInput.value = '';
+  openaiKeyInput.value = '';
+  localStorage.removeItem('chapter1_gemini_key');
+  localStorage.removeItem('chapter1_openai_key');
+  storedGeminiKey = '';
+  storedOpenaiKey = '';
+  aiEngineSelect.value = 'builtin';
+  aiStatusTag.textContent = '내장 지식엔진';
+  aiStatusTag.style.color = '';
+  showToast('API 키가 삭제되었습니다.');
+});
+
+// Toast Helper
+function showToast(msg) {
+  toastMsg.textContent = msg;
+  toastMsg.classList.add('show');
+  setTimeout(() => toastMsg.classList.remove('show'), 2500);
+}
+
+// Copy Prompt Buttons
+document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('프롬프트가 클립보드에 복사되었습니다! 📋');
+      });
+    }
+  });
+});
+
+// Send Prompt to AI Panel
+document.querySelectorAll('.send-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      if (rightAiPanel.classList.contains('collapsed')) {
+        rightAiPanel.classList.remove('collapsed');
+      }
+      aiUserInput.value = text;
+      handleSendMessage();
+    }
+  });
+});
+
+// Quick Chips
+document.querySelectorAll('.quick-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (rightAiPanel.classList.contains('collapsed')) {
+      rightAiPanel.classList.remove('collapsed');
+    }
+    aiUserInput.value = chip.getAttribute('data-q');
+    handleSendMessage();
+  });
+});
+
+// Append Message to Chat
+function appendMessage(role, text) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = text.replace(/\n/g, '<br>');
+  aiChatMessages.appendChild(bubble);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return bubble;
+}
+
+// Handle AI Chat Form Submission
+aiChatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleSendMessage();
+});
+
+// Enter key submit in textarea (Shift+Enter for newline)
+aiUserInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSendMessage();
+  }
+});
+
+async function handleSendMessage() {
+  const query = aiUserInput.value.trim();
+  if (!query) return;
+
+  appendMessage('user', query);
+  aiUserInput.value = '';
+
+  const loadingBubble = appendMessage('ai', '답변을 생성하고 있습니다... 💭');
+  const engine = aiEngineSelect.value;
+
+  if (engine === 'gemini' && storedGeminiKey) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${storedModel}:generateContent?key=${storedGeminiKey}`;
+      const systemContext = `당신은 Elsevier 명저 'Safety Culture' Chapter 1 (Defining the Perception of Safety)의 학술 지도 교수이자 안전문화 전문 AI입니다. 원문의 이론(발현적 속성, 상대적 위험 수용성, 몬탄테의 안전 정의, French & Bell의 6대 연동 영역, Radford 복합 의사결정 모델, Table 1.1 핵심 신념 간극, 아이젠하워 4분면, 디버전 수레바퀴, 온보딩과 MBWA 경청 등)에 근거하여 엄밀하고 학술적이며 실무적인 답변을 제공하십시오.`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: `${systemContext}\n\n질문/요청사항:\n${query}` }]
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        loadingBubble.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+      } else {
+        loadingBubble.innerHTML = `⚠️ Gemini API 응답 오류: ${data.error?.message || '응답을 생성할 수 없습니다.'}`;
+      }
+    } catch (err) {
+      loadingBubble.innerHTML = `⚠️ 네트워크 또는 API 호출 실패: ${err.message}<br><small>내장 지식 모드로 전환해 답변을 확인하세요.</small>`;
+    }
+  } else {
+    // Built-in Knowledge Base Fallback & Smart Matcher
+    setTimeout(() => {
+      let reply = "";
+      const lower = query.toLowerCase();
+
+      if (lower.includes('발현') || lower.includes('emergent') || lower.includes('속성')) {
+        reply = CHAPTER1_KB.emergent;
+      } else if (lower.includes('몬탄테') || lower.includes('montante') || lower.includes('safety first') || lower.includes('구호')) {
+        reply = CHAPTER1_KB.montante;
+      } else if (lower.includes('래드포드') || lower.includes('radford') || lower.includes('갈등') || lower.includes('의사결정')) {
+        reply = CHAPTER1_KB.radford;
+      } else if (lower.includes('시간') || lower.includes('아이젠하워') || lower.includes('코비') || lower.includes('2분면') || lower.includes('matrix')) {
+        reply = CHAPTER1_KB.eisenhower;
+      } else if (lower.includes('온보딩') || lower.includes('onboarding') || lower.includes('오리엔테이션') || lower.includes('mbwa')) {
+        reply = CHAPTER1_KB.onboarding;
+      } else if (lower.includes('마찰') || lower.includes('friction') || lower.includes('톱니바퀴') || lower.includes('기어')) {
+        reply = CHAPTER1_KB.friction;
+      } else {
+        reply = `[Chapter 1 내장 지식엔진 답변]\n질의: "${query}"\n\nChapter 1 'Defining the Perception of Safety'에서는 안전문화 확립에서 '지각(Perception)'의 전환을 가장 핵심적인 요소로 규정합니다.\n• 안전은 고립된 프로그램이 아니라 시스템 전체의 '발현적 속성(Emergent Property)'입니다.\n• 경영진의 불확실한 '만족화' 의사결정과 안전 부서의 '단일 최적해' 의사결정 간의 차이(Radford 모델)를 극복하기 위해 비즈니스 공통 언어로 소통해야 합니다.\n• 아이젠하워 제2분면(위험성평가, 장기 전략)을 보호하고, 체계적인 안전 온보딩을 통해 조직문화를 내재화해야 합니다.\n\n💡 상단 [🔑 API 설정]에서 Gemini API Key를 등록하시면 실시간 생성형 심화 분석을 받으실 수 있습니다!`;
+      }
+      loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+    }, 500);
+  }
+}
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navLinks = document.querySelectorAll('#nav-menu-list .nav-link');
+navSearchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  navLinks.forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.parentElement.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Scrollspy for active link
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('main section.section-box');
+  let currentId = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    if (window.scrollY >= top) {
+      currentId = sec.getAttribute('id');
+    }
+  });
+  if (currentId) {
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>

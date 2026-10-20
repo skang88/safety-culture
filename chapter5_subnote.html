@@ -1,0 +1,1419 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 5: Overview of Basic Safety Management Systems — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 280px;
+  --ai-panel-w: 380px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-cyan: #0891b2;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #7e22ce;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  height: var(--header-h);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-title span.sub {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.action-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.action-btn.primary {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border-color: var(--accent-blue);
+}
+.action-btn.primary:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
+/* App Wrapper: 3-column layout */
+.app-wrapper {
+  display: flex;
+  min-height: calc(100vh - var(--header-h));
+  position: relative;
+}
+
+/* Left Sidebar Navigation */
+aside.left-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  overflow-y: auto;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 13px;
+}
+.nav-search:focus {
+  outline: 2px solid var(--accent-blue);
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: all 0.15s ease;
+}
+.nav-link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent-blue);
+  transform: translateX(2px);
+}
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 700;
+  border-left: 3px solid var(--accent-blue);
+}
+.nav-link .icon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Center Content */
+main.main-content {
+  flex: 1;
+  padding: 32px 40px 100px;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-y: visible;
+}
+
+/* Right AI Panel */
+aside.right-ai-panel {
+  width: var(--ai-panel-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 950;
+}
+aside.right-ai-panel.collapsed {
+  transform: translateX(100%);
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+.ai-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ai-panel-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-status-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.ai-mode-bar {
+  padding: 10px 16px;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.ai-mode-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat-bubble {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 90%;
+  word-break: break-word;
+}
+.chat-bubble.ai {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  color: var(--text-main);
+}
+.chat-bubble.user {
+  background: var(--accent-blue);
+  color: #0b1120;
+  align-self: flex-end;
+  font-weight: 500;
+}
+.chat-bubble code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.ai-quick-questions {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.quick-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.quick-chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.ai-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+.ai-form {
+  display: flex;
+  gap: 8px;
+}
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  height: 44px;
+  min-height: 44px;
+  max-height: 100px;
+}
+.ai-input:focus {
+  outline: 2px solid var(--accent-blue);
+}
+.ai-send-btn {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+.ai-send-btn:hover { background: #0284c7; color: #fff; }
+
+/* API Key Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.modal-title { font-size: 18px; font-weight: 700; }
+.close-modal-btn { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+.modal-body { display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; }
+.modal-footer { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+
+/* Typography & Subnote Styles */
+h1.content-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+.content-meta {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 30px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+h2.sec-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3.sub-heading {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+p { margin-bottom: 14px; color: var(--text-sub); }
+strong { color: var(--text-main); }
+ul, ol { margin-left: 20px; margin-bottom: 16px; color: var(--text-sub); }
+li { margin-bottom: 6px; }
+
+/* Callouts / Alerts */
+.callout {
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 18px 0;
+  border-left: 4px solid;
+  background: var(--bg-card-sub);
+}
+.callout.quote {
+  border-color: var(--accent-purple);
+  font-style: italic;
+  background: rgba(168, 85, 247, 0.08);
+}
+.callout.info {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.08);
+}
+.callout.warning {
+  border-color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.08);
+}
+.callout.danger {
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.08);
+}
+.callout.success {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.08);
+}
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+}
+.callout.info .callout-title { color: var(--accent-blue); }
+.callout.warning .callout-title { color: var(--accent-gold); }
+.callout.danger .callout-title { color: var(--accent-red); }
+.callout.success .callout-title { color: var(--accent-green); }
+.callout.quote .callout-title { color: var(--accent-purple); font-style: normal; }
+
+/* Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 18px 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+table.custom-table th {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+}
+table.custom-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+table.custom-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Figures / Media Cards */
+.media-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  text-align: center;
+}
+.media-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+.media-card img:hover {
+  transform: scale(1.01);
+}
+.media-caption {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 12px;
+}
+.media-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+  line-height: 1.6;
+}
+
+/* Mermaid Wrapper */
+.mermaid-wrapper {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* Cards & Accordions */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+.sub-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.sub-card h4 {
+  font-size: 14.5px;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+details.custom-accordion {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.custom-accordion summary {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg-input);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details.custom-accordion summary:hover {
+  color: var(--accent-blue);
+}
+details.custom-accordion .accordion-body {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+}
+
+/* Interactive Prompt Box */
+.prompt-box {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(56, 189, 248, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.prompt-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.prompt-actions {
+  display: flex;
+  gap: 8px;
+}
+.copy-prompt-btn, .send-prompt-btn {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.copy-prompt-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.send-prompt-btn:hover { background: var(--accent-blue); color: #0b1120; border-color: var(--accent-blue); }
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #10b981;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 3000;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  aside.left-sidebar { width: 240px; }
+  aside.right-ai-panel { width: 340px; }
+}
+@media (max-width: 992px) {
+  aside.left-sidebar { display: none; }
+  main.main-content { padding: 24px 20px 80px; }
+}
+    </style>
+
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="brand-area">
+    <div class="brand-badge">Chapter 05</div>
+    <div class="brand-title">기본 안전경영시스템의 개요 <span class="sub">Overview of Basic Safety Management Systems</span></div>
+  </div>
+  <div class="header-actions">
+    <button class="action-btn" id="theme-toggle-btn" title="테마 전환">🌓 테마</button>
+    <button class="action-btn" id="api-key-btn" title="API 설정">🔑 API 설정</button>
+    <button class="action-btn primary" id="toggle-ai-btn" title="AI 학습 튜터 열기/닫기">💬 AI 학습 튜터</button>
+  </div>
+</header>
+
+
+<div class="app-wrapper">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <div class="sidebar-title">목차 바로가기 (Chapter 5)</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="목차 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-1-1-introduction" class="nav-link active">📌 1. INTRODUCTION (도입)</a></li>
+      <li><a href="#sec-2-2-the-common-link-between" class="nav-link">🔗 2. THE COMMON LINK BETWEEN SAFETY MANAGEMENT SYSTEMS (안전경영시스템 간의 공통 연결고리)</a></li>
+      <li><a href="#sec-3-3-safety-management-syste" class="nav-link">🏛️ 3. SAFETY MANAGEMENT SYSTEMS DEFINED (안전경영시스템의 핵심 6대 공통 요소)</a></li>
+      <li><a href="#sec-4-4-management-leadership" class="nav-link">👑 4. MANAGEMENT LEADERSHIP (경영 리더십: 시스템을 지탱하는 쐐기돌)</a></li>
+      <li><a href="#sec-5-5-defining-roles-and-resp" class="nav-link">📋 5. DEFINING ROLES AND RESPONSIBILITIES (명확한 역할, 책임 및 권한의 부여)</a></li>
+      <li><a href="#sec-6-6-hazard-and-risk-assessm" class="nav-link">🔍 6. HAZARD AND RISK ASSESSMENT IDENTIFICATION AND ANALYSIS (위험성 식별, 평가 및 정밀 분석)</a></li>
+      <li><a href="#sec-7-7-hazard-prevention-and-c" class="nav-link">🛡️ 7. HAZARD PREVENTION AND CONTROL (유해위험요인 예방 및 통제 기법)</a></li>
+      <li><a href="#sec-8-8-evaluation-of-safety-ma" class="nav-link">📊 8. EVALUATION OF SAFETY MANAGEMENT SYSTEM EFFECTIVENESS (시스템 유효성 평가와 갭 분석)</a></li>
+      <li><a href="#sec-9-9-summary" class="nav-link">📝 9. SUMMARY (요약 및 핵심 결론)</a></li>
+      <li><a href="#sec-10-10-chapter-review-questio" class="nav-link">❓ 10. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</a></li>
+      <li><a href="#sec-11-11-appendix-5-1-preventio" class="nav-link">📁 11. [APPENDIX 5.1] PREVENTION THROUGH DESIGN (PtD 국가 이니셔티브 공공 문서 분석)</a></li>
+      <li><a href="#sec-12-12-bibliography" class="nav-link">📚 12. BIBLIOGRAPHY (참고 문헌)</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="content-title">Chapter 5 Overview of Basic Safety Management Systems</h1>
+    <div class="content-meta">
+      기본 안전경영시스템의 개요 심층 서브노트 | 출처: Safety Culture (Elsevier, 2019) | Academic Sub-Note &amp; Interactive Learning Suite
+    </div>
+
+    <section class="section-box" id="sec-1-1-introduction">
+      <h2 class="sec-heading">📌 1. INTRODUCTION (도입)</h2>
+<p>안전경영시스템(SMS, Safety Management System)은 작업장 내 잠재적인 운영상 유해위험요인과 관련 리스크를 체계적으로 식별하고 통제하기 위해 필요한 다양한 구성 요소들을 종합적으로 기획, 관리, 집행하는 구조화된 경영 프레임워크입니다. 올바른 안전경영시스템 구조를 갖추어야만 위험성평가와 통제 조치에 올바른 우선순위를 부여하고 전 임직원을 실질적으로 보호할 수 있습니다.</p>
+<h3 class="sub-heading">📌 1.1 제5장의 핵심 학습 목표</h3>
+<ol>
+  <li><strong>다양한 안전경영시스템에 공통적으로 존재하는 핵심 원칙과 필수 요소를 규명한다.</strong></li>
+  <li><strong>경영 리더십의 헌신과 현장 직원의 자발적 참여(Employee Involvement) 간의 상호작용을 비교·분석한다.</strong></li>
+  <li><strong>명확한 역할과 책임(Roles and Responsibilities) 규정이 시스템 성공에 미치는 결정적 영향을 논의한다.</strong></li>
+  <li><strong>유해위험요인 발굴, 리스크 평가, 예방 및 통제 조치의 중요성을 이해한다.</strong></li>
+  <li><strong>안전 전문가가 타 부서와 효과적으로 소통하고 협업하는 다학제적 접근법을 습득한다.</strong></li>
+  <li><strong>안전경영시스템이 조직의 기저 안전문화 형성에 미치는 결정적 인과관계를 규명한다.</strong></li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 1. INTRODUCTION (도입) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-2-2-the-common-link-between">
+      <h2 class="sec-heading">🔗 2. THE COMMON LINK BETWEEN SAFETY MANAGEMENT SYSTEMS (안전경영시스템 간의 공통 연결고리)</h2>
+<p>각국 정부 기관, 표준 기구, 그리고 산업 협회는 저마다의 안전경영시스템 정의를 내리고 있지만, 그 근본적 지향점은 동일합니다:</p>
+<ul>
+  <li><strong>미국 연방항공청 (FAA)</strong>: <em>"안전 리스크를 관리하고 리스크 통제의 유효성을 보장하기 위한 공식적이고 하향식인 전사적 접근법."</em> (FAA, 2017)</li>
+  <li><strong>국제표준화기구 (ISO 45001)</strong>: <em>"사고를 예방하고 안전보건 성과를 능동적으로 개선하기 위한 체계적이고 지속적인 프로세스."</em> (ISO, 2016)</li>
+  <li><strong>미국 국립안전협회 (NSC)</strong>: <em>"목표 설정, 계획 수립, 기준 대비 성과 측정을 통해 안전 리스크를 관리하는 명시적이고 포괄적인 지속적 개선 프로세스."</em> (NSC, 2018)</li>
+</ul>
+<h3 class="sub-heading">📌 [표 5.1 상세 분석] 일반 비즈니스 경영 접근법과 안전경영시스템의 비교 매핑</h3>
+<div class="media-card"><img src="image-63.png" alt="Table 5.1" loading="lazy"><div class="media-caption">Table 5.1</div></div>
+<div class="callout info"><div class="callout-title">💡 심화 해설 및 보충 분석</div><p><strong>[표 5.1 상세 보충설명: 일반 비즈니스 관리와 안전 관리의 통합]</strong><br><em> <strong>비전/미션</strong>: 전사 비전과 완벽하게 정렬된 안전 비전 수립.<br></em> <strong>정책/절차</strong>: 일반 비즈니스 사규와 동일한 체계로 안전 표준 작업 절차서(SOP) 내재화.<br>* <strong>모니터링</strong>: 품질 감사와 마찬가지로 안전 비준수 사항 및 잠재 리스크를 상시 모니터링.</p></div>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 2. THE COMMON LINK BETWEEN SAFETY MANAGEMENT SYSTEMS (안전경영시스템 간의 공통 연결고리) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-3-3-safety-management-syste">
+      <h2 class="sec-heading">🏛️ 3. SAFETY MANAGEMENT SYSTEMS DEFINED (안전경영시스템의 핵심 6대 공통 요소)</h2>
+<p>산업 분야와 기업 규모를 불문하고 성공적인 안전경영시스템이 공유하는 6대 핵심 지주:</p>
+<ol>
+  <li><strong>경영 리더십 (Management Leadership)</strong>: 최고경영진의 확고한 의지와 자원 지원.</li>
+  <li><strong>근로자 참여 (Employee Involvement)</strong>: 현장 작업자의 실질적 권한과 적극적 발언권.</li>
+  <li><strong>위험 식별 및 평가 (Hazard Identification & Assessment)</strong>: 잠재 유해위험요인의 선제적 발굴.</li>
+  <li><strong>위험 예방 및 통제 (Hazard Prevention & Control)</strong>: 근원적 엔지니어링 개선 및 안전장치.</li>
+  <li><strong>교육 및 훈련 (Education & Training)</strong>: 계층별 직무 맞춤형 안전 역량 배양.</li>
+  <li><strong>시스템 평가 및 개선 (System Evaluation & Improvement)</strong>: 정기 감사 및 지속적 피드백.</li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 3. SAFETY MANAGEMENT SYSTEMS DEFINED (안전경영시스템의 핵심 6대 공통 요소) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-4-4-management-leadership">
+      <h2 class="sec-heading">👑 4. MANAGEMENT LEADERSHIP (경영 리더십: 시스템을 지탱하는 쐐기돌)</h2>
+<p>경영 리더십은 안전경영시스템의 아치 구조를 완성하는 가장 중요한 <strong>'쐐기돌(Keystone)'</strong>입니다.</p>
+<h3 class="sub-heading">📌 [그림 5.1 & 5.2 상세 분석] 아치 구조의 쐐기돌과 취약한 쐐기돌의 붕괴</h3>
+<div class="media-card"><img src="image-64.png" alt="Fig 5.1" loading="lazy"><div class="media-caption">Fig 5.1</div></div>
+<div class="media-card"><img src="image-65.png" alt="Fig 5.2" loading="lazy"><div class="media-caption">Fig 5.2</div></div>
+<div class="callout info"><div class="callout-title">💡 심화 해설 및 보충 분석</div><p><strong>[그림 5.1 및 5.2 상세 보충설명: 키스톤(Keystone) 모델]</strong><br><em> <strong>Fig 5.1 Keystone</strong>: 석조 아치의 최상단 중심에 위치한 쐐기돌이 견고할 때 양쪽의 모든 벽돌(구성 요소)이 단단히 맞물려 버팁니다.<br></em> <strong>Fig 5.2 Weak Keystone</strong>: 만약 쐐기돌(경영 리더십)이 금이 가거나 흔들리면, 아무리 다른 벽돌(규정, 교육, 장비)이 훌륭해도 아치 전체가 순식간에 와르르 무너져 내립니다.</p></div>
+<h3 class="sub-heading">📌 [Observation 1 & Lesson Learned 1] 규칙을 위반한 관리자의 담배 한 개비</h3>
+<ul>
+  <li><strong>Observation 1</strong>: 리더가 현장을 지나가며 기본 수칙을 위반하는 순간, 조직에는 <em>"규칙은 단지 보여주기식일 뿐이다"</em>라는 치명적인 불문율이 각인됩니다.</li>
+  <li><strong>Lesson Learned 1</strong>: 폭발 위험 지역의 "금연" 표지판 바로 아래에서 태연히 담배를 피우던 공장장의 일화. <em>"전임 공장장이 비흡연자라서 붙여둔 표지판일 뿐"</em>이라는 관리자의 오만한 변명은 전사 구성원들에게 "아무도 금연 표지판을 지킬 필요가 없다"는 신호를 보냈고, 건물 전체에 무단 흡연이 만연하는 참담한 결과를 낳았습니다.</li>
+</ul>
+<h3 class="sub-heading">📌 [그림 5.3 & 5.4 상세 분석] 지속 가능한 안전 프로세스로의 여정과 검토 주기</h3>
+<div class="media-card"><img src="image-66.png" alt="Fig 5.3" loading="lazy"><div class="media-caption">Fig 5.3</div></div>
+<div class="media-card"><img src="image-67.png" alt="Fig 5.4" loading="lazy"><div class="media-caption">Fig 5.4</div></div>
+<div class="callout info"><div class="callout-title">💡 심화 해설 및 보충 분석</div><p><strong>[그림 5.3 및 5.4 상세 보충설명: 성숙도 여정과 지속적 순환 사이클]</strong><br>* 수동적 규제 준수 단계에서 시작하여 자율적 안전문화로 도약하는 단계적 여정을 시각화합니다.</p></div>
+<h3 class="sub-heading">📌 4.1 Employee Involvement (근로자 참여의 결정적 중요성)</h3>
+<ul>
+  <li><strong>주인의식(Ownership)의 형성</strong>:</li>
+</ul>
+<p>작업자가 직접 안전 프로세스 설계와 위험성평가에 참여할 때 진정한 내재화가 이루어집니다.</p>
+<ul>
+  <li><strong>[Observation 2] 은퇴 군인 출신 현장 작업자들의 자발적 참여</strong>:</li>
+</ul>
+<p>안전 관리자가 일방적인 지시 대신 현장에 도움과 자발적 자원을 요청했을 때, 과거 군 복무 시절 위험관리 전문성을 쌓았던 직원들이 대거 자원하여 선행 안전 활동의 폭발적 성장을 이끌어낸 사례.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 4. MANAGEMENT LEADERSHIP (경영 리더십: 시스템을 지탱하는 쐐기돌) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-5-5-defining-roles-and-resp">
+      <h2 class="sec-heading">📋 5. DEFINING ROLES AND RESPONSIBILITIES (명확한 역할, 책임 및 권한의 부여)</h2>
+<p>모호한 책임은 무책임을 부릅니다. 피터 드러커가 강조했듯, 각 직급별로 구체적인 안전 책무와 권한이 직무기술서에 명시되어야 합니다.</p>
+<ul>
+  <li><strong>경영진</strong>: 안전 비전 제시, 자원(예산/인력) 배분, 전사적 총괄 책임.</li>
+  <li><strong>관리감독자(현장 소장/팀장)</strong>: 작업 전 위험 확인, 표준 준수 코칭, 아차사고 즉각 조치.</li>
+  <li><strong>현장 근로자</strong>: 본인 및 동료의 안전 수칙 준수, 위험 발견 시 작업 중지권 행사.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 5. DEFINING ROLES AND RESPONSIBILITIES (명확한 역할, 책임 및 권한의 부여) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-6-6-hazard-and-risk-assessm">
+      <h2 class="sec-heading">🔍 6. HAZARD AND RISK ASSESSMENT IDENTIFICATION AND ANALYSIS (위험성 식별, 평가 및 정밀 분석)</h2>
+<p>안전경영의 핵심 엔진은 사후적 사고 조사가 아니라, 잠재된 유해위험요인을 사전에 발굴하는 <strong>사전 위험성평가(JHA/Risk Assessment)</strong>입니다.</p>
+<ul>
+  <li>위험(Hazard) 자체와 그것이 실제로 발현될 확률 및 심각성인 리스크(Risk)를 명확히 구분하여 과학적 매트릭스를 통해 우선순위를 통제해야 합니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 6. HAZARD AND RISK ASSESSMENT IDENTIFICATION AND ANALYSIS (위험성 식별, 평가 및 정밀 분석) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-7-7-hazard-prevention-and-c">
+      <h2 class="sec-heading">🛡️ 7. HAZARD PREVENTION AND CONTROL (유해위험요인 예방 및 통제 기법)</h2>
+<p>위험 통제는 반드시 <strong>'위험 통제 계층(Hierarchy of Controls)'</strong>의 원칙에 따라 최상위 대책부터 적용되어야 합니다.</p>
+<h3 class="sub-heading">📌 7.1 Prevention through Design (PtD: 설계에 의한 안전성 확보)</h3>
+<ul>
+  <li>미국 국립산업안전보건연구원(NIOSH)이 주창한 핵심 개념으로, 기계나 설비가 제작·설치된 이후에 방호 울을 씌우는 땜질식 사후 조치가 아니라, <strong>기획 및 설계 초기 단계부터 위험을 원천 제거(Elimination by Design)</strong>하는 가장 신뢰성 높은 예방 철학입니다.</li>
+</ul>
+<h3 class="sub-heading">📌 7.2 Information & Training Programs (정보 큐레이션 및 체계적 교육 훈련)</h3>
+<ul>
+  <li><strong>정보 큐레이션</strong>: 안전 전문가는 방대한 안전보건 데이터를 현장과 경영진이 한눈에 파악할 수 있도록 비즈니스 언어로 가공·공급해야 합니다 (제15장 연계).</li>
+  <li><strong>직무 맞춤형 교육</strong>: 단순 형식적인 법정 비디오 시청을 지양하고, 현장 설비와 직결된 실습 중심의 교육 과정을 운영해야 합니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 7. HAZARD PREVENTION AND CONTROL (유해위험요인 예방 및 통제 기법) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-8-8-evaluation-of-safety-ma">
+      <h2 class="sec-heading">📊 8. EVALUATION OF SAFETY MANAGEMENT SYSTEM EFFECTIVENESS (시스템 유효성 평가와 갭 분석)</h2>
+<h3 class="sub-heading">📌 [그림 5.5 상세 분석] 안전경영시스템의 취약점과 간극 (Gaps) 분석</h3>
+<div class="media-card"><img src="image-68.png" alt="Fig 5.5" loading="lazy"><div class="media-caption">Fig 5.5</div></div>
+<div class="callout info"><div class="callout-title">💡 심화 해설 및 보충 분석</div><p><strong>[그림 5.5 상세 보충설명: 시스템 누수와 갭 식별]</strong><br>* 규정(Documented)과 현장 실행(Implemented) 사이의 괴리를 포착하여 시스템의 균열을 선제적으로 보수하는 메커니즘을 설명합니다.</p></div>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 8. EVALUATION OF SAFETY MANAGEMENT SYSTEM EFFECTIVENESS (시스템 유효성 평가와 갭 분석) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-9-9-summary">
+      <h2 class="sec-heading">📝 9. SUMMARY (요약 및 핵심 결론)</h2>
+<ol>
+  <li><strong>안전경영시스템(SMS)은 조직의 유해위험요인을 선제적으로 통제하고 안전문화를 완성하는 구조적 뼈대입니다.</strong></li>
+  <li>경영 리더십은 시스템 전체를 지탱하는 <strong>'쐐기돌(Keystone)'</strong>이며, 리더의 사소한 규칙 위반은 시스템 전체를 붕괴시킵니다.</li>
+  <li>근로자의 자발적 참여(Employee Involvement) 없는 시스템은 공허한 껍데기에 불과합니다.</li>
+  <li><strong>설계에 의한 예방(PtD)</strong>과 위험 통제 계층 원칙을 준수하여 위험을 원천 차단해야 합니다.</li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 9. SUMMARY (요약 및 핵심 결론) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-10-10-chapter-review-questio">
+      <h2 class="sec-heading">❓ 10. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</h2>
+<ol>
+  <li><strong>안전경영시스템의 핵심 목적</strong>: 단순 규정 준수를 넘어 위험 통제와 문화 형성에 기여하는 바는?</li>
+  <li><strong>쐐기돌(Keystone) 비유의 학술적 의미</strong>: 왜 경영 리더십이 아치 구조의 키스톤으로 묘사되는가?</li>
+  <li><strong>리더의 솔선수범 실패가 주는 충격</strong>: 관리자의 금연 구역 흡연 일화가 전사 안전 지각에 미친 영향은?</li>
+  <li><strong>근로자 참여(Employee Involvement)의 촉진 전략</strong>: 수동적 피교육자에서 능동적 주체로 전환시키는 방안은?</li>
+  <li><strong>역할과 책임(Roles and Responsibilities)의 명확화</strong>: 직급별 권한과 책무를 설계하는 핵심 원칙은?</li>
+  <li><strong>설계에 의한 예방(Prevention through Design, PtD)</strong>: 사후 방호 조치 대비 PtD가 가지는 압도적 우위는?</li>
+  <li><strong>위험 통제 계층(Hierarchy of Controls)</strong>: 제거, 대체, 공학적 대책, 관리적 대책, PPE의 우선순위 적용 요령은?</li>
+  <li><strong>안전 정보 큐레이션(Information Curation)</strong>: 방대한 위험 데이터를 현장 맞춤형 지식으로 변환하는 방법은?</li>
+  <li><strong>시스템 유효성 평가와 갭 분석</strong>: 서류상 표준과 현장 실행 간의 간극을 도출하고 보정하는 기법은?</li>
+  <li><strong>일반 비즈니스 시스템과의 통합</strong>: 안전경영시스템을 품질 및 생산 관리 시스템과 정렬시키는 방안은?</li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 10. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-11-11-appendix-5-1-preventio">
+      <h2 class="sec-heading">📁 11. [APPENDIX 5.1] PREVENTION THROUGH DESIGN (PtD 국가 이니셔티브 공공 문서 분석)</h2>
+<p>미국 CDC/NIOSH의 공식 PtD 전략 가이드라인:</p>
+<ul>
+  <li>생애주기 전반(Life Cycle)에 걸친 사전 예방 설계 원칙.</li>
+  <li>엔지니어, 건축가, 설계 단계 참여자들의 안전 책무 강화.</li>
+  <li>구조물 신축 및 신규 생산 라인 도입 시 사전 위험성평가 강제 매핑 기준.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 11. [APPENDIX 5.1] PREVENTION THROUGH DESIGN (PtD 국가 이니셔티브 공공 문서 분석) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-12-12-bibliography">
+      <h2 class="sec-heading">📚 12. BIBLIOGRAPHY (참고 문헌)</h2>
+<ul>
+  <li>ANSI/AIHA. (2012). <em>ANSI/AIHA/ASSE Z10-2012: Occupational Health and Safety Management Systems</em>. American Industrial Hygiene Association.</li>
+  <li>CDC/NIOSH. (2012). <em>Prevention through Design: Plan for the National Initiative</em>. Centers for Disease Control and Prevention.</li>
+  <li>Drucker, P. F. (2006). <em>The Effective Executive: The Definitive Guide to Getting the Right Things Done</em>. HarperBusiness.</li>
+  <li>FAA. (2017). <em>Safety Management System (SMS)</em>. Federal Aviation Administration.</li>
+  <li>ISO. (2018). <em>ISO 45001:2018: Occupational health and safety management systems — Requirements with guidance for use</em>. International Organization for Standardization.</li>
+  <li>NSC. (2018). <em>Elements of an Effective Safety Management System</em>. National Safety Council.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 5 12. BIBLIOGRAPHY (참고 문헌) 파트를 기반으로 현장 안전경영시스템의 핵심 성공 요인과 주관성 인식(Q방법론) 관점의 분석 시사점을 제시해 주세요.</div>
+      </div>
+    </section>
+  </main>
+
+<aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-panel-header">
+      <h3>🤖 안전문화 AI 튜터</h3>
+      <span class="ai-status-tag" id="ai-status-tag">내장 지식엔진</span>
+    </div>
+    
+    <div class="ai-mode-bar">
+      <span>엔진 선택:</span>
+      <select class="ai-mode-select" id="ai-engine-select">
+        <option value="builtin">내장 지식 엔진 (Built-in)</option>
+        <option value="gemini">Google Gemini API</option>
+        <option value="openai">OpenAI API</option>
+      </select>
+    </div>
+
+    <!-- Quick Question Chips -->
+    <div class="ai-quick-questions">
+      <div class="quick-chip" data-q="발현적 속성(Emergent Property)이란 무엇인가요?">🌱 발현적 속성 정의</div>
+      <div class="quick-chip" data-q="몬탄테의 안전 정의와 'Safety First' 비판 이유는?">🔬 몬탄테의 안전 정의</div>
+      <div class="quick-chip" data-q="래드포드 모델에서 리더십과 안전 부서의 갈등 원인은?">🔀 래드포드 갈등 기제</div>
+      <div class="quick-chip" data-q="아이젠하워 제2분면과 안전문화 구축의 연관성은?">⏱️ 2분면 시간 관리</div>
+      <div class="quick-chip" data-q="오리엔테이션과 온보딩의 본질적 차이는?">🚀 온보딩 vs 오리엔테이션</div>
+      <div class="quick-chip" data-q="조직 마찰(Friction)과 윤활 메커니즘을 설명해주세요.">⚙️ 조직 마찰과 윤활</div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="chat-bubble ai">
+        반갑습니다! <strong>Chapter 1 (Defining the Perception of Safety)</strong> 전문 AI 학습 튜터입니다. 🎓<br><br>
+        발현적 속성, 몬탄테의 정의, 래드포드 의사결정 모델, 시간 관리 매트릭스, 온보딩 등 본 챕터의 핵심 이론과 실무 적용에 대해 무엇이든 질문해 주세요!
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="ai-input-area">
+      <form class="ai-form" id="ai-chat-form">
+        <textarea class="ai-input" id="ai-user-input" placeholder="질문을 입력하세요... (Enter로 전송)"></textarea>
+        <button type="submit" class="ai-send-btn">전송</button>
+      </form>
+    </div>
+  </aside>
+
+</div>
+
+<div class="modal-overlay" id="api-modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">🔑 API 연동 설정</h3>
+      <button class="close-modal-btn" id="close-modal-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13px; color: var(--text-muted);">
+        Google Gemini API Key 또는 OpenAI API Key를 등록하면 실시간 대규모 언어 모델을 통해 보다 정밀한 학술 분석 및 질의응답을 제공받을 수 있습니다. (키는 브라우저 로컬 스토리지에만 저장됩니다.)
+      </p>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini API Key</label>
+        <input type="password" id="gemini-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="AIzaSy...">
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini Model</label>
+        <select id="gemini-model-select" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;">
+          <option value="gemini-1.5-flash">gemini-1.5-flash (빠른 응답)</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro (심화 학술 분석)</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">OpenAI API Key (선택사항)</label>
+        <input type="password" id="openai-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="sk-...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" id="clear-key-btn">초기화</button>
+      <button class="action-btn primary" id="save-key-btn">저장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Message -->
+<div class="toast" id="toast-msg">알림 메시지</div>
+
+
+<script>
+// Built-in Knowledge Base for Chapter 1
+const CHAPTER1_KB = {
+  emergent: `[발현적 속성(Emergent Property) 핵심 해설]\n• 정의: 하위 구성 요소들이 상호 제약적 관계(Constraining relations) 속에서 결합할 때 상위 시스템 차원에서 새롭게 나타나는 예측 불가능한 고유 속성입니다 (Emergent Property, 2018).\n• 안전문화 연계: 안전은 특정 안전 부서만의 개별 프로그램이 아닙니다. 조직의 6대 영역(환경, 구조, 과업, 기술, 인간-사회, 목표)이 유기적으로 맞물려 작동할 때 비로소 조직 전체에서 '안전한 환경' 또는 '불안전한 환경'이 최종 발현됩니다.`,
+  montante: `[윌리엄 몬탄테의 안전 정의 및 비판]\n• 정의: "안전이란 리스크와 그로부터 파생된 유해위험요인이 수용 가능하거나(Acceptable) 통제 하에 있다(In control)고 판단되는 존재 상태(State of being)이다" (Montante, 2006).\n• 패러다임 전환: 몬탄테는 'Safety First', 'Think Safety'와 같은 공허한 전통적 구호(Mantra)를 폐기할 것을 촉구했습니다. 대신 현장의 모든 구성원이 스스로 '유해위험요인 제어 관리자(Hazard Control Manager)'로서 위험을 어떻게 통제하고 있는지 증명할 수 있는 개인적·조직적 숙달(Mastery)을 요구합니다.`,
+  radford: `[래드포드(Radford, 1988)의 의사결정 모델과 갈등 기제]\n• 경영 리더십(비구조화된 상황): 정보의 불완전성, 비용/편익 정량화 불가, 수많은 이해관계자와 다중 목표 속에서 수학적 최적해가 불가능하므로 타협안인 '만족화(Satisficing)' 결정을 내립니다.\n• 안전 부서(구조화된 상황): 단일 목표(무사고)와 단일 규정을 근거로 '단일 최적해(Rational decision)'만을 고집합니다.\n• 갈등의 본질: 리더십이 불확실성 속에서 비즈니스 결정을 내릴 때, 안전 부서가 단순 규제 위협("예산 안 주면 처벌받는다")만 가하면 상호 불신과 갈등이 폭발합니다.`,
+  eisenhower: `[시간 관리 매트릭스와 제2분면의 중요성]\n• 스티븐 코비와 아이젠하워의 4분면 매트릭스에서 안전문화가 발전하는 핵심 영역은 바로 제2분면(긴급하지 않지만 중요한 영역: DECIDE)입니다.\n• 위험성평가(JHA), 비상대응계획, 안전 교육 체계화 등은 당장 발등에 불이 떨어진 위기가 아니기 때문에 1분면(사고 수습)이나 3분면(잡무)에 밀리기 쉽습니다.\n• 안전 관리자는 '활동의 덫(Activity Trap)'에서 벗어나 의식적으로 제2분면에 시간을 투자해야 합니다.`,
+  onboarding: `[오리엔테이션 vs. 온보딩의 본질적 차이]\n• 오리엔테이션: 입사 직후 인사부서에서 복리후생, 사내 규정 등을 전달하는 1회성 단발 집체 교육(1일~2주).\n• 온보딩: 채용 합격부터 완전한 성과 창출 구성원으로 안착할 때까지 수개월~1년 이상 지속되는 맞춤형·진화형 프로세스.\n• 실무 수칙: 톰 피터스의 MBWA(Management By Wandering Around)를 실천하되, 현장 작업자의 말을 들을 때는 수첩을 적지 말고 전적으로 경청(Just Listen)해야 신뢰를 얻습니다.`,
+  friction: `[조직 마찰(Friction)과 윤활 메커니즘 (Fig 1.8)]\n• 조직 마찰은 상이한 부서의 전문성과 목표 불일치에서 자연스럽게 발생합니다.\n• 리더십(녹색 기어), 안전 부서(분홍 기어), 현장 직원(노란 기어)의 세 톱니바퀴가 중앙의 안전문화(파란 기어)를 구동합니다.\n• 리더십의 적극적인 제도적 지원과 왜곡 없는 열린 소통이 바로 기어가 맞물려 돌아가게 하는 '윤활유(Oil can)' 역할을 합니다.`
+};
+
+const PROMPTS_DATA = {
+  p1: `당신은 안전문화 및 주관성 연구(Q방법론) 전문 교수입니다.
+Elsevier의 'Safety Culture' Chapter 1(Defining the Perception of Safety)의 핵심 이론(상대적 위험 수용성, 몬탄테의 안전 정의, 래드포드의 복합 의사결정 모델, 6대 핵심 신념 간극 등)을 바탕으로 현장 작업자와 관리자 집단의 안전 지각 유형을 실증 분석하기 위한 Q-진술문(Q-Sample) 34개를 도출하고 범주별 설계 논리를 제시해 주십시오.`,
+  p2: `Chapter 1의 래드포드(Radford) 의사결정 모델(Fig 1.11)에 따르면 경영 리더십은 불확실성과 다중 목표 속에서 '만족화(Satisficing)' 결정을 내리는 반면, 안전 전문가는 단일 규범에 기반한 '단일 최적해'를 고집하여 갈등이 발생합니다.
+신임 안전 관리자가 이러한 구조적 갈등을 극복하고 경영진과 비즈니스 언어로 소통하며 안전 예산을 확보하기 위한 구체적 5단계 커뮤니케이션 전략을 수립해 주십시오.`
+};
+
+// DOM References
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const apiKeyBtn = document.getElementById('api-key-btn');
+const apiModalOverlay = document.getElementById('api-modal-overlay');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const saveKeyBtn = document.getElementById('save-key-btn');
+const clearKeyBtn = document.getElementById('clear-key-btn');
+const geminiKeyInput = document.getElementById('gemini-key-input');
+const geminiModelSelect = document.getElementById('gemini-model-select');
+const openaiKeyInput = document.getElementById('openai-key-input');
+const aiEngineSelect = document.getElementById('ai-engine-select');
+const aiStatusTag = document.getElementById('ai-status-tag');
+const aiChatForm = document.getElementById('ai-chat-form');
+const aiUserInput = document.getElementById('ai-user-input');
+const aiChatMessages = document.getElementById('ai-chat-messages');
+const toastMsg = document.getElementById('toast-msg');
+
+// LocalStorage State
+let storedGeminiKey = localStorage.getItem('chapter1_gemini_key') || '';
+let storedOpenaiKey = localStorage.getItem('chapter1_openai_key') || '';
+let storedModel = localStorage.getItem('chapter1_gemini_model') || 'gemini-1.5-flash';
+
+if (storedGeminiKey) {
+  geminiKeyInput.value = storedGeminiKey;
+  aiEngineSelect.value = 'gemini';
+  aiStatusTag.textContent = 'Gemini API 연동';
+  aiStatusTag.style.color = '#38bdf8';
+}
+
+// Theme Toggle
+themeToggleBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const target = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', target);
+  localStorage.setItem('chapter1_theme', target);
+});
+
+if (localStorage.getItem('chapter1_theme')) {
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('chapter1_theme'));
+}
+
+// AI Panel Toggle
+toggleAiBtn.addEventListener('click', () => {
+  rightAiPanel.classList.toggle('collapsed');
+});
+
+// Modal Logic
+apiKeyBtn.addEventListener('click', () => apiModalOverlay.classList.add('active'));
+closeModalBtn.addEventListener('click', () => apiModalOverlay.classList.remove('active'));
+apiModalOverlay.addEventListener('click', (e) => {
+  if (e.target === apiModalOverlay) apiModalOverlay.classList.remove('active');
+});
+
+saveKeyBtn.addEventListener('click', () => {
+  storedGeminiKey = geminiKeyInput.value.trim();
+  storedOpenaiKey = openaiKeyInput.value.trim();
+  storedModel = geminiModelSelect.value;
+  localStorage.setItem('chapter1_gemini_key', storedGeminiKey);
+  localStorage.setItem('chapter1_openai_key', storedOpenaiKey);
+  localStorage.setItem('chapter1_gemini_model', storedModel);
+
+  if (storedGeminiKey) {
+    aiEngineSelect.value = 'gemini';
+    aiStatusTag.textContent = 'Gemini API 연동';
+    aiStatusTag.style.color = '#38bdf8';
+  } else {
+    aiEngineSelect.value = 'builtin';
+    aiStatusTag.textContent = '내장 지식엔진';
+    aiStatusTag.style.color = '';
+  }
+  apiModalOverlay.classList.remove('active');
+  showToast('API 설정이 저장되었습니다. ✅');
+});
+
+clearKeyBtn.addEventListener('click', () => {
+  geminiKeyInput.value = '';
+  openaiKeyInput.value = '';
+  localStorage.removeItem('chapter1_gemini_key');
+  localStorage.removeItem('chapter1_openai_key');
+  storedGeminiKey = '';
+  storedOpenaiKey = '';
+  aiEngineSelect.value = 'builtin';
+  aiStatusTag.textContent = '내장 지식엔진';
+  aiStatusTag.style.color = '';
+  showToast('API 키가 삭제되었습니다.');
+});
+
+// Toast Helper
+function showToast(msg) {
+  toastMsg.textContent = msg;
+  toastMsg.classList.add('show');
+  setTimeout(() => toastMsg.classList.remove('show'), 2500);
+}
+
+// Copy Prompt Buttons
+document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('프롬프트가 클립보드에 복사되었습니다! 📋');
+      });
+    }
+  });
+});
+
+// Send Prompt to AI Panel
+document.querySelectorAll('.send-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      if (rightAiPanel.classList.contains('collapsed')) {
+        rightAiPanel.classList.remove('collapsed');
+      }
+      aiUserInput.value = text;
+      handleSendMessage();
+    }
+  });
+});
+
+// Quick Chips
+document.querySelectorAll('.quick-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (rightAiPanel.classList.contains('collapsed')) {
+      rightAiPanel.classList.remove('collapsed');
+    }
+    aiUserInput.value = chip.getAttribute('data-q');
+    handleSendMessage();
+  });
+});
+
+// Append Message to Chat
+function appendMessage(role, text) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = text.replace(/\n/g, '<br>');
+  aiChatMessages.appendChild(bubble);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return bubble;
+}
+
+// Handle AI Chat Form Submission
+aiChatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleSendMessage();
+});
+
+// Enter key submit in textarea (Shift+Enter for newline)
+aiUserInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSendMessage();
+  }
+});
+
+async function handleSendMessage() {
+  const query = aiUserInput.value.trim();
+  if (!query) return;
+
+  appendMessage('user', query);
+  aiUserInput.value = '';
+
+  const loadingBubble = appendMessage('ai', '답변을 생성하고 있습니다... 💭');
+  const engine = aiEngineSelect.value;
+
+  if (engine === 'gemini' && storedGeminiKey) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${storedModel}:generateContent?key=${storedGeminiKey}`;
+      const systemContext = `당신은 Elsevier 명저 'Safety Culture' Chapter 1 (Defining the Perception of Safety)의 학술 지도 교수이자 안전문화 전문 AI입니다. 원문의 이론(발현적 속성, 상대적 위험 수용성, 몬탄테의 안전 정의, French & Bell의 6대 연동 영역, Radford 복합 의사결정 모델, Table 1.1 핵심 신념 간극, 아이젠하워 4분면, 디버전 수레바퀴, 온보딩과 MBWA 경청 등)에 근거하여 엄밀하고 학술적이며 실무적인 답변을 제공하십시오.`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: `${systemContext}\n\n질문/요청사항:\n${query}` }]
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        loadingBubble.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+      } else {
+        loadingBubble.innerHTML = `⚠️ Gemini API 응답 오류: ${data.error?.message || '응답을 생성할 수 없습니다.'}`;
+      }
+    } catch (err) {
+      loadingBubble.innerHTML = `⚠️ 네트워크 또는 API 호출 실패: ${err.message}<br><small>내장 지식 모드로 전환해 답변을 확인하세요.</small>`;
+    }
+  } else {
+    // Built-in Knowledge Base Fallback & Smart Matcher
+    setTimeout(() => {
+      let reply = "";
+      const lower = query.toLowerCase();
+
+      if (lower.includes('발현') || lower.includes('emergent') || lower.includes('속성')) {
+        reply = CHAPTER1_KB.emergent;
+      } else if (lower.includes('몬탄테') || lower.includes('montante') || lower.includes('safety first') || lower.includes('구호')) {
+        reply = CHAPTER1_KB.montante;
+      } else if (lower.includes('래드포드') || lower.includes('radford') || lower.includes('갈등') || lower.includes('의사결정')) {
+        reply = CHAPTER1_KB.radford;
+      } else if (lower.includes('시간') || lower.includes('아이젠하워') || lower.includes('코비') || lower.includes('2분면') || lower.includes('matrix')) {
+        reply = CHAPTER1_KB.eisenhower;
+      } else if (lower.includes('온보딩') || lower.includes('onboarding') || lower.includes('오리엔테이션') || lower.includes('mbwa')) {
+        reply = CHAPTER1_KB.onboarding;
+      } else if (lower.includes('마찰') || lower.includes('friction') || lower.includes('톱니바퀴') || lower.includes('기어')) {
+        reply = CHAPTER1_KB.friction;
+      } else {
+        reply = `[Chapter 1 내장 지식엔진 답변]\n질의: "${query}"\n\nChapter 1 'Defining the Perception of Safety'에서는 안전문화 확립에서 '지각(Perception)'의 전환을 가장 핵심적인 요소로 규정합니다.\n• 안전은 고립된 프로그램이 아니라 시스템 전체의 '발현적 속성(Emergent Property)'입니다.\n• 경영진의 불확실한 '만족화' 의사결정과 안전 부서의 '단일 최적해' 의사결정 간의 차이(Radford 모델)를 극복하기 위해 비즈니스 공통 언어로 소통해야 합니다.\n• 아이젠하워 제2분면(위험성평가, 장기 전략)을 보호하고, 체계적인 안전 온보딩을 통해 조직문화를 내재화해야 합니다.\n\n💡 상단 [🔑 API 설정]에서 Gemini API Key를 등록하시면 실시간 생성형 심화 분석을 받으실 수 있습니다!`;
+      }
+      loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+    }, 500);
+  }
+}
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navLinks = document.querySelectorAll('#nav-menu-list .nav-link');
+navSearchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  navLinks.forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.parentElement.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Scrollspy for active link
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('main section.section-box');
+  let currentId = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    if (window.scrollY >= top) {
+      currentId = sec.getAttribute('id');
+    }
+  });
+  if (currentId) {
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+
+</body>
+</html>

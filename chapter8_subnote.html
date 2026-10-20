@@ -1,0 +1,1657 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 8: Getting Employee Involvement in the Safety Management System — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 280px;
+  --ai-panel-w: 380px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #7e22ce;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  height: var(--header-h);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-title span.sub {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.action-btn:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+.action-btn.primary {
+  background: var(--accent-green);
+  color: #0b1120;
+  border-color: var(--accent-green);
+}
+.action-btn.primary:hover {
+  background: #059669;
+  color: #fff;
+}
+
+/* App Wrapper: 3-column layout */
+.app-wrapper {
+  display: flex;
+  min-height: calc(100vh - var(--header-h));
+  position: relative;
+}
+
+/* Left Sidebar Navigation */
+aside.left-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  overflow-y: auto;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 13px;
+}
+.nav-search:focus {
+  outline: 2px solid var(--accent-green);
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: all 0.15s ease;
+}
+.nav-link:hover {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-green);
+  transform: translateX(2px);
+}
+.nav-link.active {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+  font-weight: 700;
+  border-left: 3px solid var(--accent-green);
+}
+.nav-link .icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Center Content */
+main.main-content {
+  flex: 1;
+  padding: 32px 40px 100px;
+  max-width: 1080px;
+  margin: 0 auto;
+  overflow-y: visible;
+}
+
+/* Right AI Panel */
+aside.right-ai-panel {
+  width: var(--ai-panel-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 950;
+}
+aside.right-ai-panel.collapsed {
+  transform: translateX(100%);
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+.ai-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ai-panel-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-status-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.ai-mode-bar {
+  padding: 10px 16px;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.ai-mode-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat-bubble {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 90%;
+  word-break: break-word;
+}
+.chat-bubble.ai {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  color: var(--text-main);
+}
+.chat-bubble.user {
+  background: var(--accent-green);
+  color: #0b1120;
+  align-self: flex-end;
+  font-weight: 600;
+}
+.chat-bubble code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.ai-quick-questions {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.quick-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  font-size: 11.5px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.quick-chip:hover {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.ai-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+.ai-form {
+  display: flex;
+  gap: 8px;
+}
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  height: 44px;
+  min-height: 44px;
+  max-height: 100px;
+}
+.ai-input:focus {
+  outline: 2px solid var(--accent-green);
+}
+.ai-send-btn {
+  background: var(--accent-green);
+  color: #0b1120;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+.ai-send-btn:hover { background: #059669; color: #fff; }
+
+/* API Key Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.modal-title { font-size: 18px; font-weight: 700; }
+.close-modal-btn { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+.modal-body { display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; }
+.modal-footer { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+
+/* Content Cards & Sections */
+h1.content-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 30px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+.content-meta {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 30px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s ease;
+}
+.section-box:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+h2.sec-heading {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 22px;
+  color: var(--accent-green);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(16, 185, 129, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3.sub-heading {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 22px 0 12px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+h3.sub-heading::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  background: var(--accent-green);
+  border-radius: 2px;
+}
+
+p { margin-bottom: 14px; color: var(--text-sub); }
+
+/* Callout Boxes */
+.callout {
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  border-left: 4px solid;
+}
+.callout.important {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--accent-red);
+  color: var(--text-main);
+}
+.callout.note {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: var(--accent-blue);
+  color: var(--text-main);
+}
+.callout.tip {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--accent-green);
+  color: var(--text-main);
+}
+.callout.gold {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--accent-gold);
+  color: var(--text-main);
+}
+.callout strong { color: var(--text-main); }
+
+/* Figures */
+.figure-container {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px;
+  margin: 22px 0;
+  text-align: center;
+}
+.figure-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.figure-caption {
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-align: left;
+  line-height: 1.6;
+  background: var(--bg-main);
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 3px solid var(--accent-green);
+}
+
+/* Lists & Step Flow */
+ul.custom-list, ol.custom-list {
+  padding-left: 20px;
+  margin-bottom: 16px;
+  color: var(--text-sub);
+}
+ul.custom-list li, ol.custom-list li {
+  margin-bottom: 8px;
+}
+.step-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 18px 0;
+}
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card-sub);
+  padding: 12px 18px;
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-green);
+}
+.step-badge {
+  font-weight: 800;
+  font-size: 12px;
+  background: var(--accent-green);
+  color: #0b1120;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.step-desc { font-size: 14px; color: var(--text-main); }
+
+/* Prompts Section Cards */
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+.prompt-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+.prompt-card:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.prompt-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--accent-gold);
+  width: fit-content;
+}
+.prompt-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.prompt-snippet {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: var(--bg-main);
+  padding: 10px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  max-height: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  border: 1px dashed var(--border-color);
+}
+.prompt-actions {
+  display: flex;
+  gap: 8px;
+}
+.prompt-btn {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.prompt-btn:hover {
+  background: var(--accent-gold);
+  color: #0b1120;
+  border-color: var(--accent-gold);
+}
+.prompt-btn.send-to-ai {
+  background: var(--accent-green);
+  color: #0b1120;
+  border-color: var(--accent-green);
+}
+.prompt-btn.send-to-ai:hover {
+  background: #059669;
+  color: #fff;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--bg-card);
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 3000;
+  pointer-events: none;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Collapsible Review Details */
+details.review-item {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.review-item summary {
+  padding: 12px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 14px;
+}
+details.review-item summary::-webkit-details-marker { display: none; }
+details.review-item summary::after {
+  content: "▼";
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+details.review-item[open] summary::after { transform: rotate(180deg); }
+details.review-item .review-answer {
+  padding: 14px 18px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-main);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-sub);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  aside.right-ai-panel {
+    position: fixed;
+    right: 0;
+    top: var(--header-h);
+    bottom: 0;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  }
+}
+@media (max-width: 900px) {
+  aside.left-sidebar {
+    position: fixed;
+    left: 0;
+    top: var(--header-h);
+    bottom: 0;
+    transform: translateX(-100%);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+  }
+  aside.left-sidebar.open { transform: translateX(0); }
+  main.main-content { padding: 20px 16px; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="brand-area">
+        <button id="toggle-sidebar-btn" class="action-btn" title="네비게이션 토글" style="display:none;">☰</button>
+        <span class="brand-badge">Chapter 8</span>
+        <div class="brand-title">
+            Getting Employee Involvement in SMS
+            <span class="sub">| 직원 참여 서브노트 &amp; AI 학습 플랫폼</span>
+        </div>
+    </div>
+    <div class="header-actions">
+        <button id="theme-toggle-btn" class="action-btn" title="다크/라이트 모드 전환">🌓 테마</button>
+        <button id="api-key-btn" class="action-btn" title="Gemini/OpenAI API 키 설정">🔑 API 설정</button>
+        <button id="toggle-ai-btn" class="action-btn primary" title="우측 AI 패널 토글">🤖 AI 어시스턴트</button>
+    </div>
+</header>
+
+<!-- Main App Wrapper -->
+<div class="app-wrapper">
+
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="left-sidebar">
+        <div class="sidebar-title">목차 네비게이션</div>
+        <input type="text" id="nav-search-input" class="nav-search" placeholder="섹션 검색... (Ctrl+K)">
+        <ul class="nav-menu" id="nav-menu-list">
+            <li><a href="#sec-overview" class="nav-link active"><span class="icon">📌</span> 0. 챕터 개요 &amp; Iacocca 명언</a></li>
+            <li><a href="#sec-intro" class="nav-link"><span class="icon">📖</span> 1. 도입 및 6대 학습 목표</a></li>
+            <li><a href="#sec-why-involve" class="nav-link"><span class="icon">🎯</span> 2. 직원 참여의 당위성 &amp; 4대 조치</a></li>
+            <li><a href="#sec-not-involved" class="nav-link"><span class="icon">🚫</span> 3. 직원 미참여 원인 &amp; 보호구 맹점</a></li>
+            <li><a href="#sec-obs1" class="nav-link"><span class="icon">🔍</span> 4. 관찰 1: 권위주의 처방 실패 사례</a></li>
+            <li><a href="#sec-listen" class="nav-link"><span class="icon">👂</span> 5. 직원 경청 &amp; James 80/20 법칙</a></li>
+            <li><a href="#sec-getting-involve" class="nav-link"><span class="icon">🤝</span> 6. 신뢰 회복 6대 가시적 행동</a></li>
+            <li><a href="#sec-guidelines" class="nav-link"><span class="icon">📋</span> 7. 직원 참여 12대 가이드라인</a></li>
+            <li><a href="#sec-just-ask" class="nav-link"><span class="icon">💬</span> 8. "그냥 물어보라" &amp; 다문화 교훈</a></li>
+            <li><a href="#sec-committees" class="nav-link"><span class="icon">👥</span> 9. 안전위원회 본질 &amp; 9대 실패 원인</a></li>
+            <li><a href="#sec-charter" class="nav-link"><span class="icon">📜</span> 10. 팀 헌장(Charter) &amp; 13대 질문</a></li>
+            <li><a href="#sec-members" class="nav-link"><span class="icon">🎲</span> 11. 위원 선발 &amp; 3대 핵심 역할</a></li>
+            <li><a href="#sec-fig-arch" class="nav-link"><span class="icon">🏗️</span> 12. 그림 8.3 위원회 조직 아키텍처</a></li>
+            <li><a href="#sec-subcommittees" class="nav-link"><span class="icon">🏢</span> 13. 8대 상설 분과 &amp; 규칙책 함정</a></li>
+            <li><a href="#sec-adhoc" class="nav-link"><span class="icon">⚡</span> 14. 특별 임무팀(Ad Hoc) 운영</a></li>
+            <li><a href="#sec-summary" class="nav-link"><span class="icon">📝</span> 15. 요약 &amp; 8대 복습 질문</a></li>
+            <li><a href="#sec-appendices" class="nav-link"><span class="icon">📁</span> 16. 부록 8.1~8.2 실무 헌장 및 법령</a></li>
+            <li><a href="#sec-study-prompts" class="nav-link" style="color:var(--accent-gold); font-weight:700;"><span class="icon">💡</span> 17. AI 학습·연구 프롬프트</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content">
+
+        <!-- Title Banner -->
+        <h1 class="content-title">Chapter 8: Getting Employee Involvement in the Safety Management System</h1>
+        <div class="content-meta">
+            Safety Culture: An Innovative Leadership Approach (Roughton, Crutchfield &amp; Waite, 2019) · Elsevier · 제8장 완전 서브노트
+        </div>
+
+        <!-- Section 0: Overview & Iacocca Quote -->
+        <section class="section-box" id="sec-overview">
+            <h2 class="sec-heading">📌 0. 챕터 개요 &amp; 핵심 명언</h2>
+            <div class="callout gold">
+                <strong>리 아이아코카 (Lee Iacocca)의 경영 명언</strong>:<br>
+                <em>"훌륭한 인재로 시작하라. 규칙을 명확히 제시하라. 직원들과 소통하라. 그들에게 동기를 부여하고 보상하라. 이 모든 것을 효과적으로 수행한다면 결코 실패하지 않을 것이다."</em>
+            </div>
+            <p>안전 전문가는 혼자 고립되어 안전 문제를 해결할 수 없습니다. 진정한 안전문화의 성패는 현장 최일선에서 유해위험요인과 직접 마주하는 <strong>직원들의 자발적 참여(Employee Involvement)</strong>에 달려 있습니다.</p>
+        </section>
+
+        <!-- Section 1: Introduction -->
+        <section class="section-box" id="sec-intro">
+            <h2 class="sec-heading">📖 1. 도입 및 6대 학습 목표 (INTRODUCTION)</h2>
+            <p>경험 많은 직원은 잠재적 위험에 가장 근접해 있는 대체 불가능한 <strong>문제 해결사(Problem-solvers)</strong>입니다. 경영진과의 개방적이고 긍정적인 소통이 결합될 때 비로소 숨은 위험이 통제되고 안전문화가 정착됩니다.</p>
+
+            <h3 class="sub-heading">제8장 핵심 학습 목표 (6가지)</h3>
+            <ol class="custom-list">
+                <li><strong>직원이 안전경영시스템에 참여해야 하는 당위성 설명</strong> (*Discuss why employees should be involved*)</li>
+                <li><strong>직원 참여 표준 가이드라인 파악</strong> (*Discuss guidelines for employee involvement*)</li>
+                <li><strong>안전 프로세스 효과성에 관한 현장 통찰을 얻는 최선의 방법 식별</strong> (*Identify best method to get insights*)</li>
+                <li><strong>직원들이 안전 프로세스 참여를 꺼리는 근본 원인 분석</strong> (*Discuss why employees may not want to be involved*)</li>
+                <li><strong>안전위원회(Safety Committee)의 구조와 상설 분과위원회 운영 원리 이해</strong> (*Structure of Safety Committee &amp; subcommittees*)</li>
+                <li><strong>특별 임무팀(Ad Hoc Subcommittees)의 개념과 효과적 실행 방안 규명</strong> (*Ad Hoc subcommittees implementation*)</li>
+            </ol>
+        </section>
+
+        <!-- Section 2: Why Employees Involve -->
+        <section class="section-box" id="sec-why-involve">
+            <h2 class="sec-heading">🎯 2. 왜 직원이 참여해야 하는가? (WHY SHOULD EMPLOYEES BE INVOLVED?)</h2>
+            
+            <h3 class="sub-heading">경영진의 인식과 현장 실행 간의 심각한 괴리</h3>
+            <p>경영진은 목표와 정책을 수립하지만, 현장의 세부 작업 단계를 모두 알지 못합니다. 저자들이 다양한 기업의 작업위험성평가(JHA)를 지원하면서 발견한 핵심 사실은 <strong>"경영진이 현장에서 이루어지고 있다고 믿는 방식과, 실제 작업자가 수행하는 작업 방식 간에 엄청난 차이가 존재한다"</strong>는 점이었습니다.</p>
+
+            <h3 class="sub-heading">미통제 위험의 일상화와 수용</h3>
+            <p>직원들은 위험을 비공식적 요령(Word of mouth)으로 피해 가거나, 심지어 통제되지 않은 위험을 <strong>"어쩔 수 없는 내 일의 일부(Part of their job)"</strong>로 받아들여 침묵합니다.</p>
+
+            <h3 class="sub-heading">직원 참여를 유도하는 4대 기본 조치</h3>
+            <div class="step-flow">
+                <div class="step-item"><span class="step-badge">조치 1</span> <span class="step-desc">안전 노력에 직원을 직접 동참시키기</span></div>
+                <div class="step-item"><span class="step-badge">조치 2</span> <span class="step-desc">경험 많은 직원을 위험성평가·사고조사의 '문제 해결사'로 초빙하기</span></div>
+                <div class="step-item"><span class="step-badge">조치 3</span> <span class="step-desc">작업위험성평가(JHA) 검토 및 완성 과정에 직원을 참여시키기</span></div>
+                <div class="step-item"><span class="step-badge">조치 4</span> <span class="step-desc">직원들이 아이디어와 개선 제안을 자유롭게 제시하도록 격려하기</span></div>
+            </div>
+        </section>
+
+        <!-- Section 3: Reasons Not Involved -->
+        <section class="section-box" id="sec-not-involved">
+            <h2 class="sec-heading">🚫 3. 직원이 참여하지 않는 이유 (REASONS FOR NON-INVOLVEMENT)</h2>
+
+            <div class="figure-container">
+                <img src="image-4.png" alt="FIG. 8.1 Getting employees involved in the safety management system">
+                <div class="figure-caption">
+                    <strong>[그림 8.1 설명: 안전경영시스템에 직원 참여 유도]</strong><br>
+                    회의실 원형 테이블에 둘러앉아 화상 화면("LIVE")을 통해 공유되는 리더의 발표와 안건을 함께 경청하고 토론하는 다기능 팀원들의 모습을 보여줍니다. 안전관리는 한 사람의 일방적 지시가 아니라, 다양한 부서의 구성원이 동등한 테이블에 모여 소통하는 참여형 프로세스여야 함을 시각화합니다.
+                </div>
+            </div>
+
+            <div class="figure-container">
+                <img src="image-5.png" alt="FIG. 8.2 Ask for the employee’s suggestions">
+                <div class="figure-caption">
+                    <strong>[그림 8.2 설명: 직원들의 제안을 직접 요청하기]</strong><br>
+                    좌측에 서 있는 리더가 직원들에게 제안을 요청하자, 화살표를 따라 개별 직원의 의견이 모이고 소그룹에서 대규모 직원 집단으로 참여 네트워크가 연쇄적으로 확산되는 구조를 보여줍니다. "직원에게 직접 물어보라"는 단순한 출발이 전사적 참여 네트워크를 형성하는 기폭제가 됨을 상징합니다.
+                </div>
+            </div>
+
+            <h3 class="sub-heading">참여 부재의 근본 원인</h3>
+            <ul class="custom-list">
+                <li><strong>공식적 참여 창구 부재</strong>: 직원이 의견을 공식적으로 개진할 시스템이 없습니다.</li>
+                <li><strong>생산성 저해 요소로의 오인</strong>: 안전을 '생산성을 방해하는 일' 또는 '내 본업 밖의 귀찮은 일'로 봅니다.</li>
+                <li><strong>단순 법적 규제 준수 한계</strong>: 법적 의무만 강조되어 직원이 기여할 자율적 공간이 없습니다.</li>
+            </ul>
+
+            <h3 class="sub-heading">개인보호구(PPE) 의존의 함정과 통제 계층(Hierarchy of Controls)</h3>
+            <p>직원이 보호구를 착용하지 않는 것은 직원의 태만 이전에 <strong>직원이 안전 프로세스에 참여하지 못하고 있다는 반증</strong>입니다. 보호구는 통제 계층상 최후의 수단(Final line of defense)임에도 많은 관리자가 손쉽다는 이유로 보호구 지급을 기본값(Default)으로 삼는 맹점을 보입니다.</p>
+
+            <div class="callout important">
+                <strong>주의</strong>: 보호구(PPE)는 결코 만병통치약이 아닙니다. 보호구 너머의 공학적·관리적 근본 통제를 찾아야 합니다.
+            </div>
+        </section>
+
+        <!-- Section 4: Observation 1 -->
+        <section class="section-box" id="sec-obs1">
+            <h2 class="sec-heading">🔍 4. 관찰 1: 권위주의 처방의 실패 사례 (OBSERVATION 1)</h2>
+            
+            <div class="callout note">
+                <strong>사례 1: 안구 이물질 사건과 전사 보안경 폐기</strong><br>
+                안구 부상 이력이 없던 공장에서 한 직원의 눈에 먼지가 들어가자, 경영진은 위험성평가나 직원 의견 수렴 없이 기존 보안경을 전량 폐기하고 고가의 신형 안경으로 일괄 교체했습니다. 작업 위험이 아닌 환경 먼지였음에도 부적절한 강제 처방이 내려졌습니다.
+            </div>
+
+            <div class="callout note">
+                <strong>사례 2: 다목적 칼 부상과 전사 사용 전면 금지</strong><br>
+                직원이 다목적 칼(Utility knife)로 다리를 베이자, 근본 원인 분석 없이 회사 내 모든 작업칼 사용을 전면 금지했습니다. 해당 칼이 필수적이던 공정에 극심한 생산 차질이 빚어졌고, 안전에 대한 인식은 극도로 악화되었습니다.
+            </div>
+
+            <p>두 사례 모두 직원을 평가에 배제하고 일방적인 권위주의(Authoritarian) 조치를 취함으로써 안전문화의 참여 의지를 말살했습니다.</p>
+        </section>
+
+        <!-- Section 5: Listen to Employees -->
+        <section class="section-box" id="sec-listen">
+            <h2 class="sec-heading">👂 5. 직원 경청의 힘 &amp; 80/20 법칙 (LISTEN TO EMPLOYEES)</h2>
+            <p>안전 프로세스의 실행 가능성을 파악하는 가장 빠르고 정확한 방법은 <strong>"직원의 말을 그냥 경청하는 것(Just listen)"</strong>입니다.</p>
+
+            <h3 class="sub-heading">James의 현장 교훈 1: 80/20 법칙 (Lesson Learned 1)</h3>
+            <div class="callout tip">
+                <strong>경청의 80/20 원칙</strong>: 사고 조사 및 면담 시 <strong>"80%는 직원의 말을 경청하고, 발언과 질문은 20%만 한다."</strong> 직원이 사실관계를 편안히 털어놓을 때 비로소 잠재적 근본 원인을 밝혀낼 수 있습니다.
+            </div>
+
+            <h3 class="sub-heading">일방적 정보 쏟아붓기(Information Dump)의 경계</h3>
+            <p>관리자가 자신이 얼마나 많이 알고 있는지를 과시하듯 일방적으로 말을 독점하는 것은 상호 학습을 즉각 파괴합니다.</p>
+
+            <h3 class="sub-heading">언어 분석: "우리(We)" vs "그들(They)" (Daniel Pink &amp; Robert Reich)</h3>
+            <p>직원들이 대화 중 <strong>"우리(We)"</strong>라는 단어를 쓰면 조직의 의미 있는 일원임을 느끼는 것이고, <strong>"그들(They)"</strong>이라는 단어를 쓰면 소외(Alienation)와 단절이 일어나고 있다는 명백한 신호입니다.</p>
+        </section>
+
+        <!-- Section 6: Getting Involved -->
+        <section class="section-box" id="sec-getting-involve">
+            <h2 class="sec-heading">🤝 6. 신뢰 회복을 위한 6대 가시적 행동</h2>
+            <p>"내 방식대로 안 하려면 나가라(My way or the highway)"는 독선은 은밀한 사보타주나 영혼 없는 수동적 순응을 초래합니다. 경영진은 다음 6대 행동으로 신뢰를 회복해야 합니다:</p>
+            <ol class="custom-list">
+                <li>안전한 작업환경 유지를 위한 서면 정책을 천명하고 모범적 행동 실천</li>
+                <li>직원들의 기대를 이해하기 위한 1:1 대면 면담 실시</li>
+                <li>직원에게 구체적인 안전 책임 부여</li>
+                <li>부여된 책임을 다할 수 있는 충분한 시간, 예산, 자원 배분</li>
+                <li>직원의 안전 제안과 보고를 진지하게 수용</li>
+                <li>안전 제안이 채택/지연/반려될 때 반드시 그 이유를 신속히 피드백하는 시스템 구축</li>
+            </ol>
+        </section>
+
+        <!-- Section 7: Guidelines -->
+        <section class="section-box" id="sec-guidelines">
+            <h2 class="sec-heading">📋 7. 직원 참여 12대 표준 가이드라인 (OSHA GUIDELINES)</h2>
+            <p>직원은 자신이 개발에 참여한 안전 규칙과 절차에 대해 강한 주인의식(Personal stake)을 갖습니다 (OSHA 건설업 권장지침, 2016):</p>
+            <ol class="custom-list">
+                <li>사업장 안전 상태를 직원에게 정기적으로 투명하게 소통</li>
+                <li>직무별 안전 프로그램 및 정보에 대한 완전한 접근권 보장</li>
+                <li>위험평가 기법, 우선순위 결정, SMS 평가 기법 교육</li>
+                <li>부상, 아차사고, 신규 위험을 안심하고 보고하는 체계 정립</li>
+                <li>직원의 개선 제안에 대해 신속하고 성실하게 응답</li>
+                <li>직원이 직접 통제할 수 있는 위험의 발굴 및 제거에 동참 유도</li>
+                <li>작업장 안전 수칙 제·개정에 직원 필수 참여</li>
+                <li>신규자·전입자·숙련자 모두에게 현장 맞춤형 안전 교육 제공</li>
+                <li>안전 회의 자료 개발 및 발표에 직원이 주도적으로 참여</li>
+                <li>서로를 돌보고 지지하는 팀 접근법(Team approach) 확립</li>
+                <li>관리자-직원 합동 현장 안전 순회 점검 실시</li>
+                <li>안전위원회 참여를 위한 공식적인 근무 시간과 자원 보장</li>
+            </ol>
+        </section>
+
+        <!-- Section 8: Just Ask -->
+        <section class="section-box" id="sec-just-ask">
+            <h2 class="sec-heading">💬 8. "그냥 물어보라" &amp; 다문화 현장 교훈 (JUST ASK)</h2>
+            <p>가장 단순하지만 가장 자주 간과되는 방법은 바로 <strong>"직원에게 직접 물어보는 것(Just ask)"</strong>입니다. 자발적 지원자(Volunteers)로 참여할 때 진정한 헌신이 생깁니다.</p>
+
+            <div class="callout tip">
+                <strong>James의 다문화 사업장 교훈 (Lesson Learned 2)</strong>:<br>
+                한 공장장이 "온갖 노력을 다해도 아무도 참여하지 않는다"고 토로했을 때, James는 "직원들에게 직접 물어본 적이 있는가?"라고 반문했습니다. 비영어권 외국인 근로자가 많아 언어 장벽 때문에 직접 묻지 못했던 것입니다. 현장으로 나가 서툰 영어로 "안전 문제 해결에 동참하겠는가?"라고 직접 묻자, 직원들은 압도적인 <strong>"YES!"</strong>로 화답하며 참여율이 급상승했습니다.
+            </div>
+        </section>
+
+        <!-- Section 9: Safety Committees -->
+        <section class="section-box" id="sec-committees">
+            <h2 class="sec-heading">👥 9. 안전위원회(Safety Committees)의 본질과 9대 실패 원인</h2>
+            <p>안전위원회는 직원 참여의 구심점이지만, 주도면밀한 기획이 없으면 불평만 늘어놓는 <strong>'푸념의 장(Gripe session)'</strong>으로 전락합니다.</p>
+
+            <h3 class="sub-heading">안전위원회가 흔히 겪는 9대 실패 원인</h3>
+            <ul class="custom-list">
+                <li>1. 명확한 방향성과 존재 이유 부재 (헌장, 일정 결여)</li>
+                <li>2. 경영진의 정기적 참석 및 관심 부재</li>
+                <li>3. 회의 시간을 통제할 체계적 안건(Agenda) 미사용</li>
+                <li>4. 회의가 정체되어 새로운 학습 기회를 주지 못함</li>
+                <li>5. 논의가 구체적 의사결정이나 실행 계획(Action plan)으로 이어지지 못함</li>
+                <li>6. 팀 경험이나 관심이 전혀 없는 인원을 자의적으로 선발</li>
+                <li>7. 위원들의 잦은 불참과 무성의한 참여</li>
+                <li>8. 위원장의 리더십 및 회의 진행 역량 부족</li>
+                <li>9. 회의 안건과 결과 회의록이 전사에 신속히 공유되지 않음</li>
+            </ul>
+
+            <h3 class="sub-heading">성공적 운영 원칙</h3>
+            <p>• <strong>타 부서 벤치마킹</strong>: 기존에 잘 운영되는 품질위원회(Quality Committee)의 헌장과 서식을 차용.<br>
+            • <strong>IDLH 상황의 예외</strong>: 생명에 즉각적 위험이 있는 상황은 위원회의 토론 대상이 아니며, 즉각 작업 중지 및 시정이 우선되어야 함.<br>
+            • <strong>경영진 책임 대체 불가</strong>: 위원회는 자문 기구(Advisory team)이며, 안전한 일터를 보장해야 할 경영진의 법적 책무성을 대체할 수 없음.</p>
+        </section>
+
+        <!-- Section 10: Team Charter -->
+        <section class="section-box" id="sec-charter">
+            <h2 class="sec-heading">📜 10. 팀 헌장(Team Charter)과 13대 핵심 질문</h2>
+            <p>팀 헌장은 위원회의 목적, 권한, 한계를 규정하는 살아있는 문서(Living document)입니다.</p>
+
+            <h3 class="sub-heading">헌장 수립을 위한 13대 핵심 질문 (Turner &amp; Turner, 1998)</h3>
+            <ol class="custom-list">
+                <li>위원회의 본질적 목적은 무엇인가?</li>
+                <li>위원회의 권한, 책무성, 책임 범위는 어디까지인가?</li>
+                <li>성공 여부를 어떤 지표로 측정할 것인가?</li>
+                <li>위원회의 최고 후원자(Sponsor)는 누구인가?</li>
+                <li>구성원은 누구이며, 임기는 얼마인가?</li>
+                <li>위원회 리더십은 어떻게 선출하고 순환할 것인가?</li>
+                <li>반드시 준수해야 할 구체적 마감 시한은 무엇인가?</li>
+                <li>회의 주기와 위원들의 참여 허용 시간은 얼마인가?</li>
+                <li>회의를 개최하기 가장 적합한 시간대는 언제인가?</li>
+                <li>회의 장소는 어디인가?</li>
+                <li>위원회에 배정된 예산은 얼마인가?</li>
+                <li>어떤 자원과 외부 자문 전문성이 필요한가?</li>
+                <li>위원회의 보고서와 결정사항을 전사에 어떻게 소통할 것인가?</li>
+            </ol>
+
+            <div class="callout important">
+                <strong>목적 전치(Mission Creep) 경고 (Roughton &amp; Crutchfield, 2016)</strong>:<br>
+                팀 헌장이 모호하면 위원회가 의도치 않은 영역으로 침범하거나 권한을 오인하여 현장 관리자 및 타 부서와 심각한 마찰을 빚게 됩니다.
+            </div>
+        </section>
+
+        <!-- Section 11: Choosing Members -->
+        <section class="section-box" id="sec-members">
+            <h2 class="sec-heading">🎲 11. 위원 선발 &amp; 3대 핵심 진행 역할</h2>
+
+            <h3 class="sub-heading">스노우볼 추천 방식 (Observation 2)</h3>
+            <p>James는 위원을 선발할 때 직원이 동료를 추천하고, 추천받은 직원이 또 다른 동료를 추천하는 <strong>연쇄 추천(Snowball endorsement)</strong>을 활용하여 현장 비공식 소셜 네트워크의 신뢰를 극대화했습니다.</p>
+
+            <h3 class="sub-heading">회의 운영의 3대 핵심 역할 (모든 분과 공통 적용)</h3>
+            <div class="step-flow">
+                <div class="step-item"><span class="step-badge">역할 1</span> <span class="step-desc"><strong>위원장 (Chair)</strong>: 회의를 주재하고 안건 진행을 조율하며 과업을 위임함 (순환 보직 권장)</span></div>
+                <div class="step-item"><span class="step-badge">역할 2</span> <span class="step-desc"><strong>서기/기록원 (Secretary/Notes Keeper)</strong>: 모든 논의와 실행 계획, 마감 시한을 기록하고 회의록을 작성함</span></div>
+                <div class="step-item"><span class="step-badge">역할 3</span> <span class="step-desc"><strong>시간 관리자 (Time Keeper)</strong>: 회의 시작과 종료 시간을 엄격히 통제하여 정시 진행을 보장함</span></div>
+            </div>
+        </section>
+
+        <!-- Section 12: Committee Architecture -->
+        <section class="section-box" id="sec-fig-arch">
+            <h2 class="sec-heading">🏗️ 12. 그림 8.3 안전위원회 조직 아키텍처</h2>
+
+            <div class="figure-container">
+                <img src="image-6.png" alt="FIG. 8.3 Overview of proposed central safety committee">
+                <div class="figure-caption">
+                    <strong>[그림 8.3 상세 설명: 제안된 중앙 안전위원회 및 분과·특별위원회 아키텍처]</strong><br>
+                    • <strong>중앙 파란색 타원 영역 (Central safety oversight, permanent sub-committees)</strong>: 안전위원회의 메인 테이블이자 컨트롤 타워로서 전체 활동 총괄 및 상설 분과 조율.<br>
+                    • <strong>주변 원형 노드 (8대 상설 분과 및 주요 역할)</strong>: Publicity(홍보), Inspections(현장점검), Team leader(위원장), Incident reports(사고보고 분석), Job hazard analysis(JHA), Rules/standards(규정·기준), Education(교육훈련), Housekeeping(정리정돈), Follow-up(후속조치), Ad-hoc facilitator(특별팀 촉진자).<br>
+                    • <strong>하단 사각 노드 (Ad-hoc 특별 임무팀 연계)</strong>: 촉진자 노드와 연결되어 Potential incentives(안전 인센티브), JHA development team(JHA 개발팀), Ergonomic issues(인간공학 과제), Vehicle inspection(차량 점검) 등 단기 프로젝트팀이 유연하게 연동됨.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 13: Subcommittees & Rules Book -->
+        <section class="section-box" id="sec-subcommittees">
+            <h2 class="sec-heading">🏢 13. 8대 상설 분과위원회 &amp; 규칙 책의 함정</h2>
+
+            <h3 class="sub-heading">8대 상설 분과위원회의 직무</h3>
+            <ol class="custom-list">
+                <li><strong>홍보 분과 (Publicity)</strong>: 안전 가치 전파 및 활동 성과 전사 소통</li>
+                <li><strong>점검/순회 분과 (Inspections &amp; Walk-Throughs)</strong>: 정기 안전 점검, 체크리스트 표준화</li>
+                <li><strong>사고보고 분석 분과 (Incident Reports)</strong>: 손실 사건 원인 분석 및 재발방지 검증</li>
+                <li><strong>JHA 분과 (Job Hazard Analysis)</strong>: 직무 위험성평가 최신화 및 잔여위험 통제 감시</li>
+                <li><strong>규정/절차 분과 (Rules, Procedures, Standards)</strong>: 명확하고 일관된 현장 안전 수칙 제·개정</li>
+                <li><strong>교육훈련 분과 (Education &amp; Training)</strong>: 신규자 교육 및 정기 훈련 품질 관리</li>
+                <li><strong>정리정돈 분과 (Housekeeping)</strong>: 3정5S 및 자재·폐기물 정돈 상태 일상 점검</li>
+                <li><strong>후속조치 분과 (Follow-Up)</strong>: 안전 작업의뢰서 이행 확인 및 의뢰인과의 <strong>상호 서명(Sign-off)</strong></li>
+            </ol>
+
+            <div class="callout important">
+                <strong>관찰 3: 35쪽짜리 안전 규칙 책의 함정 (Observation 3)</strong><br>
+                사고가 날 때마다 새 규칙을 추가하여 35페이지에 달하는 규칙 책을 만든 회사는, 새로운 사고가 발생하면 과거 규칙 위반 여부만 찾아 직원을 징계하는 <strong>'징벌용 성경(Disciplinary Bible)'</strong>으로 악용했습니다. 이는 안전문화를 철저히 파괴합니다. 규칙은 처벌 수단이 되어서는 안 됩니다.
+            </div>
+        </section>
+
+        <!-- Section 14: Ad Hoc Committees -->
+        <section class="section-box" id="sec-adhoc">
+            <h2 class="sec-heading">⚡ 14. 특별 임무팀 (AD HOC COMMITTEES) 운영</h2>
+            <p>장기 위원회 참여 부담을 덜고 직원의 특정 전문성을 활용하기 위해, 특정 목적을 가진 한시적 단기 프로젝트팀을 운영합니다.</p>
+            <ul class="custom-list">
+                <li>인간공학 관련 과제 (Ergonomic-Related Issues)</li>
+                <li>안전 인센티브 제도 검토 (Potential Safety Incentives)</li>
+                <li>업무용 차량 점검 검토 (Vehicle Inspection Reviews)</li>
+                <li>특정 공정 JHA 집중 개발팀 (JHA Development Team)</li>
+                <li>소방 방호 및 화재 예방 진단 (Fire Protection Reviews)</li>
+                <li>특정 고위험 작업 리스크 평가 (Specific Risk Assessments)</li>
+                <li>안전경영시스템(SMS) 지침 개정 (SMS Modifications)</li>
+            </ul>
+        </section>
+
+        <!-- Section 15: Summary & Review Questions -->
+        <section class="section-box" id="sec-summary">
+            <h2 class="sec-heading">📝 15. 요약 &amp; 8대 장별 복습 질문</h2>
+
+            <div class="callout tip">
+                <strong>제8장 요약</strong>: 현장 직원의 경험과 통찰은 SMS 성공의 필수 조건 ➔ 일방적 지시 대신 80/20 경청과 '그냥 묻기' 실천 ➔ 안전위원회는 팀 헌장, 3대 회의 역할, 8대 상설분과 및 Ad-hoc 특별팀으로 체계화되어야 함.
+            </div>
+
+            <h3 class="sub-heading">장별 복습 질문 (클릭하여 모범 답안 개요 확인)</h3>
+
+            <details class="review-item">
+                <summary>1. 직원이 안전경영시스템에 참여해야 하는 근본 이유는?</summary>
+                <div class="review-answer">현장 작업자가 실제 위험에 가장 가까이 노출되어 있고 구체적인 업무 절차를 가장 잘 알고 있어, 경영진이 알지 못하는 숨겨진 위험과 비공식적 위험 회피 관행을 양성화할 수 있는 대체 불가능한 문제 해결사이기 때문입니다.</div>
+            </details>
+            <details class="review-item">
+                <summary>2. 직원들이 안전 프로세스 참여를 꺼리거나 거부하는 이유는?</summary>
+                <div class="review-answer">공식적 참여 창구 부재, 안전을 생산성 저해 요소로 보는 조직 문화, 과거 제안 시 부정적 피드백을 받은 경험, 그리고 권위주의적인 일방적 처벌 위주의 대응 때문입니다.</div>
+            </details>
+            <details class="review-item">
+                <summary>3. 직원 참여를 개선하기 위해 경영진이 취해야 할 구체적 조치는?</summary>
+                <div class="review-answer">서면 안전 정책의 모범적 실천, 1:1 경청 대화, 구체적 안전 책임 부여, 충분한 시간과 예산 지원, 제안에 대한 성실하고 신속한 피드백 제공입니다.</div>
+            </details>
+            <details class="review-item">
+                <summary>4. 안전위원회 회의 관리를 위한 3대 핵심 리더십 역할은?</summary>
+                <div class="review-answer">회의를 주재하고 안건을 이끄는 위원장(Chair), 논의와 실행 계획을 기록하는 서기(Notes Keeper), 회의 시간을 통제하는 시간 관리자(Time Keeper)입니다.</div>
+            </details>
+            <details class="review-item">
+                <summary>5. 안전경영시스템을 지원하는 8대 상설 분과위원회는?</summary>
+                <div class="review-answer">홍보, 점검/현장순회, 사고보고 분석, JHA, 규정/절차/기준, 교육훈련, 정리정돈, 후속조치(유지보수 완료 서명) 등 8대 분과입니다.</div>
+            </details>
+            <details class="review-item">
+                <summary>6. 특별 임무팀(Ad Hoc Subcommittees)이란 무엇이며 그 목적은?</summary>
+                <div class="review-answer">장기 위원회 참여 부담을 덜고 직원의 특정 전문성을 활용하기 위해, 특정 프로젝트(인간공학, 인센티브, 차량 점검 등)를 한시적으로 수행하도록 구성된 팀입니다.</div>
+            </details>
+            <details class="review-item">
+                <summary>7. 안전 우려사항에 대한 직원의 의견을 경청하는 것이 왜 중요한가?</summary>
+                <div class="review-answer">현장 프로세스의 실현 가능성을 파악하는 가장 정직한 방법이며, 직원이 조직의 중요한 주체("We")로서 신뢰감을 형성하게 만들기 때문입니다 (80/20 법칙).</div>
+            </details>
+            <details class="review-item">
+                <summary>8. 직원 참여 가이드라인에 명시된 핵심 요소들은?</summary>
+                <div class="review-answer">정기적 상태 공유, 안전 정보 완전 접근권, 위험평가 기법 교육, 신뢰할 수 있는 보고 체계, 신속한 제안 응답, 작업수칙 제정 동참, 현장 합동 점검, 공식 참여 시간 보장 등입니다.</div>
+            </details>
+        </section>
+
+        <!-- Section 16: Appendices -->
+        <section class="section-box" id="sec-appendices">
+            <h2 class="sec-heading">📁 16. 부록 8.1~8.2 실무 헌장 및 공공 자료</h2>
+
+            <div class="figure-container">
+                <img src="image-7.png" alt="APPENDIX 8.1 BASIC SAFETY COMMITTEE TEAM CHARTER Part 1">
+                <div class="figure-caption">
+                    <strong>[부록 8.1 Part 1] 팀 헌장 서식 상단부</strong>: 팀 명칭, 작성 일자, 문제 진술문, 미션 선언문, 프로세스 설명, 배경 등.
+                </div>
+            </div>
+
+            <div class="figure-container">
+                <img src="image-8.png" alt="APPENDIX 8.1 BASIC SAFETY COMMITTEE TEAM CHARTER Part 2">
+                <div class="figure-caption">
+                    <strong>[부록 8.1 Part 2] 팀 헌장 서식 하단부</strong>: 활동 범위(Scope), 위원 임기, 프로세스 소유자, 위원장, 기록원, 시간관리자, 자원 목록, <strong>위원 서약서(Member Contract) 및 서명란</strong>.
+                </div>
+            </div>
+
+            <div class="figure-container">
+                <img src="image-9.png" alt="APPENDIX 8.2 Public Domain Documents">
+                <div class="figure-caption">
+                    <strong>[부록 8.2 공공 도메인 자료]</strong>: 몬태나주 안전문화법(WorkSafe MT) 직장 안전위원회 우수사례 지침 및 위스콘신주 행정명령 94호 보건안전위원회 개발 가이드라인.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 17: AI Study & Research Prompts -->
+        <section class="section-box" id="sec-study-prompts">
+            <h2 class="sec-heading" style="color:var(--accent-gold);">💡 17. 학습 및 연구 전용 AI 프롬프트 (Study &amp; Research Prompts)</h2>
+            <p>직원 참여, 안전위원회 활성화, 심리적 안전감 형성, 그리고 박사학위 연구 및 현장 워크숍에 즉시 적용할 수 있는 고도화된 프롬프트입니다. <strong>[복사]</strong> 또는 <strong>[우측 AI로 전송]</strong>을 눌러 바로 활용해 보세요.</p>
+
+            <div class="prompt-grid">
+
+                <!-- Prompt 1 -->
+                <div class="prompt-card">
+                    <div>
+                        <span class="prompt-tag">학술 연구 · 조직 행동</span>
+                        <div class="prompt-title">조직 침묵 극복과 심리적 안전감(Psychological Safety) 모델</div>
+                        <div class="prompt-snippet">[역할] 조직행동 및 안전문화 전공 박사학위 연구자
+[맥락] 교재 8장의 "직원이 통제되지 않은 위험을 '어쩔 수 없는 일의 일부'로 수용하고 침묵하는 현상"
+[과업]
+1. Edmondson의 심리적 안전감 이론을 결합하여, 현장 작업자의 '위험 보고 침묵(Safety Silence)'을 유발하는 구조적 요인 3가지를 도출하라.
+2. Daniel Pink의 "우리(We)" vs "그들(They)" 언어 프레임워크가 심리적 안전감 형성에 미치는 매개 효과를 설명하라.
+3. 이를 검증하기 위한 설문 문항 5개와 실증 연구가설을 제시하라.</div>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p1">📋 복사</button>
+                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p1">🚀 우측 AI로 전송</button>
+                    </div>
+                </div>
+
+                <!-- Prompt 2 -->
+                <div class="prompt-card">
+                    <div>
+                        <span class="prompt-tag">실무 서식 · 헌장 구축</span>
+                        <div class="prompt-title">13대 질문 기반 안전위원회 팀 헌장(Team Charter) 생성기</div>
+                        <div class="prompt-snippet">[역할] EHS 전략 컨설턴트
+[맥락] 8장 부록 8.1 및 Turner & Turner(1998)의 13대 핵심 질문
+[과업]
+1. (제조업/공공기관 등 현장 유형 입력)에 부합하는 실전형 안전위원회 팀 헌장(Charter) 전문을 작성하라.
+2. "목적 전치(Mission Creep)"를 원천 차단하기 위해 위원회의 명확한 권한 범위와 한계(시범 적용 vs 단순 권고)를 명시하라.
+3. 경영진과 위원 간의 '안전위원회 서약서(Member Contract)' 조항을 완성하라.</div>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p2">📋 복사</button>
+                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p2">🚀 우측 AI로 전송</button>
+                    </div>
+                </div>
+
+                <!-- Prompt 3 -->
+                <div class="prompt-card">
+                    <div>
+                        <span class="prompt-tag">현장 면담 · 코칭 스킬</span>
+                        <div class="prompt-title">James의 80/20 경청 법칙 기반 사고조사 인터뷰 스크립트</div>
+                        <div class="prompt-snippet">[역할] 공감형 사고조사 전문 조사관
+[맥락] 8장 Lesson Learned 1: 80% 경청, 20% 발언 법칙과 정보 쏟아붓기(Information Dump) 방지
+[과업]
+1. 아차사고를 겪은 현장 작업자를 대상으로 방어 기제를 허물고 근본 원인을 진술하게 만드는 5단계 질문 스크립트를 작성하라.
+2. 관리자가 일방적 지시나 훈계를 멈추고 직원의 발언 시간을 80% 이상 확보하기 위한 인터뷰 진행 팁 3가지를 제시하라.</div>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p3">📋 복사</button>
+                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p3">🚀 우측 AI로 전송</button>
+                    </div>
+                </div>
+
+                <!-- Prompt 4 -->
+                <div class="prompt-card">
+                    <div>
+                        <span class="prompt-tag">문화 혁신 · 규정 개혁</span>
+                        <div class="prompt-title">35쪽 규칙 책의 함정(Observation 3) 극복 워크숍 설계</div>
+                        <div class="prompt-snippet">[역할] 안전문화 변혁 퍼실리테이터
+[맥락] 8장 Observation 3: 사고마다 규칙을 누적해 '징벌용 성경'으로 변질된 35페이지 규칙 책 사례
+[과업]
+1. 징벌적이고 방대한 안전 규정을 현장 친화적이고 핵심적인 '골든 룰(Golden Rules)' 10개조로 정예화하는 워크숍 가이드라인을 수립하라.
+2. 규정 개정 과정에 현장 직원을 주도적으로 참여시키는 3단계 합의 도출 프로세스를 제시하라.</div>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p4">📋 복사</button>
+                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p4">🚀 우측 AI로 전송</button>
+                    </div>
+                </div>
+
+                <!-- Prompt 5 -->
+                <div class="prompt-card">
+                    <div>
+                        <span class="prompt-tag">다문화 · 언어 장벽</span>
+                        <div class="prompt-title">다문화·다언어 사업장 'Just Ask' 참여 로드맵</div>
+                        <div class="prompt-snippet">[역할] 다문화 조직 EHS 매니저
+[맥락] 8장 Lesson Learned 2: 언어 장벽으로 참여를 묻지 못했던 공장장의 반성과 "Just Ask"의 기적
+[과업]
+1. 한국어/영어가 서툰 외국인 근로자 사업장에서 시각 자료(픽토그램, 영상)와 번역 도구를 활용해 안전 참여를 이끌어내는 4단계 로드맵을 작성하라.
+2. 자발적 지원자(Volunteers)로 구성되는 다문화 안전 소그룹 운영 방안을 제시하라.</div>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p5">📋 복사</button>
+                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p5">🚀 우측 AI로 전송</button>
+                    </div>
+                </div>
+
+                <!-- Prompt 6 -->
+                <div class="prompt-card">
+                    <div>
+                        <span class="prompt-tag">조직 설계 · 실행 계획</span>
+                        <div class="prompt-title">8대 상설 분과 &amp; 특별팀(Ad-hoc) 연간 안전 플랜 수립</div>
+                        <div class="prompt-snippet">[역할] 전사 안전경영시스템(SMS) 총괄 기획관
+[맥락] 8장 그림 8.3 위원회 아키텍처 (8대 상설 분과 및 Ad-hoc 특별 임무팀)
+[과업]
+1. 8대 상설 분과위원회(홍보, 점검, 사고보고, JHA, 규정, 교육, 정리정돈, 후속조치)의 분기별 핵심 KPI와 실행 계획을 매트릭스로 설계하라.
+2. 인간공학 및 안전 인센티브 개발을 위한 한시적 Ad-hoc 팀의 발족부터 종결(Sign-off)까지의 프로세스를 정의하라.</div>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p6">📋 복사</button>
+                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p6">🚀 우측 AI로 전송</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Right AI Assistant Panel -->
+    <aside class="right-ai-panel" id="right-ai-panel">
+        <div class="ai-panel-header">
+            <h3>🤖 챕터 8 학습 AI 어시스턴트</h3>
+            <span class="ai-status-tag" id="ai-status-tag">지식엔진 준비완료</span>
+        </div>
+
+        <div class="ai-mode-bar">
+            <span>엔진 모드:</span>
+            <select id="ai-engine-select" class="ai-mode-select">
+                <option value="builtin">내장 지식 Q&amp;A (무료·즉시사용)</option>
+                <option value="gemini">Google Gemini API (연동)</option>
+                <option value="openai">OpenAI ChatGPT API (연동)</option>
+            </select>
+        </div>
+
+        <div class="ai-chat-messages" id="ai-chat-messages">
+            <div class="chat-bubble ai">
+                안녕하세요! <strong>Chapter 8 (Getting Employee Involvement in SMS)</strong> 서브노트 전문 학습 AI입니다. 🌿<br><br>
+                직원 참여의 당위성, James의 80/20 경청 법칙, 안전위원회가 흔히 겪는 9대 실패 원인, 팀 헌장(Charter)과 13대 질문, 그림 8.3 위원회 아키텍처 등 챕터 8에 대해 무엇이든 질문해 보세요!
+            </div>
+        </div>
+
+        <div class="ai-quick-questions">
+            <div class="quick-chip" data-q="직원 참여의 필요성과 유도 4대 조치에 대해 설명해줘">직원 참여 4대 조치</div>
+            <div class="quick-chip" data-q="James의 80/20 경청 법칙과 '우리' vs '그들' 언어의 의미는?">80/20 경청 법칙</div>
+            <div class="quick-chip" data-q="안전위원회가 실패하는 9가지 원인은 무엇인가?">위원회 9대 실패 원인</div>
+            <div class="quick-chip" data-q="팀 헌장(Charter)의 목적과 '목적 전치(Mission Creep)' 위험성은?">팀 헌장 &amp; 목적 전치</div>
+            <div class="quick-chip" data-q="그림 8.3의 8대 상설 분과위원회와 특별팀의 구조를 설명해줘">그림 8.3 조직 구조</div>
+            <div class="quick-chip" data-q="35쪽짜리 안전 규칙 책의 함정(Observation 3)의 교훈은?">35쪽 규칙책 함정</div>
+        </div>
+
+        <div class="ai-input-area">
+            <form class="ai-form" id="ai-chat-form">
+                <textarea id="ai-user-input" class="ai-input" placeholder="챕터 8에 대해 질문하거나 프롬프트를 전송하세요..." rows="1"></textarea>
+                <button type="submit" class="ai-send-btn">전송</button>
+            </form>
+        </div>
+    </aside>
+
+</div>
+
+<!-- API Key Settings Modal -->
+<div class="modal-overlay" id="api-modal-overlay">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3 class="modal-title">🔑 AI API 키 설정</h3>
+            <button class="close-modal-btn" id="close-modal-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="color:var(--text-muted); font-size:13px;">
+                API 키를 입력하면 최신 Gemini 또는 OpenAI 모델과 실시간 연동되어 심층 연구 및 고도화된 질의응답이 가능합니다. 입력된 키는 외부 서버로 전송되지 않고 브라우저(localStorage)에만 안전하게 저장됩니다.
+            </p>
+
+            <div>
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Google Gemini API Key:</label>
+                <input type="password" id="gemini-key-input" class="nav-search" placeholder="AIzaSy...">
+            </div>
+
+            <div>
+                <label style="display:block; font-weight:600; margin-bottom:6px;">OpenAI API Key (선택):</label>
+                <input type="password" id="openai-key-input" class="nav-search" placeholder="sk-...">
+            </div>
+
+            <div>
+                <label style="display:block; font-weight:600; margin-bottom:6px;">Gemini 모델 선택:</label>
+                <select id="gemini-model-select" class="nav-search">
+                    <option value="gemini-1.5-flash">Gemini 1.5 Flash (빠름·추천)</option>
+                    <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                    <option value="gemini-1.5-pro">Gemini 1.5 Pro (정밀 분석)</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="action-btn" id="clear-key-btn">키 삭제</button>
+            <button class="action-btn primary" id="save-key-btn">저장하기</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast-msg">클립보드에 복사되었습니다!</div>
+
+<script>
+// --- Knowledge Base for Built-in Simulator Mode ---
+const CHAPTER8_KB = {
+  "involvement": `[직원 참여의 필요성과 4대 조치]
+1. 필요성: 경영진이 현장에서 이루어지고 있다고 믿는 작업 방식과 실제 작업자가 수행하는 작업 방식 간에는 현격한 차이가 존재합니다. 현장 직원은 실제 위험에 가장 가까이 노출되어 비공식적 위험 회피 요령을 알고 있는 대체 불가능한 문제 해결사입니다.
+2. 직원 참여 유도 4대 기본 조치:
+   - 안전 노력에 직원을 직접 동참시키기
+   - 경험 많은 직원을 위험성평가·사고조사의 '문제 해결사'로 초빙하기
+   - 작업위험성평가(JHA) 검토 및 완성 과정에 직원을 참여시키기
+   - 직원이 아이디어와 개선 제안을 자유롭게 제시하도록 격려하기`,
+
+  "listening": `[James의 80/20 경청 법칙과 언어 프레임워크]
+• Lesson Learned 1: 사고 조사나 면담 시 "80%는 직원의 말을 경청하고, 발언과 질문은 20%만 한다." 직원이 편안하게 모든 사실관계를 말할 수 있을 때 근본 원인이 드러납니다.
+• 정보 쏟아붓기(Information Dump) 경계: 관리자가 자신의 지식을 과시하듯 일방적으로 말을 쏟아내면 상호 학습이 차단됩니다.
+• Daniel Pink & Robert Reich: 대화 중 "우리(We)"를 쓰면 주인의식과 소속감을, "그들(They)"을 쓰면 단절과 소외를 겪고 있음을 의미합니다.`,
+
+  "committees_fail": `[안전위원회가 흔히 겪는 9대 실패 원인]
+1. 명확한 방향성과 존재 이유 부재 (헌장, 일정 결여)
+2. 경영진의 정기적 참석 및 관심 부재
+3. 회의 시간을 통제할 체계적 안건(Agenda) 미사용
+4. 회의가 정체되어 학습 기회를 주지 못함
+5. 논의가 구체적 의사결정이나 실행 계획(Action plan)으로 이어지지 못함
+6. 팀 경험이나 관심이 없는 인원을 자의적으로 선발
+7. 위원들의 잦은 불참과 무성의
+8. 위원장의 리더십 및 회의 진행 역량 부족
+9. 회의 안건과 결과 회의록이 전사에 신속히 공유되지 않음`,
+
+  "charter": `[팀 헌장(Team Charter)과 목적 전치(Mission Creep)]
+• 목적: 위원회의 목적, 권한, 책무성, 구성원 및 범위를 공식 규정하여 표류를 방지하는 살아있는 문서입니다.
+• 13대 질문(Turner & Turner, 1998): 목적, 권한 한계, 성공 지표, 스폰서, 구성원 임기, 회의 주기 및 시간, 예산, 소통 매체 등을 사전에 정의합니다.
+• 목적 전치(Mission Creep) 경고(Roughton & Crutchfield, 2016): 초기 헌장이 모호하면 위원회가 엉뚱한 영역으로 침범하거나 권한을 오인해 타 부서 및 관리자와 심각한 마찰을 빚게 됩니다.`,
+
+  "architecture": `[그림 8.3 안전위원회 조직 아키텍처 및 8대 상설분과]
+• 중앙 파란 타원 (Central safety oversight): 컨트롤 타워로서 전체 안전 활동을 총괄하고 상설 분과를 조율함.
+• 8대 상설 분과위원회: 홍보(Publicity), 현장점검(Inspections), 사고보고서 분석(Incident reports), JHA, 규정·기준(Rules & standards), 교육훈련(Education), 정리정돈(Housekeeping), 후속조치(Follow-up - 작업의뢰서 이행 및 상호 서명).
+• Ad-hoc 특별 임무팀: 특별팀 촉진자(Facilitator)의 조율 하에 안전 인센티브, JHA 개발, 인간공학 과제, 차량 점검 등 단기 프로젝트를 유연하게 완수함.`,
+
+  "rules_book": `[관찰 3: 35쪽짜리 안전 규칙 책의 함정 (Observation 3)]
+• 사례: 사고가 날 때마다 규칙을 추가하여 35페이지에 달하는 방대한 규칙 책을 만든 기업.
+• 폐해: 사고 발생 시 과거 규칙 위반 여부만 찾아 직원을 징계하는 '징벌용 성경(Disciplinary Bible)'으로 변질되어 현장의 신뢰와 보고를 완전히 말살했습니다.
+• 교훈: 안전 수칙은 직원을 처벌하는 도구가 아니라, 현장의 안전한 작업을 지원하는 실용적 가이드여야 합니다.`
+};
+
+// Prompts Repository
+const PROMPTS_DATA = {
+  p1: `[역할] 조직행동 및 안전문화 전공 박사학위 연구자\n[맥락] 교재 8장의 "직원이 통제되지 않은 위험을 '어쩔 수 없는 일의 일부'로 수용하고 침묵하는 현상"\n[과업]\n1. Edmondson의 심리적 안전감 이론을 결합하여, 현장 작업자의 '위험 보고 침묵(Safety Silence)'을 유발하는 구조적 요인 3가지를 도출하라.\n2. Daniel Pink의 "우리(We)" vs "그들(They)" 언어 프레임워크가 심리적 안전감 형성에 미치는 매개 효과를 설명하라.\n3. 이를 검증하기 위한 설문 문항 5개와 실증 연구가설을 제시하라.`,
+  p2: `[역할] EHS 전략 컨설턴트\n[맥락] 8장 부록 8.1 및 Turner & Turner(1998)의 13대 핵심 질문\n[과업]\n1. (제조업/공공기관 등 현장 유형 입력)에 부합하는 실전형 안전위원회 팀 헌장(Charter) 전문을 작성하라.\n2. "목적 전치(Mission Creep)"를 원천 차단하기 위해 위원회의 명확한 권한 범위와 한계(시범 적용 vs 단순 권고)를 명시하라.\n3. 경영진과 위원 간의 '안전위원회 서약서(Member Contract)' 조항을 완성하라.`,
+  p3: `[역할] 공감형 사고조사 전문 조사관\n[맥락] 8장 Lesson Learned 1: 80% 경청, 20% 발언 법칙과 정보 쏟아붓기(Information Dump) 방지\n[과업]\n1. 아차사고를 겪은 현장 작업자를 대상으로 방어 기제를 허물고 근본 원인을 진술하게 만드는 5단계 질문 스크립트를 작성하라.\n2. 관리자가 일방적 지시나 훈계를 멈추고 직원의 발언 시간을 80% 이상 확보하기 위한 인터뷰 진행 팁 3가지를 제시하라.`,
+  p4: `[역할] 안전문화 변혁 퍼실리테이터\n[맥락] 8장 Observation 3: 사고마다 규칙을 누적해 '징벌용 성경'으로 변질된 35페이지 규칙 책 사례\n[과업]\n1. 징벌적이고 방대한 안전 규정을 현장 친화적이고 핵심적인 '골든 룰(Golden Rules)' 10개조로 정예화하는 워크숍 가이드라인을 수립하라.\n2. 규정 개정 과정에 현장 직원을 주도적으로 참여시키는 3단계 합의 도출 프로세스를 제시하라.`,
+  p5: `[역할] 다문화 조직 EHS 매니저\n[맥락] 8장 Lesson Learned 2: 언어 장벽으로 참여를 묻지 못했던 공장장의 반성과 "Just Ask"의 기적\n[과업]\n1. 한국어/영어가 서툰 외국인 근로자 사업장에서 시각 자료(픽토그램, 영상)와 번역 도구를 활용해 안전 참여를 이끌어내는 4단계 로드맵을 작성하라.\n2. 자발적 지원자(Volunteers)로 구성되는 다문화 안전 소그룹 운영 방안을 제시하라.`,
+  p6: `[역할] 전사 안전경영시스템(SMS) 총괄 기획관\n[맥락] 8장 그림 8.3 위원회 아키텍처 (8대 상설 분과 및 Ad-hoc 특별 임무팀)\n[과업]\n1. 8대 상설 분과위원회(홍보, 점검, 사고보고, JHA, 규정, 교육, 정리정돈, 후속조치)의 분기별 핵심 KPI와 실행 계획을 매트릭스로 설계하라.\n2. 인간공학 및 안전 인센티브 개발을 위한 한시적 Ad-hoc 팀의 발족부터 종결(Sign-off)까지의 프로세스를 정의하라.`
+};
+
+// UI Elements
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const apiKeyBtn = document.getElementById('api-key-btn');
+const apiModalOverlay = document.getElementById('api-modal-overlay');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const saveKeyBtn = document.getElementById('save-key-btn');
+const clearKeyBtn = document.getElementById('clear-key-btn');
+const geminiKeyInput = document.getElementById('gemini-key-input');
+const openaiKeyInput = document.getElementById('openai-key-input');
+const geminiModelSelect = document.getElementById('gemini-model-select');
+const aiEngineSelect = document.getElementById('ai-engine-select');
+const aiStatusTag = document.getElementById('ai-status-tag');
+const aiChatMessages = document.getElementById('ai-chat-messages');
+const aiChatForm = document.getElementById('ai-chat-form');
+const aiUserInput = document.getElementById('ai-user-input');
+const toastMsg = document.getElementById('toast-msg');
+
+// Load stored settings
+let storedGeminiKey = localStorage.getItem('chapter8_gemini_key') || localStorage.getItem('chapter7_gemini_key') || '';
+let storedOpenaiKey = localStorage.getItem('chapter8_openai_key') || localStorage.getItem('chapter7_openai_key') || '';
+let storedModel = localStorage.getItem('chapter8_gemini_model') || 'gemini-1.5-flash';
+geminiKeyInput.value = storedGeminiKey;
+openaiKeyInput.value = storedOpenaiKey;
+geminiModelSelect.value = storedModel;
+
+if (storedGeminiKey) {
+  aiEngineSelect.value = 'gemini';
+  aiStatusTag.textContent = 'Gemini API 연결됨';
+  aiStatusTag.style.color = '#38bdf8';
+}
+
+// Theme Toggle
+themeToggleBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('chapter8_theme', newTheme);
+});
+if (localStorage.getItem('chapter8_theme')) {
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('chapter8_theme'));
+}
+
+// AI Panel Toggle
+toggleAiBtn.addEventListener('click', () => {
+  rightAiPanel.classList.toggle('collapsed');
+});
+
+// Modal Logic
+apiKeyBtn.addEventListener('click', () => apiModalOverlay.classList.add('active'));
+closeModalBtn.addEventListener('click', () => apiModalOverlay.classList.remove('active'));
+apiModalOverlay.addEventListener('click', (e) => {
+  if (e.target === apiModalOverlay) apiModalOverlay.classList.remove('active');
+});
+
+saveKeyBtn.addEventListener('click', () => {
+  storedGeminiKey = geminiKeyInput.value.trim();
+  storedOpenaiKey = openaiKeyInput.value.trim();
+  storedModel = geminiModelSelect.value;
+  localStorage.setItem('chapter8_gemini_key', storedGeminiKey);
+  localStorage.setItem('chapter8_openai_key', storedOpenaiKey);
+  localStorage.setItem('chapter8_gemini_model', storedModel);
+
+  if (storedGeminiKey) {
+    aiEngineSelect.value = 'gemini';
+    aiStatusTag.textContent = 'Gemini API 연동';
+    aiStatusTag.style.color = '#38bdf8';
+  } else if (storedOpenaiKey) {
+    aiEngineSelect.value = 'openai';
+    aiStatusTag.textContent = 'OpenAI API 연동';
+  } else {
+    aiEngineSelect.value = 'builtin';
+    aiStatusTag.textContent = '지식엔진 준비완료';
+  }
+  apiModalOverlay.classList.remove('active');
+  showToast('API 설정이 저장되었습니다.');
+});
+
+clearKeyBtn.addEventListener('click', () => {
+  geminiKeyInput.value = '';
+  openaiKeyInput.value = '';
+  localStorage.removeItem('chapter8_gemini_key');
+  localStorage.removeItem('chapter8_openai_key');
+  storedGeminiKey = '';
+  storedOpenaiKey = '';
+  aiEngineSelect.value = 'builtin';
+  aiStatusTag.textContent = '지식엔진 준비완료';
+  showToast('API 키가 삭제되었습니다.');
+});
+
+// Toast Helper
+function showToast(msg) {
+  toastMsg.textContent = msg;
+  toastMsg.classList.add('show');
+  setTimeout(() => toastMsg.classList.remove('show'), 2500);
+}
+
+// Copy Prompt Buttons
+document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('프롬프트가 클립보드에 복사되었습니다! 📋');
+      });
+    }
+  });
+});
+
+// Send Prompt to AI Panel
+document.querySelectorAll('.send-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      if (rightAiPanel.classList.contains('collapsed')) {
+        rightAiPanel.classList.remove('collapsed');
+      }
+      aiUserInput.value = text;
+      handleSendMessage();
+    }
+  });
+});
+
+// Quick Chips
+document.querySelectorAll('.quick-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (rightAiPanel.classList.contains('collapsed')) {
+      rightAiPanel.classList.remove('collapsed');
+    }
+    aiUserInput.value = chip.getAttribute('data-q');
+    handleSendMessage();
+  });
+});
+
+// Append Message to Chat
+function appendMessage(role, text) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = text.replace(/\n/g, '<br>');
+  aiChatMessages.appendChild(bubble);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return bubble;
+}
+
+// Handle AI Chat Form Submission
+aiChatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleSendMessage();
+});
+
+async function handleSendMessage() {
+  const query = aiUserInput.value.trim();
+  if (!query) return;
+
+  appendMessage('user', query);
+  aiUserInput.value = '';
+
+  const loadingBubble = appendMessage('ai', '생각하는 중... 💭');
+  const engine = aiEngineSelect.value;
+
+  if (engine === 'gemini' && storedGeminiKey) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${storedModel}:generateContent?key=${storedGeminiKey}`;
+      const systemContext = `당신은 Elsevier의 명저 'Safety Culture: An Innovative Leadership Approach' Chapter 8 (Getting Employee Involvement in the Safety Management System)의 학술 지도 교수이자 안전문화 전문 AI입니다. 원문의 이론(직원 참여의 당위성, 현장 실행과 경영진 간극, 보호구 의존의 함정, James의 관찰 사례들, 80/20 경청 법칙, Daniel Pink의 'We' vs 'They', 12대 참여 가이드라인, 'Just Ask' 교훈, 안전위원회의 9대 실패 원인, 팀 헌장의 13대 질문, 목적 전치(Mission Creep), 그림 8.3의 8대 상설분과 및 Ad-hoc 특별팀, 35쪽 규칙 책의 함정 등)에 입각하여 깊이 있고 엄밀하며 실무적인 답변을 제공하십시오.`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: `${systemContext}\n\n질문/요청사항:\n${query}` }]
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        loadingBubble.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+      } else {
+        loadingBubble.innerHTML = `⚠️ Gemini API 응답 오류: ${data.error?.message || '응답을 가져올 수 없습니다.'}`;
+      }
+    } catch (err) {
+      loadingBubble.innerHTML = `⚠️ 네트워크 또는 API 호출 실패: ${err.message}<br><small>내장 지식 모드로 전환해 답변을 확인하세요.</small>`;
+    }
+  } else {
+    // Built-in Knowledge Base Fallback & Smart Matcher
+    setTimeout(() => {
+      let reply = "";
+      const lower = query.toLowerCase();
+
+      if (lower.includes('조치') || lower.includes('당위성') || lower.includes('4대') || lower.includes('참여')) {
+        reply = CHAPTER8_KB.involvement;
+      } else if (lower.includes('80/20') || lower.includes('경청') || lower.includes('pink') || lower.includes('우리') || lower.includes('그들')) {
+        reply = CHAPTER8_KB.listening;
+      } else if (lower.includes('실패') || lower.includes('문제점') || lower.includes('9대') || lower.includes('푸념')) {
+        reply = CHAPTER8_KB.committees_fail;
+      } else if (lower.includes('헌장') || lower.includes('charter') || lower.includes('목적 전치') || lower.includes('mission creep')) {
+        reply = CHAPTER8_KB.charter;
+      } else if (lower.includes('8.3') || lower.includes('상설') || lower.includes('분과') || lower.includes('adhoc') || lower.includes('특별팀')) {
+        reply = CHAPTER8_KB.architecture;
+      } else if (lower.includes('규칙') || lower.includes('35쪽') || lower.includes('함정') || lower.includes('징벌')) {
+        reply = CHAPTER8_KB.rules_book;
+      } else {
+        reply = `[챕터 8 내장 학습 엔진 답변]\n귀하의 질의: "${query}"\n\nChapter 8은 안전경영시스템(SMS)에서 직원 참여(Employee Involvement)의 전략적 설계를 다룹니다.\n• 현장 직원은 실제 위험에 가장 가까운 '대체 불가능한 문제 해결사'입니다.\n• 일방적 지시나 'Information Dump' 대신 '80/20 경청 법칙'과 'Just Ask'를 실천해야 합니다.\n• 안전위원회는 헌장(Team Charter), 3대 회의 역할(위원장, 서기, 시간관리자), 8대 상설 분과 및 Ad-hoc 특별팀으로 체계화되어야 실패를 방지할 수 있습니다.\n\n💡 실시간 AI 생성 답변을 원하시면 상단 [🔑 API 설정]에서 Gemini API Key를 등록해 보세요!`;
+      }
+      loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+    }, 600);
+  }
+}
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navLinks = document.querySelectorAll('#nav-menu-list .nav-link');
+navSearchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  navLinks.forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.parentElement.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Scrollspy
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('main section.section-box');
+  let currentId = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    if (window.scrollY >= top) {
+      currentId = sec.getAttribute('id');
+    }
+  });
+  if (currentId) {
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>

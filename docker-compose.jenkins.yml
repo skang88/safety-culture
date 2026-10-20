@@ -1,0 +1,30 @@
+# =========================================================================
+# SafePulse 360 - Jenkins Server (DooD: Docker-outside-of-Docker)
+# 젠킨스 CI/CD 서버 로컬/개발용 실행 설정
+# =========================================================================
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: safepulse-jenkins
+    restart: unless-stopped
+    user: root # 호스트의 docker.sock 접근을 위해 root 권한 부여
+    ports:
+      - "8080:8080" # 젠킨스 웹 대시보드
+      - "50000:50000" # 젠킨스 에이전트 포트
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock # 호스트 도커 데몬 바인딩
+      - /usr/local/bin/docker:/usr/bin/docker:ro   # 도커 CLI 바이너리 마운트 (시스템 환경에 맞게 조정)
+    environment:
+      - TZ=Asia/Seoul
+    networks:
+      - jenkins-network
+
+volumes:
+  jenkins_home:
+    driver: local
+
+networks:
+  jenkins-network:
+    driver: bridge

@@ -1,0 +1,1397 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 3: Analyzing and Using Your Network — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 280px;
+  --ai-panel-w: 380px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-cyan: #0891b2;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #7e22ce;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  height: var(--header-h);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-title span.sub {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.action-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.action-btn.primary {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border-color: var(--accent-blue);
+}
+.action-btn.primary:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
+/* App Wrapper: 3-column layout */
+.app-wrapper {
+  display: flex;
+  min-height: calc(100vh - var(--header-h));
+  position: relative;
+}
+
+/* Left Sidebar Navigation */
+aside.left-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  overflow-y: auto;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 13px;
+}
+.nav-search:focus {
+  outline: 2px solid var(--accent-blue);
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: all 0.15s ease;
+}
+.nav-link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent-blue);
+  transform: translateX(2px);
+}
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 700;
+  border-left: 3px solid var(--accent-blue);
+}
+.nav-link .icon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Center Content */
+main.main-content {
+  flex: 1;
+  padding: 32px 40px 100px;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-y: visible;
+}
+
+/* Right AI Panel */
+aside.right-ai-panel {
+  width: var(--ai-panel-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 950;
+}
+aside.right-ai-panel.collapsed {
+  transform: translateX(100%);
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+.ai-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ai-panel-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-status-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.ai-mode-bar {
+  padding: 10px 16px;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.ai-mode-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat-bubble {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 90%;
+  word-break: break-word;
+}
+.chat-bubble.ai {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  color: var(--text-main);
+}
+.chat-bubble.user {
+  background: var(--accent-blue);
+  color: #0b1120;
+  align-self: flex-end;
+  font-weight: 500;
+}
+.chat-bubble code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.ai-quick-questions {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.quick-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.quick-chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.ai-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+.ai-form {
+  display: flex;
+  gap: 8px;
+}
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  height: 44px;
+  min-height: 44px;
+  max-height: 100px;
+}
+.ai-input:focus {
+  outline: 2px solid var(--accent-blue);
+}
+.ai-send-btn {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+.ai-send-btn:hover { background: #0284c7; color: #fff; }
+
+/* API Key Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.modal-title { font-size: 18px; font-weight: 700; }
+.close-modal-btn { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+.modal-body { display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; }
+.modal-footer { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+
+/* Typography & Subnote Styles */
+h1.content-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+.content-meta {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 30px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+h2.sec-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3.sub-heading {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+p { margin-bottom: 14px; color: var(--text-sub); }
+strong { color: var(--text-main); }
+ul, ol { margin-left: 20px; margin-bottom: 16px; color: var(--text-sub); }
+li { margin-bottom: 6px; }
+
+/* Callouts / Alerts */
+.callout {
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 18px 0;
+  border-left: 4px solid;
+  background: var(--bg-card-sub);
+}
+.callout.quote {
+  border-color: var(--accent-purple);
+  font-style: italic;
+  background: rgba(168, 85, 247, 0.08);
+}
+.callout.info {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.08);
+}
+.callout.warning {
+  border-color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.08);
+}
+.callout.danger {
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.08);
+}
+.callout.success {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.08);
+}
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+}
+.callout.info .callout-title { color: var(--accent-blue); }
+.callout.warning .callout-title { color: var(--accent-gold); }
+.callout.danger .callout-title { color: var(--accent-red); }
+.callout.success .callout-title { color: var(--accent-green); }
+.callout.quote .callout-title { color: var(--accent-purple); font-style: normal; }
+
+/* Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 18px 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+table.custom-table th {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+}
+table.custom-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+table.custom-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Figures / Media Cards */
+.media-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  text-align: center;
+}
+.media-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+.media-card img:hover {
+  transform: scale(1.01);
+}
+.media-caption {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 12px;
+}
+.media-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+  line-height: 1.6;
+}
+
+/* Mermaid Wrapper */
+.mermaid-wrapper {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* Cards & Accordions */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+.sub-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.sub-card h4 {
+  font-size: 14.5px;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+details.custom-accordion {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.custom-accordion summary {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg-input);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details.custom-accordion summary:hover {
+  color: var(--accent-blue);
+}
+details.custom-accordion .accordion-body {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+}
+
+/* Interactive Prompt Box */
+.prompt-box {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(56, 189, 248, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.prompt-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.prompt-actions {
+  display: flex;
+  gap: 8px;
+}
+.copy-prompt-btn, .send-prompt-btn {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.copy-prompt-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.send-prompt-btn:hover { background: var(--accent-blue); color: #0b1120; border-color: var(--accent-blue); }
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #10b981;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 3000;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  aside.left-sidebar { width: 240px; }
+  aside.right-ai-panel { width: 340px; }
+}
+@media (max-width: 992px) {
+  aside.left-sidebar { display: none; }
+  main.main-content { padding: 24px 20px 80px; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="brand-area">
+    <div class="brand-badge">Chapter 03</div>
+    <div class="brand-title">사회 연결망 분석과 안전 밈 <span class="sub">Analyzing and Using Your Network</span></div>
+  </div>
+  <div class="header-actions">
+    <button class="action-btn" id="theme-toggle-btn" title="테마 전환">🌓 테마</button>
+    <button class="action-btn" id="api-key-btn" title="API 설정">🔑 API 설정</button>
+    <button class="action-btn primary" id="toggle-ai-btn" title="AI 학습 튜터 열기/닫기">💬 AI 학습 튜터</button>
+  </div>
+</header>
+
+<div class="app-wrapper">
+
+    <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <div class="sidebar-title">목차 바로가기 (Chapter 3)</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="목차 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-1-1-introduction" class="nav-link active">📌 1. INTRODUCTION (도입)</a></li>
+      <li><a href="#sec-2-2-the-importance-of-networking" class="nav-link">🌐 2. THE IMPORTANCE OF NETWORKING (네트워크의 전략적 중요성)</a></li>
+      <li><a href="#sec-3-3-informal-networks" class="nav-link">👥 3. INFORMAL NETWORKS (비공식 네트워크의 위력)</a></li>
+      <li><a href="#sec-4-4-analyzing-the-organizational" class="nav-link">🏢 4. ANALYZING THE ORGANIZATIONAL CHART TO ASSESS A NETWORK (네트워크 진단을 위한 조직도 분석)</a></li>
+      <li><a href="#sec-5-5-networking-considerations" class="nav-link">⚖️ 5. NETWORKING CONSIDERATIONS (네트워크 구축 시 고려사항)</a></li>
+      <li><a href="#sec-6-6-reality-check-indicator" class="nav-link">🎯 6. REALITY CHECK INDICATOR (현실 점검 지표)</a></li>
+      <li><a href="#sec-7-7-defining-the-basics-of-netwo" class="nav-link">📐 7. DEFINING THE BASICS OF NETWORKING THEORY (사회 연결망 이론의 기본 개념)</a></li>
+      <li><a href="#sec-8-8-the-safety-information-packe" class="nav-link">🧬 8. THE SAFETY INFORMATION PACKET—EPIDEMICS, VIRUSES, AND MEMES (안전 정보 패킷: 전염병, 바이러스, 그리고 밈)</a></li>
+      <li><a href="#sec-9-9-reality-versus-perception" class="nav-link">🔍 9. REALITY VERSUS PERCEPTION (객관적 현실 대 집단적 지각)</a></li>
+      <li><a href="#sec-10-10-common-safety-memes" class="nav-link">🗣️ 10. COMMON SAFETY MEMES (조직 내에 떠도는 흔한 안전 밈 분석)</a></li>
+      <li><a href="#sec-11-11-social-network-analysis-sna" class="nav-link">🔬 11. SOCIAL NETWORK ANALYSIS (사회 연결망 분석, SNA의 학술적 방법론)</a></li>
+      <li><a href="#sec-12-12-social-network-mapping" class="nav-link">🗺️ 12. SOCIAL NETWORK MAPPING (소셜 네트워크 지도 작성과 시각화)</a></li>
+      <li><a href="#sec-13-13-defining-the-roles-identifi" class="nav-link">🎭 13. DEFINING THE ROLES IDENTIFIED BY THE NETWORK MAP (네트워크 지도에 나타난 4대 핵심 역할)</a></li>
+      <li><a href="#sec-14-14-pipeline-of-communication" class="nav-link">🔄 14. PIPELINE OF COMMUNICATION (소통의 파이프라인과 우회 소통망)</a></li>
+      <li><a href="#sec-15-15-summary" class="nav-link">📝 15. SUMMARY (요약 및 핵심 결론)</a></li>
+      <li><a href="#sec-16-16-chapter-review-questions-10" class="nav-link">❓ 16. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</a></li>
+      <li><a href="#sec-17-17-bibliography" class="nav-link">📚 17. BIBLIOGRAPHY (참고 문헌)</a></li>
+    </ul>
+  </aside>
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="content-title">Chapter 3 Analyzing and Using Your Network</h1>
+    <div class="content-meta">
+      사회 연결망 분석과 안전 밈 심층 서브노트 | 출처: Safety Culture (Elsevier, 2019) | Academic Sub-Note &amp; Interactive Learning Suite
+    </div>
+
+    <section class="section-box" id="sec-1-1-introduction">
+      <h2 class="sec-heading">📌 1. INTRODUCTION (도입)</h2>
+<p>안전문화를 구축하고 확산시키는 과정은 단순히 위계적인 공식 규정을 전파하는 작업이 아닙니다. 실제 현장에서 안전에 대한 지각과 태도는 조직 구성원들 간의 <strong>비공식 사회적 연결망(Informal Social Network)</strong>을 통해 전염병이나 바이러스처럼 빠르게 복제되고 확산됩니다. 안전 전문가는 조직 내 네트워크의 역학을 분석하고 이를 능동적으로 활용할 줄 알아야 합니다.</p>
+<h3 class="sub-heading">📊 1.1 제3장의 핵심 학습 목표</h3>
+<ul>
+<li><strong>공식 조직도(Formal Org Chart)와 비공식 네트워크(Informal Network)의 근본적 차이와 상호작용을 규명한다.</strong></li>
+<li><strong>사회 연결망 이론(Social Network Theory)의 기본 개념(노드, 링크, 결속도)을 이해한다.</strong></li>
+<li><strong>안전 밈(Safety Memes)이 조직 내에서 복제되고 전파되는 메커니즘을 분석한다.</strong></li>
+<li><strong>사회 연결망 분석(SNA) 및 매핑 기법을 습득하여 조직 내 4대 핵심 역할자(중앙 연결자, 경계 스패너, 정보 브로커, 주변인)를 식별한다.</strong></li>
+<li><strong>막힘없는 위험 정보 유통을 위한 소통 파이프라인(Communication Pipeline)을 구축한다.</strong></li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-2-2-the-importance-of-networking">
+      <h2 class="sec-heading">🌐 2. THE IMPORTANCE OF NETWORKING (네트워크의 전략적 중요성)</h2>
+<p>안전 전문가는 고립된 규제 집행관이 아니라, 조직의 모든 계층과 부서를 잇는 <strong>'최고 연결 책임자'</strong>가 되어야 합니다.</p>
+<ul>
+<li><strong>자원과 정보의 흐름 통제</strong>:</li>
+</ul>
+<p>조직 내에서 권력과 자원, 그리고 위험 정보는 공식 계통도보다 친밀감과 신뢰에 기반한 사회적 네트워크를 통해 훨씬 빠르게 유통됩니다.</p>
+<ul>
+<li><strong>신뢰 자산(Trust Asset)의 형성</strong>:</li>
+</ul>
+<p>강력한 네트워크를 구축한 안전 전문가는 위기 상황 발생 시 공식 결재 라인을 단축하여 최고경영진과 현장에 즉각적인 안전 조치를 단행할 수 있는 비공식적 영향력(Informal Influence)을 획득합니다.</p>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-3-3-informal-networks">
+      <h2 class="sec-heading">👥 3. INFORMAL NETWORKS (비공식 네트워크의 위력)</h2>
+<p>조직에는 두 가지 조직도가 공존합니다:</p>
+<ul>
+<li><strong>공식 조직도 (Formal Organization Chart)</strong>: 회사의 직급, 부서 배치, 보고 체계를 규정한 정적 구조.</li>
+<li><strong>비공식 네트워크 (Informal Network)</strong>: 커피 타임, 흡연실, 동호회, 동향 모임 등 인간적 유대에 기반한 동적 연결망.</li>
+</ul>
+<ul>
+<li><strong>위험 정보의 전파 속도</strong>:</li>
+</ul>
+<p>현장의 유해위험요인이나 리스크에 대한 불만은 공식 안전 보고서보다 비공식 네트워크를 타고 훨씬 먼저, 그리고 왜곡 없이 공유됩니다. 안전 전문가가 비공식 네트워크와 단절되어 있다면 현장의 진짜 위험을 결코 알 수 없습니다.</p>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-4-4-analyzing-the-organizational">
+      <h2 class="sec-heading">🏢 4. ANALYZING THE ORGANIZATIONAL CHART TO ASSESS A NETWORK (네트워크 진단을 위한 조직도 분석)</h2>
+<p>공식 조직도를 분석할 때는 안전 부서의 물리적·위계적 위치를 비판적으로 검토해야 합니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 3.1 상세 분석] 전형적인 기업 조직도와 안전 기능의 위치</h3>
+<div class="media-card"><img src="image-47.png" alt="Fig 3.1"><div class="media-caption">Fig 3.1</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 3.1 상세 보충설명: 조직도 속 안전 부서의 고립 구조]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **구조 분석**: 최고경영자(CEO) 아래 운영본부(COO)나 인사본부(HR) 하위의 작은 단위로 안전팀이 편제되어 있는 전형적 구조.</p></div>
+<div class="callout warning"><div class="callout-title">⚠️ 주의 및 리스크</div><p style="margin-bottom:0;">* **한계점**: 안전 부서가 생산이나 인사 부서의 하위 팀으로 종속되어 있을 경우, 생산 목표와의 충돌 시 안전 의견이 경영진에게 직보되지 못하고 중간 관리자에 의해 필터링(은폐)될 위험이 극대화됩니다.</p></div>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 1] 조직도와 실제 소통의 괴리</h3>
+<ul>
+<li>조직도 상으로는 안전 관리자가 모든 부서에 권고를 내릴 수 있는 것처럼 보이지만, 실제로는 타 부서장들과의 인간적 신뢰 네트워크가 없으면 서류 한 장 통과시키지 못하는 무력한 상태에 빠지게 됩니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-5-5-networking-considerations">
+      <h2 class="sec-heading">⚖️ 5. NETWORKING CONSIDERATIONS (네트워크 구축 시 고려사항)</h2>
+<p>네트워크를 확장할 때는 사내 정치(Internal Politics)와 인간관계의 복잡성을 계산에 넣어야 합니다.</p>
+<ul>
+<li><strong>상호 호혜성 (Reciprocity)</strong>:</li>
+</ul>
+<p>안전팀이 타 부서의 업무(품질 향상, 생산성 병목 해소)를 적극적으로 도와줄 때, 타 부서 역시 안전팀의 예방 정책에 적극 협조하게 됩니다.</p>
+<ul>
+<li><strong>평판 관리</strong>:</li>
+</ul>
+<p>안전 관리자의 일관성 없는 태도나 약속 불이행은 비공식 네트워크를 통해 급속히 확산되어 전사적 신뢰를 순식간에 붕괴시킵니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🔍 [Observation 2 & 3] 신뢰와 평판의 파급력</h3>
+<ul>
+<li>사소한 안전 요청이라도 성심성의껏 해결해 준 경험이 현장 작업자들의 입소문(비공식 네트워크)을 타면서, 안전팀에 대한 현장의 전폭적 지지와 협조가 형성된 실제 사례를 입증합니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-6-6-reality-check-indicator">
+      <h2 class="sec-heading">🎯 6. REALITY CHECK INDICATOR (현실 점검 지표)</h2>
+<p>안전 전문가가 자신이 조직 내에서 실질적인 네트워크 중심에 있는지 점검하는 4대 자가 진단 지표입니다:</p>
+<p>---</p>
+<h3 class="sub-heading">💡 [Lesson Learned 1] 현실 점검 4대 질문</h3>
+<ul>
+<li>현장 직원이 유해위험요인을 발견했을 때, 복잡한 서류 절차 없이도 나에게 즉시 개인적으로 연락을 취하는가?</li>
+<li>생산 및 엔지니어링 부서가 새로운 공정을 도입할 때, 기획 초기 단계부터 나를 찾아와 사전 조율을 거치는가?</li>
+<li>최고경영진이 중대한 사업 결정을 내릴 때 나의 안전 리스크 분석 의견을 경청하는가?</li>
+<li>나는 사내의 비공식 오피니언 리더들과 주기적으로 격의 없는 대화를 나누고 있는가?</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-7-7-defining-the-basics-of-netwo">
+      <h2 class="sec-heading">📐 7. DEFINING THE BASICS OF NETWORKING THEORY (사회 연결망 이론의 기본 개념)</h2>
+<p>사회 연결망 이론(Social Network Theory)은 인간 집단의 관계를 수학적·과학적으로 분석하는 틀입니다.</p>
+<ul>
+<li><strong>노드 (Node)</strong>: 네트워크 안의 개별 구성원(개인, 팀, 부서).</li>
+<li><strong>링크/타이 (Link/Tie)</strong>: 노드 간의 상호작용 및 관계성(소통 빈도, 신뢰도, 정보 교환).</li>
+<li><strong>결속도 (Network Density)</strong>: 구성원들이 얼마나 촘촘하게 서로 연결되어 있는가를 나타내는 척도.</li>
+</ul>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 3.2 상세 분석] 3단계 영향력 법칙 (Three Degrees of Influence)</h3>
+<div class="media-card"><img src="image-48.png" alt="Fig 3.2"><div class="media-caption">Fig 3.2</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 3.2 상세 보충설명: 크리스타키스 & 파울러(2009)의 3단계 파급 메커니즘]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **1단계 (Direct Tie)**: 나의 직접적인 동료 (강력한 직접 영향).</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **2단계 (Friends' Friends)**: 동료의 동료 (간접 영향력 유지).</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **3단계 (Three Degrees)**: 동료의 동료의 동료 (사회적 전염의 유효 한계선).</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* **실무적 함의**: 안전 전문가가 현장의 핵심 리더 몇 명에게 올바른 안전 지각을 심어주면, 그 영향력은 3단계를 거쳐 수백 명의 전사 구성원에게까지 바이러스처럼 파급됩니다.</p></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-8-8-the-safety-information-packe">
+      <h2 class="sec-heading">🧬 8. THE SAFETY INFORMATION PACKET—EPIDEMICS, VIRUSES, AND MEMES (안전 정보 패킷: 전염병, 바이러스, 그리고 밈)</h2>
+<p>안전 정보와 태도는 마치 생물학적 바이러스나 전염병처럼 네트워크를 타고 이동합니다.</p>
+<ul>
+<li><strong>밈(Meme)의 개념</strong>:</li>
+</ul>
+<p>리처드 도킨스(Richard Dawkins, 1976)가 《이기적 유전자》에서 제시한 개념으로, 유전자가 생물학적 정보를 복제하듯 <strong>모방(Imitation)을 통해 뇌에서 뇌로 전달되는 문화적·사고적 정보 단위</strong>입니다.</p>
+<ul>
+<li><strong>안전 밈의 전파</strong>:</li>
+</ul>
+<p>"안전모 턱끈을 매지 않아도 괜찮다"는 위험한 태도 역시 하나의 강력한 밈으로 조직 내에 복제되어 순식간에 집단적 관행으로 고착화됩니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 3.3 & 3.4 상세 분석] 마음에서 마음으로 이동하는 밈과 연결선</h3>
+<div class="media-card"><img src="image-49.png" alt="Fig 3.3"><div class="media-caption">Fig 3.3</div></div>
+<div class="media-card"><img src="image-50.png" alt="Fig 3.4"><div class="media-caption">Fig 3.4</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 3.3 및 3.4 상세 보충설명: 밈의 뇌 간 전파 경로와 노드 간 연결선]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* 단 6명의 사람이 모여도 형성될 수 있는 잠재적 연결선은 기하급수적으로 증가하며, 안전 밈은 이 연결선을 타고 증폭됩니다.</p></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-9-9-reality-versus-perception">
+      <h2 class="sec-heading">🔍 9. REALITY VERSUS PERCEPTION (객관적 현실 대 집단적 지각)</h2>
+<p>조직의 안전 행동을 지배하는 것은 엔지니어링적인 '객관적 현실(Reality)'이 아니라, 네트워크 속에서 집단적으로 형성된 <strong>'주관적 지각(Perception)'</strong>입니다.</p>
+<ul>
+<li><strong>지각의 지배력</strong>:</li>
+</ul>
+<p>경영진이 아무리 훌륭한 안전 제도를 구축했다고 믿어도(현실), 직원들이 네트워크 속에서 "그건 우리를 감시하고 처벌하기 위한 수단이다"라고 지각하면 제도는 완전히 무력화됩니다.</p>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-10-10-common-safety-memes">
+      <h2 class="sec-heading">🗣️ 10. COMMON SAFETY MEMES (조직 내에 떠도는 흔한 안전 밈 분석)</h2>
+<p>조직 내에는 안전문화를 파괴하는 독성 밈과 이를 치유하는 건강한 밈이 대립합니다:</p>
+<ul>
+<li><strong>치명적인 독성 밈 (Toxic Memes)</strong>:</li>
+<li><em>"사고는 운이 나빠서 일어나는 것이다."</em></li>
+<li><em>"규정을 100% 다 지키다가는 납기를 맞출 수 없다."</em></li>
+<li><em>"안전팀은 현장을 모르는 탁상공론 집단이다."</em></li>
+<li><strong>바이러스처럼 확산시켜야 할 건강한 레질리언스 밈 (Healthy Memes)</strong>:</li>
+<li><em>"위험을 발견하면 누구나 당당하게 작업을 중지할 권리가 있다."</em></li>
+<li><em>"우리는 동료의 등 뒤를 지켜주는 형제다 (Brother's Keeper)."</em></li>
+<li><em>"아차사고 보고는 조직을 살리는 최고의 선물이다."</em></li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-11-11-social-network-analysis-sna">
+      <h2 class="sec-heading">🔬 11. SOCIAL NETWORK ANALYSIS (사회 연결망 분석, SNA의 학술적 방법론)</h2>
+<p>조직 내 비공식 네트워크를 정량적·시각적으로 분석하는 현대 경영학 및 행정학의 첨단 방법론입니다.</p>
+<ul>
+<li><strong>중심성 지표 (Centrality Metrics)</strong>:</li>
+<li><strong>연결 정도 중심성 (Degree Centrality)</strong>: 한 사람이 얼마나 많은 사람과 직접 연결되어 있는가.</li>
+<li><strong>매개 중심성 (Betweenness Centrality)</strong>: 부서와 부서 사이의 정보 흐름 길목을 얼마나 통제하고 있는가.</li>
+<li><strong>근접 중심성 (Closeness Centrality)</strong>: 전사 구성원들에게 얼마나 빠르게 정보를 전달할 수 있는가.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-12-12-social-network-mapping">
+      <h2 class="sec-heading">🗺️ 12. SOCIAL NETWORK MAPPING (소셜 네트워크 지도 작성과 시각화)</h2>
+<p>구성원 간의 실제 소통 데이터를 수집하여 2차원 네트워크 맵을 구축합니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 3.5 상세 분석] 소셜 네트워크 맵과 정보의 흐름</h3>
+<div class="media-card"><img src="image-51.png" alt="Fig 3.5"><div class="media-caption">Fig 3.5</div></div>
+<div class="callout info"><div class="callout-title">📋 상세 보충설명</div><p style="margin-bottom:0;">**[그림 3.5 상세 보충설명: 조직의 숨겨진 권력과 정보 허브 시각화]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* 공식 직급과 무관하게 네트워크 중심에 자리 잡고 있는 핵심 노드들을 시각적으로 명확히 규명합니다.</p></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-13-13-defining-the-roles-identifi">
+      <h2 class="sec-heading">🎭 13. DEFINING THE ROLES IDENTIFIED BY THE NETWORK MAP (네트워크 지도에 나타난 4대 핵심 역할)</h2>
+<p>소셜 네트워크 분석(Christakis & Fowler, 2009)을 통해 식별되는 4대 유형의 인물들:</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 3.6, 3.7, 3.8, 3.9 상세 분석] 4대 핵심 역할 모델</h3>
+<div class="media-card"><img src="image-52.png" alt="Fig 3.6"><div class="media-caption">Fig 3.6</div></div>
+<div class="media-card"><img src="image-53.png" alt="Fig 3.7"><div class="media-caption">Fig 3.7</div></div>
+<div class="media-card"><img src="image-54.png" alt="Fig 3.8"><div class="media-caption">Fig 3.8</div></div>
+<div class="media-card"><img src="image-55.png" alt="Fig 3.9"><div class="media-caption">Fig 3.9</div></div>
+<div class="table-responsive"><table class="custom-table">
+<thead><tr><th>역할자 유형</th><th>네트워크 상의 위치 및 특성</th><th>안전문화 혁신에서의 실무 전략</th></tr></thead>
+<tbody>
+<tr><td><strong>1. 중앙 연결자<br/>(Central Connectors)</strong></td><td>수많은 사람들과 직접 연결된 정보의 거대한 <strong>허브(Hub)</strong></td><td>안전 챔피언으로 임명하여 새로운 안전 방침을 전파하는 진원지로 활용</td></tr>
+<tr><td><strong>2. 경계 스패너<br/>(Boundary Spanners)</strong></td><td>상이한 부서(생산-안전-품질) 간의 장벽을 자유롭게 넘나드는 <strong>가교(Bridge)</strong></td><td>부서 간 사일로를 타파하고 안전 협업을 이끌어내는 핵심 파트너 (Lesson Learned 2)</td></tr>
+<tr><td><strong>3. 정보 브로커<br/>(Information Broker)</strong></td><td>전문 지식을 쥐고 적재적소에 유통시키는 <strong>지식의 수문장(Gatekeeper)</strong></td><td>최신 리스크 분석 기법과 법률 지식을 큐레이션하여 조직에 공급 (Observation 4)</td></tr>
+<tr><td><strong>4. 주변인/독불장군<br/>(Peripheral People)</strong></td><td>네트워크 외곽에 홀로 고립되어 있는 <strong>외톨이(Mavericks)</strong></td><td>최신 안전 지침에서 소외되어 사고 위험이 가장 높으므로 선제적 포섭 필요 (Observation 5)</td></tr>
+</tbody></table></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-14-14-pipeline-of-communication">
+      <h2 class="sec-heading">🔄 14. PIPELINE OF COMMUNICATION (소통의 파이프라인과 우회 소통망)</h2>
+<p>위험 정보는 단절 없이 흐르는 고속 파이프라인처럼 설계되어야 합니다.</p>
+<p>---</p>
+<h3 class="sub-heading">🖼️ [그림 3.10 상세 분석] 소통 파이프라인과 우회 경로</h3>
+<div class="media-card"><img src="image-56.png" alt="Fig 3.10"><div class="media-caption">Fig 3.10</div></div>
+<div class="callout warning"><div class="callout-title">⚠️ 주의 및 리스크</div><p style="margin-bottom:0;">**[그림 3.10 상세 보충설명: 긴급 위험 정보의 우회 전달 (Short-Circuiting)]**</p></div>
+<div class="callout info"><div class="callout-title">💡 상세 분석</div><p style="margin-bottom:0;">* 공식 계통이 관료주의로 막혔을 때, 안전 네트워크를 통해 최고 의사결정권자에게 직보할 수 있는 비상 우회 밸브의 필요성을 입증합니다.</p></div>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-15-15-summary">
+      <h2 class="sec-heading">📝 15. SUMMARY (요약 및 핵심 결론)</h2>
+<ul>
+<li><strong>안전문화는 공식 조직도보다 비공식 사회 연결망(Informal Networks)을 통해 훨씬 강력하게 전파됩니다.</strong></li>
+<li>안전 행동과 신념은 모방을 통해 뇌에서 뇌로 복제되는 <strong>'안전 밈(Safety Memes)'</strong>의 형태로 작동합니다.</li>
+<li>크리스타키스와 파울러의 <strong>3단계 영향력 법칙</strong>에 따라, 핵심 리더의 올바른 안전 실천은 3단계 너머의 동료에게까지 전염됩니다.</li>
+<li>안전 전문가는 스스로 <strong>'경계 스패너(Boundary Spanner)'</strong>이자 <strong>'정보 브로커'</strong>가 되어 부서 간 사일로를 허물고 고립된 주변인을 적극 포섭해야 합니다.</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-16-16-chapter-review-questions-10">
+      <h2 class="sec-heading">❓ 16. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</h2>
+<ul>
+<li><strong>공식 조직도와 비공식 네트워크의 차이</strong>: 두 체계가 안전 정보 유통 속도와 진실성에 미치는 상이한 영향은?</li>
+<li><strong>크리스타키스 & 파울러의 3단계 영향력 법칙</strong>: 개인의 안전 행동이 조직 전체로 파급되는 수학적·사회적 원리는?</li>
+<li><strong>안전 밈(Safety Meme)의 복제 메커니즘</strong>: 현장의 불안전한 지름길(Shortcut) 관행이 어떻게 밈처럼 번져나가는가?</li>
+<li><strong>사회 연결망 분석(SNA)의 3대 중심성 지표</strong>: 연결 정도, 매개, 근접 중심성이 안전 리더 발굴에 기여하는 바는?</li>
+<li><strong>중앙 연결자(Central Connector)의 활용 방안</strong>: 허브 역할을 하는 현장 오피니언 리더를 안전 파트너로 포섭하는 전략은?</li>
+<li><strong>경계 스패너(Boundary Spanner)로서의 안전 전문가</strong>: 부서 간 사일로를 넘나들며 협업을 이끌어내는 소통 기법은?</li>
+<li><strong>주변인(Peripheral People)의 잠재 리스크</strong>: 네트워크 외곽에 방치된 작업자가 중대재해를 유발하는 메커니즘과 대책은?</li>
+<li><strong>정보 브로커(Information Broker)와 큐레이션</strong>: 전문 안전 정보를 비즈니스 언어로 가공하여 공급하는 방법은?</li>
+<li><strong>소통 파이프라인과 우회 경로(Short-Circuiting)</strong>: 급박한 위험 상황에서 공식 결재 라인을 단축하여 직보하는 원칙은?</li>
+<li><strong>현실 점검 4대 지표(Reality Check Indicators)</strong>: 안전 전문가 자신의 네트워크 영향력을 스스로 평가하는 기준은?</li>
+</ul>
+<p>---</p>
+    </section>
+
+    <section class="section-box" id="sec-17-17-bibliography">
+      <h2 class="sec-heading">📚 17. BIBLIOGRAPHY (참고 문헌)</h2>
+<ul>
+<li>Christakis, N. A., & Fowler, J. H. (2009). <em>Connected: The Surprising Power of Our Social Networks and How They Shape Our Lives</em>. Back Bay Books.</li>
+<li>Cross, R., & Parker, A. (2004). <em>The Hidden Power of Social Networks: Understanding How Work Really Gets Done in Organizations</em>. Harvard Business School Press.</li>
+<li>Dawkins, R. (1976). <em>The Selfish Gene</em>. Oxford University Press.</li>
+<li>Granovetter, M. S. (1973). <em>The Strength of Weak Ties</em>. American Journal of Sociology, 78(6), 1360-1380.</li>
+<li>Rogers, E. M. (2003). <em>Diffusion of Innovations</em> (5th ed.). Free Press.</li>
+</ul>
+    </section>
+  </main>
+
+
+  <!-- Right AI Tutor Panel -->
+  <aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-panel-header">
+      <h3>🤖 안전문화 AI 튜터 (Ch.3)</h3>
+      <span class="ai-status-tag" id="ai-status-tag">내장 지식엔진</span>
+    </div>
+    
+    <div class="ai-mode-bar">
+      <span>엔진 선택:</span>
+      <select class="ai-mode-select" id="ai-engine-select">
+        <option value="builtin">내장 지식 엔진 (Built-in)</option>
+        <option value="gemini">Google Gemini API</option>
+        <option value="openai">OpenAI API</option>
+      </select>
+    </div>
+
+    <!-- Quick Question Chips -->
+    <div class="ai-quick-questions">
+      <div class="quick-chip" data-q="발현적 속성(Emergent Property)이란 무엇인가요?">🌱 발현적 속성 정의</div>
+      <div class="quick-chip" data-q="몬탄테의 안전 정의와 'Safety First' 비판 이유는?">🔬 몬탄테의 안전 정의</div>
+      <div class="quick-chip" data-q="래드포드 모델에서 리더십과 안전 부서의 갈등 원인은?">🔀 래드포드 갈등 기제</div>
+      <div class="quick-chip" data-q="아이젠하워 제2분면과 안전문화 구축의 연관성은?">⏱️ 2분면 시간 관리</div>
+      <div class="quick-chip" data-q="오리엔테이션과 온보딩의 본질적 차이는?">🚀 온보딩 vs 오리엔테이션</div>
+      <div class="quick-chip" data-q="조직 마찰(Friction)과 윤활 메커니즘을 설명해주세요.">⚙️ 조직 마찰과 윤활</div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="chat-bubble ai">
+        반갑습니다! <strong>Chapter 1 (Defining the Perception of Safety)</strong> 전문 AI 학습 튜터입니다. 🎓<br><br>
+        발현적 속성, 몬탄테의 정의, 래드포드 의사결정 모델, 시간 관리 매트릭스, 온보딩 등 본 챕터의 핵심 이론과 실무 적용에 대해 무엇이든 질문해 주세요!
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="ai-input-area">
+      <form class="ai-form" id="ai-chat-form">
+        <textarea class="ai-input" id="ai-user-input" placeholder="질문을 입력하세요... (Enter로 전송)"></textarea>
+        <button type="submit" class="ai-send-btn">전송</button>
+      </form>
+    </div>
+  </aside>
+
+</div>
+
+<!-- Modal: API Settings -->
+<div class="modal-overlay" id="api-modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">🔑 API 연동 설정</h3>
+      <button class="close-modal-btn" id="close-modal-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13px; color: var(--text-muted);">
+        Google Gemini API Key 또는 OpenAI API Key를 등록하면 실시간 대규모 언어 모델을 통해 보다 정밀한 학술 분석 및 질의응답을 제공받을 수 있습니다. (키는 브라우저 로컬 스토리지에만 저장됩니다.)
+      </p>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini API Key</label>
+        <input type="password" id="gemini-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="AIzaSy...">
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini Model</label>
+        <select id="gemini-model-select" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;">
+          <option value="gemini-1.5-flash">gemini-1.5-flash (빠른 응답)</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro (심화 학술 분석)</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">OpenAI API Key (선택사항)</label>
+        <input type="password" id="openai-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="sk-...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" id="clear-key-btn">초기화</button>
+      <button class="action-btn primary" id="save-key-btn">저장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Message -->
+<div class="toast" id="toast-msg">알림 메시지</div>
+
+<script>
+// Built-in Knowledge Base for Chapter 1
+const CHAPTER1_KB = {
+  emergent: `[발현적 속성(Emergent Property) 핵심 해설]\n• 정의: 하위 구성 요소들이 상호 제약적 관계(Constraining relations) 속에서 결합할 때 상위 시스템 차원에서 새롭게 나타나는 예측 불가능한 고유 속성입니다 (Emergent Property, 2018).\n• 안전문화 연계: 안전은 특정 안전 부서만의 개별 프로그램이 아닙니다. 조직의 6대 영역(환경, 구조, 과업, 기술, 인간-사회, 목표)이 유기적으로 맞물려 작동할 때 비로소 조직 전체에서 '안전한 환경' 또는 '불안전한 환경'이 최종 발현됩니다.`,
+  montante: `[윌리엄 몬탄테의 안전 정의 및 비판]\n• 정의: "안전이란 리스크와 그로부터 파생된 유해위험요인이 수용 가능하거나(Acceptable) 통제 하에 있다(In control)고 판단되는 존재 상태(State of being)이다" (Montante, 2006).\n• 패러다임 전환: 몬탄테는 'Safety First', 'Think Safety'와 같은 공허한 전통적 구호(Mantra)를 폐기할 것을 촉구했습니다. 대신 현장의 모든 구성원이 스스로 '유해위험요인 제어 관리자(Hazard Control Manager)'로서 위험을 어떻게 통제하고 있는지 증명할 수 있는 개인적·조직적 숙달(Mastery)을 요구합니다.`,
+  radford: `[래드포드(Radford, 1988)의 의사결정 모델과 갈등 기제]\n• 경영 리더십(비구조화된 상황): 정보의 불완전성, 비용/편익 정량화 불가, 수많은 이해관계자와 다중 목표 속에서 수학적 최적해가 불가능하므로 타협안인 '만족화(Satisficing)' 결정을 내립니다.\n• 안전 부서(구조화된 상황): 단일 목표(무사고)와 단일 규정을 근거로 '단일 최적해(Rational decision)'만을 고집합니다.\n• 갈등의 본질: 리더십이 불확실성 속에서 비즈니스 결정을 내릴 때, 안전 부서가 단순 규제 위협("예산 안 주면 처벌받는다")만 가하면 상호 불신과 갈등이 폭발합니다.`,
+  eisenhower: `[시간 관리 매트릭스와 제2분면의 중요성]\n• 스티븐 코비와 아이젠하워의 4분면 매트릭스에서 안전문화가 발전하는 핵심 영역은 바로 제2분면(긴급하지 않지만 중요한 영역: DECIDE)입니다.\n• 위험성평가(JHA), 비상대응계획, 안전 교육 체계화 등은 당장 발등에 불이 떨어진 위기가 아니기 때문에 1분면(사고 수습)이나 3분면(잡무)에 밀리기 쉽습니다.\n• 안전 관리자는 '활동의 덫(Activity Trap)'에서 벗어나 의식적으로 제2분면에 시간을 투자해야 합니다.`,
+  onboarding: `[오리엔테이션 vs. 온보딩의 본질적 차이]\n• 오리엔테이션: 입사 직후 인사부서에서 복리후생, 사내 규정 등을 전달하는 1회성 단발 집체 교육(1일~2주).\n• 온보딩: 채용 합격부터 완전한 성과 창출 구성원으로 안착할 때까지 수개월~1년 이상 지속되는 맞춤형·진화형 프로세스.\n• 실무 수칙: 톰 피터스의 MBWA(Management By Wandering Around)를 실천하되, 현장 작업자의 말을 들을 때는 수첩을 적지 말고 전적으로 경청(Just Listen)해야 신뢰를 얻습니다.`,
+  friction: `[조직 마찰(Friction)과 윤활 메커니즘 (Fig 1.8)]\n• 조직 마찰은 상이한 부서의 전문성과 목표 불일치에서 자연스럽게 발생합니다.\n• 리더십(녹색 기어), 안전 부서(분홍 기어), 현장 직원(노란 기어)의 세 톱니바퀴가 중앙의 안전문화(파란 기어)를 구동합니다.\n• 리더십의 적극적인 제도적 지원과 왜곡 없는 열린 소통이 바로 기어가 맞물려 돌아가게 하는 '윤활유(Oil can)' 역할을 합니다.`
+};
+
+const PROMPTS_DATA = {
+  p1: `당신은 안전문화 및 주관성 연구(Q방법론) 전문 교수입니다.
+Elsevier의 'Safety Culture' Chapter 1(Defining the Perception of Safety)의 핵심 이론(상대적 위험 수용성, 몬탄테의 안전 정의, 래드포드의 복합 의사결정 모델, 6대 핵심 신념 간극 등)을 바탕으로 현장 작업자와 관리자 집단의 안전 지각 유형을 실증 분석하기 위한 Q-진술문(Q-Sample) 34개를 도출하고 범주별 설계 논리를 제시해 주십시오.`,
+  p2: `Chapter 1의 래드포드(Radford) 의사결정 모델(Fig 1.11)에 따르면 경영 리더십은 불확실성과 다중 목표 속에서 '만족화(Satisficing)' 결정을 내리는 반면, 안전 전문가는 단일 규범에 기반한 '단일 최적해'를 고집하여 갈등이 발생합니다.
+신임 안전 관리자가 이러한 구조적 갈등을 극복하고 경영진과 비즈니스 언어로 소통하며 안전 예산을 확보하기 위한 구체적 5단계 커뮤니케이션 전략을 수립해 주십시오.`
+};
+
+// DOM References
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const apiKeyBtn = document.getElementById('api-key-btn');
+const apiModalOverlay = document.getElementById('api-modal-overlay');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const saveKeyBtn = document.getElementById('save-key-btn');
+const clearKeyBtn = document.getElementById('clear-key-btn');
+const geminiKeyInput = document.getElementById('gemini-key-input');
+const geminiModelSelect = document.getElementById('gemini-model-select');
+const openaiKeyInput = document.getElementById('openai-key-input');
+const aiEngineSelect = document.getElementById('ai-engine-select');
+const aiStatusTag = document.getElementById('ai-status-tag');
+const aiChatForm = document.getElementById('ai-chat-form');
+const aiUserInput = document.getElementById('ai-user-input');
+const aiChatMessages = document.getElementById('ai-chat-messages');
+const toastMsg = document.getElementById('toast-msg');
+
+// LocalStorage State
+let storedGeminiKey = localStorage.getItem('chapter1_gemini_key') || '';
+let storedOpenaiKey = localStorage.getItem('chapter1_openai_key') || '';
+let storedModel = localStorage.getItem('chapter1_gemini_model') || 'gemini-1.5-flash';
+
+if (storedGeminiKey) {
+  geminiKeyInput.value = storedGeminiKey;
+  aiEngineSelect.value = 'gemini';
+  aiStatusTag.textContent = 'Gemini API 연동';
+  aiStatusTag.style.color = '#38bdf8';
+}
+
+// Theme Toggle
+themeToggleBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const target = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', target);
+  localStorage.setItem('chapter1_theme', target);
+});
+
+if (localStorage.getItem('chapter1_theme')) {
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('chapter1_theme'));
+}
+
+// AI Panel Toggle
+toggleAiBtn.addEventListener('click', () => {
+  rightAiPanel.classList.toggle('collapsed');
+});
+
+// Modal Logic
+apiKeyBtn.addEventListener('click', () => apiModalOverlay.classList.add('active'));
+closeModalBtn.addEventListener('click', () => apiModalOverlay.classList.remove('active'));
+apiModalOverlay.addEventListener('click', (e) => {
+  if (e.target === apiModalOverlay) apiModalOverlay.classList.remove('active');
+});
+
+saveKeyBtn.addEventListener('click', () => {
+  storedGeminiKey = geminiKeyInput.value.trim();
+  storedOpenaiKey = openaiKeyInput.value.trim();
+  storedModel = geminiModelSelect.value;
+  localStorage.setItem('chapter1_gemini_key', storedGeminiKey);
+  localStorage.setItem('chapter1_openai_key', storedOpenaiKey);
+  localStorage.setItem('chapter1_gemini_model', storedModel);
+
+  if (storedGeminiKey) {
+    aiEngineSelect.value = 'gemini';
+    aiStatusTag.textContent = 'Gemini API 연동';
+    aiStatusTag.style.color = '#38bdf8';
+  } else {
+    aiEngineSelect.value = 'builtin';
+    aiStatusTag.textContent = '내장 지식엔진';
+    aiStatusTag.style.color = '';
+  }
+  apiModalOverlay.classList.remove('active');
+  showToast('API 설정이 저장되었습니다. ✅');
+});
+
+clearKeyBtn.addEventListener('click', () => {
+  geminiKeyInput.value = '';
+  openaiKeyInput.value = '';
+  localStorage.removeItem('chapter1_gemini_key');
+  localStorage.removeItem('chapter1_openai_key');
+  storedGeminiKey = '';
+  storedOpenaiKey = '';
+  aiEngineSelect.value = 'builtin';
+  aiStatusTag.textContent = '내장 지식엔진';
+  aiStatusTag.style.color = '';
+  showToast('API 키가 삭제되었습니다.');
+});
+
+// Toast Helper
+function showToast(msg) {
+  toastMsg.textContent = msg;
+  toastMsg.classList.add('show');
+  setTimeout(() => toastMsg.classList.remove('show'), 2500);
+}
+
+// Copy Prompt Buttons
+document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('프롬프트가 클립보드에 복사되었습니다! 📋');
+      });
+    }
+  });
+});
+
+// Send Prompt to AI Panel
+document.querySelectorAll('.send-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      if (rightAiPanel.classList.contains('collapsed')) {
+        rightAiPanel.classList.remove('collapsed');
+      }
+      aiUserInput.value = text;
+      handleSendMessage();
+    }
+  });
+});
+
+// Quick Chips
+document.querySelectorAll('.quick-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (rightAiPanel.classList.contains('collapsed')) {
+      rightAiPanel.classList.remove('collapsed');
+    }
+    aiUserInput.value = chip.getAttribute('data-q');
+    handleSendMessage();
+  });
+});
+
+// Append Message to Chat
+function appendMessage(role, text) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = text.replace(/\n/g, '<br>');
+  aiChatMessages.appendChild(bubble);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return bubble;
+}
+
+// Handle AI Chat Form Submission
+aiChatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleSendMessage();
+});
+
+// Enter key submit in textarea (Shift+Enter for newline)
+aiUserInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSendMessage();
+  }
+});
+
+async function handleSendMessage() {
+  const query = aiUserInput.value.trim();
+  if (!query) return;
+
+  appendMessage('user', query);
+  aiUserInput.value = '';
+
+  const loadingBubble = appendMessage('ai', '답변을 생성하고 있습니다... 💭');
+  const engine = aiEngineSelect.value;
+
+  if (engine === 'gemini' && storedGeminiKey) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${storedModel}:generateContent?key=${storedGeminiKey}`;
+      const systemContext = `당신은 Elsevier 명저 'Safety Culture' Chapter 1 (Defining the Perception of Safety)의 학술 지도 교수이자 안전문화 전문 AI입니다. 원문의 이론(발현적 속성, 상대적 위험 수용성, 몬탄테의 안전 정의, French & Bell의 6대 연동 영역, Radford 복합 의사결정 모델, Table 1.1 핵심 신념 간극, 아이젠하워 4분면, 디버전 수레바퀴, 온보딩과 MBWA 경청 등)에 근거하여 엄밀하고 학술적이며 실무적인 답변을 제공하십시오.`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: `${systemContext}\n\n질문/요청사항:\n${query}` }]
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        loadingBubble.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+      } else {
+        loadingBubble.innerHTML = `⚠️ Gemini API 응답 오류: ${data.error?.message || '응답을 생성할 수 없습니다.'}`;
+      }
+    } catch (err) {
+      loadingBubble.innerHTML = `⚠️ 네트워크 또는 API 호출 실패: ${err.message}<br><small>내장 지식 모드로 전환해 답변을 확인하세요.</small>`;
+    }
+  } else {
+    // Built-in Knowledge Base Fallback & Smart Matcher
+    setTimeout(() => {
+      let reply = "";
+      const lower = query.toLowerCase();
+
+      if (lower.includes('발현') || lower.includes('emergent') || lower.includes('속성')) {
+        reply = CHAPTER1_KB.emergent;
+      } else if (lower.includes('몬탄테') || lower.includes('montante') || lower.includes('safety first') || lower.includes('구호')) {
+        reply = CHAPTER1_KB.montante;
+      } else if (lower.includes('래드포드') || lower.includes('radford') || lower.includes('갈등') || lower.includes('의사결정')) {
+        reply = CHAPTER1_KB.radford;
+      } else if (lower.includes('시간') || lower.includes('아이젠하워') || lower.includes('코비') || lower.includes('2분면') || lower.includes('matrix')) {
+        reply = CHAPTER1_KB.eisenhower;
+      } else if (lower.includes('온보딩') || lower.includes('onboarding') || lower.includes('오리엔테이션') || lower.includes('mbwa')) {
+        reply = CHAPTER1_KB.onboarding;
+      } else if (lower.includes('마찰') || lower.includes('friction') || lower.includes('톱니바퀴') || lower.includes('기어')) {
+        reply = CHAPTER1_KB.friction;
+      } else {
+        reply = `[Chapter 1 내장 지식엔진 답변]\n질의: "${query}"\n\nChapter 1 'Defining the Perception of Safety'에서는 안전문화 확립에서 '지각(Perception)'의 전환을 가장 핵심적인 요소로 규정합니다.\n• 안전은 고립된 프로그램이 아니라 시스템 전체의 '발현적 속성(Emergent Property)'입니다.\n• 경영진의 불확실한 '만족화' 의사결정과 안전 부서의 '단일 최적해' 의사결정 간의 차이(Radford 모델)를 극복하기 위해 비즈니스 공통 언어로 소통해야 합니다.\n• 아이젠하워 제2분면(위험성평가, 장기 전략)을 보호하고, 체계적인 안전 온보딩을 통해 조직문화를 내재화해야 합니다.\n\n💡 상단 [🔑 API 설정]에서 Gemini API Key를 등록하시면 실시간 생성형 심화 분석을 받으실 수 있습니다!`;
+      }
+      loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+    }, 500);
+  }
+}
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navLinks = document.querySelectorAll('#nav-menu-list .nav-link');
+navSearchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  navLinks.forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.parentElement.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Scrollspy for active link
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('main section.section-box');
+  let currentId = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    if (window.scrollY >= top) {
+      currentId = sec.getAttribute('id');
+    }
+  });
+  if (currentId) {
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>

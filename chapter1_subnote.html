@@ -1,0 +1,2215 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 1: Defining the Perception of Safety — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 280px;
+  --ai-panel-w: 380px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-cyan: #0891b2;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #7e22ce;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  height: var(--header-h);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-title span.sub {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.action-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.action-btn.primary {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border-color: var(--accent-blue);
+}
+.action-btn.primary:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
+/* App Wrapper: 3-column layout */
+.app-wrapper {
+  display: flex;
+  min-height: calc(100vh - var(--header-h));
+  position: relative;
+}
+
+/* Left Sidebar Navigation */
+aside.left-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  overflow-y: auto;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 13px;
+}
+.nav-search:focus {
+  outline: 2px solid var(--accent-blue);
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: all 0.15s ease;
+}
+.nav-link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent-blue);
+  transform: translateX(2px);
+}
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 700;
+  border-left: 3px solid var(--accent-blue);
+}
+.nav-link .icon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Center Content */
+main.main-content {
+  flex: 1;
+  padding: 32px 40px 100px;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-y: visible;
+}
+
+/* Right AI Panel */
+aside.right-ai-panel {
+  width: var(--ai-panel-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 950;
+}
+aside.right-ai-panel.collapsed {
+  transform: translateX(100%);
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+.ai-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ai-panel-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-status-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.ai-mode-bar {
+  padding: 10px 16px;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.ai-mode-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat-bubble {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 90%;
+  word-break: break-word;
+}
+.chat-bubble.ai {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  color: var(--text-main);
+}
+.chat-bubble.user {
+  background: var(--accent-blue);
+  color: #0b1120;
+  align-self: flex-end;
+  font-weight: 500;
+}
+.chat-bubble code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.ai-quick-questions {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.quick-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.quick-chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.ai-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+.ai-form {
+  display: flex;
+  gap: 8px;
+}
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  height: 44px;
+  min-height: 44px;
+  max-height: 100px;
+}
+.ai-input:focus {
+  outline: 2px solid var(--accent-blue);
+}
+.ai-send-btn {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+.ai-send-btn:hover { background: #0284c7; color: #fff; }
+
+/* API Key Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.modal-title { font-size: 18px; font-weight: 700; }
+.close-modal-btn { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+.modal-body { display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; }
+.modal-footer { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+
+/* Typography & Subnote Styles */
+h1.content-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+.content-meta {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 30px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+h2.sec-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3.sub-heading {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+p { margin-bottom: 14px; color: var(--text-sub); }
+strong { color: var(--text-main); }
+ul, ol { margin-left: 20px; margin-bottom: 16px; color: var(--text-sub); }
+li { margin-bottom: 6px; }
+
+/* Callouts / Alerts */
+.callout {
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 18px 0;
+  border-left: 4px solid;
+  background: var(--bg-card-sub);
+}
+.callout.quote {
+  border-color: var(--accent-purple);
+  font-style: italic;
+  background: rgba(168, 85, 247, 0.08);
+}
+.callout.info {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.08);
+}
+.callout.warning {
+  border-color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.08);
+}
+.callout.danger {
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.08);
+}
+.callout.success {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.08);
+}
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+}
+.callout.info .callout-title { color: var(--accent-blue); }
+.callout.warning .callout-title { color: var(--accent-gold); }
+.callout.danger .callout-title { color: var(--accent-red); }
+.callout.success .callout-title { color: var(--accent-green); }
+.callout.quote .callout-title { color: var(--accent-purple); font-style: normal; }
+
+/* Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 18px 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+table.custom-table th {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+}
+table.custom-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+table.custom-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Figures / Media Cards */
+.media-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  text-align: center;
+}
+.media-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+.media-card img:hover {
+  transform: scale(1.01);
+}
+.media-caption {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 12px;
+}
+.media-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+  line-height: 1.6;
+}
+
+/* Mermaid Wrapper */
+.mermaid-wrapper {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* Cards & Accordions */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+.sub-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.sub-card h4 {
+  font-size: 14.5px;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+details.custom-accordion {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.custom-accordion summary {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg-input);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details.custom-accordion summary:hover {
+  color: var(--accent-blue);
+}
+details.custom-accordion .accordion-body {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+}
+
+/* Interactive Prompt Box */
+.prompt-box {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(56, 189, 248, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.prompt-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.prompt-actions {
+  display: flex;
+  gap: 8px;
+}
+.copy-prompt-btn, .send-prompt-btn {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.copy-prompt-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.send-prompt-btn:hover { background: var(--accent-blue); color: #0b1120; border-color: var(--accent-blue); }
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #10b981;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 3000;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  aside.left-sidebar { width: 240px; }
+  aside.right-ai-panel { width: 340px; }
+}
+@media (max-width: 992px) {
+  aside.left-sidebar { display: none; }
+  main.main-content { padding: 24px 20px 80px; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="brand-area">
+    <div class="brand-badge">Chapter 01</div>
+    <div class="brand-title">
+      안전 지각의 정의 <span class="sub">Defining the Perception of Safety</span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="action-btn" id="theme-toggle-btn" title="테마 전환">🌓 테마</button>
+    <button class="action-btn" id="api-key-btn" title="API 설정">🔑 API 설정</button>
+    <button class="action-btn primary" id="toggle-ai-btn" title="AI 학습 튜터 열기/닫기">💬 AI 학습 튜터</button>
+  </div>
+</header>
+
+<div class="app-wrapper">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <div class="sidebar-title">목차 바로가기 (26개 원문 체계)</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="목차 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-1-introduction" class="nav-link active">📌 1. INTRODUCTION (도입)</a></li>
+      <li><a href="#sec-2-defining-safety" class="nav-link">📖 2. DEFINING SAFETY (안전의 정의)</a></li>
+      <li><a href="#sec-3-emergent-property" class="nav-link">🌱 3. SAFETY AS AN EMERGENT PROPERTY (발현적 속성)</a></li>
+      <li><a href="#sec-4-perception-of-safety" class="nav-link">🎯 4. THE PERCEPTION OF SAFETY (안전 지각)</a></li>
+      <li><a href="#sec-5-perceived-in-org" class="nav-link">👷 5. HOW IS THE SAFETY PROFESSIONAL PERCEIVED?</a></li>
+      <li><a href="#sec-6-perception-comes-first" class="nav-link">👔 6. PERCEPTION COMES FIRST (지각 우선의 법칙)</a></li>
+      <li><a href="#sec-7-personal-branding" class="nav-link">🌉 7. PERSONAL BRANDING (퍼스널 브랜딩)</a></li>
+      <li><a href="#sec-8-organizational-friction" class="nav-link">⚙️ 8. ORGANIZATIONAL FRICTION? (조직 내 마찰)</a></li>
+      <li><a href="#sec-9-mental-model" class="nav-link">🧠 9. WHAT IS THE MENTAL MODEL FOR SAFETY?</a></li>
+      <li><a href="#sec-10-multidisciplinary" class="nav-link">🏛️ 10. SAFETY, A MULTIDISCIPLINARY PROFESSION</a></li>
+      <li><a href="#sec-11-lesson-learned-1" class="nav-link">💡 11. LESSON LEARNED 1 (키워드 매칭 전략)</a></li>
+      <li><a href="#sec-12-lesson-learned-2" class="nav-link">📋 12. LESSON LEARNED 2 (직무 갭 & SWOT)</a></li>
+      <li><a href="#sec-13-time-matrix" class="nav-link">⏱️ 13. USING A TIME MANAGEMENT MATRIX</a></li>
+      <li><a href="#sec-14-safety-at-a-crossroad" class="nav-link">🔀 14. SAFETY AT A CROSSROAD (기로에 선 안전)</a></li>
+      <li><a href="#sec-15-same-language" class="nav-link">🗣️ 15. DO WE SPEAK THE SAME LANGUAGE?</a></li>
+      <li><a href="#sec-16-startup-to-status-quo" class="nav-link">📈 16. FROM STARTUP TO STATUS QUO</a></li>
+      <li><a href="#sec-17-circle-of-diversion" class="nav-link">🎡 17. THE CIRCLE OF DIVERSION (방해 요소)</a></li>
+      <li><a href="#sec-18-changing-perception" class="nav-link">🔄 18. CHANGING THE PERCEPTION OF THE SAFETY PRO</a></li>
+      <li><a href="#sec-19-orientation-vs-onboarding" class="nav-link">🚀 19. ORIENTATION VS. ONBOARDING (온보딩)</a></li>
+      <li><a href="#sec-20-summary" class="nav-link">📝 20. SUMMARY (요약 및 결론)</a></li>
+      <li><a href="#sec-21-review-questions" class="nav-link">❓ 21. CHAPTER REVIEW QUESTIONS (복습 문제 12문항)</a></li>
+      <li><a href="#sec-22-appendix-1-1" class="nav-link">📁 22. APPENDIX 1.1 (직무기술서 분석)</a></li>
+      <li><a href="#sec-23-appendix-1-2" class="nav-link">📁 23. APPENDIX 1.2 (직무 갭 분석 양식)</a></li>
+      <li><a href="#sec-24-appendix-1-3" class="nav-link">📁 24. APPENDIX 1.3 (지각 자기평가 인벤토리)</a></li>
+      <li><a href="#sec-25-appendix-1-4" class="nav-link">📁 25. APPENDIX 1.4 (온보딩 심화 & 30일 지침)</a></li>
+      <li><a href="#sec-26-bibliography" class="nav-link">📚 26. BIBLIOGRAPHY (참고 문헌)</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="content-title">Chapter 1 Defining the Perception of Safety</h1>
+      
+
+    <section class="section-box" id="sec-1-introduction">
+<h2 class="sec-heading">📌 1. INTRODUCTION (도입)</h2>
+      <p>
+        조직의 안전문화(Safety Culture)를 확립하고 유지하기 위해서는 안전한 작업 환경의 잠재력을 높이는 <strong>다학제적 접근(Multidiscipline Approach)</strong>이 요구됩니다. 리더십은 달성해야 할 과업에 대한 명확한 비전을 제시하고, 공통 목표에 집중함으로써 <strong>안전에 대한 지각(Perception of Safety)</strong>을 견인할 수 있습니다.
+      </p>
+
+      <h3 class="sub-heading">1.1 안전문화 구축을 위한 실행 활동 스펙트럼</h3>
+      <ul>
+        <li><strong>안전경영시스템(SMS, Safety Management System)의 선정 및 적용</strong></li>
+        <li><strong>인적 오류 성과(Human Error Performance)의 정밀 측정 및 분석</strong></li>
+        <li><strong>다계층 소통(Multilevel Communication) 체계의 지속적 개선</strong></li>
+        <li><strong>유해위험요인(Hazard) 및 손실(Loss) 분석, 종합적 리스크 평가(Risk Analysis)</strong></li>
+        <li><strong>법적 규제 및 규정 준수(Regulatory Compliance) 모니터링</strong></li>
+      </ul>
+
+      <h3 class="sub-heading">1.2 안전 브랜드(Safety Brand)와 4대 학습 목표</h3>
+      <p>
+        경영 리더십 팀과 현장 직원 모두가 안전이 무엇을 수반하는지에 대해 긍정적인 지각을 가질 때 비로소 안전문화가 지속됩니다. 안전은 조직 내에서 고유한 <strong>'브랜드(Brand)'</strong>를 가지며, 이 브랜드가 어떻게 인식되고 도전받는지가 안전문화 개선의 핵심입니다.
+      </p>
+      <div class="card-grid">
+        <div class="sub-card">
+          <h4>🎯 목표 1: 실무적 작동 정의</h4>
+          <p>자신과 조직에 맞는 '안전(Safety)'의 작동 정의(Personal working definition)를 수립한다.</p>
+        </div>
+        <div class="sub-card">
+          <h4>🎯 목표 2: 지각의 중요성 규명</h4>
+          <p>지각(Perception)이 안전문화의 성패를 가르는 핵심 요인임을 논의한다.</p>
+        </div>
+        <div class="sub-card">
+          <h4>🎯 목표 3: 조직 내 지각 영향 식별</h4>
+          <p>현재 조직 내에서 안전이 어떻게 지각되고 있으며 조직 전체에 미치는 파급 효과를 식별한다.</p>
+        </div>
+        <div class="sub-card">
+          <h4>🎯 목표 4: 공통 지각과 형성 원인</h4>
+          <p>안전에 대한 보편적 통념과 그러한 인식을 형성하게 만든 근본 원인을 파악한다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Observation 1 -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">🔍 [Observation 1] 동적 조직과 전통적 안전의 충돌</h3>
+      
+      <div class="callout warning">
+        <div class="callout-title">⚠️ 동적 조직 vs. 정적 안전 프로세스의 대립</div>
+        <p>
+          조직은 정적(Static)이지 않으며 항상 유동적이고 변화(Flux and change)합니다. 반대로 전통적 안전 프로세스는 불변의 안정성(Stability)을 지향하며 변하지 않는 규칙을 세우려 합니다.  
+          그 결과, 안전은 <strong>'개선과 성공의 조력자(Advocate for improvement)'</strong>가 아니라 <strong>'변화의 반대자(Opponent of change)'</strong>로 인식되어, 안전 전문가와 경영진 간의 적대적 관계(Adversarial relationship)를 초래합니다.
+        </p>
+      </div>
+
+      <p>
+        <strong>"규칙만 따르면 안전하다"는 편협한 통념</strong>:  
+        안전 규칙이 사람을 안전하게 만드는 것이 아니라, <em>"규칙을 준수하는 실제 행동(the act of following the rules)이 사건의 리스크를 줄이는 것"</em>입니다 (Potter, 2018).
+      </p>
+
+      <div class="callout info">
+        <div class="callout-title">🐟 고대 중국 속담 (Maimonides, 2018)과 안전 전문가의 역할 전환</div>
+        <p>
+          <em>"물고기 한 마리를 주면 하루를 먹여 살리지만, 물고기 잡는 법을 가르쳐주면 평생을 먹여 살린다."</em><br>
+          안전 전문가는 단순한 '안전 정보 제공자(Information Resource)'에서 안전경영시스템을 능동적으로 배포하는 <strong>'전략적 플레이어(Strategic Player)'</strong>로 전환되어야 합니다.
+        </p>
+      </div>
+
+      <p>
+        <strong>'무손실 무위험(No Loss No Risk)' 멘탈 모델의 오류</strong>:  
+        재해율 통계치가 낮다고 해서 위험이 없는 것이 아닙니다. 과거 손실 통계에만 의존하는 사후적 방식을 벗어나, <strong>ANSI Z10-2012</strong>가 권고하는 <strong>리스크 기반 접근법(Risk-based approach)</strong>을 도입해야 합니다.
+      </p>
+      <p>
+        <strong>멘탈 모델 (Koch, 2007)</strong>: <em>"우리 주변 세상에서 들어오는 정보를 단순화하고 구조화하는 지적 구조(Intellectual structures)이며, 우리의 사고와 의사결정을 지지한다."</em>
+      </p>
+    </section>
+
+    <!-- Section 3: Defining Safety -->
+</section>
+
+<section class="section-box" id="sec-2-defining-safety">
+<h2 class="sec-heading">📖 2. DEFINING SAFETY (안전의 정의)</h2>
+      <p>
+        조직 구성원 모두가 '안전'의 의미를 정확히 알고 있을 것이라는 생각은 착각입니다. 모호하고 추상적인 정의는 안전문화 개선을 저해합니다.
+      </p>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th style="width: 28%;">구분</th>
+              <th>정의 내용</th>
+              <th style="width: 35%;">한계 및 실무적 의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>일반 사전적 정의</strong> (Safety, 2018)</td>
+              <td>안전한 상태의 특성; 위험이나 부상 리스크로부터의 자유. 해를 입지 않는 상태.</td>
+              <td>순환 참조(Circular definition)에 불과하며, '보면 안다'는 식의 직관에 의존하여 통찰력이 없음.</td>
+            </tr>
+            <tr>
+              <td><strong>원문 제안 정의</strong> (Safety, 2018)</td>
+              <td>고의적이든 사고에 의해서든 인명과 재산에 가해지는 위험, 리스크, 위해의 위협, 부상 또는 손실로부터의 <strong>상대적 자유(Relative freedom)</strong>.</td>
+              <td>절대적 무위험이 아닌 '상대적 자유'의 개념을 도입하여 현실적 통제 가능성을 열어둠.</td>
+            </tr>
+            <tr>
+              <td><strong>ANSI/ASSE Z590.3</strong> (PtD, 2011)</td>
+              <td><strong>"수용 불가능한 위험으로부터의 자유 (Freedom from unacceptable risk)"</strong></td>
+              <td>
+                • <strong>Risk</strong>: 위험 사건 발생 확률 추정치<br>
+                • <strong>Hazard</strong>: 피해를 초래할 잠재성(Potential for harm)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ 상대적 위험 수용성 (Acceptable Risk)과 소방·경찰의 사회적 수용</div>
+        <p>
+          아무리 강도 높은 위험 통제 조치를 취하더라도 특정 직무에는 본질적인 위험이 잔존합니다. 소방관, 경찰관, 우주비행사, 군인, 광산/석유화학 작업자 등은 사회적 목적을 달성하기 위해 위험이 사회적으로 수용됩니다.  
+          그러나 위험이 수용 가능하다고 해서 통제 노력을 소홀히 해도 된다는 뜻이 아니며, 가능한 모든 방호 장치와 절차를 마련해야 합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 4: Observation 2 -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">🔬 [Observation 2] 몬탄테의 안전 정의와 'Safety First' 비판</h3>
+      <p>
+        윌리엄 W. 라우런스(Lowrance, 1976 『Of Acceptable Risk』): <em>"어떤 대상은 그 리스크가 '수용 가능(Acceptable)'하다고 판단될 때 비로소 안전하다."</em>
+      </p>
+
+      <div class="callout success">
+        <div class="callout-title">💡 윌리엄 몬탄테 (Montante, 2006)의 안전 정의</div>
+        <p style="font-size: 15px; font-weight: 600; color: var(--text-main);">
+          "안전이란 리스크와 그로부터 파생된 유해위험요인이 수용 가능하거나(Acceptable) 통제 하에 있다(In control)고 판단되는 존재 상태(State of being)이다."
+        </p>
+        <p style="margin-bottom: 0;">
+          단일 기업 내 130명의 안전 리더 조사 결과, '사고 예방', '다치지 않는 것', 'OSHA 준수', '퇴근할 때 다치지 않는 것' 등 제각각의 인식이 존재함을 확인했습니다.
+        </p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-title">🚫 전통적 구호(Mantra)의 전면 폐기 제언</div>
+        <p style="margin-bottom: 0;">
+          <em>"‘안전 제일(Safety first)’, ‘안전을 생각하자(Think Safety)’, ‘안전은 당신의 책임이다(Safety is your responsibility)’라는 구호를 과감히 버려라. 대신 각 조직원이 스스로 <strong>'유해위험요인 제어 관리자(Hazard Control Manager)'</strong>로서 자신과 회사가 위험을 어떻게 완벽히 제어하고 있는지 확신을 갖고 입증할 수 있는 개인적·조직적 숙달(Mastery)을 추구하라."</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 5: Puzzle Figures -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">🧩 [그림 1.1 및 그림 1.2 상세 분석] 소통 단절 &amp; 조직 퍼즐</h3>
+      
+      <div class="media-card">
+        <img src="image-10.png" alt="Fig 1.1 Gap in communication">
+        <div class="media-caption">FIG. 1.1 Gap in communication (소통의 단절로 해체된 조직 퍼즐)</div>
+        <div class="media-desc">
+          <strong>[그림 1.1 정밀 분석]</strong><br>
+          • <strong>리더십(Leadership - 녹색 퍼즐)</strong>이 조직 퍼즐 본체와 완전히 분리되어 좌측에 고립되어 있습니다.<br>
+          • 우측 외곽에는 <strong>운영(Operations)</strong>, <strong>재무(Finance)</strong>, <strong>직원(Employees)</strong> 퍼즐이 바깥으로 튕겨져 나와 방치되어 있습니다.<br>
+          • 안전보건, 보안, 인사, 소통, 유지보수, 품질관리, 고객, 자재비용, 영업, 고객관계, 브랜드, 네트워킹 조각들이 서로 맞물리지 못하고 커다란 틈새(Gap)가 형성되어 있습니다.<br>
+          ➔ <em>소통의 간극이 발생하면 안전 프로세스와 최고 의사결정권자, 현장 작업자가 완전히 단절되어 조직 전체가 붕괴됩니다.</em>
+        </div>
+      </div>
+
+      <div class="media-card">
+        <img src="image-11.png" alt="Fig 1.2 Overview of a typical organization puzzle">
+        <div class="media-caption">FIG. 1.2 Overview of a typical organization puzzle (완벽하게 결합된 전형적 조직 퍼즐)</div>
+        <div class="media-desc">
+          <strong>[그림 1.2 정밀 분석]</strong><br>
+          • <strong>리더십(Leadership)</strong>이 조직의 정중앙에 자리 잡아 상하좌우 모든 부서(고객, 운영, 재무, 유지보수, 직원, 보안)와 빈틈없이 결합되어 있습니다.<br>
+          • <strong>안전보건(Safety and Health)</strong>이 최상단에서 보안 및 고객과 직결되어 전체 운영 시스템의 든든한 초석을 형성합니다.<br>
+          ➔ <em>품질 높은 제품과 서비스를 생산하고 안전문화를 정착시키기 위해서는 소통을 매개로 모든 조직 요소가 결합되어야 합니다.</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Emergent Property -->
+</section>
+
+<section class="section-box" id="sec-3-emergent-property">
+<h2 class="sec-heading">🌱 3. SAFETY AS AN EMERGENT PROPERTY (발현적 속성으로서의 안전)</h2>
+      <p>
+        저자들은 안전을 개별적인 독립 프로그램이 아니라, 조직 전체 문화 속에서 새롭게 솟아나는 <strong>'발현적 속성(Emergent Property)'</strong>으로 규정합니다.
+      </p>
+
+      <div class="callout info">
+        <div class="callout-title">🔬 발현적 속성(Emergent Property, 2018)의 학술적 정의</div>
+        <p style="margin-bottom: 0;">
+          <em>"구성 요소들이 상호 제약적 관계(Constraining relations) 속에서 결합하여 상위 수준의 복합 객체를 구성할 때 새롭게 '출현(Emerge)'하는 독특한 속성이며, 단순 구성 요소들의 결합으로부터 예측 불가능하게 발생하는 새로운 특성."</em>
+        </p>
+      </div>
+
+      <p>
+        조직 구성원들이 어떻게 행동하고, 협력하며, 무엇을 믿고 소통하는지에 따라 <strong>'안전한 환경'이 발현될 수도 있고, 반대로 '불안전한 환경'이 발현될 수도 있습니다.</strong>
+      </p>
+    </section>
+
+    <!-- Section 7: French & Bell Model -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">⚙️ [그림 1.3 상세 분석] 웬델 프렌치 &amp; 세실 벨(French &amp; Bell, 1984)의 6대 연동 영역 모델</h3>
+      <p>
+        조직 개발(OD)의 고전 명저에서 제시된 모델로, 조직 개선을 이루는 6대 영역은 서로 맞물려 순환합니다:
+      </p>
+
+      <div class="mermaid-wrapper">
+        <pre class="mermaid">
+flowchart TD
+    ENV["1. 환경 (Environment)<br/>외부 법규·시장 경쟁·사회적 기대"] <--> STR["2. 구조 (Structure)<br/>조직도·공식 보고체계·권한 배분"]
+    STR <--> TSK["3. 과업 (Task)<br/>공정 단계·직무 절차·세부 과업"]
+    TSK <--> TECH["4. 기술 (Technology)<br/>생산 설비·기계·IT 시스템·공구"]
+    TECH <--> SOC["5. 인간-사회적 요소 (Human-Social)<br/>가치관·규범·대인관계·신뢰"]
+    SOC <--> GOL["6. 목표 (Goals)<br/>조직 비전·경영 방침·전략 목표"]
+    GOL <--> ENV
+
+    style ENV fill:#1e293b,stroke:#38bdf8,stroke-width:2px;
+    style STR fill:#1e293b,stroke:#38bdf8,stroke-width:2px;
+    style TSK fill:#1e293b,stroke:#38bdf8,stroke-width:2px;
+    style TECH fill:#1e293b,stroke:#38bdf8,stroke-width:2px;
+    style SOC fill:#1e293b,stroke:#38bdf8,stroke-width:2px;
+    style GOL fill:#1e293b,stroke:#38bdf8,stroke-width:2px;
+        </pre>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ 정렬 불일치(Misalignment)와 간극(Gap)의 위험</div>
+        <p style="margin-bottom: 0;">
+          이 6대 영역 중 어느 하나라도 정렬이 어긋나거나 관계가 단절되고 여기에 내재된 유해위험요인이 결합하면 치명적인 간극(Gap)이 형성되어 대형 사고 발생 확률이 급증합니다.  
+          안전 전문가는 단순 프로그램 관리를 넘어, 조직 전체의 강약점을 진단하고 고유 위험을 '수용 가능한 제어 상태'로 유지하는 시스템 설계자로 거듭나야 합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 8: Perception of Safety & Leadership Attention -->
+</section>
+
+<section class="section-box" id="sec-4-perception-of-safety">
+<h2 class="sec-heading">🎯 4. THE PERCEPTION OF SAFETY (안전 지각)</h2>
+      <p>
+        경영진의 의사결정은 조직 내외부에서 끊임없이 쏟아지는 데이터 스트림에 기반합니다. 안전경영시스템의 핵심 데이터가 이 의사결정 스트림에 반드시 유입되어야 합니다.  
+        지각(Perception)이란 <em>"인간이 주변 환경의 정보를 선택(Select), 조직화(Organize), 해석(Interpret), 검색(Retrieve), 반응(Respond)하는 인지적 과정"</em>입니다 (Schermerhorn et al., 2004).
+      </p>
+
+      <div class="media-card">
+        <img src="image-12.png" alt="Fig 1.4 Who has Leadership’s attention">
+        <div class="media-caption">FIG. 1.4 Who has Leadership’s attention (누가 리더십의 시선을 사로잡는가?)</div>
+        <div class="media-desc">
+          <strong>[그림 1.4 정밀 분석]</strong><br>
+          • 거대한 리더십 인물이 돋보기를 들고 하단의 수많은 부서 인물들을 바라보고 있습니다.<br>
+          • <strong>경쟁 부서들</strong>: 영업 및 마케팅, 인사(HR), 보안, 품질관리, 정부 규제, 재무, 운영, <strong>안전보건(Safety and Health)</strong>, 지역사회, 고객, 이사회, 혁신, 물류.<br>
+          ➔ <em>모든 부서가 자신의 요구가 최우선이라고 확신합니다. 안전 전문가는 데이터와 의사결정의 소용돌이 속에서 비즈니스 언어로 리더십의 주의를 이끌어내야 합니다.</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 9: Observation 3 & Eight Ball -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">🎱 [Observation 3 &amp; FIG. 1.5] 에잇볼 뒤의 고립</h3>
+      
+      <p>
+        "모든 안전 활동은 안전 관리자의 책임"이라는 잘못된 인식이 만연합니다. 직무기술서에는 방대한 실무 요건만 적혀 있을 뿐 권한(Authority)과 리더십 역할이 결여되어 있습니다. 안전이 발현적 속성이라면 단 한 사람이 모든 안전문화를 책임질 수는 없습니다.
+      </p>
+
+      <div class="media-card">
+        <img src="image-13.png" alt="Fig 1.5 Behind the Eight Ball">
+        <div class="media-caption">FIG. 1.5 Behind the Eight Ball (에잇볼 뒤에 갇힌 불리한 처지의 안전 관리자)</div>
+        <div class="media-desc">
+          <strong>[관찰 3 및 그림 1.5 정밀 분석]</strong><br>
+          • 저자 제임스는 신임 안전 관리자로 승진하여 아무런 지침 없이 "알아서 해결하라(Figure it out)"는 통보를 받은 동료의 고충을 접했습니다.<br>
+          • 당구 경기에서 목적구를 칠 수 없게 8번 공 뒤에 가로막힌 절망적인 상황(In a bad situation, in a losing position)을 뜻합니다.<br>
+          ➔ <em>권한과 리더십 지침 없이 책임만 떠안은 안전 관리자의 구조적 고립무원을 상징합니다.</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 10: Stereotype -->
+</section>
+
+<section class="section-box" id="sec-5-perceived-in-org">
+<h2 class="sec-heading">👷 5. HOW IS THE SAFETY PROFESSIONAL PERCEIVED IN AN ORGANIZATION? (안전 전문가는 조직에서 어떻게 지각되는가?)</h2>
+
+      <div class="media-card">
+        <img src="image-14.png" alt="Fig 1.6 Perception of safety professional">
+        <div class="media-caption">FIG. 1.6 Perception of safety professional (안전 전문가에 대한 고착된 고정관념)</div>
+        <div class="media-desc">
+          <strong>[그림 1.6 정밀 분석]</strong><br>
+          • 파란 안전모와 멜빵 작업복을 입은 캐릭터가 <strong>"This is a Safety Audit! (이것은 안전 감사다!)"</strong>라고 적힌 클립보드를 들고 있습니다.<br>
+          • 현장을 돌며 지적질을 하고, 규정을 외우며, 오로지 개인보호구(PPE) 착용만 강요하는 감시자로 각인되어 있습니다.<br>
+          ➔ <em>이 고정관념을 깨뜨리지 못하면 안전 전문가는 영원히 조직 내에서 적대적(Adversarial) 위치에 머물며 전략적 파트너로 인정받지 못합니다.</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 11: Observation 4 -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">🗣️ [Observation 4] 경영진과의 언어 불일치</h3>
+      
+      <div class="callout warning">
+        <div class="callout-title">⚠️ 경영 컨설턴트의 충격적인 질문</div>
+        <p>
+          <em>"기업에서 쉽게 따를 수 있는 안전 알고리즘이 있습니까? 우리가 관리하는 고객사의 안전 관리자들이 고위 임원으로 승진했을 때 문제가 생깁니다. <strong>그들은 다른 경영진들과 같은 언어(Business Language)를 쓰지 못합니다.</strong> 최고경영진이 우리에게 묻습니다. '도대체 저 사람들이 무슨 말을 하는 겁니까? 우리는 그들이 하는 말을 전혀 이해할 수 없습니다!'”</em>
+        </p>
+      </div>
+      <p>
+        안전 전문가는 안전 규정의 언어에만 갇혀 있지 말고, 경영진이 사용하는 비즈니스 언어(수익성, 리스크, 생산성, 가치 창출)를 체득해야 합니다.
+      </p>
+    </section>
+
+    <!-- Section 12: Executive Presence -->
+</section>
+
+<section class="section-box" id="sec-6-perception-comes-first">
+<h2 class="sec-heading">👔 6. PERCEPTION COMES FIRST (지각이 최우선이다)</h2>
+      <p>
+        방에 들어서는 순간 풍기는 전문적 이미지(Professional Image)는 제시하는 아이디어의 수용도를 결정합니다.
+      </p>
+      <div class="callout info">
+        <div class="callout-title">✨ 이그제큐티브 프리젠스 (Beeson, 2012)</div>
+        <p style="margin-bottom: 0;">
+          <em>"이그제큐티브 프리젠스는 궁극적으로 <strong>성숙한 자신감(Mature self-confidence)</strong>을 보여주는 능력이다. 어렵고 예측 불가능한 상황을 통제하고, 적시에 결단을 내리며, 경영진의 재능 있고 고집 센 임원들과 당당히 어깨를 나란히 할 수 있는 역량이다."</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 13: Core Beliefs Difference (Table 1.1) -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">⚖️ [표 1.1 상세 분석] 안전 목표와 리더십 목표 간의 핵심 신념 차이</h3>
+      <p>
+        안전 부서와 경영진 간의 갈등은 서로가 추구하는 핵심 목표와 신념의 차이에서 기인합니다:
+      </p>
+
+      <div class="media-card">
+        <img src="image-15.png" alt="Table 1.1 Perception Issues">
+        <div class="media-caption">TABLE 1.1 Examples of Perception Issues Providing Insights on Differences in Core Beliefs</div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th style="width: 8%;">번호</th>
+              <th style="width: 46%;">안전 측면에서 지각된 목표 (Perceived Safety Objectives)</th>
+              <th style="width: 46%;">경영진이 지향하는 실제 목표 (Desired Leadership Objectives)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1</strong></td>
+              <td><strong>사건 발생을 사전에 방지(Prevents)한다.</strong><br>조직에 미칠 파급효과는 고려하지 않고 통제해야 할 유해요소만 즉시 꺼내 든다.</td>
+              <td><strong>일이 되게끔 만든다(Ensures things happen).</strong><br>생산성과 매출을 증대시킬 수 있는 개선된 공정과 활동을 추진하고자 한다.</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td><strong>'리스크 감축(Risk Reduction)'을 갈망한다.</strong><br>유해위험요인과 운영상의 리스크를 줄일 방법만 모색한다.</td>
+              <td><strong>'위험 감수(Risk-Taking)'를 원한다.</strong><br>기업가적 리스크를 감수하며, 위험 감수를 사업 수행의 본질로 인식한다.</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td><strong>문제 해결을 위해 비용 지출(Expenses)을 요구한다.</strong><br>재설계, 방호장치, 추가 교육 등 비용만 요구하고 대안을 주지 않는다.</td>
+              <td><strong>생존을 위해 수익성(Profits) 확보가 절대적이다.</strong><br>비용을 엄격히 통제하여 프로젝트가 예산 범위 내에 머물게 해야 한다.</td>
+            </tr>
+            <tr>
+              <td><strong>4</strong></td>
+              <td><strong>체계적인 관리 결함(Management Defects)을 지적한다.</strong><br>경영진의 과실이나 결손을 부각하는 권고사항을 남발한다.</td>
+              <td><strong>인정과 보상(Recognition and Rewards)을 원한다.</strong><br>자신의 명성과 권위, 대외적 이미지를 인정받고자 한다.</td>
+            </tr>
+            <tr>
+              <td><strong>5</strong></td>
+              <td><strong>표준, 법적 규정, 사내 규칙에만 전적으로 의존한다.</strong><br>수많은 법적 규제에 조직을 억지로 끼워 맞추려고만 한다.</td>
+              <td><strong>목표 달성을 위해 규칙을 유연하게 조정(Bends rules)한다.</strong><br>규제를 조직의 잠재적 성공을 저해하는 제약으로 여긴다.</td>
+            </tr>
+            <tr>
+              <td><strong>6</strong></td>
+              <td><strong>규정 준수(Compliance)와 안정적 통제(Control)를 추구한다.</strong><br>현상의 안정성과 엄격한 통제만을 고수한다.</td>
+              <td><strong>개선을 위한 창의적 해결책(Creative solutions)을 원한다.</strong><br>틀에서 벗어난 사고(Outside the box)와 혁신을 갈망한다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 14: Personal Branding -->
+</section>
+
+<section class="section-box" id="sec-7-personal-branding">
+<h2 class="sec-heading">🌉 7. PERSONAL BRANDING (퍼스널 브랜딩)</h2>
+      
+      <p>
+        세스 고딘 (Seth Godin, 2009): <em>"브랜드란 소비자가 특정 제품이나 서비스를 선택하게 만드는 기대치, 기억, 스토리, 관계의 총체이다. 소비자가 프리미엄을 지불하지 않는다면 브랜드 가치는 없다."</em>
+      </p>
+
+      <div class="media-card">
+        <img src="image-16.png" alt="Fig 1.7 Building a brand">
+        <div class="media-caption">FIG. 1.7 Building a brand (견고한 교량을 건설하듯 브랜드를 구축하라)</div>
+      </div>
+
+      <div class="media-card">
+        <img src="image-17.png" alt="Table 1.2 Check the Safety Brand">
+        <div class="media-caption">TABLE 1.2 Check the Safety Brand—Information to Consider (안전 브랜드 점검 9대 지표)</div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>안전 브랜드 자가 진단 질문</th>
+              <th>실무적 확인 포인트</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>조직 내에서 지식 자원(Knowledgeable resource)으로 인정받는가?</td><td>신뢰받는 전문 지식 허브 역할 수행 여부</td></tr>
+            <tr><td>2</td><td>탄탄한 의사소통 역량(Solid communication skills)을 갖추었는가?</td><td>명료하고 설득력 있는 보고 및 발표 능력</td></tr>
+            <tr><td>3</td><td>전사적으로 긍정적인 라포(Positive rapport)를 형성하고 있는가?</td><td>타 부서 및 현장과의 유대감과 신뢰도</td></tr>
+            <tr><td>4</td><td>프로다운 외모와 단정한 이미지(Professional image)를 갖추었는가?</td><td>리더십에 걸맞은 단정한 비즈니스 외양</td></tr>
+            <tr><td>5</td><td>다가가기 쉽고(Approachable) 성숙한 대인관계 기술을 발휘하는가?</td><td>직원들이 마음을 열고 안전을 의논할 수 있는 태도</td></tr>
+            <tr><td>6</td><td>조직의 전체 비즈니스와 현안 이슈(Issues)를 깊이 이해하는가?</td><td>회사 경영 목표 및 생산 흐름 파악 여부</td></tr>
+            <tr><td>7</td><td>위험 정보를 모든 계층이 이해할 수 있는 포맷으로 제시하는가?</td><td>현장용/경영진용 맞춤형 정보 변환 능력</td></tr>
+            <tr><td>8</td><td>권고사항이 심층 조사, 연구, 최신 데이터에 근거하는가?</td><td>객관적 데이터 기반의 신뢰성 높은 제안</td></tr>
+            <tr><td>9</td><td>리스크 평가에 근거하여 복수의 실행 대안(Alternatives)을 제시하는가?</td><td>일방적 금지가 아닌 합리적 선택지 제공</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 15: Observation 5 -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">🦸 [Observation 5] 슈퍼맨 복장의 비극</h3>
+      <div class="callout danger">
+        <div class="callout-title">🚫 슈퍼맨 슈트를 입었던 전임 안전 관리자</div>
+        <p>
+          신임 안전 관리자 부임 첫날, 직원이 물었습니다. <em>"전임 관리자는 안전 행사 때마다 슈퍼맨 슈트를 입었습니다. 어떤 옷을 입으실 건가요?"</em>  
+          저자의 답변은 단호했습니다: <strong>"아무것도 안 입습니다(NONE!)"</strong>
+        </p>
+      </div>
+      <p>
+        전시성 이벤트나 희화화된 퍼포먼스는 안전 관리자의 전문성을 파괴하며, 경영진이 안전을 진지한 경영 파트너로 대우하지 못하게 만듭니다.
+      </p>
+    </section>
+
+    <!-- Section 16: Friction -->
+</section>
+
+<section class="section-box" id="sec-8-organizational-friction">
+<h2 class="sec-heading">⚙️ 8. ORGANIZATIONAL FRICTION? (조직 내 마찰)</h2>
+      <p>
+        조직 마찰이란 <em>"서로 다른 철학과 우선순위로 인해 사람들 사이에 발생하는 불화나 갈등"</em>입니다 (Friction, 2018).
+      </p>
+
+      <div class="media-card">
+        <img src="image-18.png" alt="Fig 1.8 Friction and Gears">
+        <div class="media-caption">FIG. 1.8 Different perceptions of safety creates friction at all levels (3대 주체의 톱니바퀴와 오일캔)</div>
+        <div class="media-desc">
+          <strong>[그림 1.8 정밀 분석]</strong><br>
+          • <strong>3대 구동 기어</strong>: 리더십(녹색 기어), 안전 부서(분홍색 기어), 현장 직원(노란색 기어)이 중앙의 거대한 <strong>안전문화(파란색 기어)</strong>를 구동합니다.<br>
+          • 각 계층의 상이한 행동과 인식은 저항과 마찰을 초래합니다.<br>
+          • 우측 캐릭터가 주유기(Oil can)로 기름을 치고 있습니다: <strong>"마찰을 줄이는 데 도움을 준다 (Helps to reduce friction)"</strong>.<br>
+          ➔ <em>리더십의 전폭적 지원과 상호 소통이 바로 조직의 마찰을 없애는 절대적인 윤활유입니다.</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 17: Mental Models -->
+</section>
+
+<section class="section-box" id="sec-9-mental-model">
+<h2 class="sec-heading">🧠 9. WHAT IS THE ORGANIZATION’S MENTAL MODEL FOR SAFETY? (안전에 대한 조직의 멘탈 모델은 무엇인가?)</h2>
+      <p>
+        피터 센게(Peter Senge, 2006): <em>"멘탈 모델이란 우리 자신, 타인, 조직에 대해 머릿속에 품고 있는 이미지와 가정, 스토리들이다."</em>
+      </p>
+      <div class="callout danger">
+        <div class="callout-title">🚨 거짓말 탐지기를 들고 온 안전 부서의 실패</div>
+        <p>
+          기업 보안(Security)을 겸임하던 본사 안전 부서 요원들이 도난 사건 조사를 위해 공장을 방문하여 <strong>직원들에게 거짓말 탐지기 심문</strong>을 벌이고 거짓말한 직원을 해고했습니다.  
+          며칠 뒤 같은 요원들이 공장을 다시 찾아와 <em>"개선할 안전 사항에 대해 솔직한 의견을 달라"</em>고 요청했습니다.  
+          <strong>결과</strong>: 직원 중 누구도 입을 열지 않았습니다. 신뢰가 무너진 멘탈 모델 속에서는 안전 소통이 불가능합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 18: Multidisciplinary -->
+</section>
+
+<section class="section-box" id="sec-10-multidisciplinary">
+<h2 class="sec-heading">🏛️ 10. SAFETY, A MULTIDISCIPLINARY PROFESSION (다학제적 전문 직무로서의 안전)</h2>
+
+      <div class="media-card">
+        <img src="image-19.png" alt="Fig 1.9 Multidisciplinary profession">
+        <div class="media-caption">FIG. 1.9 Safety—a multidisciplinary profession (FEMA 긴급지휘체계 모델을 적용한 안전경영 조직도)</div>
+        <div class="media-desc">
+          <strong>[그림 1.9 정밀 분석]</strong><br>
+          • <strong>최고 컨트롤 타워</strong>: Safety Management (Role, Department)<br>
+          • <strong>대외 협력</strong>: 외부 기관 및 정부 연락 담당 (Liaison to Departments, Agencies)<br>
+          • <strong>대내 협력</strong>: 최고경영진 연락 담당 (Liaison to Leadership)<br>
+          • <strong>4대 기능 분과</strong>:<br>
+          &nbsp;&nbsp;1) <strong>운영 1 (집행/위험관리)</strong>: 법적 책무, OHS 리스크 관리, 미디어/소통, 보고 및 분석, 사회적 네트워크 유지<br>
+          &nbsp;&nbsp;2) <strong>운영 2 (전략/비전)</strong>: 안전문화 비전 및 활동, 전략 목표(Goals), 세부 과업(Objectives)<br>
+          &nbsp;&nbsp;3) <strong>군수/물류 (Logistics)</strong>: 보호구 장비, 안전 자재, 도서관/정보 큐레이션, HW/SW 시스템<br>
+          &nbsp;&nbsp;4) <strong>재무/행정 (Finance Administration)</strong>: 안전 예산, 인사 관리, 전문가 역량 개발
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 19: Time Management Matrix -->
+</section>
+
+<section class="section-box" id="sec-11-lesson-learned-1">
+<h2 class="sec-heading">💡 11. LESSON LEARNED 1 (교훈 1: 채용 시장에서의 키워드 매칭 전략)</h2>
+<p>
+  과거의 구직 활동은 매우 어려웠으며, 오늘날에도 이력서 정보가 어떻게 선별·처리되는지 그 방식으로 인해 여전히 까다로운 도전 과제입니다.
+</p>
+<div class="callout info">
+  <div class="callout-title">🔍 채용 검색 알고리즘과 이력서 키워드 최적화</div>
+  <p>
+    오늘날 인터넷과 소셜 미디어(LinkedIn 등)의 발달로 채용 프로세스가 간소화되었지만, 기업의 지원자 추적 시스템(ATS)은 웹사이트나 제품을 검색할 때와 마찬가지로 <strong>알고리즘 기반의 키워드 검색(Keyword Search)</strong> 방식으로 작동합니다.
+  </p>
+  <p style="margin-bottom:0;">
+    이력서 내에 직무 공고(Job Posting)와 정확히 일치하는 핵심 전문 키워드의 빈도와 적합성을 전략적으로 높여야만 검색 알고리즘에 필터링되지 않고 채용 담당자의 눈에 띌 수 있는 가시성(Visibility)과 인터뷰 성사 확률을 극대화할 수 있습니다 (제16장 부록 16.2 소셜 미디어 도구 활용법 연계).
+  </p>
+</div>
+</section>
+
+<section class="section-box" id="sec-12-lesson-learned-2">
+<h2 class="sec-heading">📋 12. LESSON LEARNED 2 (교훈 2: 직무 갭 분석 양식과 SWOT 매트릭스 활용)</h2>
+<p>
+  직무기술서(Job Description)를 검토한 후 실제 지원서를 제출할 때는, 면접 후보자 매칭에 사용될 구체적 키워드가 포함된 <strong>'직무 갭 분석 및 상호작용 양식(Job Gap Analysis and Interaction Form)'</strong>을 적극 활용해야 합니다.
+</p>
+<div class="card-grid">
+  <div class="sub-card">
+    <h4>📊 직무 갭 분석 (Gap Analysis)</h4>
+    <p>자신의 현재 보유 역량과 회사의 직무 요구조건 간의 간극(Gap)을 객관적으로 대조하여 보강 계획을 수립합니다 (부록 1.2 참조).</p>
+  </div>
+  <div class="sub-card">
+    <h4>🎯 SWOT 매트릭스 결합</h4>
+    <p>강점(S), 약점(W), 기회(O), 위협(T)을 교차 분석하여 서류 전형 및 심층 면접에서 차별화된 합격 전략을 도출합니다 (제6장 부록 6.5 연계).</p>
+  </div>
+</div>
+</section>
+
+<section class="section-box" id="sec-13-time-matrix">
+<h2 class="sec-heading">⏱️ 13. USING A TIME MANAGEMENT MATRIX (시간 관리 매트릭스의 활용)</h2>
+      <p>
+        드와이트 D. 아이젠하워: <em>"중요한 것은 거의 긴급하지 않고, 긴급한 것은 거의 중요하지 않다."</em><br>
+        자잘한 잡무에 치여 큰 목표를 잃어버리는 <strong>'활동의 덫(Activity Trap)'</strong>을 경계해야 합니다.
+      </p>
+
+      <div class="media-card">
+        <img src="image-20.png" alt="Table 1.3 Time Management Matrix">
+        <div class="media-caption">TABLE 1.3 Example Time Management Matrix</div>
+      </div>
+
+      <div class="media-card">
+        <img src="image-21.png" alt="Fig 1.10 Management decision matrix">
+        <div class="media-caption">FIG. 1.10 Applying a management decision matrix (아이젠하워 &amp; 스티븐 코비 4분면)</div>
+        <div class="media-desc">
+          <strong>[그림 1.10 정밀 분석]</strong><br>
+          • <strong>제1분면 (긴급함 &amp; 중요함 - DO / 즉시 실행, 붉은색)</strong>: 사고 수습, 중대재해 조사, 노동청 불시 감독 대응.<br>
+          • <strong>★ 제2분면 (긴급하지 않음 &amp; 중요함 - DECIDE / 계획 및 결정, 회색)</strong>: 위험성평가(JHA), 비상대응계획, 안전문화 장기 전략. <em>장기적 성취는 오직 이 2분면에서 발생합니다!</em><br>
+          • <strong>제3분면 (긴급함 &amp; 중요하지 않음 - DELEGATE / 타인 위임)</strong>: 리더십의 돌발 잡무, 시간 때우기 회의.<br>
+          • <strong>제4분면 (긴급하지도 않고 중요하지도 않음 - DELETE / 폐기, 노란색)</strong>: 무의미한 웹서핑, 잡담 이메일.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 20: Observation 7 -->
+
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+
+<h3 class="sub-heading">🏭 [Observation 7] 오버헤드 컨베이어 부상 해결과 부서 간 협업</h3>
+      <div class="callout success">
+        <div class="callout-title">💡 안전-산업공학-IT 협업으로 이룬 생산성 향상과 무재해</div>
+        <p>
+          5개 생산 라인에 부품을 공급하는 오버헤드 컨베이어에서 부품을 내리던 작업자들의 지속적인 어깨 부상 발생.  
+          조사 결과 산업공학(IE) 기술자들이 라인 변경 때마다 컨베이어 동기화를 위해 1주일간 수작업으로 유색 태그를 붙이고 있었습니다.  
+          안전 관리자, IE 기술자, 프로그래머가 협업하여 <strong>컴퓨터 기반 동기화 자동화 프로그램</strong>을 개발.  
+          ➔ <em>어깨 부상을 완전히 근절했을 뿐만 아니라 라인 전환 시간을 대폭 단축시켜 생산성을 극대화함! 안전에 대한 전사적 인식을 혁신한 대표 사례.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 21: Radford Decision Model -->
+</section>
+
+<section class="section-box" id="sec-14-safety-at-a-crossroad">
+<h2 class="sec-heading">🔀 14. SAFETY AT A CROSSROAD (기로에 선 안전)</h2>
+      <p>
+  안전 관리는 조직 내 모든 활동이 교차하는 <strong>교차로(Crossroad)</strong>에 위치합니다. 안전 전문가의 궁극적 목표는 경영진과 전 직원으로부터 <strong>'신뢰받고 지식을 갖춘 해결사(Trusted, knowledgeable go-to person)'</strong>로 인정받는 것입니다.
+</p>
+<div class="callout info">
+  <div class="callout-title">🌟 안전 전문가에게 요구되는 5대 핵심 실천 역량</div>
+  <ol style="margin-bottom:0;">
+    <li>리더십 및 조직 모든 계층에서 제기되는 안전 문제를 적극적으로 해결한다.</li>
+    <li>안전 관련 입장과 결론을 뒷받침하는 전문 정보를 <strong>큐레이션(Curation)</strong>하고 활용한다 (제15장 연계).</li>
+    <li>전 계층과 긍정적인 소통 채널을 유지하며, 긴급 위험 정보는 공식 채널을 단축하여 전달한다.</li>
+    <li>실제적·인식적 유해위험요인과 관련 리스크를 철저히 분석한다.</li>
+    <li>안전경영시스템 권고사항을 실행에 옮길 수 있는 <strong>전문적 영향력(Professional influence)</strong>을 발휘한다.</li>
+  </ol>
+</div>
+<h3 class="sub-heading">🏛️ 사내 정치(Internal Politics)의 이해와 자원 배분 경쟁</h3>
+<p>
+  조직 내 안전문화를 바꾸기 위해서는 사내 정치와 대인관계 메커니즘을 외면해서는 안 됩니다. <em>정치(Politics)</em>란 경쟁하는 이익 집단이나 개인들 간의 권력 및 리더십 획득을 둘러싼 경쟁입니다. 마케팅, 생산, 재무 부서가 경영진의 한정된 자원과 주의(Attention)를 두고 경쟁하듯, 안전 부서 역시 안전이 조직에 실질적 부가가치(Value-added)를 창출함을 입증해야 합니다.
+</p>
+<h3 class="sub-heading">⚖️ [그림 1.11 상세 분석] 래드포드(Radford, 1988)의 의사결정 모델: 리더십과 안전 부서의 갈등 기제</h3>
+
+
+      <div class="media-card">
+        <img src="image-22.png" alt="Fig 1.11 Complex decision situations">
+        <div class="media-caption">FIG. 1.11 Complex decision situations (래드포드의 복합 의사결정 상황 모델)</div>
+      </div>
+
+      <div class="mermaid-wrapper">
+        <pre class="mermaid">
+flowchart TD
+    subgraph Upper ["경영 리더십 (비구조화된 상황: ILL-Structured Decision Situations)"]
+        U1["불확실성 상존"] --> U2["불완전한 정보"]
+        U3["비용/편익 정량화 불가"] --> U5["공식 분석 기법으로 풀 수 없음"]
+        U4["다중 목표 추구"] --> U5
+        U6["다양한 이해관계자"] --> U7["상이한 목표와 지각"] --> U5
+        U2 --> U5
+        U5 --> U8["최적이 아닌 솔루션"] --> U9["만족화 기준 결정 (Satisficing)"]
+    end
+
+    subgraph Lower ["전통적 안전 부서 (구조화된 상황: Well-Structured Decision Situations)"]
+        L1["낮은 불확실성"] --> L5["단일 최적해 도출"]
+        L2["정량화 가능한 비용/편익"] --> L5
+        L3["단일 의사결정권자"] --> L5
+        L4["단일 목표 (무사고)"] --> L5
+        L5 --> L6["합리적 결정 (Rational Decision)"]
+    end
+
+    U9 <===> |"★ 근본적 갈등 (Conflict) 발생"| L6
+
+    style U9 fill:#ef4444,color:#fff,stroke-width:2px;
+    style L6 fill:#38bdf8,color:#0b1120,stroke-width:2px;
+        </pre>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ 갈등의 본질과 규제 위협 함정</div>
+        <p style="margin-bottom: 0;">
+          경영진은 복잡한 불확실성 속에서 다자간 타협안인 <strong>'만족화(Satisficing)'</strong>를 모색하는데, 안전 부서가 단일 규정을 근거로 "규정 X를 지키면 사고 Y가 없다"는 <strong>'단일 최적해'</strong>만을 강요하거나 <em>"예산을 주지 않으면 노동청 처벌을 받는다"</em>는 규제 위협만 가할 때 회복 불가능한 갈등이 발생합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 22: Information Sources (Table 1.4) -->
+</section>
+
+<section class="section-box" id="sec-15-same-language">
+<h2 class="sec-heading">🗣️ 15. DO SAFETY AND LEADERSHIP SPEAK THE SAME LANGUAGE? (안전과 리더십은 같은 언어로 말하는가?)</h2>
+<p>안전 전문가는 현장의 위험을 기술적 용어나 단순 규제 조항으로만 설명하지 않고, 경영진이 이해할 수 있는 <strong>'비즈니스 언어(Business Language)'</strong>로 번역하여 소통해야 합니다.</p>
+<h3 class="sub-heading">📊 [표 1.4 상세 분석] 조직의 안전 지각을 파악하기 위한 정보 출처</h3>
+
+      <div class="media-card">
+        <img src="image-23.png" alt="Table 1.4 Information Sources">
+        <div class="media-caption">TABLE 1.4 Information Sources to Determine the Perception of Safety</div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th style="width: 28%;">정보 출처</th>
+              <th>확인할 수 있는 안전문화 및 지각 관련 통찰</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>연차보고서 (Annual Reports)</strong></td><td>조직의 재무 건전성 및 주요 경영 추진 실적 파악</td></tr>
+            <tr><td><strong>미션 선언문 (Mission Statements)</strong></td><td>조직의 공식 <strong>표명 가치(Espoused Values)</strong>와 실제 현장 현실 간의 괴리(Gap) 측정</td></tr>
+            <tr><td><strong>직무 승진 기준 (Job Promotions)</strong></td><td>승진 결정 기준을 통해 안전 중시 인재가 우대받는지 파악</td></tr>
+            <tr><td><strong>발표 자료 및 회의 안건</strong></td><td>안전 안건 포함 여부, 사후 손실 보고 위주인지 위험성평가 중심인지, 안전 관리자의 회의 참석 여부</td></tr>
+            <tr><td><strong>업계 전문지 및 협회 동향</strong></td><td>산업 내 조직 위상, 시장 트렌드, 산업별 안전 동향 파악</td></tr>
+            <tr><td><strong>사내 뉴스레터 및 미디어</strong></td><td>사내 소통 스타일과 전달되는 메시지의 실제 우선순위</td></tr>
+            <tr><td><strong>조직도 (Organizational Charts)</strong></td><td>공식 보고 라인에서 안전 부서가 위치한 계층적 위상과 영향력</td></tr>
+            <tr><td><strong>목표 및 계획 수립 방식</strong></td><td>안전 관련 기준이 전사적 사업 목표에 실질적으로 반영되는지 여부</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 23: Diversion -->
+</section>
+
+<section class="section-box" id="sec-16-startup-to-status-quo">
+<h2 class="sec-heading">📈 16. FROM STARTUP TO STATUS QUO (스타트업에서 현상 유지까지)</h2>
+<p>
+  조직은 고정되어 있지 않으며, 스타트업 창업기부터 성숙·현상 유지 단계에 이르기까지 끊임없이 변화합니다. 긍정적 지각에 기반하여 조직의 구조 깊숙이 직조된 유연한 안전경영시스템만이 거대한 환경 변화의 충격 속에서도 파괴되지 않고 <strong>회복탄력성(Resilience)</strong>을 발휘할 수 있습니다.
+</p>
+<div class="callout warning">
+  <div class="callout-title">⚠️ 조직 환경 변화의 9대 핵심 요인 (Resilience 위협 요인)</div>
+  <ol style="margin-bottom:0;">
+    <li><strong>리더십의 성향, 철학 및 태도 변화</strong> (Leadership personalities, philosophies, and attitudes)</li>
+    <li><strong>노사 관계 및 대내외 소통 방식의 변화</strong> (Employee relations and communication)</li>
+    <li><strong>운영 방식 변화에 따른 유해위험요인 및 리스크의 변화</strong> (Risk and hazards through operational change)</li>
+    <li><strong>일상적 루틴을 뒤흔드는 위기 상황 발생</strong> (직장 내 폭력, 화재, 중대재해, 자연재해 등)</li>
+    <li><strong>법적·제도적 교육훈련 요구 증대</strong> (Increased training demands)</li>
+    <li><strong>기업 인수합병(M&amp;A)</strong> 및 조직 통폐합</li>
+    <li><strong>경영진의 부실한 계획 수립 및 의사결정 오류</strong> (Poor planning and decision making)</li>
+    <li><strong>기술 혁신 및 신기술 도입</strong> (Technology change)</li>
+    <li><strong>기타 조직에 영향을 미치는 잠재적 복합 위기 요인들</strong></li>
+  </ol>
+</div>
+<p>
+  안전경영시스템은 경직된 매뉴얼에 갇혀 있어서는 안 되며, 조직의 진화 과정과 비즈니스 요구에 발맞추어 유연하고 적응력(Flexible &amp; Adaptable) 있게 진화해야 조직문화의 생존력을 보장할 수 있습니다 (제5장 연계).
+</p>
+</section>
+
+<section class="section-box" id="sec-17-circle-of-diversion">
+<h2 class="sec-heading">🎡 17. UNDERSTANDING AND MANAGING THE CIRCLE OF DIVERSION (방해 요소의 순환고리 이해와 관리)</h2>
+      
+      <p>
+        디버전(Diversion)이란 <em>"관리자들이 다른 긴급 우선순위로 인해 너무 바빠서 안전에 충분한 주의를 기울이지 못하는 현상"</em>입니다 (Mathis, 2014).
+      </p>
+
+      <div class="media-card">
+        <img src="image-24.png" alt="Fig 1.12 Juggling activities">
+        <div class="media-caption">FIG. 1.12 The challenge of juggling expected and unexpected activities (저글러처럼 과업을 조율하는 안전 전문가)</div>
+      </div>
+
+      <div class="media-card">
+        <img src="image-25.png" alt="Fig 1.13 Wheel of diversion">
+        <div class="media-caption">FIG. 1.13 The safety professional’s wheel of diversion (안전 관리자의 디버전 수레바퀴)</div>
+        <div class="media-desc">
+          <strong>[그림 1.13 정밀 분석]</strong><br>
+          • <strong>예상된 계획 활동 (Expected Activities)</strong>: 작업위험성평가(JHA), 위험요인 발굴, 법정 교육훈련, 정기 안전회의.<br>
+          • <strong>예상치 못한 돌발 활동 (Unexpected Activities)</strong>: 보상 청구 분쟁, 설비 고장 및 결함, 신규 사고 발생, 불시 규제 점검.<br>
+          ➔ <em>디버전을 계획의 방해물로만 보지 말고 일상 업무의 본질로 수용하여 유연한 시간 관리(제2분면 보호)로 통제해야 합니다.</em>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ 관찰 8: 직원의 안전 요청 지연이 초래하는 치명적 결과</div>
+        <p style="margin-bottom: 0;">
+          현장 직원이 중요한 안전 문제를 문의했을 때 사유 설명 없이 <em>"지금 바쁘니 나중에 시간 날 때 보겠다"</em>고 미루면, 직원은 안전이 뒷전이라는 강한 부정적 인식을 갖게 됩니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 24: Orientation vs Onboarding -->
+<hr style="border:0;border-top:1px dashed var(--border-color);margin:24px 0;">
+<h3 class="sub-heading">⚠️ [Observation 8] 직원의 안전 요청 지연이 주는 치명적 신호</h3>
+<p>
+  현장 직원이 중요한 안전 우려 사항을 제기했을 때, 안전 관리자가 명확한 사유 설명 없이 <em>"지금 바쁘니 나중에 시간 날 때 보겠다"</em>고 무심코 넘겨버린다면, 직원은 안전이 조직에서 뒷전이라는 강한 부정적 신호를 받게 됩니다. 디버전을 다루는 태도 자체가 조직의 안전 지각을 형성합니다.
+</p>
+<div class="callout info">
+  <div class="callout-title">❓ 디버전 진단 6대 핵심 질문</div>
+  <ul style="margin-bottom:0;">
+    <li>당일 수립한 안전 목표와 계획이 주변 상황에 의해 얼마나 자주 무산되는가?</li>
+    <li>안전 전문가 혼자만 모든 문제를 해결하느라 역량이 지나치게 분산(Spread too thin)되어 있는가?</li>
+    <li>경영진이 안전 전문가를 안전 시스템 본연의 목적과 무관한 잡무에 동원하고 있는가?</li>
+    <li>조직 내에 너무 많은 '위기'가 상존하는가? 이것이 변화에 대한 조직적 저항 때문은 아닌가?</li>
+    <li>디버전 현상은 조직의 안전문화에 대해 무엇을 시사하고 있는가?</li>
+    <li>디버전은 조직의 '안전에 대한 지각'에 어떤 영향을 미치고 있는가?</li>
+  </ul>
+</div>
+
+</section>
+
+<section class="section-box" id="sec-18-changing-perception">
+<h2 class="sec-heading">🔄 18. CHANGING THE PERCEPTION OF THE SAFETY PROFESSIONAL (안전 전문가에 대한 지각 바꾸기)</h2>
+<p>
+  단순한 현장 단속자(Safety Guy)에서 벗어나 신뢰받는 리더로 거듭나기 위해서는 체계적인 <strong>자기 평가 인벤토리(Safety Professional Perception Inventory)</strong>를 통해 자신의 전문 브랜드를 객관적으로 점검해야 합니다.
+</p>
+<div class="card-grid">
+  <div class="sub-card">
+    <h4>🔍 자기 진단의 필요성</h4>
+    <p>조직 내에서 단순히 '지적질하는 사람'으로 인식되고 있다면, 스스로의 행동 양식과 전문성 전달 방식을 진단하는 자기 평가 체크리스트를 실행해야 합니다.</p>
+  </div>
+  <div class="sub-card">
+    <h4>📊 조직 안전문화와의 연계</h4>
+    <p>개인 인벤토리 분석은 안전 전문가의 역할에 대해 조직이 어떤 인식을 가지고 있는지 통찰을 제공하며, 조직 전체의 안전문화를 가늠하는 척도가 됩니다.</p>
+  </div>
+  <div class="sub-card">
+    <h4>🏷️ 전문가 브랜드 재정립</h4>
+    <p>이 인벤토리는 장애물을 극복하고 조직 내에서 신뢰받는 전문 브랜드(Professional Brand)를 구축하도록 설계되었습니다 (부록 1.3 참조).</p>
+  </div>
+</div>
+</section>
+
+<section class="section-box" id="sec-19-orientation-vs-onboarding">
+<h2 class="sec-heading">🚀 19. ORIENTATION VS. ONBOARDING (오리엔테이션 대 온보딩)</h2>
+      <p>
+        조직의 안전 지각을 근본적으로 바꾸는 출발점은 신규 입사자 및 전환 배치 직원을 맞이하는 온보딩 프로세스입니다.
+      </p>
+
+      <div class="media-card">
+        <img src="image-26.png" alt="Table 1.5 Orientation vs Onboarding">
+        <div class="media-caption">TABLE 1.5 Overview of the Difference between Orientation and Onboarding</div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">비교 기준</th>
+              <th style="width: 40%;">오리엔테이션 (Orientation)</th>
+              <th style="width: 40%;">온보딩 (Onboarding)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>역할 범위</strong></td><td>회사 전체 차원의 일반적 역할</td><td><strong>소속 부서 및 팀 단위의 구체적 실무 역할</strong></td></tr>
+            <tr><td><strong>기간 및 형태</strong></td><td>1회성 단발 이벤트 (1일 ~ 2주)</td><td><strong>수개월에서 1년 이상 지속되는 진행형 프로세스</strong></td></tr>
+            <tr><td><strong>교육 방식</strong></td><td>강의실 집체 교육 (Classroom Training)</td><td><strong>현장 직무 교육 (OJT) 및 실무 멘토링</strong></td></tr>
+            <tr><td><strong>진행 성격</strong></td><td>전통적이고 정적인 정보 전달</td><td><strong>진화하고 점진적으로 발전하는 맞춤형 방식</strong></td></tr>
+            <tr><td><strong>적용 대상</strong></td><td>주로 신규 채용 직원에게만 국한</td><td><strong>신규 입사자, 전환 배치자, 승진자 전체</strong></td></tr>
+            <tr><td><strong>제공 정보</strong></td><td>모든 신입사원 대상 일반 규정 정보</td><td><strong>개인별·직무별 맞춤형 고유 정보</strong></td></tr>
+            <tr><td><strong>지향점</strong></td><td>단기 적응 및 행정 처리에 집중</td><td><strong>장기적 조직 몰입, 역량 발휘, 안전문화 내재화</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-title">🚶 톰 피터스의 MBWA (현장 순회 경영) 실천 수칙</div>
+        <p>
+          주야간 모든 교대조를 직접 찾아가 경청하십시오.  
+          <strong>★ 절대적 수칙</strong>: 대화할 때는 수첩을 꺼내 적지 말고 상대방의 눈을 보며 <strong>전적으로 경청(Just Listen)</strong>하십시오. 대화가 끝난 후 메모를 정리해야 진솔한 신뢰를 얻을 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 25: Summary & Review Questions -->
+</section>
+
+<section class="section-box" id="sec-20-summary">
+<h2 class="sec-heading">📝 20. SUMMARY (요약 및 결론)</h2>
+<div class="callout success">
+  <div class="callout-title">🎯 챕터 1 핵심 결론 요약</div>
+  <ol style="margin-bottom:0;">
+    <li><strong>안전문화는 안전경영시스템 자체를 통째로 교체한다고 개선되는 것이 아니며, 조직 내 '안전에 대한 지각(Perception of Safety)'을 근본적으로 전환함으로써 비로소 고도화됩니다.</strong></li>
+    <li>안전은 고립된 프로그램이 아니라, 조직의 6대 영역(환경, 구조, 과업, 기술, 인간-사회, 목표)이 유기적으로 맞물려 작동할 때 비로소 드러나는 <strong>'발현적 속성(Emergent Property)'</strong>입니다.</li>
+    <li>조직은 영구적으로 변화하는 동적 실체이므로, 안전 프로세스 역시 정적 안정성에 안주하지 말고 <strong>동적이고 회복탄력적인(Resilient) 시스템</strong>으로 스스로를 끊임없이 혁신해야 합니다.</li>
+    <li>리더십과의 언어적 일치(Business language)를 이루고, 2분면 중심의 시간 관리와 디버전 통제를 통해 안전 전문가의 전문적 브랜드를 확립해야 합니다.</li>
+  </ol>
+</div>
+</section>
+
+<section class="section-box" id="sec-21-review-questions">
+<h2 class="sec-heading">❓ 21. CHAPTER REVIEW QUESTIONS (복습 문제 12문항 정밀 분석)</h2>
+<p>제1장에서 다룬 핵심 이론과 개념을 평가하고 현장 실무에 적용하기 위한 12대 핵심 복습 질문입니다:</p>
+<h3 class="sub-heading">복습 문제 12문항 (아코디언 클릭 시 모범 답안 확인)</h3>
+      
+      <details class="custom-accordion">
+        <summary>Q1. 안전문화 개발·유지에 왜 다학제적 접근이 필요한가? ▼</summary>
+        <div class="accordion-body">
+          안전은 공학, 심리학, 경영학, 커뮤니케이션, 리스크 관리가 결합된 복합 시스템이며, 조직 전체의 상호연동 영역을 아우르기 때문입니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q2. 안전문화(Safety Culture)를 정의하라. ▼</summary>
+        <div class="accordion-body">
+          조직의 가치, 신념, 인식, 규범이 안전경영시스템과 결합하여 안전한 행동과 환경을 촉진하는 집단적 작동 방식입니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q3. 발현적 속성(Emergent Property)을 정의하고 안전문화와의 연관성을 설명하라. ▼</summary>
+        <div class="accordion-body">
+          하위 구성 요소들의 제약적 결합으로 상위 차원에서 출현하는 새로운 속성이며, 조직 시스템의 조화에 따라 안전 혹은 불안전이 발현됩니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q4. 안전에 대한 긍정적 지각의 중요성을 논하라. ▼</summary>
+        <div class="accordion-body">
+          긍정적 지각이 형성되어야 리더십이 자원을 배분하고 직원이 자발적으로 참여하여 안전문화가 유지됩니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q5. 서면 직무기술서의 가치를 설명하라. ▼</summary>
+        <div class="accordion-body">
+          역할, 책임, 권한을 명확히 규정하여 역할 모호성을 제거하고 성과 평가의 객관적 기준을 제공합니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q6. 지각이 왜 조직 안전문화의 핵심 지표가 되는가? ▼</summary>
+        <div class="accordion-body">
+          지각은 조직이 실제로 무엇을 가치 있게 여기는지 보여주는 거울이며, 구성원의 안전 행동을 직접 지배하기 때문입니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q7. 표 1.1의 지각 차이 이슈(6대 대비)를 논하라. ▼</summary>
+        <div class="accordion-body">
+          예방 vs 실행, 리스크 감축 vs 감수, 비용 vs 수익, 결함 지적 vs 인정, 규제 의존 vs 유연성 등 핵심 신념 차이를 해소해야 합니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q8. 멘탈 모델의 개념을 설명하고 사례를 제시하라. ▼</summary>
+        <div class="accordion-body">
+          세상을 인식하는 내면의 틀이며, 과거 사고가 없다고 위험이 없다고 믿는 '무손실 무위험(No Loss No Risk)' 모델이 대표적 오류입니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q9. 시간 관리 매트릭스의 4개 사분면을 식별하라. ▼</summary>
+        <div class="accordion-body">
+          1분면(긴급/중요 - DO), 2분면(비긴급/중요 - DECIDE / 안전문화 핵심), 3분면(긴급/비중요 - DELEGATE), 4분면(비긴급/비중요 - DELETE).
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q10. 리더십과 같은 언어로 소통하지 못할 때 발생하는 문제를 논하라. ▼</summary>
+        <div class="accordion-body">
+          경영진이 안전 메시지를 이해하지 못해 자원 배분을 기피하고 안전을 단순 규제 비용이나 방해 요소로 치부하게 됩니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q11. 안전 브랜드 구축의 중요성을 논하라. ▼</summary>
+        <div class="accordion-body">
+          전문적 브랜드가 없으면 리더십과 직원들이 안전 기능을 신뢰하지 않으며 전략적 파트너로 대우하지 않습니다.
+        </div>
+      </details>
+
+      <details class="custom-accordion">
+        <summary>Q12. 디버전의 수레바퀴(Wheel of Diversion) 이해가 왜 중요한가? ▼</summary>
+        <div class="accordion-body">
+          돌발 변수에 휘둘려 핵심 목표를 상실하는 활동의 덫을 방지하고 유연하고 탄력적인 안전 프로세스를 유지하기 위함입니다.
+        </div>
+      </details>
+    </section>
+
+    <!-- Section 26: Appendices -->
+</section>
+
+<section class="section-box" id="sec-22-appendix-1-1">
+<h2 class="sec-heading">📁 22. [APPENDIX 1.1] EXAMPLE OF A TYPICAL SAFETY MANAGER JOB DESCRIPTION, DUTIES, AND REQUIREMENTS</h2>
+<div class="callout info">
+  <div class="callout-title">📋 전형적인 안전 관리자 직무기술서, 책무 및 자격 요건 분석</div>
+  <p><strong>공고 요약 및 주요 책무</strong>: 대규모 제조·산업 시설에서 안전보건 규정 준수를 총괄하고, 위험성평가(JHA), 사고 조사, 임직원 교육을 주도하는 관리자 직무.</p>
+  <ul style="margin-bottom:0;">
+    <li>OSHA, EPA 등 법적 규제 준수 체계 수립 및 정부 기관 대응</li>
+    <li>작업장 유해위험요인 발굴 및 리스크 저감 대책 실행</li>
+    <li>사고 근본 원인 조사(RCA) 및 재발 방지 대책 수립</li>
+    <li><strong>성찰 과제</strong>: 전통적 공고는 여전히 '규정 준수(Compliance)'에 치중되어 있으므로 비즈니스 파트너로서의 전략적 가치를 스스로 증명해야 합니다.</li>
+  </ul>
+</div>
+</section>
+
+<section class="section-box" id="sec-23-appendix-1-2">
+<h2 class="sec-heading">📁 23. [APPENDIX 1.2] SUGGESTED JOB GAP ANALYSIS AND INTERACTION FORM</h2>
+<div class="callout info">
+  <div class="callout-title">📊 직무 갭 분석 양식 및 SWOT 매트릭스</div>
+  <p>구직 공고의 요구조건과 자신의 보유 역량을 1:1로 대조하여 부족한 간극(Gap)을 파악하고, 이를 메우기 위한 구체적 행동 계획과 SWOT 매트릭스를 수립하는 도구입니다.</p>
+</div>
+<div class="table-responsive">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>직무 공고 요구 항목 (Job Requirement)</th>
+        <th>본인의 현재 역량 수준 (Current Capability)</th>
+        <th>역량 갭 (Gap Identified)</th>
+        <th>갭 극복 전략 및 키워드 보강 계획</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ISO 45001 시스템 구축 경험</strong></td>
+        <td>내부 심사원 수료 및 보조 참여</td>
+        <td>인증 심사 총괄 경험 부족</td>
+        <td>전문 심사원 과정 이수 및 모의 심사 포트폴리오 구축</td>
+      </tr>
+      <tr>
+        <td><strong>전사 위험성평가(JHA) 총괄</strong></td>
+        <td>정성적 평가 수행 가능</td>
+        <td>정량적 위험평가 툴 미숙</td>
+        <td>정량 위험평가 소프트웨어 교육 수료 및 키워드 추가</td>
+      </tr>
+      <tr>
+        <td><strong>경영진 리스크 브리핑 역량</strong></td>
+        <td>팀 내 보고 경험 다수</td>
+        <td>임원 대상 ROI 보고 경험 부족</td>
+        <td>재무적 손실 비용 분석 모델 학습 및 프레젠테이션 연습</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<section class="section-box" id="sec-24-appendix-1-3">
+<h2 class="sec-heading">📁 24. [APPENDIX 1.3] SAFETY PROFESSIONAL PERCEPTION INVENTORY, AN OPPORTUNITY</h2>
+<div class="callout info">
+  <div class="callout-title">📋 안전 전문가 지각 자기평가 인벤토리 (Self-Inventory)</div>
+  <p>단순한 '안전 경찰'에서 '가치 창출 파트너'로 거듭나기 위한 10대 핵심 자가 진단 문항:</p>
+  <ol style="margin-bottom:0;">
+    <li>나는 조직 내에서 생산을 돕는 해결사로 지각되고 있는가?</li>
+    <li>경영진과 대화할 때 규제 벌금 위협 대신 비즈니스 언어와 ROI로 설득하는가?</li>
+    <li>현장 작업자들은 나를 감시자가 아니라 든든한 조력자로 신뢰하는가?</li>
+    <li>나의 하루 일과는 1분면(소방수)에 휘둘리지 않고 2분면(예방 전략)을 계획대로 방어하는가?</li>
+    <li>타 부서 관리자들과 정기적으로 협력 채널을 가동하고 상호 윈-윈 관계를 맺고 있는가?</li>
+    <li>새로운 규칙을 도입할 때 구성원들과의 의미구성(Sensemaking) 과정을 거치는가?</li>
+    <li>조직의 비공식 네트워크를 파악하고 긴급 정보를 신속히 전달할 수 있는가?</li>
+    <li>돌발 업무 발생 시 직원의 안전 요청을 가볍게 넘기지 않고 진정성 있게 피드백하는가?</li>
+    <li>신입 및 전환 직원에게 체계적인 온보딩 멘토링을 제공하는가?</li>
+    <li>나는 명확한 '퍼스널 브랜드'를 구축하고 이를 일관되게 증명하고 있는가?</li>
+  </ol>
+</div>
+</section>
+
+<section class="section-box" id="sec-25-appendix-1-4">
+<h2 class="sec-heading">📁 25. [APPENDIX 1.4] ORIENTATION VS. ONBOARDING</h2>
+<div class="callout info">
+  <div class="callout-title">🚀 오리엔테이션 대 온보딩 심화 및 첫 30일 실무 지침</div>
+  <p>온보딩의 전략적 심화와 신임 안전 관리자가 조직에 안착하기 위한 첫 30일 핵심 행동 수칙입니다.</p>
+</div>
+<div class="card-grid">
+  <div class="sub-card">
+    <h4>📅 첫 10일 (경청과 파악)</h4>
+    <p>섣부른 지적이나 규칙 변경을 금지하고, 현장 순회(MBWA)를 통해 야간 교대조까지 목소리를 경청하며 비공식 권력 구조를 파악합니다 (수첩에 적지 말고 온전히 들을 것!).</p>
+  </div>
+  <div class="sub-card">
+    <h4>📅 11일 ~ 20일 (관계 구축 및 갭 분석)</h4>
+    <p>생산, 유지보수, 인사 부서장들과 1:1 면담을 진행하고, 회사의 과거 아차사고 및 사고 보고서를 정밀 분석하여 취약점을 도출합니다.</p>
+  </div>
+  <div class="sub-card">
+    <h4>📅 21일 ~ 30일 (작은 성공 창출 &amp; 로드맵)</h4>
+    <p>오래 방치되었던 불편한 현장 안전 문제 하나를 신속히 해결하여 신뢰를 획득하고, 향후 1년간 추진할 '제2분면 안전 로드맵'을 보고합니다.</p>
+  </div>
+</div>
+</section>
+
+<section class="section-box" id="sec-26-bibliography">
+<h2 class="sec-heading">📚 26. BIBLIOGRAPHY (참고 문헌)</h2>
+<div class="sub-card">
+  <ul style="margin-bottom:0; font-size:0.9rem; line-height:1.8;">
+    <li>Covey, S. R. (1990). <em>The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change</em>. Free Press.</li>
+    <li>FM 6-22. (2015). <em>Leader Development</em>. Headquarters, Department of the Army.</li>
+    <li>French, W. L., &amp; Bell, C. H. (1984). <em>Organization Development: Behavioral Science Interventions for Organization Improvement</em> (3rd ed.). Prentice-Hall.</li>
+    <li>Lawton, R. (2014). <em>Onboarding: The First Step in Safety</em>. Occupational Health &amp; Safety.</li>
+    <li>Mathis, T. L. (2014). <em>Overcoming Safety Diversions</em>. EHS Today.</li>
+    <li>Montante, W. M. (2014). <em>Safety: An Emergent Property of a Complex System</em>. Professional Safety, 59(12), 40-47.</li>
+    <li>Peters, T. J., &amp; Austin, N. (1999). <em>A Passion for Excellence: The Leadership Difference</em>. Profile Books.</li>
+    <li>Radford, K. J. (1988). <em>Strategic and Tactical Decisions: Emerging Concepts and Methods</em>. Springer-Verlag.</li>
+    <li>Radford, K. J. (1991). <em>Individual and Multi-Person Decision Making</em>. Springer-Verlag.</li>
+    <li>Sinek, S. (2014). <em>Leaders Eat Last: Why Some Teams Pull Together and Others Don't</em>. Portfolio/Penguin.</li>
+    <li>Yario, M. (2017). <em>Building a Resilient Safety Culture in Dynamic Business Environments</em>. Journal of Safety Management, 44(3), 112-125.</li>
+  </ul>
+</div>
+</section>
+  </main>
+
+  <!-- Right AI Tutor Panel -->
+  <aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-panel-header">
+      <h3>🤖 안전문화 AI 튜터</h3>
+      <span class="ai-status-tag" id="ai-status-tag">내장 지식엔진</span>
+    </div>
+    
+    <div class="ai-mode-bar">
+      <span>엔진 선택:</span>
+      <select class="ai-mode-select" id="ai-engine-select">
+        <option value="builtin">내장 지식 엔진 (Built-in)</option>
+        <option value="gemini">Google Gemini API</option>
+        <option value="openai">OpenAI API</option>
+      </select>
+    </div>
+
+    <!-- Quick Question Chips -->
+    <div class="ai-quick-questions">
+      <div class="quick-chip" data-q="발현적 속성(Emergent Property)이란 무엇인가요?">🌱 발현적 속성 정의</div>
+      <div class="quick-chip" data-q="몬탄테의 안전 정의와 'Safety First' 비판 이유는?">🔬 몬탄테의 안전 정의</div>
+      <div class="quick-chip" data-q="래드포드 모델에서 리더십과 안전 부서의 갈등 원인은?">🔀 래드포드 갈등 기제</div>
+      <div class="quick-chip" data-q="아이젠하워 제2분면과 안전문화 구축의 연관성은?">⏱️ 2분면 시간 관리</div>
+      <div class="quick-chip" data-q="오리엔테이션과 온보딩의 본질적 차이는?">🚀 온보딩 vs 오리엔테이션</div>
+      <div class="quick-chip" data-q="조직 마찰(Friction)과 윤활 메커니즘을 설명해주세요.">⚙️ 조직 마찰과 윤활</div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="chat-bubble ai">
+        반갑습니다! <strong>Chapter 1 (Defining the Perception of Safety)</strong> 전문 AI 학습 튜터입니다. 🎓<br><br>
+        발현적 속성, 몬탄테의 정의, 래드포드 의사결정 모델, 시간 관리 매트릭스, 온보딩 등 본 챕터의 핵심 이론과 실무 적용에 대해 무엇이든 질문해 주세요!
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="ai-input-area">
+      <form class="ai-form" id="ai-chat-form">
+        <textarea class="ai-input" id="ai-user-input" placeholder="질문을 입력하세요... (Enter로 전송)"></textarea>
+        <button type="submit" class="ai-send-btn">전송</button>
+      </form>
+    </div>
+  </aside>
+
+</div>
+
+<!-- Modal: API Settings -->
+<div class="modal-overlay" id="api-modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">🔑 API 연동 설정</h3>
+      <button class="close-modal-btn" id="close-modal-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13px; color: var(--text-muted);">
+        Google Gemini API Key 또는 OpenAI API Key를 등록하면 실시간 대규모 언어 모델을 통해 보다 정밀한 학술 분석 및 질의응답을 제공받을 수 있습니다. (키는 브라우저 로컬 스토리지에만 저장됩니다.)
+      </p>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini API Key</label>
+        <input type="password" id="gemini-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="AIzaSy...">
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini Model</label>
+        <select id="gemini-model-select" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;">
+          <option value="gemini-1.5-flash">gemini-1.5-flash (빠른 응답)</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro (심화 학술 분석)</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">OpenAI API Key (선택사항)</label>
+        <input type="password" id="openai-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="sk-...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" id="clear-key-btn">초기화</button>
+      <button class="action-btn primary" id="save-key-btn">저장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Message -->
+<div class="toast" id="toast-msg">알림 메시지</div>
+
+<script>
+// Built-in Knowledge Base for Chapter 1
+const CHAPTER1_KB = {
+  emergent: `[발현적 속성(Emergent Property) 핵심 해설]\n• 정의: 하위 구성 요소들이 상호 제약적 관계(Constraining relations) 속에서 결합할 때 상위 시스템 차원에서 새롭게 나타나는 예측 불가능한 고유 속성입니다 (Emergent Property, 2018).\n• 안전문화 연계: 안전은 특정 안전 부서만의 개별 프로그램이 아닙니다. 조직의 6대 영역(환경, 구조, 과업, 기술, 인간-사회, 목표)이 유기적으로 맞물려 작동할 때 비로소 조직 전체에서 '안전한 환경' 또는 '불안전한 환경'이 최종 발현됩니다.`,
+  montante: `[윌리엄 몬탄테의 안전 정의 및 비판]\n• 정의: "안전이란 리스크와 그로부터 파생된 유해위험요인이 수용 가능하거나(Acceptable) 통제 하에 있다(In control)고 판단되는 존재 상태(State of being)이다" (Montante, 2006).\n• 패러다임 전환: 몬탄테는 'Safety First', 'Think Safety'와 같은 공허한 전통적 구호(Mantra)를 폐기할 것을 촉구했습니다. 대신 현장의 모든 구성원이 스스로 '유해위험요인 제어 관리자(Hazard Control Manager)'로서 위험을 어떻게 통제하고 있는지 증명할 수 있는 개인적·조직적 숙달(Mastery)을 요구합니다.`,
+  radford: `[래드포드(Radford, 1988)의 의사결정 모델과 갈등 기제]\n• 경영 리더십(비구조화된 상황): 정보의 불완전성, 비용/편익 정량화 불가, 수많은 이해관계자와 다중 목표 속에서 수학적 최적해가 불가능하므로 타협안인 '만족화(Satisficing)' 결정을 내립니다.\n• 안전 부서(구조화된 상황): 단일 목표(무사고)와 단일 규정을 근거로 '단일 최적해(Rational decision)'만을 고집합니다.\n• 갈등의 본질: 리더십이 불확실성 속에서 비즈니스 결정을 내릴 때, 안전 부서가 단순 규제 위협("예산 안 주면 처벌받는다")만 가하면 상호 불신과 갈등이 폭발합니다.`,
+  eisenhower: `[시간 관리 매트릭스와 제2분면의 중요성]\n• 스티븐 코비와 아이젠하워의 4분면 매트릭스에서 안전문화가 발전하는 핵심 영역은 바로 제2분면(긴급하지 않지만 중요한 영역: DECIDE)입니다.\n• 위험성평가(JHA), 비상대응계획, 안전 교육 체계화 등은 당장 발등에 불이 떨어진 위기가 아니기 때문에 1분면(사고 수습)이나 3분면(잡무)에 밀리기 쉽습니다.\n• 안전 관리자는 '활동의 덫(Activity Trap)'에서 벗어나 의식적으로 제2분면에 시간을 투자해야 합니다.`,
+  onboarding: `[오리엔테이션 vs. 온보딩의 본질적 차이]\n• 오리엔테이션: 입사 직후 인사부서에서 복리후생, 사내 규정 등을 전달하는 1회성 단발 집체 교육(1일~2주).\n• 온보딩: 채용 합격부터 완전한 성과 창출 구성원으로 안착할 때까지 수개월~1년 이상 지속되는 맞춤형·진화형 프로세스.\n• 실무 수칙: 톰 피터스의 MBWA(Management By Wandering Around)를 실천하되, 현장 작업자의 말을 들을 때는 수첩을 적지 말고 전적으로 경청(Just Listen)해야 신뢰를 얻습니다.`,
+  friction: `[조직 마찰(Friction)과 윤활 메커니즘 (Fig 1.8)]\n• 조직 마찰은 상이한 부서의 전문성과 목표 불일치에서 자연스럽게 발생합니다.\n• 리더십(녹색 기어), 안전 부서(분홍 기어), 현장 직원(노란 기어)의 세 톱니바퀴가 중앙의 안전문화(파란 기어)를 구동합니다.\n• 리더십의 적극적인 제도적 지원과 왜곡 없는 열린 소통이 바로 기어가 맞물려 돌아가게 하는 '윤활유(Oil can)' 역할을 합니다.`
+};
+
+const PROMPTS_DATA = {
+  p1: `당신은 안전문화 및 주관성 연구(Q방법론) 전문 교수입니다.
+Elsevier의 'Safety Culture' Chapter 1(Defining the Perception of Safety)의 핵심 이론(상대적 위험 수용성, 몬탄테의 안전 정의, 래드포드의 복합 의사결정 모델, 6대 핵심 신념 간극 등)을 바탕으로 현장 작업자와 관리자 집단의 안전 지각 유형을 실증 분석하기 위한 Q-진술문(Q-Sample) 34개를 도출하고 범주별 설계 논리를 제시해 주십시오.`,
+  p2: `Chapter 1의 래드포드(Radford) 의사결정 모델(Fig 1.11)에 따르면 경영 리더십은 불확실성과 다중 목표 속에서 '만족화(Satisficing)' 결정을 내리는 반면, 안전 전문가는 단일 규범에 기반한 '단일 최적해'를 고집하여 갈등이 발생합니다.
+신임 안전 관리자가 이러한 구조적 갈등을 극복하고 경영진과 비즈니스 언어로 소통하며 안전 예산을 확보하기 위한 구체적 5단계 커뮤니케이션 전략을 수립해 주십시오.`
+};
+
+// DOM References
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const apiKeyBtn = document.getElementById('api-key-btn');
+const apiModalOverlay = document.getElementById('api-modal-overlay');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const saveKeyBtn = document.getElementById('save-key-btn');
+const clearKeyBtn = document.getElementById('clear-key-btn');
+const geminiKeyInput = document.getElementById('gemini-key-input');
+const geminiModelSelect = document.getElementById('gemini-model-select');
+const openaiKeyInput = document.getElementById('openai-key-input');
+const aiEngineSelect = document.getElementById('ai-engine-select');
+const aiStatusTag = document.getElementById('ai-status-tag');
+const aiChatForm = document.getElementById('ai-chat-form');
+const aiUserInput = document.getElementById('ai-user-input');
+const aiChatMessages = document.getElementById('ai-chat-messages');
+const toastMsg = document.getElementById('toast-msg');
+
+// LocalStorage State
+let storedGeminiKey = localStorage.getItem('chapter1_gemini_key') || '';
+let storedOpenaiKey = localStorage.getItem('chapter1_openai_key') || '';
+let storedModel = localStorage.getItem('chapter1_gemini_model') || 'gemini-1.5-flash';
+
+if (storedGeminiKey) {
+  geminiKeyInput.value = storedGeminiKey;
+  aiEngineSelect.value = 'gemini';
+  aiStatusTag.textContent = 'Gemini API 연동';
+  aiStatusTag.style.color = '#38bdf8';
+}
+
+// Theme Toggle
+themeToggleBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const target = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', target);
+  localStorage.setItem('chapter1_theme', target);
+});
+
+if (localStorage.getItem('chapter1_theme')) {
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('chapter1_theme'));
+}
+
+// AI Panel Toggle
+toggleAiBtn.addEventListener('click', () => {
+  rightAiPanel.classList.toggle('collapsed');
+});
+
+// Modal Logic
+apiKeyBtn.addEventListener('click', () => apiModalOverlay.classList.add('active'));
+closeModalBtn.addEventListener('click', () => apiModalOverlay.classList.remove('active'));
+apiModalOverlay.addEventListener('click', (e) => {
+  if (e.target === apiModalOverlay) apiModalOverlay.classList.remove('active');
+});
+
+saveKeyBtn.addEventListener('click', () => {
+  storedGeminiKey = geminiKeyInput.value.trim();
+  storedOpenaiKey = openaiKeyInput.value.trim();
+  storedModel = geminiModelSelect.value;
+  localStorage.setItem('chapter1_gemini_key', storedGeminiKey);
+  localStorage.setItem('chapter1_openai_key', storedOpenaiKey);
+  localStorage.setItem('chapter1_gemini_model', storedModel);
+
+  if (storedGeminiKey) {
+    aiEngineSelect.value = 'gemini';
+    aiStatusTag.textContent = 'Gemini API 연동';
+    aiStatusTag.style.color = '#38bdf8';
+  } else {
+    aiEngineSelect.value = 'builtin';
+    aiStatusTag.textContent = '내장 지식엔진';
+    aiStatusTag.style.color = '';
+  }
+  apiModalOverlay.classList.remove('active');
+  showToast('API 설정이 저장되었습니다. ✅');
+});
+
+clearKeyBtn.addEventListener('click', () => {
+  geminiKeyInput.value = '';
+  openaiKeyInput.value = '';
+  localStorage.removeItem('chapter1_gemini_key');
+  localStorage.removeItem('chapter1_openai_key');
+  storedGeminiKey = '';
+  storedOpenaiKey = '';
+  aiEngineSelect.value = 'builtin';
+  aiStatusTag.textContent = '내장 지식엔진';
+  aiStatusTag.style.color = '';
+  showToast('API 키가 삭제되었습니다.');
+});
+
+// Toast Helper
+function showToast(msg) {
+  toastMsg.textContent = msg;
+  toastMsg.classList.add('show');
+  setTimeout(() => toastMsg.classList.remove('show'), 2500);
+}
+
+// Copy Prompt Buttons
+document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('프롬프트가 클립보드에 복사되었습니다! 📋');
+      });
+    }
+  });
+});
+
+// Send Prompt to AI Panel
+document.querySelectorAll('.send-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      if (rightAiPanel.classList.contains('collapsed')) {
+        rightAiPanel.classList.remove('collapsed');
+      }
+      aiUserInput.value = text;
+      handleSendMessage();
+    }
+  });
+});
+
+// Quick Chips
+document.querySelectorAll('.quick-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (rightAiPanel.classList.contains('collapsed')) {
+      rightAiPanel.classList.remove('collapsed');
+    }
+    aiUserInput.value = chip.getAttribute('data-q');
+    handleSendMessage();
+  });
+});
+
+// Append Message to Chat
+function appendMessage(role, text) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = text.replace(/\n/g, '<br>');
+  aiChatMessages.appendChild(bubble);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return bubble;
+}
+
+// Handle AI Chat Form Submission
+aiChatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleSendMessage();
+});
+
+// Enter key submit in textarea (Shift+Enter for newline)
+aiUserInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSendMessage();
+  }
+});
+
+async function handleSendMessage() {
+  const query = aiUserInput.value.trim();
+  if (!query) return;
+
+  appendMessage('user', query);
+  aiUserInput.value = '';
+
+  const loadingBubble = appendMessage('ai', '답변을 생성하고 있습니다... 💭');
+  const engine = aiEngineSelect.value;
+
+  if (engine === 'gemini' && storedGeminiKey) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${storedModel}:generateContent?key=${storedGeminiKey}`;
+      const systemContext = `당신은 Elsevier 명저 'Safety Culture' Chapter 1 (Defining the Perception of Safety)의 학술 지도 교수이자 안전문화 전문 AI입니다. 원문의 이론(발현적 속성, 상대적 위험 수용성, 몬탄테의 안전 정의, French & Bell의 6대 연동 영역, Radford 복합 의사결정 모델, Table 1.1 핵심 신념 간극, 아이젠하워 4분면, 디버전 수레바퀴, 온보딩과 MBWA 경청 등)에 근거하여 엄밀하고 학술적이며 실무적인 답변을 제공하십시오.`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: `${systemContext}\n\n질문/요청사항:\n${query}` }]
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        loadingBubble.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+      } else {
+        loadingBubble.innerHTML = `⚠️ Gemini API 응답 오류: ${data.error?.message || '응답을 생성할 수 없습니다.'}`;
+      }
+    } catch (err) {
+      loadingBubble.innerHTML = `⚠️ 네트워크 또는 API 호출 실패: ${err.message}<br><small>내장 지식 모드로 전환해 답변을 확인하세요.</small>`;
+    }
+  } else {
+    // Built-in Knowledge Base Fallback & Smart Matcher
+    setTimeout(() => {
+      let reply = "";
+      const lower = query.toLowerCase();
+
+      if (lower.includes('발현') || lower.includes('emergent') || lower.includes('속성')) {
+        reply = CHAPTER1_KB.emergent;
+      } else if (lower.includes('몬탄테') || lower.includes('montante') || lower.includes('safety first') || lower.includes('구호')) {
+        reply = CHAPTER1_KB.montante;
+      } else if (lower.includes('래드포드') || lower.includes('radford') || lower.includes('갈등') || lower.includes('의사결정')) {
+        reply = CHAPTER1_KB.radford;
+      } else if (lower.includes('시간') || lower.includes('아이젠하워') || lower.includes('코비') || lower.includes('2분면') || lower.includes('matrix')) {
+        reply = CHAPTER1_KB.eisenhower;
+      } else if (lower.includes('온보딩') || lower.includes('onboarding') || lower.includes('오리엔테이션') || lower.includes('mbwa')) {
+        reply = CHAPTER1_KB.onboarding;
+      } else if (lower.includes('마찰') || lower.includes('friction') || lower.includes('톱니바퀴') || lower.includes('기어')) {
+        reply = CHAPTER1_KB.friction;
+      } else {
+        reply = `[Chapter 1 내장 지식엔진 답변]\n질의: "${query}"\n\nChapter 1 'Defining the Perception of Safety'에서는 안전문화 확립에서 '지각(Perception)'의 전환을 가장 핵심적인 요소로 규정합니다.\n• 안전은 고립된 프로그램이 아니라 시스템 전체의 '발현적 속성(Emergent Property)'입니다.\n• 경영진의 불확실한 '만족화' 의사결정과 안전 부서의 '단일 최적해' 의사결정 간의 차이(Radford 모델)를 극복하기 위해 비즈니스 공통 언어로 소통해야 합니다.\n• 아이젠하워 제2분면(위험성평가, 장기 전략)을 보호하고, 체계적인 안전 온보딩을 통해 조직문화를 내재화해야 합니다.\n\n💡 상단 [🔑 API 설정]에서 Gemini API Key를 등록하시면 실시간 생성형 심화 분석을 받으실 수 있습니다!`;
+      }
+      loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+    }, 500);
+  }
+}
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navLinks = document.querySelectorAll('#nav-menu-list .nav-link');
+navSearchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  navLinks.forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.parentElement.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Scrollspy for active link
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('main section.section-box');
+  let currentId = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    if (window.scrollY >= top) {
+      currentId = sec.getAttribute('id');
+    }
+  });
+  if (currentId) {
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>

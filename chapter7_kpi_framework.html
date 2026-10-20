@@ -1,0 +1,2678 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 7: 안전 리더십 &amp; 선행 안전문화 KPI 및 주관성(Q방법론) 연구 프레임워크</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --accent-fire: #ea580c;
+  --accent-fire-light: #fb923c;
+  --border-color: #334155;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f1f5f9;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #7e22ce;
+  --accent-fire: #ea580c;
+  --accent-fire-light: #f97316;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  padding-bottom: 80px;
+}
+
+header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 18px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-badge {
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  color: #0b1120;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+.fire-badge {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
+}
+.q-badge {
+  background: linear-gradient(135deg, #7e22ce, #a855f7);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+h1.main-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 22px;
+  color: var(--text-main);
+}
+.sub-meta {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  transform: translateY(-1px);
+}
+.btn.primary {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border-color: var(--accent-blue);
+}
+.btn.primary:hover {
+  background: #0284c7;
+  color: #fff;
+}
+.btn.fire-action {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  color: #fff;
+  border-color: #ea580c;
+}
+.btn.fire-action:hover {
+  background: linear-gradient(135deg, #c2410c, #ea580c);
+}
+.btn.q-action {
+  background: linear-gradient(135deg, #7e22ce, #a855f7);
+  color: #fff;
+  border-color: #7e22ce;
+}
+.btn.q-action:hover {
+  background: linear-gradient(135deg, #6b21a8, #7e22ce);
+}
+
+.container {
+  max-width: 1360px;
+  margin: 26px auto 0;
+  padding: 0 24px;
+}
+
+/* Master View Switcher Tabs (3 Tabs) */
+.view-tabs-wrap {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  background: var(--bg-card);
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  width: fit-content;
+  flex-wrap: wrap;
+}
+.view-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+.view-tab-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-card-sub);
+}
+.view-tab-btn.active.fire-tab {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
+}
+.view-tab-btn.active.q-tab {
+  background: linear-gradient(135deg, #7e22ce, #a855f7);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(126, 34, 206, 0.4);
+}
+.view-tab-btn.active.general-tab {
+  background: var(--accent-blue);
+  color: #0b1120;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Philosophy Banner */
+.philosophy-banner {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(16, 185, 129, 0.12));
+  border: 1px solid var(--accent-blue);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.philosophy-banner.fire-theme {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.15), rgba(245, 158, 11, 0.15));
+  border-color: var(--accent-fire);
+}
+.philosophy-banner.q-theme {
+  background: linear-gradient(135deg, rgba(126, 34, 206, 0.15), rgba(56, 189, 248, 0.15));
+  border-color: var(--accent-purple);
+}
+.philosophy-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.philosophy-title.fire-title { color: var(--accent-fire-light); }
+.philosophy-title.q-title { color: #c084fc; }
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+.phil-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.phil-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 4px; height: 100%;
+  background: var(--accent-gold);
+}
+.phil-card.fire-p1::before { background: #38bdf8; }
+.phil-card.fire-p2::before { background: #ea580c; }
+.phil-card.fire-p3::before { background: #10b981; }
+.phil-card.q-step1::before { background: #a855f7; }
+.phil-card.q-step2::before { background: #38bdf8; }
+.phil-card.q-step3::before { background: #10b981; }
+
+.phil-card strong {
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 14.5px;
+}
+.phil-card p {
+  font-size: 13px;
+  color: var(--text-sub);
+  line-height: 1.6;
+}
+
+/* Duty Scope Grid */
+.duty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+.duty-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 3px solid var(--accent-fire);
+}
+.duty-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  width: fit-content;
+  background: rgba(234, 88, 12, 0.2);
+  color: var(--accent-fire-light);
+  border: 1px solid rgba(234, 88, 12, 0.4);
+}
+.duty-card h3 {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.duty-card ul {
+  list-style: none;
+  font-size: 13px;
+  color: var(--text-sub);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.duty-card ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* Filter Controls */
+.filter-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.filter-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+.filter-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.filter-chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.filter-chip.active.fire-chip {
+  background: var(--accent-fire);
+  color: #fff;
+  border-color: var(--accent-fire);
+  font-weight: 700;
+}
+.filter-chip.active.q-chip {
+  background: var(--accent-purple);
+  color: #fff;
+  border-color: var(--accent-purple);
+  font-weight: 700;
+}
+.filter-chip.active.general-chip {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border-color: var(--accent-blue);
+  font-weight: 700;
+}
+
+/* KPI Sections */
+.kpi-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 26px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+}
+.section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.role-badge {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+.role-badge.fire-p1-tag { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+.role-badge.fire-p2-tag { background: rgba(234, 88, 12, 0.2); color: var(--accent-fire-light); border: 1px solid var(--accent-fire); }
+.role-badge.fire-p3-tag { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+.role-badge.q-p1-tag { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+.role-badge.q-p2-tag { background: rgba(234, 88, 12, 0.2); color: var(--accent-fire-light); border: 1px solid var(--accent-fire); }
+.role-badge.q-p3-tag { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+
+h2.section-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+}
+.section-desc {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+/* Table Styling */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+table.kpi-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+table.kpi-table th {
+  background: var(--bg-card-sub);
+  color: var(--accent-fire-light);
+  padding: 12px 16px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+table.kpi-table.q-table th {
+  color: #c084fc;
+}
+table.kpi-table.general-table th {
+  color: var(--accent-blue);
+}
+table.kpi-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+  color: var(--text-sub);
+}
+table.kpi-table tr:last-child td { border-bottom: none; }
+table.kpi-table tr:hover td { background: rgba(234, 88, 12, 0.04); }
+table.kpi-table.q-table tr:hover td { background: rgba(168, 85, 247, 0.05); }
+
+.kpi-name {
+  font-weight: 700;
+  color: var(--text-main);
+  display: block;
+  margin-bottom: 4px;
+}
+.type-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.type-tag.leading { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+.type-tag.governance { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); }
+.type-tag.quantitative { background: rgba(2, 132, 199, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
+.type-tag.qualitative { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #c084fc; }
+.type-tag.q-pos { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+.type-tag.q-neg { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
+.type-tag.q-neu { background: rgba(148, 163, 184, 0.2); color: var(--text-muted); border: 1px solid var(--border-color); }
+
+.code-formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: var(--bg-main);
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  color: var(--accent-gold);
+  border: 1px solid var(--border-color);
+  margin-bottom: 4px;
+}
+.rubric-box {
+  background: var(--bg-main);
+  border-left: 3px solid var(--accent-purple);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  color: var(--text-sub);
+}
+.origin-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+.gov-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+/* Q-Sort Grid Graphic Card */
+.q-grid-card {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-purple);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.q-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.q-grid-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 18px;
+  color: #c084fc;
+}
+.q-board-wrap {
+  overflow-x: auto;
+  padding: 10px 0;
+}
+.q-board {
+  display: flex;
+  gap: 10px;
+  min-width: 900px;
+  justify-content: center;
+}
+.q-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.q-col-header {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+}
+.q-col-header.neg { color: var(--accent-red); border-color: rgba(239, 68, 68, 0.4); }
+.q-col-header.neu { color: var(--text-muted); }
+.q-col-header.pos { color: var(--accent-green); border-color: rgba(16, 185, 129, 0.4); }
+.q-slot {
+  width: 100%;
+  height: 52px;
+  background: var(--bg-main);
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4px;
+  font-weight: 600;
+}
+.q-slot.filled {
+  background: var(--bg-card-sub);
+  border-style: solid;
+  border-color: var(--accent-purple);
+  color: var(--text-main);
+}
+
+/* P-Sample Matrix */
+.p-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.p-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  border-top: 3px solid var(--accent-purple);
+}
+.p-card h3 {
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.p-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+}
+.p-card ul {
+  list-style: none;
+  font-size: 13px;
+  color: var(--text-sub);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Interactive Checklist Card */
+.checklist-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.checklist-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 18px;
+  color: var(--accent-fire-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+.checklist-col {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.checklist-col h4 {
+  font-size: 14px;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 6px;
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-sub);
+  cursor: pointer;
+  user-select: none;
+}
+.check-item input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: var(--accent-fire);
+  cursor: pointer;
+}
+.check-item.done {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Simulator Card */
+.calc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-fire);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 32px;
+}
+.calc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.calc-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  color: var(--accent-fire-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.calc-item {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.calc-item label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.calc-item input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent-fire);
+}
+.calc-val-wrap {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.calc-val-wrap span.val {
+  color: var(--accent-fire-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.score-display {
+  background: var(--bg-main);
+  border: 2px solid var(--accent-fire);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+.score-number {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 46px;
+  color: var(--accent-fire-light);
+  line-height: 1;
+}
+.score-grade {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.score-desc {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--bg-card);
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+@media print {
+  header, .filter-bar, .calc-card, .btn, .view-tabs-wrap, .checklist-card { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11pt; padding: 0; }
+  .kpi-section { border: 1px solid #ccc; box-shadow: none; page-break-inside: avoid; margin-bottom: 20px; }
+  table.kpi-table th { background: #eee; color: #000; }
+  table.kpi-table td { color: #000; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="brand-title">
+        <span class="brand-badge">Chapter 7 KPI</span>
+        <span class="fire-badge">🚒 의령소방서 구조주임 실무</span>
+        <span class="q-badge">🔬 Q방법론 연구설계</span>
+        <div>
+            <h1 class="main-title">안전 리더십 KPI &amp; 소방 주관성(Q방법론) 연구 대시보드</h1>
+            <div class="sub-meta">선행 안전문화 3대 원칙 × 국민행복소방정책 종합평가 × 주관성(Q) 연구설계(Q진술문 34선 &amp; P표본) 통합 플랫폼</div>
+        </div>
+    </div>
+    <div class="header-actions">
+        <button class="btn" id="theme-toggle-btn">🌓 테마 전환</button>
+        <button class="btn" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+        <button class="btn q-action" id="copy-q-statements-btn">📋 Q 진술문 34선 복사</button>
+        <button class="btn fire-action" id="copy-fire-summary-btn">📋 구조주임 KPI 복사</button>
+        <a href="chapter7_subnote.html" class="btn">📖 7장 서브노트 보기</a>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- View Switcher Tabs (3 Tabs) -->
+    <div class="view-tabs-wrap">
+        <button class="view-tab-btn fire-tab active" id="tab-fire-view" data-view="fire">
+            🚒 의령소방서 구조주임 실무 KPI (훈련·장비·통제단)
+        </button>
+        <button class="view-tab-btn q-tab" id="tab-q-view" data-view="q">
+            🔬 주관성 연구설계 (Q방법론: Q표본 34선 &amp; P표본)
+        </button>
+        <button class="view-tab-btn general-tab" id="tab-general-view" data-view="general">
+            🏢 전사 / 제조·일반 산업 KPI (5대 계층별 체계)
+        </button>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 1: 의령소방서 구조주임 실무 특화판 (기존 실무 탭) -->
+    <!-- ======================================================== -->
+    <div id="fire-kpi-view-container">
+
+        <!-- Fire Philosophy Banner -->
+        <div class="philosophy-banner fire-theme">
+            <div class="philosophy-title fire-title">
+                🚒 의령소방서 구조주임의 3대 선행 안전문화 원칙 (Chapter 7 기반)
+            </div>
+            <p style="font-size:13.5px; color:var(--text-sub);">
+                자굴산·한우산 산악사고, 남강 수난사고, 농기계 끼임 등 관내 재난 현장의 외생적 변수나 인명피해 결과(후행지표)는 구조주임이 통제할 수 없습니다. 제7장 원칙에 따라 <strong>구조주임이 100% 직접 제어 가능한 사전 훈련 및 장비 가동 상태</strong>에 집중하고, <strong>권한과 자원이 부여된 범위 내에서만 책무성을 합의</strong>하며, <strong>선제적 결함 발견 대원에게 3배 이상의 긍정적 포상</strong>을 부여합니다.
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="phil-card fire-p1">
+                    <strong>1. 통제 가능성 (Controllability)</strong>
+                    <p>현장 사고 결과로 문책하지 않고, 교대 전 장비점검(e-소방 당일 입력), 월간 훈련계획 이행률, 통제단 장비 상시 작동상태 등 100% 직접 통제 가능한 예방 활동만을 성과로 평가합니다.</p>
+                </div>
+                <div class="phil-card fire-p2">
+                    <strong>2. 삼원조 정합성 (Triad Consistency)</strong>
+                    <p>장비 관리 책임을 묻기 위해서는 '즉각 수리의뢰 및 노후장비 교체 품의 권한'과 '훈련 위험중지권'이 사전 보장되어야 하며, 예산 미배정 등 불가항력 사유를 소급 처벌하지 않습니다.</p>
+                </div>
+                <div class="phil-card fire-p3">
+                    <strong>3. 긍정 강화 우선 (Positive 3:1)</strong>
+                    <p>훈련 중 실수를 질책하기보다, 교대점검에서 미세 결함을 선제 발견한 대원이나 훈련에 솔선수범한 대원에게 표창·마일리지를 징계 대비 3배 이상 배정하여 Just Culture를 정착시킵니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uiryeong Rescue Officer Duty Scope Breakdown -->
+        <div class="duty-grid">
+            <div class="duty-card">
+                <span class="duty-badge">직무 1: 교육·훈련</span>
+                <h3>구조대원 교육·훈련 (Training)</h3>
+                <ul>
+                    <li>🎯 <strong>인명구조사(1·2급)</strong>: 자격 취득 훈련 지원 및 보유율 80% 유지</li>
+                    <li>🎯 <strong>의령 특성화 훈련</strong>: 자굴산·한우산 산악로프 &amp; 남강 급류 수난구조</li>
+                    <li>🎯 <strong>비상탈출(Mayday)</strong>: 공기 고갈 시 즉각 Mayday 발령 및 RIT 훈련</li>
+                    <li>🎯 <strong>신임 OJT</strong>: 신규 전입 대원 장비숙달 1:1 멘토링 (2주 이상)</li>
+                </ul>
+            </div>
+            <div class="duty-card">
+                <span class="duty-badge">직무 2: 장비 관리</span>
+                <h3>구조공작차 &amp; 구조장비 관리 (Equipment)</h3>
+                <ul>
+                    <li>🔧 <strong>일일 교대점검</strong>: 유압스프레더/절단기, SCBA 기밀검사 및 e-소방 입력</li>
+                    <li>🔧 <strong>무결점 가동 태세</strong>: 출동 중 장비 작동 불능 0건 (100% 가동)</li>
+                    <li>🔧 <strong>선제적 수리의뢰</strong>: 결함 발견 즉시 24시간 내 예산장비팀 기안</li>
+                    <li>🔧 <strong>내구연한 이력관리</strong>: 로프·하네스·절단기 날 선제 불용/교체 품의</li>
+                </ul>
+            </div>
+            <div class="duty-card">
+                <span class="duty-badge">직무 3: 통제단 지원</span>
+                <h3>긴급구조통제단 운영 및 지원 (Command Staff)</h3>
+                <ul>
+                    <li>🚨 <strong>장비운반차 점검</strong>: 지휘소 텐트·발전기·조명탑 분기별 작동시험</li>
+                    <li>🚨 <strong>불시가동훈련 참여</strong>: 구조진압반 임무카드 숙지 및 신속 전개</li>
+                    <li>🚨 <strong>지휘통신망 확보</strong>: 통제단 무전기 채널 점검 및 배터리 완충 유지</li>
+                    <li>🚨 <strong>대형재난 대응</strong>: 통제단 가동 시 현장지휘소 장비 즉각 보급</li>
+                </ul>
+            </div>
+            <div class="duty-card">
+                <span class="duty-badge">직무 4: 안전 &amp; 문화</span>
+                <h3>출동 안전관리 &amp; Just Culture</h3>
+                <ul>
+                    <li>🛡️ <strong>2인 1조 &amp; RIT 지정</strong>: 고위험 현장 진입 시 신속구조팀 필수 대기</li>
+                    <li>🛡️ <strong>작전 후 복기(AAR)</strong>: 귀소 직후 막내 대원부터 비징벌적 위험 공유</li>
+                    <li>🛡️ <strong>선제 결함 발견 포상</strong>: 장비 고장 사전 예방 대원 3:1 마일리지 부여</li>
+                    <li>🛡️ <strong>훈련중지권(Stop-Training)</strong>: 혹서기·대원 탈진 시 난이도 조정 권한</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-groups">
+                <span class="filter-label">원칙 필터:</span>
+                <button class="filter-chip active fire-chip" data-fire-p="all">전체 원칙 보기</button>
+                <button class="filter-chip" data-fire-p="p1">1. 통제 가능성 (Controllability)</button>
+                <button class="filter-chip" data-fire-p="p2">2. 삼원조 정합성 (Triad)</button>
+                <button class="filter-chip" data-fire-p="p3">3. 긍정 강화 (3:1 법칙)</button>
+            </div>
+            <div class="filter-groups">
+                <span class="filter-label">지표 성격:</span>
+                <button class="filter-chip active fire-chip" data-fire-kind="all">전체 지표</button>
+                <button class="filter-chip" data-fire-kind="quant">정량적 지표 (시스템 집계)</button>
+                <button class="filter-chip" data-fire-kind="qual">정성적 지표 (관찰/루브릭)</button>
+            </div>
+        </div>
+
+        <!-- Section 1: Controllability -->
+        <section class="kpi-section" data-fire-sec="p1">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge fire-p1-tag">원칙 1 : Controllability</span>
+                    <h2 class="section-title">1. 통제 가능성 원칙 기반 구조주임 KPI</h2>
+                </div>
+                <div class="section-desc">재난 결과 배제 — 구조주임이 100% 직접 제어할 수 있는 사전 점검 및 훈련 루틴 측정</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table">
+                    <thead>
+                        <tr>
+                            <th style="width:22%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:13%;">구분</th>
+                            <th style="width:33%;">측정 산식 / 구체적 기준</th>
+                            <th style="width:12%;">목표 수준</th>
+                            <th style="width:20%;">국민행복정책 / 실무 연계</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">일일 구조장비 점검 e-소방 당일 등록률</span>
+                                <span class="origin-note">교대점검(Preshift) 즉각 전산화</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(교대 후 당일 e-소방 장비관리시스템 입력 완료 일수 / 당월 총 근무일수) × 100</span><br>
+                                유압장비 작동, 공기호흡기 잔량/기밀 점검 당일 등록
+                            </td>
+                            <td><strong>100%</strong> 매일</td>
+                            <td>
+                                소방장비 관리실태 및 가동률 점검 지표
+                                <span class="gov-tag">국민행복정책-장비</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">월간 인명구조 훈련 계획 대비 이행률</span>
+                                <span class="origin-note">정례 훈련시간 100% 확보</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(실제 실시된 인명구조 훈련 시간 / 소방서 월간 계획 훈련시간) × 100</span><br>
+                                일일 훈련일지 서명 및 현장정보시스템 등록 기준
+                            </td>
+                            <td><strong>95%</strong> 이상</td>
+                            <td>
+                                구조대원 현장대응 역량 강화 지표
+                                <span class="gov-tag">국민행복정책-훈련</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">통제단 장비운반차 물품 분기 작동시험 완료율</span>
+                                <span class="origin-note">비상 지휘소 장비 상시 가동</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(분기별 작동시험 완료 장비 수 / 통제단 운반차 적재 장비 총수) × 100</span><br>
+                                지휘소 텐트, 발전기 시동, 조명탑, 통신망 전수 점검
+                            </td>
+                            <td><strong>100%</strong> 분기별</td>
+                            <td>
+                                긴급구조통제단 운영 및 장비 확충
+                                <span class="gov-tag">국민행복정책-통제단</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">구조대원 인명구조사(1·2급) 자격 보유율</span>
+                                <span class="origin-note">전문 구조역량 확보</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(인명구조사 자격 취득 대원 수 / 119구조대 총원) × 100</span><br>
+                                미취득 대원에 대한 구조주임의 실기코칭 지원
+                            </td>
+                            <td><strong>80%</strong> 이상</td>
+                            <td>
+                                전문인력(인명구조사) 확보율 핵심 지표
+                                <span class="gov-tag">국민행복정책-구조</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">유압스프레더·절단기 무결점 작동 유지율</span>
+                                <span class="origin-note">출동 시 장비 불능 제로화</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(출동 중 장비 작동 불능 0건 일수 / 총 출동 일수) × 100</span><br>
+                                교통사고 및 농기계 끼임 구조 시 유압장비 즉각 전개
+                            </td>
+                            <td><strong>100%</strong> 무결점</td>
+                            <td>출동태세 100% 유지 (Chapter 7 Preloss 통제)</td>
+                        </tr>
+                        <tr data-fire-type="qual">
+                            <td>
+                                <span class="kpi-name">의령 관할 특성화 훈련 심도</span>
+                                <span class="origin-note">자굴산·한우산 산악 &amp; 남강 수난</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag qualitative">정성</span>
+                            </td>
+                            <td>
+                                <div class="rubric-box">
+                                    <strong>[정성 루브릭 (5점 척도)]</strong><br>
+                                    1점: 마당에서 단순 장비 나열 및 형식적 서명<br>
+                                    3점: 기본 매뉴얼 로프 매듭 및 조작 실습<br>
+                                    5점: 자굴산 암벽 급경사 들것 인양 실전 훈련 및 남강 급류 수난구조 보트·드로우백 투척 실전 숙달
+                                </div>
+                            </td>
+                            <td><strong>4.5점</strong> 이상</td>
+                            <td>반기별 구조대장 평가 및 동료 상호 피드백</td>
+                        </tr>
+                        <tr data-fire-type="qual">
+                            <td>
+                                <span class="kpi-name">작전 후 복기(AAR) 현장 토론 개방성</span>
+                                <span class="origin-note">귀소 직후 비징벌적 원인 분석</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag qualitative">정성</span>
+                            </td>
+                            <td>
+                                <div class="rubric-box">
+                                    <strong>[정성 관찰 기준]</strong><br>
+                                    귀소 후 10분 브리핑 시, 막내 구조대원부터 진입 과정의 위험 요소와 장비 미비점을 질책 없이 자유롭게 발언하는 분위기 조성 수준
+                                </div>
+                            </td>
+                            <td><strong>우수</strong> 등급</td>
+                            <td>James 80/20 경청의 법칙 (원인 분석 코칭)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 2: Triad Consistency -->
+        <section class="kpi-section" data-fire-sec="p2">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge fire-p2-tag">원칙 2 : Triad Consistency</span>
+                    <h2 class="section-title">2. 삼원조 정합성 원칙 기반 구조주임 KPI</h2>
+                </div>
+                <div class="section-desc">권한(수리의뢰·훈련중지권)과 자원이 주어진 만큼만 책임 부여 | 소급 처벌 금지</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table">
+                    <thead>
+                        <tr>
+                            <th style="width:22%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:13%;">구분</th>
+                            <th style="width:33%;">측정 산식 / 구체적 기준</th>
+                            <th style="width:12%;">목표 수준</th>
+                            <th style="width:20%;">국민행복정책 / 실무 연계</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">구조장비 결함 발견 후 24시간 내 수리의뢰율</span>
+                                <span class="origin-note">신속한 행정 조치 권한 행사</span>
+                            </td>
+                            <td>
+                                <span class="type-tag governance">Gov</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(결함 발견 후 24시간 내 예산장비팀 공문·기안 완료 건수 / 결함 발생 건수) × 100</span><br>
+                                장비 결함 발견 시 구조주임의 즉각적 수리 의뢰 권한 행사
+                            </td>
+                            <td><strong>100%</strong> 기안</td>
+                            <td>
+                                소방장비 유지보수 및 적기 정비
+                                <span class="gov-tag">국민행복정책-장비</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">현장 2인 1조 원칙 및 RIT(신속구조팀) 지정률</span>
+                                <span class="origin-note">진입 대원의 안전장치 완비</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(화재·붕괴 현장 투입 시 2인1조 &amp; RIT 지정 출동 건수 / 구조대 투입 출동 건수) × 100</span>
+                            </td>
+                            <td><strong>100%</strong> 준수</td>
+                            <td>
+                                소방활동 안전관리 이행 실태
+                                <span class="gov-tag">소방청 안전관리계획</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">신임 구조대원 전입자 OJT 멘토링 이수율</span>
+                                <span class="origin-note">처벌 없는 학습 기간(30일) 보장</span>
+                            </td>
+                            <td>
+                                <span class="type-tag governance">Gov</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(2주 20시간 이상 장비 숙달 1:1 교육을 마친 전입 대원 수 / 신규 전입 대원 수) × 100</span><br>
+                                구조공작차 적재함 위치 및 유압장비 작동 실기 집중 교육
+                            </td>
+                            <td><strong>100%</strong> 이수</td>
+                            <td>신규 보직자 적응 지원 (Chapter 7 Learning Period)</td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">통제단 불시가동훈련 구조진압반 임무 부여율</span>
+                                <span class="origin-note">개인별 임무카드 100% 숙지</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(통제단 훈련 시 구조진압반 임무 완결 건수 / 연간 통제단 가동훈련 횟수) × 100</span>
+                            </td>
+                            <td><strong>100%</strong> 완료</td>
+                            <td>
+                                통제단 불시가동훈련 평가 배점
+                                <span class="gov-tag">국민행복정책-통제단</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="qual">
+                            <td>
+                                <span class="kpi-name">훈련 중 위험중지(Stop-Training) 권한 보장</span>
+                                <span class="origin-note">혹서기·폭우 시 무리한 훈련 방지</span>
+                            </td>
+                            <td>
+                                <span class="type-tag governance">Gov</span>
+                                <span class="type-tag qualitative">정성</span>
+                            </td>
+                            <td>
+                                <div class="rubric-box">
+                                    <strong>[정성 평가 기준]</strong><br>
+                                    폭염경보 또는 대원 신체 이상 징후 발생 시, 구조주임이 눈치 보지 않고 훈련 강도 조정 또는 중지를 대장에게 소신 있게 건의할 수 있는 권한 체감도
+                                </div>
+                            </td>
+                            <td><strong>완전 보장</strong></td>
+                            <td>Bob Frost (2017) 권한의 공식화 원칙</td>
+                        </tr>
+                        <tr data-fire-type="qual">
+                            <td>
+                                <span class="kpi-name">노후 장비 불용·교체 품의 투명성</span>
+                                <span class="origin-note">내구연한 경과 로프 선제 폐기</span>
+                            </td>
+                            <td>
+                                <span class="type-tag governance">Gov</span>
+                                <span class="type-tag qualitative">정성</span>
+                            </td>
+                            <td>
+                                <div class="rubric-box">
+                                    <strong>[정성 평가 기준]</strong><br>
+                                    손상된 로프나 내구연한 경과 하네스를 아까워하지 않고 SOP에 따라 즉시 불용 처리 및 신규 교체 품의를 올릴 수 있는 행정적 자율성
+                                </div>
+                            </td>
+                            <td><strong>우수</strong> 등급</td>
+                            <td>DOE-VPP (2016) 적절한 자원 보장 원칙</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Positive Consequences -->
+        <section class="kpi-section" data-fire-sec="p3">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge fire-p3-tag">원칙 3 : Positive Consequences</span>
+                    <h2 class="section-title">3. 긍정 강화 우선 원칙 기반 구조주임 KPI (3:1 법칙)</h2>
+                </div>
+                <div class="section-desc">단속·징계 탈피 — 선제적 결함 발견 대원과 훈련 솔선수범 대원에게 3배 이상의 포상 배정</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table">
+                    <thead>
+                        <tr>
+                            <th style="width:22%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:13%;">구분</th>
+                            <th style="width:33%;">측정 산식 / 구체적 기준</th>
+                            <th style="width:12%;">목표 수준</th>
+                            <th style="width:20%;">국민행복정책 / 실무 연계</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">구조대 긍정 인정 대 제재 비율 (3:1 달성도)</span>
+                                <span class="origin-note">포상·칭찬이 지적 처분의 3배 이상</span>
+                            </td>
+                            <td>
+                                <span class="type-tag governance">Gov</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">구조대원 서장표창 추천·포상휴가·마일리지 건수 ÷ 복무 규정 위반 지적·경고 건수</span>
+                            </td>
+                            <td><strong>&ge; 3.0</strong> (최소 3:1)</td>
+                            <td>
+                                활기찬 직장문화 &amp; Just Culture
+                                <span class="gov-tag">소방청 안전문화혁신</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">장비 결함·아차사고 선제 발굴 건수</span>
+                                <span class="origin-note">출동 전 교대점검에서 결함 조기 발견</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">출동 전 교대점검에서 대원들이 선제적으로 찾아내어 보고한 장비 미세 결함 건수</span><br>
+                                절단기 날 마모, 유압호스 피복 균열, 공기누출 등 사전 적발
+                            </td>
+                            <td><strong>월 2건 이상</strong></td>
+                            <td>장비 예방점검 실적 (출동 중 고장 원천 차단)</td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">비상탈출(Mayday) 및 RIT 훈련 이수율</span>
+                                <span class="origin-note">위급 시 주저 없는 구조 요청</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(가상 고립·공기고갈 Mayday 선언 훈련을 마친 대원 수 / 구조대원 총원) × 100</span>
+                            </td>
+                            <td><strong>100%</strong> 분기별</td>
+                            <td>
+                                현장대원 긴급탈출 역량 강화
+                                <span class="gov-tag">소방청 SOP 표준</span>
+                            </td>
+                        </tr>
+                        <tr data-fire-type="quant">
+                            <td>
+                                <span class="kpi-name">아차사고 제보 대원 면책 및 즉시 포상률</span>
+                                <span class="origin-note">정직한 보고에 대한 절대적 보호</span>
+                            </td>
+                            <td>
+                                <span class="type-tag governance">Gov</span>
+                                <span class="type-tag quantitative">정량</span>
+                            </td>
+                            <td>
+                                <span class="code-formula">(아차사고 자발 등록 후 징계 면책 및 칭찬 마일리지를 부여받은 건수 / 접수 건수) × 100</span>
+                            </td>
+                            <td><strong>100%</strong> 면책/포상</td>
+                            <td>소방청 무처벌 아차사고 보고제도 정착</td>
+                        </tr>
+                        <tr data-fire-type="qual">
+                            <td>
+                                <span class="kpi-name">구조대 내 실수 수용성(Just Culture) 체감도</span>
+                                <span class="origin-note">질책 대신 올바른 조작법 코칭</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag qualitative">정성</span>
+                            </td>
+                            <td>
+                                <div class="rubric-box">
+                                    <strong>[정성 설문 척도 (5점 척도)]</strong><br>
+                                    "훈련 중 유압장비나 로프 조작 실수를 하더라도 비난받지 않고, 구조주임으로부터 올바른 조작법을 배울 수 있는 신뢰가 형성되어 있는가?" (대원 무기명 설문)
+                                </div>
+                            </td>
+                            <td><strong>4.5점</strong> 이상</td>
+                            <td>Amy Edmondson (1999) 심리적 안전감 척도</td>
+                        </tr>
+                        <tr data-fire-type="qual">
+                            <td>
+                                <span class="kpi-name">동료 장비 크로스체크(Cross-check) 일상화</span>
+                                <span class="origin-note">상호 안전 확인 및 칭찬 문화</span>
+                            </td>
+                            <td>
+                                <span class="type-tag leading">Leading</span>
+                                <span class="type-tag qualitative">정성</span>
+                            </td>
+                            <td>
+                                <div class="rubric-box">
+                                    <strong>[정성 관찰 기준]</strong><br>
+                                    출동 직전 방화복 깃 세움, 공기호흡기 잔량, 랜턴 체결을 동료 대원끼리 서로 꼼꼼히 확인해주고 격려하는 상호 배려 문화 정착 수준
+                                </div>
+                            </td>
+                            <td><strong>우수</strong> 등급</td>
+                            <td>Table 7.3 효과적 책무성 5요소 중 '동료 책무성'</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Interactive Daily/Monthly Checklist -->
+        <div class="checklist-card">
+            <div class="checklist-header">
+                <div class="checklist-title">
+                    📋 의령소방서 구조주임 일일 &amp; 월간 KPI 실무 체크리스트 (클릭 시 완료 체크)
+                </div>
+                <div style="font-size:12.5px; color:var(--text-muted);">
+                    당일 점검 완료 항목을 체크하여 실시간 진척도를 확인하세요.
+                </div>
+            </div>
+
+            <div class="checklist-grid">
+                <div class="checklist-col">
+                    <h4>☀️ 일일(Daily) 교대 및 훈련 루틴</h4>
+                    <label class="check-item"><input type="checkbox"> 09:00 교대점검: 유압스프레더·절단기 시동 및 무결점 작동 확인</label>
+                    <label class="check-item"><input type="checkbox"> 09:30 SCBA 점검: 공기호흡기 300bar 충전 및 면체 기밀검사</label>
+                    <label class="check-item"><input type="checkbox"> 10:00 e-소방: 구조장비 일일점검 결과 당일 전산 입력 완료</label>
+                    <label class="check-item"><input type="checkbox"> 14:00 인명구조훈련: 당일 계획(로프/수난/교통사고) 2시간 실시</label>
+                    <label class="check-item"><input type="checkbox"> 16:30 훈련일지: e-소방/현장정보시스템 훈련일지 등록 및 서명</label>
+                    <label class="check-item"><input type="checkbox"> 출동 귀소 후: 10분 AAR(작전복기) 실시 및 대원 안전상태 확인</label>
+                </div>
+                <div class="checklist-col">
+                    <h4>📅 월간(Monthly) &amp; 통제단 관리 루틴</h4>
+                    <label class="check-item"><input type="checkbox"> 통제단 장비운반차 적재품(텐트·발전기·조명탑) 시동 점검</label>
+                    <label class="check-item"><input type="checkbox"> 결함 장비 발생 시 예산장비팀 24시간 내 수리의뢰 기안 추적</label>
+                    <label class="check-item"><input type="checkbox"> 이달의 모범 안전 구조대원 1명 선정 (서장표창/마일리지 추천)</label>
+                    <label class="check-item"><input type="checkbox"> 인명구조사 1·2급 미취득 대원 대상 실기 멘토링 2회 실시</label>
+                    <label class="check-item"><input type="checkbox"> 로프·하네스 등 내구연한 경과 물품 불용 및 선제 교체 품의</label>
+                    <label class="check-item"><input type="checkbox"> 신규 전입 대원 OJT 멘토링 일지(2주 20시간) 확인</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uiryeong Rescue Leadership Index Simulator -->
+        <div class="calc-card">
+            <div class="calc-header">
+                <div class="calc-title">
+                    🧮 의령소방서 119구조대 선행 안전 성숙도(Uiryeong Rescue Index) 자가 진단기
+                </div>
+                <div style="font-size:13px; color:var(--text-muted);">
+                    슬라이더를 조절하여 구조대의 3대 원칙 선행 안전 성숙도 및 국민행복정책 달성도를 진단해보세요.
+                </div>
+            </div>
+
+            <div class="calc-grid">
+                <div class="calc-item">
+                    <label>1. e-소방 일일 구조장비점검 당일 등록률 (%)</label>
+                    <input type="range" id="fire-sl-esobang" min="0" max="100" value="95">
+                    <div class="calc-val-wrap"><span>현황</span><span class="val" id="fire-val-esobang">95%</span></div>
+                </div>
+
+                <div class="calc-item">
+                    <label>2. 월간 인명구조훈련 계획 대비 이행률 (%)</label>
+                    <input type="range" id="fire-sl-training" min="0" max="100" value="90">
+                    <div class="calc-val-wrap"><span>현황</span><span class="val" id="fire-val-training">90%</span></div>
+                </div>
+
+                <div class="calc-item">
+                    <label>3. 결함 발견 시 24시간 내 수리의뢰율 (%)</label>
+                    <input type="range" id="fire-sl-repair" min="0" max="100" value="100">
+                    <div class="calc-val-wrap"><span>현황</span><span class="val" id="fire-val-repair">100%</span></div>
+                </div>
+
+                <div class="calc-item">
+                    <label>4. 통제단 장비운반차 정기 작동점검률 (%)</label>
+                    <input type="range" id="fire-sl-command" min="0" max="100" value="85">
+                    <div class="calc-val-wrap"><span>현황</span><span class="val" id="fire-val-command">85%</span></div>
+                </div>
+
+                <div class="calc-item">
+                    <label>5. 긍정 인정 대 제재 비율 (3:1 달성도 % 환산)</label>
+                    <input type="range" id="fire-sl-pos" min="0" max="100" value="80">
+                    <div class="calc-val-wrap"><span>현황</span><span class="val" id="fire-val-pos">80%</span></div>
+                </div>
+
+                <div class="score-display">
+                    <div style="font-size:12px; color:var(--text-muted); font-weight:700;">RESCUE LEADERSHIP INDEX</div>
+                    <div class="score-number" id="fire-total-score">90점</div>
+                    <div class="score-grade" id="fire-total-grade">최우수 구조대 (S) — 국민행복정책 최우수 관서 모델</div>
+                    <div class="score-desc" id="fire-total-desc">
+                        e-소방 당일 입력과 훈련 이행, 선제 수리의뢰가 완벽하게 정착된 의령소방서 모범 구조대입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- End of Fire KPI View Container -->
+
+
+    <!-- ======================================================== -->
+    <!-- VIEW 2: 소방 안전문화 주관성 연구 (Q방법론 연구설계 탭) -->
+    <!-- ======================================================== -->
+    <div id="q-view-container" style="display:none;">
+
+        <!-- Q Research Banner -->
+        <div class="philosophy-banner q-theme">
+            <div class="philosophy-title q-title">
+                🔬 소방공무원 안전 책무성 주관성 연구 (Q-Methodology Research Design)
+            </div>
+            <p style="font-size:13.5px; color:var(--text-sub);">
+                본 연구는 소방관들이 재난 현장과 일상 직무 속에서 <strong>"안전 책무성(Accountability)과 리더십"</strong>을 어떻게 주관적으로 지각(Perception)하고 의미구성(Sensemaking)하는지를 과학적으로 유형화하기 위한 Q방법론 연구설계입니다. Chapter 7의 3대 핵심 원칙을 축으로 <strong>34개 Q 진술문(Q-Sample)</strong>과 <strong>30명 P 표본(P-Sample)</strong> 매트릭스를 구축했습니다.
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="phil-card q-step1">
+                    <strong>1. Q 모집단 및 표본 격자</strong>
+                    <p>문헌 담론과 현장 FGI 인터뷰 풀에서 Fisher의 3대 원칙 × 4대 직무 영역(12개 셀) 격자를 통해 대표 Q 진술문 34선을 정예 추출했습니다.</p>
+                </div>
+                <div class="phil-card q-step2">
+                    <strong>2. P 표본 이론적 표집 (N=30)</strong>
+                    <p>지휘관리층(6명), 중간관리/구조주임(10명), 일선 대원(14명)으로 층화하여 계급과 직무 간 다중 관점(Multiple Perspectives)을 확보했습니다.</p>
+                </div>
+                <div class="phil-card q-step3">
+                    <strong>3. Q 분류 및 주관성 유형화</strong>
+                    <p>9점 척도(-4~+4) 준정규분포 강제분류와 사후 심층인터뷰를 통해 3대 인식 유형(자율지향형, 예방준수형, 신뢰공정형)을 도출합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q-Sort 9-Point Grid Visualizer Card -->
+        <div class="q-grid-card">
+            <div class="q-grid-header">
+                <div class="q-grid-title">
+                    📊 9점 척도 Q 분류 격자판 (Q-Sort Forced-choice Distribution Grid: N=34)
+                </div>
+                <div style="font-size:12.5px; color:var(--text-muted);">
+                    연구 참여자(P표본)는 34개 진술문 카드를 아래 정규분포형 칸 수에 맞추어 강제 배치합니다.
+                </div>
+            </div>
+
+            <div class="q-board-wrap">
+                <div class="q-board">
+                    <!-- -4 -->
+                    <div class="q-col">
+                        <div class="q-col-header neg">-4 (2)</div>
+                        <div class="q-slot filled">Q18: 철수건의 불가</div>
+                        <div class="q-slot filled">Q26: 감찰·징계 최고</div>
+                    </div>
+                    <!-- -3 -->
+                    <div class="q-col">
+                        <div class="q-col-header neg">-3 (3)</div>
+                        <div class="q-slot">Q04: e-소방 전시행정</div>
+                        <div class="q-slot">Q10: 사고는 불가항력</div>
+                        <div class="q-slot">Q21: 직관이 SOP 우선</div>
+                    </div>
+                    <!-- -2 -->
+                    <div class="q-col">
+                        <div class="q-col-header neg">-2 (4)</div>
+                        <div class="q-slot">Q31: 보고시 불이익</div>
+                        <div class="q-slot">Q33: 위험건의자 찍힘</div>
+                        <div class="q-slot">빈 슬롯 (미배치)</div>
+                        <div class="q-slot">빈 슬롯 (미배치)</div>
+                    </div>
+                    <!-- -1 -->
+                    <div class="q-col">
+                        <div class="q-col-header neg">-1 (5)</div>
+                        <div class="q-slot">Q07: 자격증보다 손발</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                    </div>
+                    <!-- 0 -->
+                    <div class="q-col">
+                        <div class="q-col-header neu">0 중립 (6)</div>
+                        <div class="q-slot">Q20: 통제단 임무합의</div>
+                        <div class="q-slot">Q29: 환류없는 보고</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                    </div>
+                    <!-- +1 -->
+                    <div class="q-col">
+                        <div class="q-col-header pos">+1 (5)</div>
+                        <div class="q-slot">Q17: OJT 2주 보장</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                    </div>
+                    <!-- +2 -->
+                    <div class="q-col">
+                        <div class="q-col-header pos">+2 (4)</div>
+                        <div class="q-slot">Q05: 안전벨트 책무</div>
+                        <div class="q-slot">Q28: 상호 크로스체크</div>
+                        <div class="q-slot">빈 슬롯</div>
+                        <div class="q-slot">빈 슬롯</div>
+                    </div>
+                    <!-- +3 -->
+                    <div class="q-col">
+                        <div class="q-col-header pos">+3 (3)</div>
+                        <div class="q-slot">Q01: 결과문책 탈피</div>
+                        <div class="q-slot">Q14: 구조주임 수리전결</div>
+                        <div class="q-slot">Q34: 귀소후 상호격려</div>
+                    </div>
+                    <!-- +4 -->
+                    <div class="q-col">
+                        <div class="q-col-header pos">+4 (2)</div>
+                        <div class="q-slot filled">Q12: 작업중지권 보장</div>
+                        <div class="q-slot filled">Q23: 결함발견 3:1포상</div>
+                    </div>
+                </div>
+            </div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:10px; text-align:center;">
+                ※ 슬롯 배치는 예시이며, 실제 조사 시 연구 참여자는 동의 수준에 따라 자유롭게 재배치하고 양극단(+4, -4)의 이유를 심층 구술합니다.
+            </div>
+        </div>
+
+        <!-- P-Sample Matrix Breakdown -->
+        <div class="p-matrix-grid">
+            <div class="p-card">
+                <h3>1. 지휘관리층 <span class="p-badge">N = 6명</span></h3>
+                <ul>
+                    <li>• <strong>대상</strong>: 소방서 과장, 현장대응단장, 119구조대장 (소방령·소방경)</li>
+                    <li>• <strong>표집 의도</strong>: 예산 및 자원 배분 권한, 총괄 지휘 책임, 대외적 거버넌스 관점 대표</li>
+                    <li>• <strong>핵심 탐색</strong>: 상급 지휘관으로서 바라보는 '작업중지권'과 '3:1 긍정 인정'의 현실적 수용성</li>
+                </ul>
+            </div>
+            <div class="p-card">
+                <h3>2. 현장 중간관리층 <span class="p-badge">N = 10명</span></h3>
+                <ul>
+                    <li>• <strong>대상</strong>: 119구조대 구조주임, 안전센터 팀장, 현장안전점검관 (소방위·소방장)</li>
+                    <li>• <strong>표집 의도</strong>: 교대점검·훈련 집행 실무, 지휘관-대원 간 완충자 및 실무 조정자 관점</li>
+                    <li>• <strong>핵심 탐색</strong>: e-소방 장비관리 실효성, 노후 장비 수리 의뢰 권한의 실질적 한계 체감</li>
+                </ul>
+            </div>
+            <div class="p-card">
+                <h3>3. 일선 현장대원층 <span class="p-badge">N = 14명</span></h3>
+                <ul>
+                    <li>• <strong>대상</strong>: 119구조대원(산악/수난), 화재진압대원, 구급대원 (소방교·소방사)</li>
+                    <li>• <strong>표집 의도</strong>: 현장 위험에 직접 노출되는 주체, 처벌의 두려움 및 보고 문화 체감 관점</li>
+                    <li>• <strong>핵심 탐색</strong>: 지휘관 진입 지시에 대한 철수 건의 가능성, 장비 결함 보고 시 불이익 인식</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q-Statements Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-groups">
+                <span class="filter-label">원칙 필터:</span>
+                <button class="filter-chip active q-chip" data-q-p="all">전체 원칙 (34문항)</button>
+                <button class="filter-chip" data-q-p="p1">원칙 1: 통제 가능성 (11문항)</button>
+                <button class="filter-chip" data-q-p="p2">원칙 2: 삼원조 정합성 (11문항)</button>
+                <button class="filter-chip" data-q-p="p3">원칙 3: 긍정 강화 3:1 (12문항)</button>
+            </div>
+            <div class="filter-groups">
+                <span class="filter-label">직무 영역:</span>
+                <button class="filter-chip active q-chip" data-q-domain="all">전체 직무</button>
+                <button class="filter-chip" data-q-domain="train">교육·훈련</button>
+                <button class="filter-chip" data-q-domain="equip">장비관리</button>
+                <button class="filter-chip" data-q-domain="ops">현장출동·지휘</button>
+                <button class="filter-chip" data-q-domain="cult">조직문화·평가</button>
+            </div>
+        </div>
+
+        <!-- Q-Statements Master Table -->
+        <section class="kpi-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge" style="background:rgba(126,34,206,0.2); color:#c084fc; border:1px solid #c084fc;">Q-Sample 34</span>
+                    <h2 class="section-title">소방 안전 책무성 Q 진술문 카드 마스터 목록 (34선)</h2>
+                </div>
+                <div class="section-desc">Fisher의 균형설계(3대 원칙 × 4대 직무 영역)에 따라 엄선된 최종 Q 진술문</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table q-table">
+                    <thead>
+                        <tr>
+                            <th style="width:10%;">문항 번호</th>
+                            <th style="width:50%;">Q 진술문 내용 (Q-Statement)</th>
+                            <th style="width:14%;">해당 원칙</th>
+                            <th style="width:14%;">직무 영역</th>
+                            <th style="width:12%;">진술문 속성</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- P1: Controllability -->
+                        <tr data-q-sec="p1" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q01</strong></td>
+                            <td>재난 현장의 인명피해나 화재 확산 같은 통제 불가능한 결과로 지휘관과 대원을 문책하는 관행은 사라져야 한다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="equip">
+                            <td><strong style="color:var(--text-main);">Q02</strong></td>
+                            <td>출동 전 교대점검(유압장비, 호흡기)을 100% 철저히 하는 것만이 현장에서 대원의 목숨을 지키는 유일한 길이다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>장비관리</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="train">
+                            <td><strong style="color:var(--text-main);">Q03</strong></td>
+                            <td>훈련일지에 형식적으로 서명하는 것보다, 자굴산 산악로프나 남강 수난구조처럼 관내 특성에 맞춘 실전 훈련이 훨씬 중요하다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>교육·훈련</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="equip">
+                            <td><strong style="color:var(--text-main);">Q04</strong></td>
+                            <td>e-소방 시스템에 일일점검을 당일 입력하는 것은 안전 예방이라기보다 행정적인 전시행정에 불과하다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>장비관리</td>
+                            <td><span class="type-tag q-neg">부정(-)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q05</strong></td>
+                            <td>출동 중 안전벨트 착용과 교차로 일시정지는 대원 스스로 100% 제어할 수 있는 가장 기본적인 안전 책무다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q06</strong></td>
+                            <td>출동 복귀 직후 10분간의 작전복기(AAR)는 누구의 잘못인지 따지기보다 현장의 예측 불가능한 위험을 공유하는 시간이어야 한다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="train">
+                            <td><strong style="color:var(--text-main);">Q07</strong></td>
+                            <td>인명구조사 자격증 취득 여부보다 평소 팀원들과 손발을 맞추는 일상 훈련이 실제 구조 현장에서 더 쓸모 있다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>교육·훈련</td>
+                            <td><span class="type-tag q-neu">중립(0)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="equip">
+                            <td><strong style="color:var(--text-main);">Q08</strong></td>
+                            <td>통제단 장비운반차의 발전기나 조명탑이 비상 시 즉시 작동하지 않는다면 그것은 평소 점검을 게을리한 구조대의 명백한 직무유기다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>장비관리</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q09</strong></td>
+                            <td>현장 도착 직후 지휘관이 360도 상황판단(Size-up)을 제대로 하지 않고 대원을 진입시키는 것은 대원을 사지로 모는 것이다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q10</strong></td>
+                            <td>현장 안전사고는 개인이 아무리 주의해도 재난 현장의 불가항력적인 돌발변수 때문에 어쩔 수 없이 발생한다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-neg">부정(-)</span></td>
+                        </tr>
+                        <tr data-q-sec="p1" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q11</strong></td>
+                            <td>구조주임과 팀장이 대원과 1:1로 장비 숙달도와 트라우마를 대면 면담하는 것이 서류 감사보다 훨씬 강력한 예방책이다.</td>
+                            <td><span class="role-badge q-p1-tag">통제가능성</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+
+                        <!-- P2: Triad Consistency -->
+                        <tr data-q-sec="p2" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q12</strong></td>
+                            <td>위험에 직면했을 때 현장 대원이 상급자의 눈치를 보지 않고 작전 중지나 철수를 건의할 실질적 권한이 보장되어야 한다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="equip">
+                            <td><strong style="color:var(--text-main);">Q13</strong></td>
+                            <td>예산 부족으로 노후 장비(로프, 유압호스)를 제때 교체해주지 않으면서, 현장 장비 고장의 책임을 대원에게 묻는 것은 부당하다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>장비관리</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="equip">
+                            <td><strong style="color:var(--text-main);">Q14</strong></td>
+                            <td>구조주임이 장비 결함을 발견했을 때 예산장비팀에 즉각 수리를 요구하고 불용 처리할 수 있는 전결 권한이 강화되어야 한다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>장비관리</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="train">
+                            <td><strong style="color:var(--text-main);">Q15</strong></td>
+                            <td>혹서기나 폭우 등 대원 탈진이 우려될 때 구조주임이 훈련 중지(Stop-Training)를 건의할 수 있는 권한이 공식화되어야 한다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>교육·훈련</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q16</strong></td>
+                            <td>현장안전점검관(ISO)은 현장지휘관의 눈치를 보지 않고 위험한 진입 작전을 즉각 중단시킬 수 있는 독립적 권한을 가져야 한다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="train">
+                            <td><strong style="color:var(--text-main);">Q17</strong></td>
+                            <td>신규 임용자나 타서 전입 대원에게 최소 2주간의 단독 위험 투입 배제 및 장비 숙달 멘토링 기간(Learning Period)을 반드시 주어야 한다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>교육·훈련</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q18</strong></td>
+                            <td>상명하복의 소방 조직 특성상, 일선 대원이 지휘관의 진입 지시에 대해 철수를 건의하는 것은 현실적으로 불가능하다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-neg">부정(-)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q19</strong></td>
+                            <td>고위험 화재·붕괴 현장에 2인 1조 원칙과 비상대기 RIT(신속구조팀)가 배치되지 않은 상태에서 대원을 진입시켜서는 안 된다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q20</strong></td>
+                            <td>긴급구조통제단 불시가동훈련 시 구조대원 개인별 임무카드가 사전에 명확히 합의되어 있어야 실전에서 혼선이 없다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q21</strong></td>
+                            <td>현장 지휘관의 경험에 의한 직관적 판단이 정형화된 표준작전절차(SOP)보다 현장 안전 확보에 더 효과적이다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-neg">부정(-)</span></td>
+                        </tr>
+                        <tr data-q-sec="p2" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q22</strong></td>
+                            <td>소방서장이 안전을 최우선으로 선언하더라도, 출동 장비 보강 예산이 뒷받침되지 않는다면 그 선언은 공허한 구호에 불과하다.</td>
+                            <td><span class="role-badge q-p2-tag">삼원조정합성</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+
+                        <!-- P3: Positive Consequences -->
+                        <tr data-q-sec="p3" data-q-d="equip">
+                            <td><strong style="color:var(--text-main);">Q23</strong></td>
+                            <td>일상 점검에서 장비의 미세 결함을 선제적으로 찾아내어 보고한 대원에게는 감찰 지적보다 3배 이상의 포상과 가점을 주어야 한다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>장비관리</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="train">
+                            <td><strong style="color:var(--text-main);">Q24</strong></td>
+                            <td>훈련 중 장비 조작 실수를 했을 때 질책하기보다, 올바른 조작법을 다시 지도해주는 비징벌적 코칭 문화가 정착되어야 한다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>교육·훈련</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q25</strong></td>
+                            <td>아차사고(Near-Miss)를 자발적으로 등록한 대원에게 절대적인 면책이 보장되어야만 진짜 위험 요인이 수면 위로 드러난다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q26</strong></td>
+                            <td>안전 수칙 위반자에 대한 엄격한 징계와 감찰 강화만이 소방관들의 안전 불감증을 없애는 가장 확실한 방법이다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-neg">부정(-)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="train">
+                            <td><strong style="color:var(--text-main);">Q27</strong></td>
+                            <td>공기 고갈이나 고립 위기 시 동료들의 눈치를 보지 않고 즉시 Mayday(비상구조신호)를 선언할 수 있도록 반복 훈련해야 한다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>교육·훈련</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q28</strong></td>
+                            <td>출동 직전 동료의 방화복 깃이나 호흡기 체결 상태를 서로 챙겨주고 칭찬하는 상호 크로스체크 문화가 제도적 규제보다 낫다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q29</strong></td>
+                            <td>아차사고를 보고해 봤자 실제 장비 개선이나 매뉴얼 개정으로 이어지지 않는다면 보고할 이유가 없다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-neu">중립(0)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q30</strong></td>
+                            <td>안전 모범 대원에 대한 서장 표창이나 포상휴가 확대는 대원들의 자발적 안전 행동을 유도하는 데 실질적인 동기부여가 된다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="equip">
+                            <td><strong style="color:var(--text-main);">Q31</strong></td>
+                            <td>작은 장비 파손이나 경미한 실수를 보고하면 결국 본인 인사평가에 불이익이 올 것이라는 두려움이 조직 내에 팽배해 있다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>장비관리</td>
+                            <td><span class="type-tag q-neg">부정(-)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q32</strong></td>
+                            <td>안전 관리는 단속과 처벌 위주의 감찰 부서가 아니라, 현장 대원들을 격려하고 지원하는 방향으로 패러다임이 바뀌어야 한다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="cult">
+                            <td><strong style="color:var(--text-main);">Q33</strong></td>
+                            <td>평소 위험 요인을 적극 건의하는 대원은 조직에서 '일 잘하는 대원'보다는 '불평불만이 많은 대원'으로 찍히기 십상이다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>조직문화·평가</td>
+                            <td><span class="type-tag q-neg">부정(-)</span></td>
+                        </tr>
+                        <tr data-q-sec="p3" data-q-d="ops">
+                            <td><strong style="color:var(--text-main);">Q34</strong></td>
+                            <td>출동에서 무사히 복귀한 후 서로를 격려하고 안전 수칙을 준수한 행동을 인정해 주는 긍정 피드백이 팀워크의 핵심이다.</td>
+                            <td><span class="role-badge q-p3-tag">긍정강화3:1</span></td>
+                            <td>현장출동·지휘</td>
+                            <td><span class="type-tag q-pos">긍정(+)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Q Expected Typology Cards -->
+        <div class="duty-grid" style="margin-top:20px;">
+            <div class="duty-card" style="border-top-color:#38bdf8;">
+                <span class="duty-badge" style="background:rgba(56,189,248,0.2); color:#38bdf8; border-color:#38bdf8;">예상 유형 1</span>
+                <h3>현장 자율·임파워먼트 지향형</h3>
+                <p style="font-size:12.5px; color:var(--text-muted); font-style:italic;">"권한과 장비 없는 책임은 부당하다"</p>
+                <ul>
+                    <li>• <strong>핵심 동의</strong>: Q12(작업중지권 +4), Q13(장비미배정 문책부당 +4), Q01(+3)</li>
+                    <li>• <strong>핵심 비동의</strong>: Q18(철수건의 불가 -4), Q21(직관 우선 -3)</li>
+                    <li>• <strong>의미구성</strong>: 일선 구조대원 및 ISO 중심. 스스로 멈출 수 있는 공식 권한 보장 갈망.</li>
+                </ul>
+            </div>
+            <div class="duty-card" style="border-top-color:#ea580c;">
+                <span class="duty-badge">예상 유형 2</span>
+                <h3>사전 예방·원칙 준수형</h3>
+                <p style="font-size:12.5px; color:var(--text-muted); font-style:italic;">"철저한 점검과 실전 훈련이 유일한 살길"</p>
+                <ul>
+                    <li>• <strong>핵심 동의</strong>: Q02(교대점검 100% +4), Q03(실전 특성화훈련 +4), Q05(+3)</li>
+                    <li>• <strong>핵심 비동의</strong>: Q10(사고는 불가항력 -4), Q04(e소방 전시행정 -3)</li>
+                    <li>• <strong>의미구성</strong>: 베테랑 구조주임 및 팀장 중심. 철저한 예방 루틴 완벽 실행 추구.</li>
+                </ul>
+            </div>
+            <div class="duty-card" style="border-top-color:#10b981;">
+                <span class="duty-badge" style="background:rgba(16,185,129,0.2); color:#10b981; border-color:#10b981;">예상 유형 3</span>
+                <h3>심리적 신뢰·공정문화 지향형</h3>
+                <p style="font-size:12.5px; color:var(--text-muted); font-style:italic;">"징벌을 없애고 3:1로 인정해야 은폐가 사라진다"</p>
+                <ul>
+                    <li>• <strong>핵심 동의</strong>: Q23(결함 선제발견 3:1포상 +4), Q25(아차사고 절대면책 +4), Q32(+3)</li>
+                    <li>• <strong>핵심 비동의</strong>: Q26(감찰·징계가 최고 -4), Q31(보고 시 불이익 -3)</li>
+                    <li>• <strong>의미구성</strong>: 신임 대원 및 개혁적 지휘관 중심. Just Culture(공정문화) 정착 요구.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div><!-- End of Q-View Container -->
+
+
+    <!-- ======================================================== -->
+    <!-- VIEW 3: 전사 / 제조·일반 산업 KPI VIEW (일반 산업 탭) -->
+    <!-- ======================================================== -->
+    <div id="general-kpi-view-container" style="display:none;">
+
+        <!-- Foundational Philosophy Banner -->
+        <div class="philosophy-banner">
+            <div class="philosophy-title" style="color:var(--accent-blue);">
+                ⚖️ Chapter 7 핵심 철학: 부당한 후행 책무성 탈피 &amp; 선행(Preloss) 지표 중심의 균형
+            </div>
+            <p style="font-size:13.5px; color:var(--text-sub);">
+                교재 제7장 원문에서는 <em>"재해율(Incident Rate)이나 손실률(Loss Ratio) 같은 후행지표만을 기준으로 책무성을 설정하면, 현장 관리자가 통제할 수 없는 잠재적 결함(채용, 설비 노후, 생산 압박 등)까지 부당하게 책임을 묻게 되어 사고 은폐(Hiding incidents)를 초래한다"</em>고 경고합니다. 진정한 안전문화는 <strong>직접 통제 가능한 손실 전(Preloss) 행동과 시스템 상태를 측정하는 선행지표(Leading Metrics)</strong>를 확립할 때 완성됩니다.
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="phil-card">
+                    <strong>1. 통제 가능성 원칙 (Controllability)</strong>
+                    <p>관리자나 직원이 자신의 직무 범위 내에서 직접 제어할 수 있는 사전 예방 활동(Preshift review, 위험 발굴, 1:1 대면 소통 등)을 성과로 인정합니다.</p>
+                </div>
+                <div class="phil-card">
+                    <strong>2. 삼원조의 정합성 (Responsibility-Authority-Accountability)</strong>
+                    <p>권한(Authority)과 자원이 부여된 만큼만 책임을 지우며, 결과에 대한 책무성(Accountability)은 사전에 명확히 합의되어야 합니다 (소급 적용 불가).</p>
+                </div>
+                <div class="phil-card">
+                    <strong>3. 긍정 강화 우선 (Positive Consequences)</strong>
+                    <p>단속과 징벌 위주의 사후 처벌보다, 모범 행동에 대한 긍정적 인정과 보상을 최소 3배 이상 배정하여 현장의 신뢰와 보고 문화를 조성합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-groups">
+                <span class="filter-label">계층 필터:</span>
+                <button class="filter-chip active general-chip" data-filter="all">전체 보기</button>
+                <button class="filter-chip" data-filter="exec">최고경영진</button>
+                <button class="filter-chip" data-filter="plant">사업장 관리자</button>
+                <button class="filter-chip" data-filter="super">현장 감독관</button>
+                <button class="filter-chip" data-filter="work">현장 근로자</button>
+                <button class="filter-chip" data-filter="sys">시스템/거버넌스</button>
+            </div>
+            <div class="filter-groups">
+                <span class="filter-label">유형:</span>
+                <button class="filter-chip active general-chip" data-type-filter="all">모든 지표</button>
+                <button class="filter-chip" data-type-filter="leading">선행지표 (Leading)</button>
+                <button class="filter-chip" data-type-filter="governance">거버넌스 (Gov)</button>
+            </div>
+        </div>
+
+        <!-- Tier 1: Senior Leadership Team -->
+        <section class="kpi-section" data-cat="exec">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge exec">Senior Leadership Team</span>
+                    <h2 class="section-title">1. 최고경영진 &amp; 경영 리더십 팀 KPI</h2>
+                </div>
+                <div class="section-desc">경영진의 가시적 존재감(Visible Presence), 자원 배분 의지 및 전사 신뢰 구축 수준 측정</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table general-table">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:12%;">유형</th>
+                            <th style="width:30%;">측정 산식 / 구체적 내용</th>
+                            <th style="width:14%;">목표 수준 (권장)</th>
+                            <th style="width:24%;">원문 근거 및 실무 가이드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">MBWA(현장 보행 순회) 이행률</span>
+                                <span class="origin-note">현장 가시성 &amp; 소통 사각지대 해소</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(실제 순회 횟수 / 분기 계획 횟수) × 100</span><br>※ 2·3교대(야간조) 순회 30% 이상 필수 포함</td>
+                            <td><strong>100%</strong> 달성</td>
+                            <td>Peters &amp; Waterman (2004), Nathan의 카펫 공장 CEO 일화. 3단계 접촉 법칙에 따른 가시성 전파.</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">경영회의 안전 안건 정례 상정률</span>
+                                <span class="origin-note">경영 우선순위 공식화</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(안전 안건 상정 회의 수 / 전체 경영회의 수) × 100</span><br>단순 재해 통계가 아닌 선행 위험 과제 상정</td>
+                            <td><strong>90%</strong> 이상</td>
+                            <td>리더십 7대 긍정 신호 (No. 4). "부서 및 경영 회의 안건에 SMS 정보를 일상적으로 상정함."</td>
+                        </tr>
+                        <tr data-type="governance">
+                            <td>
+                                <span class="kpi-name">안전 예산 및 자원 배분 충족률</span>
+                                <span class="origin-note">실질적 안전 헌신 입증</span>
+                            </td>
+                            <td><span class="type-tag governance">Governance</span></td>
+                            <td><span class="code-formula">(실제 집행 예산 / 현장 안전 승인 요청액) × 100</span><br>설비 개선, 교육, 보호구 및 전담 인력 지원</td>
+                            <td><strong>95%</strong> 이상</td>
+                            <td>DOE-VPP (2016). "책임 인력에게는 공간, 장비, 교육, 자본 예산 등 적절한 자원이 서면 보장되어야 함."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">안전 이슈 콜백(Call-back) 회신 소요 시간</span>
+                                <span class="origin-note">소통 민첩성 &amp; 리더십 태도</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">현장 안전 문의·보고 접수 후 경영진 응답 소요 시간 (시간 단위)</span></td>
+                            <td><strong>24시간 이내</strong></td>
+                            <td>James의 M&amp;A 다공장 콜백 테스트 (Observation). "신속히 회신한 리더일수록 문화 적응력과 팀워크가 뛰어남."</td>
+                        </tr>
+                        <tr data-type="governance">
+                            <td>
+                                <span class="kpi-name">작업 중지 권한(Stop-work) 제도화 수준</span>
+                                <span class="origin-note">생산 우선주의 타파</span>
+                            </td>
+                            <td><span class="type-tag governance">Governance</span></td>
+                            <td><span class="code-formula">작업중지권이 명시된 직무기술서 비율 &amp; 정당한 중지권 행사 시 무처벌/포상율</span></td>
+                            <td><strong>100%</strong> 명시</td>
+                            <td>Bob Frost (2017). "권한은 사전 승인 없이 행동할 권리." 고위험 상황에서 생산보다 안전 우선 보장.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Tier 2: Plant / Site Managers -->
+        <section class="kpi-section" data-cat="plant">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge plant">Plant / Site Managers</span>
+                    <h2 class="section-title">2. 사업장 총괄 관리자 &amp; 공장장 KPI</h2>
+                </div>
+                <div class="section-desc">전사 비전의 사업장 안착, 예방 통제 시스템 가동 및 현장 감독관 지휘 성과 측정</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table general-table">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:12%;">유형</th>
+                            <th style="width:30%;">측정 산식 / 구체적 내용</th>
+                            <th style="width:14%;">목표 수준 (권장)</th>
+                            <th style="width:24%;">원문 근거 및 실무 가이드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">작업위험성평가(JHA) 정기 갱신율</span>
+                                <span class="origin-note">위험성평가 최신성 유지</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(주기 내 갱신 완료된 JHA 수 / 관리 공정 JHA 총수) × 100</span><br>공정·설비 변경 시 즉시 갱신 포함</td>
+                            <td><strong>98%</strong> 이상</td>
+                            <td>JHA 4단계 리더십 전환 모델, 부록 7.3 (No. 9). "모든 작업에 대해 JHA가 주기적으로 수행되어 위험이 최소화되도록 보장함."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">신규 설비·공정 도입 전 사전 검토율</span>
+                                <span class="origin-note">설계 단계 위험 통제</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(도입 전 사전 안전성 검토 완료 건수 / 신규 반입 건수) × 100</span></td>
+                            <td><strong>100%</strong> 필수</td>
+                            <td>부록 7.3 (No. 8). "신규 시설, 장비, 자재, 공정이 도입될 때 잠재적 위험과 리스크를 사전 검토함."</td>
+                        </tr>
+                        <tr data-type="governance">
+                            <td>
+                                <span class="kpi-name">감독관 선행활동 기반 책무성 평가율</span>
+                                <span class="origin-note">공정한 성과 평가 거버넌스</span>
+                            </td>
+                            <td><span class="type-tag governance">Governance</span></td>
+                            <td><span class="code-formula">감독관 성과평가 시 '재해율 배제 및 손실 전 예방 활동 반영 비율'</span></td>
+                            <td><strong>100%</strong> 반영</td>
+                            <td>James의 공장장 달성 가능 목표 조정 관찰. 통제 불가능한 결과 대신 직접 통제 가능한 예방 활동 중심 평가.</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">현장 안전제안 피드백 완료율</span>
+                                <span class="origin-note">제안 소통 신뢰성 확보</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(14일 내 채택/지연 사유 통보 건수 / 접수된 안전제안 건수) × 100</span></td>
+                            <td><strong>95%</strong> 이상</td>
+                            <td>리더십 7대 긍정 신호 (No. 2, 7) 및 부록 7.3 (No. 10). "제안이 채택되지 않더라도 반드시 이유를 통보함."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">공장장 직접 참여 합동 점검 및 시정률</span>
+                                <span class="origin-note">현장 동행 및 즉시 개선</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">월 2회 이상 직접 합동점검 참여 &amp; 지적 사항 30일 내 시정 조치율(%)</span></td>
+                            <td><strong>90%</strong> 조치</td>
+                            <td>부록 7.3 (No. 5). "정기 점검에 참여하여 조건을 관찰하고 긍정적 강화와 시정 조치를 명령함."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Tier 3: Frontline Supervisors -->
+        <section class="kpi-section" data-cat="super">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge super">Frontline Supervisors</span>
+                    <h2 class="section-title">3. 현장 감독관 (Supervisors) KPI</h2>
+                </div>
+                <div class="section-desc">일상 현장 안전 모범(Practice what you preach), 대면 코칭 및 일선 위험 통제 실행력 측정</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table general-table">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:12%;">유형</th>
+                            <th style="width:30%;">측정 산식 / 구체적 내용</th>
+                            <th style="width:14%;">목표 수준 (권장)</th>
+                            <th style="width:24%;">원문 근거 및 실무 가이드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">일일 작업 전 안전점검(Preshift Review) 실시율</span>
+                                <span class="origin-note">일일 안전 소통 루틴 정착</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(정시 실시된 Preshift 회의 일수 / 총 가동 작업 일수) × 100</span><br>작업 전 위험 브리핑 및 피드백 수렴</td>
+                            <td><strong>100%</strong> 매일</td>
+                            <td>본문 직무 목표 작성 실무 예시 (No. 1) 및 부록 7.4. "지정된 시간에 전 직원과 작업 전 검토를 진행함."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">팀원 1:1 대면 안전 면담 실시 빈도</span>
+                                <span class="origin-note">심리적 안정감 &amp; 관계 형성</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">감독관 1인당 팀원 개별 대면 면담 실시 횟수 (팀원당 분기 1회 이상)</span></td>
+                            <td><strong>분기 1회/인</strong></td>
+                            <td>James의 생산감독자 시절 반성 사례 (Lesson Learned). "일방적 해고 위협에서 1:1 대면 경청으로 신뢰 회복."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">기계·설비별 점검 체크리스트 완료율</span>
+                                <span class="origin-note">물리적 방호 결함 사전 차단</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(체크리스트 점검 완료 건수 / 주기별 점검 대상 건수) × 100</span></td>
+                            <td><strong>95%</strong> 이상</td>
+                            <td>부록 7.4 (No. 4, 7). "체크리스트를 활용하여 빈번한 물리적 현장 안전 점검을 실시함."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">안전 절차 현장 직무교육(OJT) 이수 시간</span>
+                                <span class="origin-note">편법(Shortcuts) 사용 원천 차단</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">현장 안전 작업 절차 및 장비 유지보수 OJT 누적 시간 (월별 집계)</span></td>
+                            <td><strong>월 2시간/인</strong></td>
+                            <td>부록 7.4 (No. 11, 12). "지름길(Shortcuts)을 엄격히 금지하고 안전 작업 절차 OJT를 직접 제공함."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">사고 조사 시 80/20 경청 및 원인 규명률</span>
+                                <span class="origin-note">처벌 없는 원인 분석 역량</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">사고·아차사고 조사 시 직원의 의견 청취가 반영된 근본원인 분석 보고서 비율</span></td>
+                            <td><strong>100%</strong> 분석</td>
+                            <td>James 80/20 법칙 및 Mager &amp; Pipe (1983). 감독관 조사 미숙에 대해 처벌 대신 코칭을 제공하여 은폐 차단.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Tier 4: Frontline Workers -->
+        <section class="kpi-section" data-cat="work">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge work">Frontline Workers</span>
+                    <h2 class="section-title">4. 현장 작업 직원 (Nonsupervisory Employees) KPI</h2>
+                </div>
+                <div class="section-desc">작업 현장에서 마땅한 주의를 기울이고 자발적으로 참여하는 일선 안전 행동 측정</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table general-table">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:12%;">유형</th>
+                            <th style="width:30%;">측정 산식 / 구체적 내용</th>
+                            <th style="width:14%;">목표 수준 (권장)</th>
+                            <th style="width:24%;">원문 근거 및 실무 가이드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">잠재 유해위험요인 및 아차사고 자발 보고 건수</span>
+                                <span class="origin-note">현장 위험 발굴 주도성</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">직원들이 자발적으로 시스템 또는 구두 보고한 유해위험요인 건수</span></td>
+                            <td><strong>분기 1건/인</strong></td>
+                            <td>비감독직 직원 7대 안전 책임 (No. 4) 및 Senders &amp; Moray (1991) '개시 행동(Initiating action)' 통제.</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">위험안내카드(Risk Guidance Card) 활용 건수</span>
+                                <span class="origin-note">위험 인지 및 즉각 소통</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">현장 유해위험 상태 발견 시 직원이 직접 발행·제시한 위험안내카드 건수</span></td>
+                            <td><strong>자발적 활성화</strong></td>
+                            <td>본문 비감독직 직원 책임 (No. 7) 및 Chapter 9 "Defining Risk Perception" 연계 도구.</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">작업 전 회의(Preshift) 및 안전 회의 참석률</span>
+                                <span class="origin-note">안전 소통 참여 성실도</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">(실제 회의 참석 횟수 / 본인 근무 교대 중 개최 횟수) × 100</span></td>
+                            <td><strong>95%</strong> 이상</td>
+                            <td>부록 7.5 (No. 1, 2). "지정된 시간의 일일 작업 전 미팅 및 정기 안전 회의에 적극 참석함."</td>
+                        </tr>
+                        <tr data-type="leading">
+                            <td>
+                                <span class="kpi-name">JHA 및 사건 조사 참여도</span>
+                                <span class="origin-note">현장 노하우의 제도 반영</span>
+                            </td>
+                            <td><span class="type-tag leading">Leading</span></td>
+                            <td><span class="code-formula">작업위험성평가(JHA) 개정 및 아차사고 조사 인터뷰에 참여한 직원 비율</span></td>
+                            <td><strong>공정당 1명 이상</strong></td>
+                            <td>부록 7.5 (No. 6, 7). "작업위험성평가에 능동적으로 참여하고 개선 아이디어를 제안함."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Tier 5: Governance & System -->
+        <section class="kpi-section" data-cat="sys">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="role-badge sys">System &amp; Governance</span>
+                    <h2 class="section-title">5. 책무성(Accountability) 시스템 &amp; 거버넌스 KPI</h2>
+                </div>
+                <div class="section-desc">Table 7.3 효과적인 책무성 시스템 5대 요소 및 공정한 피드백 거버넌스 수준 측정</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="kpi-table general-table">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">핵심 성과지표 (KPI)</th>
+                            <th style="width:12%;">유형</th>
+                            <th style="width:30%;">측정 산식 / 구체적 내용</th>
+                            <th style="width:14%;">목표 수준 (권장)</th>
+                            <th style="width:24%;">원문 근거 및 실무 가이드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="governance">
+                            <td>
+                                <span class="kpi-name">안전 직무기술서(Job Descriptions) 반영률</span>
+                                <span class="origin-note">책임-권한 공식 문서화</span>
+                            </td>
+                            <td><span class="type-tag governance">Governance</span></td>
+                            <td><span class="code-formula">(구체적 SMS 책임·권한이 명시된 직무기술서 수 / 전사 직무기술서 수) × 100</span></td>
+                            <td><strong>100%</strong> 완비</td>
+                            <td>본문 "Developing and Implementing Job Descriptions". 단순 OSHA 준수를 넘어 구체적 안전 책무 명시.</td>
+                        </tr>
+                        <tr data-type="governance">
+                            <td>
+                                <span class="kpi-name">성과 피드백 균형 비율 (긍정 보상 대 징계 비율)</span>
+                                <span class="origin-note">심리적 안정감 및 은폐 방지</span>
+                            </td>
+                            <td><span class="type-tag governance">Governance</span></td>
+                            <td><span class="code-formula">안전 모범 행동에 대한 긍정적 인정·포상 건수 ÷ 부정적 제재 건수</span></td>
+                            <td><strong>3 : 1 이상</strong> (긍정 우선)</td>
+                            <td>본문 "Establish Consequences for Performance". 징벌 일변도 피드백은 은폐 문화를 조장하므로 긍정 강화 중심 설계.</td>
+                        </tr>
+                        <tr data-type="governance">
+                            <td>
+                                <span class="kpi-name">신규 과업 '처벌 없는 학습 기간' 준수율</span>
+                                <span class="origin-note">습관 형성 지원 거버넌스</span>
+                            </td>
+                            <td><span class="type-tag governance">Governance</span></td>
+                            <td><span class="code-formula">신규 안전 제도/절차 도입 시 무처벌 1:1 코칭 기간(최소 30일) 보장 여부</span></td>
+                            <td><strong>100%</strong> 보장</td>
+                            <td>본문 성과 결과 원칙. "신규 책임 부여 시 처벌 없는 학습 기간(Learning period)을 통해 HOW와 WHY를 지도함."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div><!-- End of General KPI View Container -->
+
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast-msg">요약 정보가 클립보드에 복사되었습니다!</div>
+
+<script>
+// Theme Toggle
+const themeBtn = document.getElementById('theme-toggle-btn');
+themeBtn.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('kpi_dashboard_theme', next);
+});
+if (localStorage.getItem('kpi_dashboard_theme')) {
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('kpi_dashboard_theme'));
+}
+
+// Master View Switching (Fire vs Q-Study vs General)
+const fireViewBtn = document.getElementById('tab-fire-view');
+const qViewBtn = document.getElementById('tab-q-view');
+const generalViewBtn = document.getElementById('tab-general-view');
+
+const fireContainer = document.getElementById('fire-kpi-view-container');
+const qContainer = document.getElementById('q-view-container');
+const generalContainer = document.getElementById('general-kpi-view-container');
+
+function switchTab(view) {
+  [fireViewBtn, qViewBtn, generalViewBtn].forEach(b => b.classList.remove('active', 'fire-tab', 'q-tab', 'general-tab'));
+  [fireContainer, qContainer, generalContainer].forEach(c => c.style.display = 'none');
+
+  if (view === 'fire') {
+    fireViewBtn.classList.add('active', 'fire-tab');
+    fireContainer.style.display = 'block';
+  } else if (view === 'q') {
+    qViewBtn.classList.add('active', 'q-tab');
+    qContainer.style.display = 'block';
+  } else if (view === 'general') {
+    generalViewBtn.classList.add('active', 'general-tab');
+    generalContainer.style.display = 'block';
+  }
+}
+
+fireViewBtn.addEventListener('click', () => switchTab('fire'));
+qViewBtn.addEventListener('click', () => switchTab('q'));
+generalViewBtn.addEventListener('click', () => switchTab('general'));
+
+// ================= FIRE VIEW FILTER LOGIC =================
+const firePChips = document.querySelectorAll('.filter-chip[data-fire-p]');
+const fireKindChips = document.querySelectorAll('.filter-chip[data-fire-kind]');
+const fireSections = document.querySelectorAll('section[data-fire-sec]');
+
+let currentFireP = 'all';
+let currentFireKind = 'all';
+
+firePChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    firePChips.forEach(c => c.classList.remove('active', 'fire-chip'));
+    chip.classList.add('active', 'fire-chip');
+    currentFireP = chip.getAttribute('data-fire-p');
+    applyFireFilters();
+  });
+});
+
+fireKindChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    fireKindChips.forEach(c => c.classList.remove('active', 'fire-chip'));
+    chip.classList.add('active', 'fire-chip');
+    currentFireKind = chip.getAttribute('data-fire-kind');
+    applyFireFilters();
+  });
+});
+
+function applyFireFilters() {
+  fireSections.forEach(sec => {
+    const secP = sec.getAttribute('data-fire-sec');
+    const pMatch = (currentFireP === 'all' || currentFireP === secP);
+
+    if (!pMatch) {
+      sec.style.display = 'none';
+      return;
+    }
+
+    sec.style.display = 'block';
+    const rows = sec.querySelectorAll('tbody tr');
+    let visibleRows = 0;
+
+    rows.forEach(row => {
+      const rowKind = row.getAttribute('data-fire-type');
+      const kindMatch = (currentFireKind === 'all' || currentFireKind === rowKind);
+      if (kindMatch) {
+        row.style.display = '';
+        visibleRows++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    if (visibleRows === 0) {
+      sec.style.display = 'none';
+    }
+  });
+}
+
+// ================= Q-STUDY VIEW FILTER LOGIC =================
+const qPChips = document.querySelectorAll('.filter-chip[data-q-p]');
+const qDomainChips = document.querySelectorAll('.filter-chip[data-q-domain]');
+const qRows = document.querySelectorAll('table.q-table tbody tr');
+
+let currentQP = 'all';
+let currentQDomain = 'all';
+
+qPChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    qPChips.forEach(c => c.classList.remove('active', 'q-chip'));
+    chip.classList.add('active', 'q-chip');
+    currentQP = chip.getAttribute('data-q-p');
+    applyQFilters();
+  });
+});
+
+qDomainChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    qDomainChips.forEach(c => c.classList.remove('active', 'q-chip'));
+    chip.classList.add('active', 'q-chip');
+    currentQDomain = chip.getAttribute('data-q-domain');
+    applyQFilters();
+  });
+});
+
+function applyQFilters() {
+  qRows.forEach(row => {
+    const sec = row.getAttribute('data-q-sec');
+    const d = row.getAttribute('data-q-d');
+
+    const pMatch = (currentQP === 'all' || currentQP === sec);
+    const dMatch = (currentQDomain === 'all' || currentQDomain === d);
+
+    if (pMatch && dMatch) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}
+
+// ================= GENERAL VIEW FILTER LOGIC =================
+const filterChips = document.querySelectorAll('.filter-chip[data-filter]');
+const typeChips = document.querySelectorAll('.filter-chip[data-type-filter]');
+const generalSections = document.querySelectorAll('#general-kpi-view-container .kpi-section');
+
+let currentCat = 'all';
+let currentType = 'all';
+
+filterChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    filterChips.forEach(c => c.classList.remove('active', 'general-chip'));
+    chip.classList.add('active', 'general-chip');
+    currentCat = chip.getAttribute('data-filter');
+    applyGeneralFilters();
+  });
+});
+
+typeChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    typeChips.forEach(c => c.classList.remove('active', 'general-chip'));
+    chip.classList.add('active', 'general-chip');
+    currentType = chip.getAttribute('data-type-filter');
+    applyGeneralFilters();
+  });
+});
+
+function applyGeneralFilters() {
+  generalSections.forEach(sec => {
+    const cat = sec.getAttribute('data-cat');
+    const catMatch = (currentCat === 'all' || currentCat === cat);
+
+    if (!catMatch) {
+      sec.style.display = 'none';
+      return;
+    }
+
+    sec.style.display = 'block';
+    const rows = sec.querySelectorAll('tbody tr');
+    let visibleRows = 0;
+
+    rows.forEach(row => {
+      const rowType = row.getAttribute('data-type');
+      const typeMatch = (currentType === 'all' || currentType === rowType);
+      if (typeMatch) {
+        row.style.display = '';
+        visibleRows++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    if (visibleRows === 0) {
+      sec.style.display = 'none';
+    }
+  });
+}
+
+// ================= FIRE SIMULATOR SCORECARD =================
+const fireSliders = [
+  { el: document.getElementById('fire-sl-esobang'), valEl: document.getElementById('fire-val-esobang'), weight: 0.25 },
+  { el: document.getElementById('fire-sl-training'), valEl: document.getElementById('fire-val-training'), weight: 0.25 },
+  { el: document.getElementById('fire-sl-repair'), valEl: document.getElementById('fire-val-repair'), weight: 0.20 },
+  { el: document.getElementById('fire-sl-command'), valEl: document.getElementById('fire-val-command'), weight: 0.15 },
+  { el: document.getElementById('fire-sl-pos'), valEl: document.getElementById('fire-val-pos'), weight: 0.15 }
+];
+
+const fireTotalScoreEl = document.getElementById('fire-total-score');
+const fireTotalGradeEl = document.getElementById('fire-total-grade');
+const fireTotalDescEl = document.getElementById('fire-total-desc');
+
+fireSliders.forEach(s => {
+  s.el.addEventListener('input', () => {
+    s.valEl.textContent = `${s.el.value}%`;
+    calculateFireScore();
+  });
+});
+
+function calculateFireScore() {
+  let score = 0;
+  fireSliders.forEach(s => {
+    score += (parseInt(s.el.value) * s.weight);
+  });
+  score = Math.round(score);
+
+  fireTotalScoreEl.textContent = `${score}점`;
+
+  if (score >= 90) {
+    fireTotalGradeEl.textContent = "최우수 구조대 (S) — 국민행복정책 최우수 관서 모델";
+    fireTotalDescEl.textContent = "e-소방 당일 입력과 훈련 이행, 선제 수리의뢰가 완벽하게 정착된 의령소방서 모범 구조대입니다.";
+    fireTotalScoreEl.style.color = "var(--accent-green)";
+  } else if (score >= 75) {
+    fireTotalGradeEl.textContent = "우수 구조대 (1등급) — 능동적 예방정비·훈련 체계";
+    fireTotalDescEl.textContent = "교대점검과 정례훈련이 양호하며, 통제단 장비 작동점검 및 3:1 긍정 인정을 보강하면 S등급 달성이 가능합니다.";
+    fireTotalScoreEl.style.color = "var(--accent-fire-light)";
+  } else if (score >= 60) {
+    fireTotalGradeEl.textContent = "보통 구조대 (2등급) — 보완 필요 구조대";
+    fireTotalDescEl.textContent = "장비 수리의뢰 지연이나 훈련시간 미달이 일부 발생하고 있습니다. 행정기안 단축과 OJT 보강이 시급합니다.";
+    fireTotalScoreEl.style.color = "var(--accent-gold)";
+  } else {
+    fireTotalGradeEl.textContent = "개선 요망 (3등급) — 출동 위험 노출 관서";
+    fireTotalDescEl.textContent = "장비 미점검 및 훈련 부실로 출동 중 결함 발생 위험이 높습니다. 3대 원칙 중심의 구조대 업무 혁신이 요구됩니다.";
+    fireTotalScoreEl.style.color = "var(--accent-red)";
+  }
+}
+
+// Interactive Checkbox Strike-through
+document.querySelectorAll('.check-item input[type="checkbox"]').forEach(box => {
+  box.addEventListener('change', (e) => {
+    const parent = e.target.closest('.check-item');
+    if (e.target.checked) {
+      parent.classList.add('done');
+    } else {
+      parent.classList.remove('done');
+    }
+  });
+});
+
+// Toast Function
+const toastMsg = document.getElementById('toast-msg');
+function showToast(text) {
+  toastMsg.textContent = text;
+  toastMsg.classList.add('show');
+  setTimeout(() => toastMsg.classList.remove('show'), 2500);
+}
+
+// Copy Q-Statements 34
+document.getElementById('copy-q-statements-btn').addEventListener('click', () => {
+  let qText = `[소방공무원 안전 책무성 Q 진술문 34선 (PQMethod / 학술 연구용)]\n\n`;
+  qRows.forEach(row => {
+    const qNum = row.querySelector('td strong').textContent;
+    const qStmt = row.querySelectorAll('td')[1].textContent;
+    const qPrinciple = row.querySelectorAll('td')[2].textContent.trim();
+    const qDomain = row.querySelectorAll('td')[3].textContent.trim();
+    const qAttr = row.querySelectorAll('td')[4].textContent.trim();
+    qText += `${qNum}. [${qPrinciple}|${qDomain}|${qAttr}] ${qStmt}\n`;
+  });
+
+  navigator.clipboard.writeText(qText).then(() => {
+    showToast('Q 진술문 34선이 클립보드에 복사되었습니다!');
+  });
+});
+
+// Copy Fire Officer Summary
+document.getElementById('copy-fire-summary-btn').addEventListener('click', () => {
+  const fireText = `[의령소방서 119구조대 구조주임 선행 KPI 체계 요약 (국민행복소방정책 연계)]
+
+1. 통제 가능성 원칙 (Controllability)
+   [정량] 일일 구조장비점검 e-소방 당일 등록률 (목표 100% 매일) -> 소방장비 관리실태
+   [정량] 월간 인명구조 훈련 계획 대비 이행률 (목표 95% 이상) -> 구조대원 훈련 역량
+   [정량] 통제단 장비운반차 물품 분기 작동시험 완료율 (목표 100%) -> 긴급구조통제단 운영
+   [정량] 구조대원 인명구조사(1·2급) 자격 보유율 (목표 80% 이상) -> 전문인력 확보율
+   [정량] 유압스프레더·절단기 무결점 작동 유지율 (목표 100%) -> 출동태세 유지
+   [정성] 의령 관할(자굴산/남강) 특성화 훈련 심도 (5점 척도 루브릭, 목표 4.5점 이상)
+   [정성] 작전 후 복기(AAR) 현장 토론 개방성 (막내 대원 질책 없는 위험 발언)
+
+2. 삼원조 정합성 (Triad Consistency)
+   [정량] 구조장비 결함 발견 후 24시간 내 수리의뢰율 (목표 100% 기안) -> 장비 적기정비
+   [정량] 현장 2인 1조 및 RIT(신속구조팀) 지정률 (목표 100%) -> 현장안전관리 이행실태
+   [정량] 신임 구조대원 전입자 OJT 멘토링 이수율 (최소 2주 20시간, 100%)
+   [정량] 통제단 불시가동훈련 구조진압반 임무 부여율 (목표 100%) -> 통제단 훈련평가
+   [정성] 훈련 중 위험중지(Stop-Training) 권한 보장 (폭염·기상악화 시 난이도 조정)
+   [정성] 노후 로프·하네스 불용 및 선제 교체 품의 투명성
+
+3. 긍정 강화 우선 (Positive 3:1)
+   [정량] 구조대 긍정 인정 대 제재 비율 (서장표창·마일리지 ÷ 징계 ≥ 3.0, 3:1 원칙)
+   [정량] 장비 결함·아차사고 선제 발굴 건수 (교대점검 시 사전 적발, 월 2건 이상)
+   [정량] 비상탈출(Mayday) 및 RIT 훈련 이수율 (목표 분기별 100%)
+   [정량] 아차사고 제보 대원 면책 및 즉시 포상률 (목표 100%)
+   [정성] 구조대 내 실수 수용성(Just Culture) 체감도 (목표 4.5점 이상)
+   [정성] 동료 장비 크로스체크(Cross-check) 일상화`;
+
+  navigator.clipboard.writeText(fireText).then(() => {
+    showToast('의령소방서 구조주임 KPI 요약이 복사되었습니다!');
+  });
+});
+</script>
+
+</body>
+</html>

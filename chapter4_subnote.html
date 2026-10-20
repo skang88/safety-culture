@@ -1,0 +1,1846 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 4: Establishing the Direction for the Safety Culture — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 320px;
+  --ai-panel-w: 380px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-cyan: #0891b2;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #7e22ce;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  height: var(--header-h);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-title span.sub {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.action-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+.action-btn.primary {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border-color: var(--accent-blue);
+}
+.action-btn.primary:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
+/* App Wrapper: 3-column layout */
+.app-wrapper {
+  display: flex;
+  min-height: calc(100vh - var(--header-h));
+  position: relative;
+}
+
+/* Left Sidebar Navigation */
+aside.left-sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  overflow-y: auto;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 13px;
+}
+.nav-search:focus {
+  outline: 2px solid var(--accent-blue);
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  transition: all 0.15s ease;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.nav-link .icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.nav-link:hover {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent-blue);
+  transform: translateX(2px);
+}
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 700;
+  border-left: 3px solid var(--accent-blue);
+}
+.nav-link .icon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Center Content */
+main.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 40px 100px;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-y: visible;
+}
+
+/* Right AI Panel */
+aside.right-ai-panel {
+  width: var(--ai-panel-w);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-h));
+  position: sticky;
+  top: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 950;
+}
+aside.right-ai-panel.collapsed {
+  transform: translateX(100%);
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+.ai-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ai-panel-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-status-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.ai-mode-bar {
+  padding: 10px 16px;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.ai-mode-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat-bubble {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 90%;
+  word-break: break-word;
+}
+.chat-bubble.ai {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  color: var(--text-main);
+}
+.chat-bubble.user {
+  background: var(--accent-blue);
+  color: #0b1120;
+  align-self: flex-end;
+  font-weight: 500;
+}
+.chat-bubble code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.ai-quick-questions {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.quick-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.quick-chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.ai-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+.ai-form {
+  display: flex;
+  gap: 8px;
+}
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-main);
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  height: 44px;
+  min-height: 44px;
+  max-height: 100px;
+}
+.ai-input:focus {
+  outline: 2px solid var(--accent-blue);
+}
+.ai-send-btn {
+  background: var(--accent-blue);
+  color: #0b1120;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+.ai-send-btn:hover { background: #0284c7; color: #fff; }
+
+/* API Key Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.modal-title { font-size: 18px; font-weight: 700; }
+.close-modal-btn { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+.modal-body { display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; }
+.modal-footer { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+
+/* Typography & Subnote Styles */
+h1.content-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+.content-meta {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 30px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+h2.sec-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3.sub-heading {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+p { margin-bottom: 14px; color: var(--text-sub); }
+strong { color: var(--text-main); }
+ul, ol { margin-left: 20px; margin-bottom: 16px; color: var(--text-sub); }
+li { margin-bottom: 6px; }
+
+/* Callouts / Alerts */
+.callout {
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 18px 0;
+  border-left: 4px solid;
+  background: var(--bg-card-sub);
+}
+.callout.quote {
+  border-color: var(--accent-purple);
+  font-style: italic;
+  background: rgba(168, 85, 247, 0.08);
+}
+.callout.info {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.08);
+}
+.callout.warning {
+  border-color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.08);
+}
+.callout.danger {
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.08);
+}
+.callout.success {
+  border-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.08);
+}
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+}
+.callout.info .callout-title { color: var(--accent-blue); }
+.callout.warning .callout-title { color: var(--accent-gold); }
+.callout.danger .callout-title { color: var(--accent-red); }
+.callout.success .callout-title { color: var(--accent-green); }
+.callout.quote .callout-title { color: var(--accent-purple); font-style: normal; }
+
+/* Tables */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 18px 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+table.custom-table th {
+  background: var(--bg-card-sub);
+  color: var(--text-main);
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+}
+table.custom-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+table.custom-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Figures / Media Cards */
+.media-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  text-align: center;
+}
+.media-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+.media-card img:hover {
+  transform: scale(1.01);
+}
+.media-caption {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 12px;
+}
+.media-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-color);
+  line-height: 1.6;
+}
+
+/* Mermaid Wrapper */
+.mermaid-wrapper {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* Cards & Accordions */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+.sub-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.sub-card h4 {
+  font-size: 14.5px;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+details.custom-accordion {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+details.custom-accordion summary {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg-input);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details.custom-accordion summary:hover {
+  color: var(--accent-blue);
+}
+details.custom-accordion .accordion-body {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+}
+
+/* Interactive Prompt Box */
+.prompt-box {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(56, 189, 248, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.prompt-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.prompt-actions {
+  display: flex;
+  gap: 8px;
+}
+.copy-prompt-btn, .send-prompt-btn {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.copy-prompt-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.send-prompt-btn:hover { background: var(--accent-blue); color: #0b1120; border-color: var(--accent-blue); }
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #10b981;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 3000;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1300px) {
+  aside.left-sidebar { width: 280px; min-width: 280px; }
+  aside.right-ai-panel { width: 320px; }
+}
+@media (max-width: 992px) {
+  aside.left-sidebar { display: none; }
+  main.main-content { padding: 24px 20px 80px; }
+}
+    </style>
+
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="brand-area">
+    <div class="brand-badge">Chapter 04</div>
+    <div class="brand-title">안전문화 방향 설정과 목표 <span class="sub">Establishing the Direction for the Safety Culture</span></div>
+  </div>
+  <div class="header-actions">
+    <button class="action-btn" id="theme-toggle-btn" title="테마 전환">🌓 테마</button>
+    <button class="action-btn" id="api-key-btn" title="API 설정">🔑 API 설정</button>
+    <button class="action-btn primary" id="toggle-ai-btn" title="AI 학습 튜터 열기/닫기">💬 AI 학습 튜터</button>
+  </div>
+</header>
+
+
+<div class="app-wrapper">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <div class="sidebar-title">목차 바로가기 (Chapter 4)</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="목차 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-1-1-introduction" class="nav-link active" title="📌 1. INTRODUCTION (도입)"><span class="icon">📌</span><span>1. INTRODUCTION (도입)</span></a></li>
+      <li><a href="#sec-2-2-charting-the-course-the" class="nav-link" title="🗺️ 2. CHARTING THE COURSE—THE PLANNING PROCESS (항로 설정: 안전 기획 프로세스)"><span class="icon">🗺️</span><span>2. CHARTING THE COURSE (항로 설정)</span></a></li>
+      <li><a href="#sec-3-3-vision-and-mission-majo" class="nav-link" title="👑 3. VISION AND MISSION, MAJOR TRAITS OF LEADERSHIP (리더십의 핵심 자질로서의 비전과 미션)"><span class="icon">👑</span><span>3. VISION & MISSION (비전과 미션)</span></a></li>
+      <li><a href="#sec-4-4-mission-vs-vision-state" class="nav-link" title="⚖️ 4. MISSION VS. VISION STATEMENT (미션과 비전의 본질적 차이 비교)"><span class="icon">⚖️</span><span>4. MISSION VS. VISION (미션과 비전 비교)</span></a></li>
+      <li><a href="#sec-5-5-example-vision-statemen" class="nav-link" title="🔭 5. EXAMPLE VISION STATEMENTS (효과적인 안전 비전 진술문 모범 사례)"><span class="icon">🔭</span><span>5. EXAMPLE VISION (비전 모범 사례)</span></a></li>
+      <li><a href="#sec-6-6-mission-statement" class="nav-link" title="🎯 6. MISSION STATEMENT (미션 진술문의 수립과 공동 개발 실천)"><span class="icon">🎯</span><span>6. MISSION STATEMENT (미션 진술문 수립)</span></a></li>
+      <li><a href="#sec-7-7-boundary-spanning-and-t" class="nav-link" title="🌉 7. BOUNDARY SPANNING AND THE MISSION (전사적 경계 확장과 미션 연계)"><span class="icon">🌉</span><span>7. BOUNDARY SPANNING (경계 확장 연계)</span></a></li>
+      <li><a href="#sec-8-8-the-safety-policy-state" class="nav-link" title="📜 8. THE SAFETY POLICY STATEMENT, EVIDENCE A VISION HAS BEEN ESTABLISHED (안전 방침 진술문: 비전의 공식적 증거)"><span class="icon">📜</span><span>8. SAFETY POLICY STATEMENT (안전 방침문)</span></a></li>
+      <li><a href="#sec-9-9-communicating-the-safet" class="nav-link" title="📢 9. COMMUNICATING THE SAFETY POLICY STATEMENT (안전 방침의 전사적 전파 전략)"><span class="icon">📢</span><span>9. COMMUNICATING POLICY (방침 전파 전략)</span></a></li>
+      <li><a href="#sec-10-10-communicate-by-action" class="nav-link" title="🏃 10. COMMUNICATE BY ACTION (말보다 강력한 행동을 통한 소통)"><span class="icon">🏃</span><span>10. COMMUNICATE BY ACTION (행동을 통한 소통)</span></a></li>
+      <li><a href="#sec-11-11-aligning-with-the-orga" class="nav-link">⚙️ 11. ALIGNING WITH THE ORGANIZATION (경영 비즈니스 전략과의 일치)</a></li>
+      <li><a href="#sec-12-12-defining-goals-and-obj" class="nav-link">📊 12. DEFINING GOALS AND OBJECTIVES (목표와 세부목표의 명확한 구분)</a></li>
+      <li><a href="#sec-13-13-defining-goals-that-im" class="nav-link">🎯 13. DEFINING GOALS THAT IMPROVE THE SAFETY MANAGEMENT SYSTEM (SMART 모델을 활용한 안전 목표 수립)</a></li>
+      <li><a href="#sec-14-14-defining-objectives" class="nav-link" title="📝 14. DEFINING OBJECTIVES (세부 실행 과업 정의)"><span class="icon">📝</span><span>14. DEFINING OBJECTIVES (세부 실행 과업)</span></a></li>
+      <li><a href="#sec-15-15-writing-objectives" class="nav-link" title="✍️ 15. WRITING OBJECTIVES (효과적인 세부목표 작성 공식)"><span class="icon">✍️</span><span>15. WRITING OBJECTIVES (세부목표 작성 공식)</span></a></li>
+      <li><a href="#sec-16-16-communicating-goals-an" class="nav-link">🗣️ 16. COMMUNICATING GOALS AND OBJECTIVES (목표의 전사적 전파와 캐스케이딩)</a></li>
+      <li><a href="#sec-17-17-reviewing-objectives" class="nav-link" title="🔍 17. REVIEWING OBJECTIVES (정기 검토와 탄력적 피드백)"><span class="icon">🔍</span><span>17. REVIEWING OBJECTIVES (정기 검토 및 환류)</span></a></li>
+      <li><a href="#sec-18-18-resistance-to-goals-an" class="nav-link">🛑 18. RESISTANCE TO GOALS AND OBJECTIVES (목표에 대한 저항 극복)</a></li>
+      <li><a href="#sec-19-19-the-plan" class="nav-link" title="📋 19. THE PLAN (종합 안전 실행 계획서의 구축)"><span class="icon">📋</span><span>19. THE PLAN (종합 실행 계획서)</span></a></li>
+      <li><a href="#sec-20-20-the-critical-part-of-p" class="nav-link">⚡ 20. THE CRITICAL PART OF PLANNING (계획의 성패를 가르는 결정적 핵심)</a></li>
+      <li><a href="#sec-21-21-summary" class="nav-link" title="📝 21. SUMMARY (요약 및 핵심 결론)"><span class="icon">📝</span><span>21. SUMMARY (요약 및 핵심 결론)</span></a></li>
+      <li><a href="#sec-22-22-chapter-review-questio" class="nav-link">❓ 22. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</a></li>
+      <li><a href="#sec-23-23-appendix-4-1-sample-sa" class="nav-link">📁 23. [APPENDIX 4.1] SAMPLE SAFETY POLICY (샘플 안전 방침서 템플릿)</a></li>
+      <li><a href="#sec-24-24-appendix-4-2-numerical" class="nav-link">📁 24. [APPENDIX 4.2] NUMERICAL AND DESCRIPTIVE GOALS (정량적 목표와 서술형 목표의 균형)</a></li>
+      <li><a href="#sec-25-25-bibliography" class="nav-link" title="📚 25. BIBLIOGRAPHY (참고 문헌)"><span class="icon">📚</span><span>25. BIBLIOGRAPHY (참고 문헌)</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="content-title">Chapter 4 Establishing the Direction for the Safety Culture</h1>
+    <div class="content-meta">
+      안전문화 방향 설정과 목표 심층 서브노트 | 출처: Safety Culture (Elsevier, 2019) | Academic Sub-Note &amp; Interactive Learning Suite
+    </div>
+
+    <section class="section-box" id="sec-1-1-introduction">
+      <h2 class="sec-heading">📌 1. INTRODUCTION (도입)</h2>
+<p>리더십의 핵심 기능은 지정된 안전경영시스템을 개선하기 위한 체계적인 <strong>기획 프로세스(Planning Process)</strong>를 구축하는 것입니다. 이 기획 프로세스는 조직의 전반적인 문화와 가장 잘 부합하도록 설계되거나 선택되어야 합니다. 안전 기획 프로세스는 안전경영시스템의 목표와 세부목표를 명확히 정의하고, 일일, 주간, 월간, 그리고 경우에 따라 다년간에 걸친 구체적인 안전 활동 일정을 수립해야 합니다. 단기 및 장기 계획은 안전경영시스템이 원래 의도된 대로 올바르게 작동하고 있는지 확인하는 데 필수적인 <strong>전략적 기준점(Strategic Benchmarks)</strong>을 제공합니다.</p>
+<p>새로운 운영상 유해위험요인과 관련 리스크가 발생함에 따라 작업 환경은 언제든 급변할 수 있으므로, 안전경영시스템 프로세스는 유연성을 유지해야 하며 지속적으로 모니터링되어야 합니다. 본 장의 핵심 목적은 안전경영시스템이 경로를 이탈하지 않고 본 궤도를 유지하도록 돕는 체계적 개념과 실무 도구를 제공하는 것입니다. 안전 기획 프로세스는 안전의 근본적 당위성인 <strong>'이유(Why)'</strong>를 다루며 전사적 안전 미션을 위한 비전을 제시합니다.</p>
+<h3 class="sub-heading">📊 1.1 제4장의 핵심 학습 목표</h3>
+<ol>
+  <li><strong>비전(Vision) 및 미션(Mission) 진술문을 개발할 수 있다.</strong></li>
+  <li><strong>조직적 목표 표류(Organizational Scope Drift)의 메커니즘과 위험성을 정의할 수 있다.</strong></li>
+  <li><strong>최고경영진의 공약이 담긴 안전 방침 진술문(Safety Policy Statement)을 효과적으로 소통하는 방법을 설명할 수 있다.</strong></li>
+  <li><strong>SMART 원칙(Specific, Measurable, Attainable, Realistic, Timely)을 활용하여 실효성 있는 목표와 세부목표를 수립할 수 있다.</strong></li>
+  <li><strong>목표(Goal)와 세부목표(Objective)의 본질적 차이점을 명확히 구분할 수 있다.</strong></li>
+  <li><strong>안전 활동을 위한 구체적인 실행 계획서(Plan of Action)를 개발해야 하는 결정적 이유를 이해할 수 있다.</strong></li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 1. INTRODUCTION (도입) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-2-2-charting-the-course-the">
+      <h2 class="sec-heading">🗺️ 2. CHARTING THE COURSE—THE PLANNING PROCESS (항로 설정: 안전 기획 프로세스)</h2>
+<p>안전경영시스템 기획의 궁극적 목표는 안전 방침과 세부목표를 통해 조직의 모든 구성원에게 전사적인 비전과 미션을 일관성 있고 명확하게 전달하는 것입니다. 비전과 미션이 사려 깊게 구축될 때 최고경영진과 현장 근로자 모두로부터 수용, 지지, 그리고 진정한 헌신(Commitment)을 이끌어낼 확률이 획기적으로 높아집니다. 안전경영시스템을 개발하고 기획할 때 수행해야 하는 핵심 활동은 다음과 같습니다:</p>
+<ul>
+  <li>기대되는 결과가 무엇인지 전반적인 비전을 정의함.</li>
+  <li>무엇을 달성해야 하는지에 대한 구체적 미션을 정의함.</li>
+  <li>비전과 미션에 전사적으로 헌신하고, 왜 이러한 노력이 필수적인지 그 당위성을 명시함.</li>
+  <li>기획 프로세스 기간 동안 다양한 안전 활동에 기대되는 결과의 깊이와 범위를 설정하고, 안전경영시스템이 완전하게 실행되도록 이끄는 구체적 실행 과업으로서 목표와 세부목표를 수립함.</li>
+</ul>
+<h3 class="sub-heading">🖼️ [그림 4.1 상세 분석] 안전경영시스템 개발 및 기획의 핵심 활동</h3>
+<div class="media-card"><img src="image-57.png" alt="Fig 4.1" loading="lazy"><div class="media-caption">Fig 4.1</div></div>
+<p><em>FIG. 4.1 Core activities for developing and planning a safety management system.</em></p>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><strong>[그림 4.1 상세 보충설명: 안전 기획의 4대 핵심 활동 사이클]</strong><br><em> <strong>Vision (비전 정의)</strong>: 기대되는 결과와 미래 청사진을 명확히 설정.<br></em> <strong>Mission (미션 정의)</strong>: 달성해야 할 구체적 과업과 실행 내용을 정의.<br><em> <strong>Commitment (헌신과 당위성)</strong>: 왜 이 노력이 필수적인지(WHY)를 전사 구성원에게 설득하고 자원을 투입.<br></em> <strong>Depth and Scope (범위와 실행 과업)</strong>: 목표와 세부목표를 통해 시스템 실행의 세부 일정과 활동 폭을 구체화.<br>* "우리에게 가장 큰 위험은 목표를 너무 높게 설정하여 실패하는 것이 아니라, 너무 낮게 설정하여 그 낮은 목표를 달성해 버리는 것이다." — 미켈란젤로 (Michelangelo, 2018)</p></div>
+<h3 class="sub-heading">💡 [Lesson Learned 1] '롤아웃(Roll out)'이라는 단어가 주는 거부감과 용어 선택의 지혜</h3>
+<ul>
+  <li><strong>원문 배경 및 상황</strong>: 조직 내에서 일상적으로 사용하는 특정 단어나 문구가 무의식중에 구성원들의 반감을 사고 신규 프로젝트에 대한 거부감을 유발하는가? 저자 중 한 명인 제임스(James)는 조직 내에서 관행적으로 쓰이던 특정 문구가 직원들에게 대단히 부정적인 반응을 일으키고 있음을 포착했습니다.</li>
+  <li><strong>현장의 실제 반응</strong>: 경영진이나 안전 부서가 회의실에서 <em>"우리는 다음 달에 새로운 XXX 프로그램을 전사 롤아웃(roll out)할 예정입니다"</em>라고 발표하는 순간, 직원들은 눈을 위로 치켜뜨며(eyes rolled back) 냉소적인 표정으로 서로를 쳐다보았습니다. 직원들의 일반적인 반응은 이러했습니다: <em>"아, 또 '이달의 유행(flavor of the month)'이 하나 더 시작되는군. 흥분할 필요 없어. 6개월만 버티면 흐지부지 사라질 테니까. 저 사람들 기분 상하지 않을 정도로만 적당히 흉내만 내자."</em> 즉, '롤아웃'이라는 단어 자체가 현장에서는 관료주의적 밀어내기식 강요로 인식되는 독성(toxic) 용어가 되어버린 것입니다.</li>
+  <li><strong>해결책 및 교훈</strong>: 제임스는 긍정적인 직원 지각(perception)을 형성하기 위해 계획된 이니셔티브를 소개하는 더 나은 소통 방식을 모색했습니다. 놀랍게도 복잡한 제도 변경 없이, 단지 '롤아웃(roll out)'이라는 거만한 단어를 <strong>'소개하다(introduce)'</strong>라는 정중하고 참여적인 표현으로 바꾸는 것만으로도 직원들의 수용성과 지지도가 훨씬 더 높아졌습니다. 안전문화의 성패는 현장과의 소통 단어 하나를 어떻게 선택하느냐에 달려 있습니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 2. CHARTING THE COURSE—THE PLANNING PROCESS (항로 설정: 안전 기획 프로세스) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-3-3-vision-and-mission-majo">
+      <h2 class="sec-heading">👑 3. VISION AND MISSION, MAJOR TRAITS OF LEADERSHIP (리더십의 핵심 자질로서의 비전과 미션)</h2>
+<p>비전과 미션은 동일한 개념이 아닙니다. <strong>비전 진술문(Vision Statement)</strong>은 안전경영시스템이 나아가야 할 궁극적인 방향과 달성하고자 하는 미래의 바람직한 상태를 정의합니다. 비전은 스티븐 코비(Stephen Covey, 1990)가 그의 명저 『성공하는 사람들의 7가지 습관』에서 강조한 핵심 원칙을 구현합니다: <em>"끝을 생각하며 시작하라(Begin with the end in mind). 이는 당신의 최종 목적지를 명확히 이해한 상태에서 출발함을 의미한다... 그래야만 당신이 현재 어디에 서 있는지 더 잘 이해할 수 있고, 당신이 내딛는 모든 발걸음이 언제나 올바른 방향을 향할 수 있기 때문이다."</em></p>
+<p>명확한 비전이 확립되면 안전경영시스템의 '이유(Why)'를 조직 전체에 훨씬 더 강력하게 설파할 수 있습니다 (Sinek, 2009). 이는 경영진과 현장 작업자가 안전 활동의 필요성에 의문을 제기할 때 확고한 답변을 제공합니다. 그러나 새로운 비전을 개발하는 것은 양날의 검(two-edged sword)이 될 수도 있습니다. 조직 진단 결과 새로운 비전이 절실함에도 불구하고, 경영진은 현재의 안전 활동으로 충분하다고 오판할 수 있습니다. 이러한 안이한 인식을 극복하기 위해서는 기존 안전 프로세스의 갭(Gaps)과 취약점을 데이터로 입증해야 합니다.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 3. VISION AND MISSION, MAJOR TRAITS OF LEADERSHIP (리더십의 핵심 자질로서의 비전과 미션) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-4-4-mission-vs-vision-state">
+      <h2 class="sec-heading">⚖️ 4. MISSION VS. VISION STATEMENT (미션과 비전의 본질적 차이 비교)</h2>
+<p>비전과 미션의 차이를 명확히 이해해야 목표 설정이 흔들리지 않습니다:</p>
+<ul>
+  <li><strong>미션 진술문(Mission Statement)</strong>: 회사의 목적과 현재 집중해야 할 초점을 설명합니다. 회사가 무엇을 하고 전반적인 의도가 무엇인지를 구체적으로 서술합니다. 미션은 비전을 강력하게 뒷받침하며, 직원, 고객, 협력업체 및 이해관계자들에게 일상의 목적과 행동 방향을 소통하는 실천적 기준이 됩니다. 미션은 비전을 달성하기 위한 회사의 우선순위와 방법론의 변화를 반영하여 유연하게 조정될 수 있습니다.</li>
+</ul>
+<div class="table-responsive"><table class="custom-table">
+<thead><tr><th>구분 항목</th><th><strong>비전 진술문 (Vision Statement)</strong></th><th><strong>미션 진술문 (Mission Statement)</strong></th></tr></thead>
+<tbody>
+<tr><td><strong>핵심 질문</strong></td><td><strong>"우리는 미래에 어떤 조직이 되고자 하는가?"</strong> (Where/Why)</td><td><strong>"우리는 오늘 무엇을 위해, 누구에게 무엇을 하는가?"</strong> (What/How)</td></tr>
+<tr><td><strong>시간적 지향</strong></td><td>미래지향적, 원대하고 이상적인 영감 고취</td><td>현재 중심적, 실천적 행동 가이드, 구체적인 사업 목적</td></tr>
+<tr><td><strong>문체와 톤</strong></td><td>가슴을 뛰게 하는 감성적이고 간결한 미래 선언</td><td>일상 작업에서 매일 지킬 수 있는 명문화된 규범</td></tr>
+<tr><td><strong>변경 주기</strong></td><td>장기적으로 불변하며 조직의 정체성을 규정</td><td>비전 달성 경로 및 환경 변화에 따라 탄력적 개정 가능</td></tr>
+</tbody></table></div>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 4. MISSION VS. VISION STATEMENT (미션과 비전의 본질적 차이 비교) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-5-5-example-vision-statemen">
+      <h2 class="sec-heading">🔭 5. EXAMPLE VISION STATEMENTS (효과적인 안전 비전 진술문 모범 사례)</h2>
+<p>비전 진술문은 "조직이나 프로그램의 노력을 통해 궁극적으로 달성하고자 하는 명확하고 영감을 주는 장기적 변화를 묘사하는 한 문장의 진술"입니다 (30 Example Vision Statements, 2018).</p>
+<ul>
+  <li><strong>30개 우수 비전 진술문 연구의 핵심 발견</strong>:</li>
+  <li>가장 뛰어난 비전은 <strong>영감을 주며(inspirational), 명확하고(clear), 기억하기 쉬우며(memorable), 간결(concise)</strong>합니다.</li>
+  <li>조사된 30개 조직의 평균 비전 길이는 브랜드명을 제외하고 단 <strong>14.56 단어</strong>에 불과했습니다.</li>
+  <li>상위 15개 우수 조직의 평균 단어 수는 단 <strong>10.5 단어</strong>였습니다.</li>
+  <li>가장 짧은 비전은 단 3개 단어(Human Rights Campaign)로 구성되었으며, 가장 긴 비전도 32개 단어(Amnesty International)를 넘지 않았습니다.</li>
+  <li><strong>글로벌 비전 모범 사례</strong>:</li>
+  <li><strong>재향군인회(Veterans of Foreign Wars)</strong>: <em>"퇴역 군인들이 헌신에 걸맞은 존중을 받고, 정당한 권익을 온전히 누리며, 조국을 위해 바친 숭고한 희생을 국가와 국민으로부터 영원히 인정받도록 보장한다."</em></li>
+  <li><strong>스미소니언 박물관(Smithsonian)</strong>: <em>"우리의 문화유산을 온전히 보존하고, 새로운 지식을 끊임없이 발견하며, 우리가 가진 자원을 전 세계와 공유함으로써 미래를 빚어낸다."</em></li>
+  <li><strong>해비타트(Habitat for Humanity)</strong>: <em>"모든 사람이 온전하고 품격 있는 보금자리를 누리는 세상을 만든다."</em></li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 5. EXAMPLE VISION STATEMENTS (효과적인 안전 비전 진술문 모범 사례) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-6-6-mission-statement">
+      <h2 class="sec-heading">🎯 6. MISSION STATEMENT (미션 진술문의 수립과 공동 개발 실천)</h2>
+<p>미션 진술문은 안전경영시스템이 구체적으로 무엇을 수행하도록 지시받았는지에 대한 포괄적 개요를 제공합니다. 미션은 안전경영시스템의 구조와 관리 체계를 위한 뼈대를 형성하며, 경영진이 지시한 책무와 현장에서 달성해야 할 과업을 명확히 정의합니다.</p>
+<h3 class="sub-heading">📌 6.1 미션 진술문 모범 사례: 미국 육군 군악대 (The U.S. Army Band "Pershing's Own")</h3>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><em>"미합중국 육군 군악대는 국가 지도부와 모든 정부 부처를 위해 음악적 지원을 제공하며, 장병과 그 가족을 지원하고, 공공 외교, 지역 및 국제 관계 개선, 모병 활동, 음악 교육 프로그램을 뒷받침하는 광범위한 국내외 행사를 지원한다. 이를 통해 우리 군대에는 싸워 이길 수 있는 강인한 전투 의지를 불어넣고, 국민들에게는 군에 대한 지지를 함양하며, 국내외에서 국가의 이익을 드높인다."</em> (Mission Statement, 2018)</p></div>
+<h3 class="sub-heading">📌 6.2 비전 및 미션 수립을 위한 9대 필수 조직 진단 체크리스트</h3>
+<ol>
+  <li><strong>현재 조직의 안전문화 성숙도 수준은 어디에 위치해 있는가?</strong></li>
+  <li><strong>달성하고자 하는 기대 결과는 구체적으로 무엇인가?</strong></li>
+  <li><strong>경영진은 안전을 통해 구체적으로 무엇이 달성되기를 기대하는가?</strong> (경영진이 유해위험요인의 실제 본질과 통제 요건을 충분히 이해하지 못할 수 있으므로 경영진의 지식수준에 대한 사전 평가 필수)</li>
+  <li><strong>현재 지속적으로 추진 및 지원되고 있는 법적 규제 준수 활동은 무엇인가?</strong></li>
+  <li><strong>법적 규제 영역에 포함되지 않는 사각지대의 위험 관리 및 통제를 위해 어떤 활동이 필요한가?</strong></li>
+  <li><strong>진단 및 프로젝트에 참여하도록 지정된 구성원들에게 충분한 시간이 부여되어 있는가? (본업 외에 안전 업무를 수행할 시간이 보장되는가?)</strong></li>
+  <li><strong>포괄적인 실행 계획(Plan of Action)을 구축하는 데 어떤 규모의 예산과 자원이 필요한가?</strong></li>
+  <li><strong>주어진 예산, 시간적 제약, 직원들의 역량 수준을 고려할 때 목표 달성을 위해 가장 필수적인 핵심 과업은 무엇인가?</strong></li>
+  <li><strong>완성된 실행 계획서는 전사 구성원에게 어떤 매체와 방식으로 소통될 것인가?</strong></li>
+</ol>
+<h3 class="sub-heading">🖼️ [그림 4.2 상세 분석] 우리는 어디로 가고자 하는가 (Which way do I want to go)</h3>
+<div class="media-card"><img src="image-58.png" alt="Fig 4.2" loading="lazy"><div class="media-caption">Fig 4.2</div></div>
+<p><em>FIG. 4.2 Which way do I want to go.</em></p>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><strong>[그림 4.2 상세 보충설명: 규제 준수와 지속가능 안전문화의 갈림길]</strong><br><em> <strong>단순 법적 규제 준수(Compliance-driven)</strong>: 정부 OSHA 기준 등 최소한의 법적 요건만을 충족하는 데 안주하는 협소한 시각.<br></em> <strong>지속 가능한 안전문화(Sustained Safety Culture)</strong>: 법적 준수를 뛰어넘어 근로자의 생명 존중과 전사적 프로세스 혁신을 지향하는 전략적 비전.<br>* 리더십이 안전의 미션을 단순 규제 준수로만 한정할 경우, 안전 활동은 독립된 단발성 서류 작업으로 전락하여 종합적인 안전경영시스템으로 발전하지 못합니다.</p></div>
+<h3 class="sub-heading">🔍 [Observation 1] 조직의 스마트폰 내비게이션(GPS)과 같은 비전과 미션</h3>
+<ul>
+  <li><strong>원문 상세 내용</strong>: 오늘날 사람들은 스마트폰이나 태블릿의 지도 내비게이션 애플리케이션을 통해 고속도로와 도심을 주행합니다. 내비게이션은 경로를 안내하고, 교통 정체와 장애물을 우회하는 지름길을 실시간으로 안내합니다. 도로 사정이 바뀌면 음성 안내가 올바른 방향으로 차량을 유도하며 앱은 지속적으로 업데이트됩니다.</li>
+  <li><strong>학술적 유추</strong>: 안전경영시스템은 조직의 길을 안내하는 <strong>'구글 지도(Google Map)'</strong>나 <strong>'GPS 내비게이션'</strong>과 같습니다. 그리고 <strong>비전과 미션은 시스템이 경로를 이탈하지 않도록 바로잡아주는 '안내 음성'</strong> 역할을 수행합니다.</li>
+  <li><strong>경고</strong>: 도로가 신설·폐쇄되었는데 지도를 업데이트하지 않으면 엉뚱한 길로 들어서듯, 조직 환경이 급변했음에도 비전과 미션을 개정하지 않으면 안전문화는 지도와 음성을 불신한 채 '자동항법(autopilot)' 상태로 방치되어 치명적인 사고를 초래합니다. 비전(Why)과 미션(What)이 살아있을 때만이 구체적인 목표와 실행 과업(How)이 뚜렷해집니다.</li>
+</ul>
+<h3 class="sub-heading">📊 [심층 분석: 조직적 목표 표류 (Organizational Scope Drift)]</h3>
+<p>'스코프 드리프트(Scope Drift)'는 원래 사격에서 <strong>소총의 총열(barrel)과 조준경(telescope)의 정렬이 어긋나 영점이 틀어진 상태</strong>를 의미합니다. 조준경이 어긋나면 아무리 과녁을 정확히 겨냥해도 탄환은 매번 빗나갈 수밖에 없습니다.</p>
+<ul>
+  <li><strong>조직적 목표 표류의 원인</strong>:</li>
+</ul>
+<ol>
+  <li><strong>명문화된 서면 계획 부재</strong>: 서면 계획이 없으면 조직 환경이 바뀔 때 본래 목표가 완전히 실종됨.</li>
+  <li><strong>매력적이지만 무관한 쿨한 프로젝트(Cool Project)의 유혹</strong>: 스티븐 코비의 4분면 중 '중요하지도 않고 긴급하지도 않은(제4분면)' 프로젝트에 매료되어 헛된 성취감에 빠지는 현상 (1장 의사결정 매트릭스 참조).</li>
+  <li><strong>서로 다른 관리자의 상충되는 지시</strong>: 다중 보고 체계(Matrix 조직)에서 부서 간 조율 없는 우선순위 충돌.</li>
+</ol>
+<ul>
+  <li><strong>시어도어 루스벨트(Theodore Roosevelt)의 일화</strong>: 미-스페인 전쟁 당시 의용기병대(Rough Riders)를 창설할 때 군수품 조달 명령서를 들고 간 루스벨트에게 한 국방부 관료는 한숨을 쉬며 불평했습니다: <em>"아, 정말 미치겠군! 내 부서는 완벽하게 돌아가고 있었는데, 빌어먹을 전쟁이 터지는 바람에 모든 게 엉망진창이 되어버렸어!"</em> 이 관료는 전쟁을 부서 업무를 방해하는 불청객으로 여겼던 것입니다. 철저한 기획 없는 착수는 목표 표류를 낳습니다 (누가복음 14장 28~30절 망대 건축 비유).</li>
+</ul>
+<h3 class="sub-heading">🔍 [Observation 2] 부서 간 사전 조율 없는 프로젝트 동시 추진의 충돌 참사</h3>
+<p>저자들은 산업 현장에서 다음과 같은 치명적인 목표 표류와 우선순위 충돌을 수없이 목격했습니다:</p>
+<ol>
+  <li><strong>본사 안전 부서와 보안(Security) 부서의 우선순위 프로젝트 동시 추진</strong>:</li>
+</ol>
+<ul>
+  <li>두 부서가 사전에 일정이나 필요 인력을 전혀 협의하지 않은 채, 현장 부서에 방대한 데이터 수집과 프로젝트 실행을 동시에 하달함.</li>
+  <li>현장 직원들은 자신의 원래 보고 체계도 아닌 두 부서의 과도한 서류 요구에 치여 본업을 수행하지 못하고 극심한 피로와 냉소주의에 빠짐.</li>
+</ul>
+<ol>
+  <li><strong>현장 여건을 무시한 본사 안전 부서의 특별 교육 강제 지정</strong>:</li>
+</ol>
+<ul>
+  <li>현장의 교대근무 일정, 가용 인력, 승인된 연간 예산에 미치는 영향을 전혀 고려하지 않고 본사가 일방적으로 전사 특별 교육을 의무화함.</li>
+  <li>이러한 의사결정권자 간의 충돌 상황에서는 질문하는 태도(questioning attitude)를 유지하고 조직 내부의 정치적 역학 및 리더십의 의도를 파악하는 지혜가 필수적입니다 (미국 에너지부 HPI 핸드북, 2009).</li>
+</ul>
+<h3 class="sub-heading">💡 [Lesson Learned 2] 안전 전문가의 기본 책무: 핵심 직무 충실과 철저한 현장 갭 분석</h3>
+<ul>
+  <li><strong>원문 핵심 교훈</strong>: 저자들의 오랜 실무 경험상, 안전 관리자가 가장 먼저 해야 할 일은 <strong>자신이 채용될 때 부여받은 공식 직무기술서(Job Description)상의 핵심 과업과 리더십의 기본 명령을 완벽하게 완수하는 것</strong>입니다. 안전 관리자 개인의 지각(perception)과 최고경영진의 지각은 크게 다를 수 있습니다.</li>
+  <li><strong>성급한 개혁 추진의 금지</strong>: 기존 안전 프로세스를 대대적으로 변경할 수 있는 전적인 권한을 정식으로 부여받지 않은 상태라면, 첫 단계는 무조건 <strong>'현재 조직이 어떻게 돌아가고 있는가(How the current operations function)'</strong>를 겸허히 학습하는 것입니다. 조직의 비공식 소통 네트워크와 문제 대응 방식을 완벽히 파악해야 합니다.</li>
+  <li><strong>변화 제안의 절대 기준</strong>: 생명과 건강에 즉각적인 위험(IDLH)이 존재하는 긴급 상황이 아니라면, 반드시 <strong>체계적인 현장 안전 진단(Assessment)을 완벽하게 끝마친 후에만</strong> 개선을 제안해야 합니다. 모든 제안은 안전경영시스템의 구체적인 갭(Gaps), 결함, 그리고 존재하는 위험도(Risk Severity) 데이터에 근거해야만 경영진의 승인을 얻을 수 있습니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 6. MISSION STATEMENT (미션 진술문의 수립과 공동 개발 실천) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-7-7-boundary-spanning-and-t">
+      <h2 class="sec-heading">🌉 7. BOUNDARY SPANNING AND THE MISSION (전사적 경계 확장과 미션 연계)</h2>
+<p>안전 전문가의 핵심 역할은 조직의 모든 부서와 영역을 넘나드는 <strong>'경계 확장자(Boundary Spanner)'</strong>이자 핵심 정보 허브(Information Hub)로 기능하는 것입니다 (제2장 및 제3장 참조).</p>
+<p>그러나 이러한 역할은 때때로 본래의 안전 미션을 추진하는 데 갈등을 유발합니다. 안전 관리자가 일일 계획을 세워두었음에도 한 부서장이 불쑥 찾아와 <em>"아, 참, 방금 회의 끝나고 왔는데 'X' 업무 좀 지금 즉시 처리해 줘"</em>라고 요구하는 순간, 당일의 계획이 전면 수정되고 강제된 새로운 과업에 휘말리게 됩니다. 이러한 일상적 방해 속에서 중심을 잡기 위해서도 확고한 미션과 기획 체계가 필요합니다.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 7. BOUNDARY SPANNING AND THE MISSION (전사적 경계 확장과 미션 연계) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-8-8-the-safety-policy-state">
+      <h2 class="sec-heading">📜 8. THE SAFETY POLICY STATEMENT, EVIDENCE A VISION HAS BEEN ESTABLISHED (안전 방침 진술문: 비전의 공식적 증거)</h2>
+<p>많은 기업의 안전 방침서는 수십 페이지에 달해 너무 복잡하고 길어서 아무도 기억하지 못합니다. 법률 문서처럼 장황한 방침서는 캐비닛 속에 방치되는 죽은 '조직적 유물(Artifact)'이 됩니다. 안전 방침 진술문은 조직의 규모와 관계없이 <strong>모든 구성원이 구두로 말할 수 있고 쉽게 기억할 수 있는 간결하고 명확한 문장</strong>이어야 합니다.</p>
+<ul>
+  <li><strong>안전 방침(Policy Statement)과 안전 절차서(Safety Procedures)의 엄격한 차이</strong>:</li>
+  <li><strong>안전 절차서(Procedures)</strong>: 행정 및 현장 작업의 육하원칙(Who, What, Where, When, How)과 R&R을 상세히 기술한 실무 규정.</li>
+  <li><strong>안전 방침 진술문(Policy Statement)</strong>: 조직이 표방하는 가치(Espoused Values)를 대변하며 장기적 안전 행동을 이끄는 최고경영진의 서명 선언문.</li>
+  <li><strong>효과적인 안전 방침의 2대 필수 요소</strong>:</li>
+</ul>
+<ol>
+  <li>안전 노력을 전폭 지원하겠다는 최고경영진의 서면 공약.</li>
+  <li>안전경영시스템의 목표 및 세부목표와의 유기적 연동.</li>
+</ol>
+<ul>
+  <li>방침은 현장에서 <strong>'안전 문제'와 '생산 우선순위'가 정면 충돌할 때 무엇을 따라야 하는가</strong>에 대한 명쾌한 판단 기준을 제시해야 합니다. 경영진이 약속을 어기는 순간 방침서는 위선(hypocrisy)으로 전락합니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 8. THE SAFETY POLICY STATEMENT, EVIDENCE A VISION HAS BEEN ESTABLISHED (안전 방침 진술문: 비전의 공식적 증거) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-9-9-communicating-the-safet">
+      <h2 class="sec-heading">📢 9. COMMUNICATING THE SAFETY POLICY STATEMENT (안전 방침의 전사적 전파 전략)</h2>
+<p>최고경영진이 서명한 안전 방침은 작업 전 회의(TBM), 주간·월간 회의, 사내 게시판, 인트라넷, 뉴스레터 등을 통해 상시 노출되어야 합니다:</p>
+<ul>
+  <li>작업자의 일상 언어로 투명하고 간결하게 전달되어야 함.</li>
+  <li>신입사원 온보딩, 전보자 교육, 협력업체 및 방문객 지침에 반드시 포함되어 일관된 메시지를 전달해야 함.</li>
+  <li><strong>기억하기 쉬운 모범 안전 방침 단문 예시</strong>:</li>
+  <li><em>"우리의 가장 중요한 책임은 임직원의 안전이다."</em></li>
+  <li><em>"우리 조직의 모든 구성원은 안전한 일터를 누릴 권리가 있다."</em></li>
+  <li><em>"우리가 수행하는 모든 일은 안전하게 완수되어야 한다."</em></li>
+  <li><em>"작업이 안전하지 않다면, 결코 작업하지 마라."</em></li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 9. COMMUNICATING THE SAFETY POLICY STATEMENT (안전 방침의 전사적 전파 전략) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-10-10-communicate-by-action">
+      <h2 class="sec-heading">🏃 10. COMMUNICATE BY ACTION (말보다 강력한 행동을 통한 소통)</h2>
+<p>방침을 전달할 때 <strong>"행동은 말보다 훨씬 더 크게 울려 퍼집니다(Actions speak louder than words)."</strong> 중요한 토론 순간에 리더가 짓는 무심한 표정, 고개의 끄덕임, 부정적인 바디랭귀지는 "방침 따위는 진지하게 들을 필요 없다"는 치명적인 신호를 보냅니다.</p>
+<h3 class="sub-heading">🔍 [Observation 3] 침묵 속에 버려진 티셔츠 상자: 알맹이 없는 홍보 캠페인의 비극</h3>
+<ul>
+  <li><strong>원문 상세 사례</strong>: 저자 중 한 명인 네이선(Nathan)은 한 기업이 전사 임직원을 대상으로 대대적인 '전국 품질 및 안전 동기부여 캠페인'을 추진하던 현장을 목격했습니다. 슬로건이 인쇄된 수천 개의 커피 머그잔, 단체 티셔츠, 오디오 테이프, 각종 기념품이 제작되었고, '전사 축하의 날'에 맞춰 엄청난 홍보 자료가 발송되었습니다.</li>
+  <li><strong>축하 당일의 참상</strong>: 마침내 고대하던 축하의 날이 밝았지만, 현장에는 오직 쥐 죽은 듯한 침묵만이 흘렀습니다. 기념 티셔츠도, 안내문도, 행사도 아무것도 없었습니다. 네이선이 프로젝트 총괄 책임자의 사무실 문을 열고 들어가 <em>"도대체 무슨 일입니까? 프로그램은 어디로 갔습니까?"</em>라고 묻자, 방구석에는 먼지 쌓인 기념품 상자더미가 그대로 쌓여 있었습니다.</li>
+  <li><strong>책임자의 황당한 답변</strong>: 책임자는 태연하게 말했습니다: <em>"무슨 축하 행사요? 그거 오늘 나눠주기로 되어 있었던 겁니까?"</em></li>
+  <li><strong>조직적 충격과 교훈</strong>: 엄청난 예산과 자원, 시간을 쏟아부었음에도 리더십의 무관심과 실행력 부재로 인해 캠페인은 그 자리에서 폐기되었고, 직원들은 회사의 안전·품질 구호에 대해 완전한 불신과 조소를 보내게 되었습니다. 말로만 외치는 캠페인은 조직문화를 회복 불능으로 파괴합니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 10. COMMUNICATE BY ACTION (말보다 강력한 행동을 통한 소통) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-11-11-aligning-with-the-orga">
+      <h2 class="sec-heading">⚙️ 11. ALIGNING WITH THE ORGANIZATION (경영 비즈니스 전략과의 일치)</h2>
+<p>단순한 관심 표명만으로는 안전문화가 뿌리내릴 수 없습니다. 안전문화는 일터의 위험 통제와 작업 환경 개선을 위해 <strong>필수적인 자원을 실제로 배분하는 리더십의 결단</strong>에 달려 있습니다.</p>
+<p>안전 방침은 단순한 서류가 아니라, 안전 문제를 대하는 경영진과 근로자의 진정한 '태도(Attitude)' 그 자체입니다. 안전은 기업의 품질 향상, 생산성 증대, 원가 절감 전략과 긴밀하게 정렬되어야만 조직의 핵심 가치로 자리 잡을 수 있습니다.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 11. ALIGNING WITH THE ORGANIZATION (경영 비즈니스 전략과의 일치) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-12-12-defining-goals-and-obj">
+      <h2 class="sec-heading">📊 12. DEFINING GOALS AND OBJECTIVES (목표와 세부목표의 명확한 구분)</h2>
+<p>목표와 세부목표는 조직의 문제를 해결하고 전략을 실행하는 나침반입니다:</p>
+<ul>
+  <li><strong>목표 (Goal)</strong>: 프로세스가 미래의 특정 시점에 도달하고자 하는 전반적인 종착지이자 장기적 청사진.</li>
+  <li><strong>세부목표 (Objectives)</strong>: 특정 기간 동안 목표를 향해 나아가는 구체적인 이정표(Benchmarks)이자 실행 단계.</li>
+  <li>비전과 미션이 수립된 후에 비로소 목표와 세부목표의 구체적인 예산과 타임라인이 도출될 수 있습니다 (Safety Pays for Everyone, 2018).</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 12. DEFINING GOALS AND OBJECTIVES (목표와 세부목표의 명확한 구분) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-13-13-defining-goals-that-im">
+      <h2 class="sec-heading">🎯 13. DEFINING GOALS THAT IMPROVE THE SAFETY MANAGEMENT SYSTEM (SMART 모델을 활용한 안전 목표 수립)</h2>
+<p>『이상한 나라의 앨리스』에서 앨리스가 체셔 고양이에게 묻습니다:</p>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><em>"여기서 어느 길로 가야 하는지 알려주시겠어요?"</em><br><em>"그건 네가 어디로 가고 싶은지에 달려 있지,"</em> 체셔 고양이가 답했습니다.<br><em>"어디든 별로 상관없는데..."</em> 앨리스가 말하자, 고양이가 대꾸했습니다:<br><em>"그렇다면 어느 길로 가든 상관없잖아."</em> (Carroll, 2018)</p></div>
+<p>오레곤 OSHA에 따르면, <strong>"목표를 작성하는 것은 쉽다. 그것은 단지 소원에 불과하기 때문이다."</strong> 목표는 구체적인 실행 계획이 수립되고 실행될 때 비로소 가치를 갖습니다. SMART 모델(Meyer, 2003)을 통해 이를 구체화합니다:</p>
+<h3 class="sub-heading">🖼️ [그림 4.3 상세 분석] 목표 설정의 지향점 (Setting goals)</h3>
+<div class="media-card"><img src="image-59.png" alt="Fig 4.3" loading="lazy"><div class="media-caption">Fig 4.3</div></div>
+<p><em>FIG. 4.3 Setting goals.</em></p>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><strong>[그림 4.3 상세 보충설명: 모호한 소원에서 구체적 목표로의 전환]</strong><br><em> 단순히 "안전한 일터를 만들겠다"는 막연한 바람은 목표가 아닙니다.<br></em> SMART 프레임워크를 적용하여 명확한 도달 지점과 측정 척도를 갖출 때 조직의 에너지가 한곳으로 집중됩니다.</p></div>
+<h3 class="sub-heading">📌 13.1 Specific (구체성: 5W1H의 원칙)</h3>
+<ul>
+  <li>총기록재해율(TCIR)의 감소가 반드시 안전경영시스템의 유효성을 증명하는 것은 아닙니다. 아직 발현되지 않은 치명적 잠재 위험이 은폐되어 있을 수 있습니다.</li>
+  <li>구체적 목표 설정을 위해 5W1H를 정의해야 합니다:</li>
+  <li><strong>Why</strong>: 목표를 달성해야 하는 구체적인 이유와 조직적 편익.</li>
+  <li><strong>Who</strong>: 누가 관여하고 실행하는가?</li>
+  <li><strong>What</strong>: 구체적으로 무엇을 완수하고자 하는가?</li>
+  <li><strong>When</strong>: 명확한 마감 기한은 언제인가?</li>
+  <li><strong>Where</strong>: 어느 사업장, 어느 공정에서 실행되는가?</li>
+  <li><strong>How</strong>: 구체적인 요구사항과 제약 조건은 무엇인가?</li>
+</ul>
+<h3 class="sub-heading">📌 13.2 Measurable (측정 가능성: "어떻게 완료를 알 수 있는가?")</h3>
+<ul>
+  <li>"목표가 공식적으로 완료되었음을 어떻게 알 수 있는가?"라는 질문에 답할 수 있어야 합니다 (Meyer, 2003). 잘못된 지표를 측정하면 엉뚱한 성공을 자축하는 오류를 범하게 됩니다.</li>
+  <li>예를 들어, 상용직을 하청업체나 임시직으로 외주화하여 겉보기 재해율만 낮아진 것을 안전 성과로 착각할 수 있습니다.</li>
+</ul>
+<h3 class="sub-heading">💡 [Lesson Learned 3] 6시그마 블랙벨트 인증 프로젝트와 TCIR 후행지표의 치명적 한계</h3>
+<ul>
+  <li><strong>원문 배경</strong>: 제임스(James)가 6시그마 블랙벨트(Six Sigma Black Belt) 자격 인증을 준비할 때, 인증 필수 프로젝트를 설계하기 위해 과거 5개년 치의 OSHA 300 로그에 기록된 총기록재해율(TCIR) 데이터를 분석 대상으로 삼았습니다.</li>
+  <li><strong>문제점 발견</strong>: 데이터를 수집하고 통계적 상관관계를 검증하려 했으나, TCIR 수치와 현장 위험도 사이에는 도무지 의미 있는 상관관계가 나타나지 않았습니다. TCIR은 법적으로 의무 보고되는 사고 건수만을 나타낼 뿐, 기록되지 않은 다양한 상해 유형, 경미한 아차사고, 잠재 유해위험요인 노출 데이터를 전혀 담지 못했던 것입니다.</li>
+  <li><strong>교훈</strong>: 사후적 사고 통계(TCIR)에만 의존하는 것은 리스크가 적절히 통제되고 있다는 치명적인 착각을 낳습니다. 위험성평가, 선행 위험 데이터, 상실 데이터를 종합적으로 수집하는 심층 분석 체계를 갖추어야만 올바른 목표를 도출할 수 있습니다.</li>
+</ul>
+<h3 class="sub-heading">📊 13.3 Attainable Goals (달성 가능성: 비현실적 목표와 펜슬 휘핑)</h3>
+<ul>
+  <li>달성 불가능한 목표는 시스템을 파괴합니다. 전 직원 응급처치 교육 목표를 세운다면, 교육 횟수, 강사 수급, 비용, 조업 중단 영향 등을 철저히 검토해야 합니다.</li>
+  <li>사고 통계만을 측정하는 것은 조립이 끝난 불량품을 사후 검사하는 것과 같은 후행적(Downstream) 접근입니다. 유해위험요인을 사전에 통제하는 선행적(Upstream) 활동을 목표에 연동해야 합니다.</li>
+</ul>
+<h3 class="sub-heading">💡 [Lesson Learned 4] 매년 기준을 높이는 본사 감사와 '펜슬 휘핑(Pencil whipping)'의 부작용</h3>
+<ul>
+  <li><strong>원문 상세 사례</strong>: 한 공장의 안전 관리자는 본사의 연례 안전 감사 시스템에 대해 깊은 절망감을 토로했습니다. 본사의 목표는 매년 감사 평가 기준을 강화하고 채점 기준을 까다롭게 만들어 '지속적 개선'을 유도하겠다는 것이었습니다.</li>
+  <li><strong>현장의 탈진과 포기</strong>: 공장 리더십과 현장 직원들은 감사 지적 사항을 개선하기 위해 피땀 흘려 노력했습니다. 그러나 매년 본사가 새로운 감사 기준을 추가하고 난이도를 높이는 바람에, 공장의 안전 감사 점수는 아무리 노력해도 제자리걸음이거나 오히려 전년보다 떨어졌습니다. 본사는 공장의 노고를 전혀 인정해 주지 않았고, 마침내 공장 리더십은 감사를 통과하는 것을 완전히 포기한 채 <em>"어차피 해봤자 소용없다(Whatever)"</em>라는 냉소주의에 빠졌습니다.</li>
+  <li><strong>치명적 결과: 펜슬 휘핑(Pencil whipping)</strong>: 목표가 지나치게 높고 성과급이나 인사 고과와 결부되어 압박이 가해지면, 인간의 본성은 서류를 허위로 작성하는 '펜슬 휘핑(Pencil whipping)'과 산재 은폐의 유혹에 빠집니다. 현실적인 시간과 역량이 고려되지 않은 목표는 안전문화를 송두리째 붕괴시킵니다.</li>
+</ul>
+<h3 class="sub-heading">📌 13.4 Realistic (현실성: 자원과 가치의 정렬)</h3>
+<ul>
+  <li>목표는 조직과 안전 프로세스 모두에 실질적인 가치를 제공해야 하며, 리더십과 근로자가 시간과 노력을 쏟아부을 가치가 있어야 합니다.</li>
+</ul>
+<h3 class="sub-heading">💡 [Lesson Learned 5] 문해력 교육(Literacy Classes)의 이상과 현실적 제약</h3>
+<ul>
+  <li><strong>원문 사례</strong>: 네이선(Nathan)은 한 공장에서 근로자들의 문해율(문서 해독력)이 낮다는 이유로 전 직원 대상 '문해력 교육 강좌'를 개설하자는 제안을 접했습니다. 안전 수칙과 매뉴얼을 제대로 읽고 이해하게 만들겠다는 숭고한 취지였습니다.</li>
+  <li><strong>현실적 한계</strong>: 취지는 훌륭했으나, 해당 공장의 극심한 이직률, 24시간 가동되는 생산 공정의 압박, 교대근무 여건상 현실적으로 달성 불가능한 비현실적(unrealistic) 목표였습니다. 결국 자원만 낭비되고 실행되지 못했습니다.</li>
+</ul>
+<h3 class="sub-heading">📌 13.5 Time and Goal Setting (기한 명시와 충돌 달력의 지혜)</h3>
+<ul>
+  <li>명확한 마감 기한이 없는 목표는 추진력을 잃습니다. 마감일이 너무 멀면 나태해지고, 너무 촉박하면 사기가 저하됩니다.</li>
+</ul>
+<h3 class="sub-heading">💡 [Lesson Learned 6] 부서 간 일정 충돌을 방지하는 '충돌 달력(Collision Calendar)'의 구축</h3>
+<ul>
+  <li><strong>원문 우수 사례</strong>: 한 안전/보안 관리자는 전사 부서 간의 일정 중복을 방지하기 위해 <strong>'충돌 달력(Collision Calendar)'</strong>을 도입했습니다. 이 달력은 전사 주요 행사, 부서별 법정 의무 교육, 정기 보수, 휴일, 경영 미팅 등 모든 일정을 통합 추적했습니다.</li>
+  <li><strong>실무적 효용</strong>: 충돌 달력을 통해 특정 기간에 직원들에게 과도한 교육과 업무가 집중되는 '일정 충돌(Collisions)'을 사전에 식별하고, 타 부서와 일정을 사전 조율하거나 분산 배치할 수 있었습니다. 이를 통해 현장의 업무 과부하를 막고 안전 목표의 수용성을 극대화했습니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 13. DEFINING GOALS THAT IMPROVE THE SAFETY MANAGEMENT SYSTEM (SMART 모델을 활용한 안전 목표 수립) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-14-14-defining-objectives">
+      <h2 class="sec-heading">📝 14. DEFINING OBJECTIVES (세부 실행 과업 정의)</h2>
+<p>세부목표는 수립된 목표를 달성하기 위해 밟아야 할 필수적인 실행 경로입니다.</p>
+<ul>
+  <li><strong>목표(Goal) 예시</strong>: X 부서의 각 관리감독자는 1월 31일까지 지정된 2개 작업에 대해 작업위험성평가(JHA)를 완료한다.</li>
+  <li><strong>세부목표 1 (Objective 1)</strong>: 잠재 손실 위험도와 인터뷰를 기반으로 우선순위 작업 2개를 선별한다.</li>
+  <li><strong>세부목표 2 (Objective 2)</strong>: 관리감독자와 JHA 개발 방식, 필요 시간, 소요 자원을 사전 협의한다.</li>
+</ul>
+<h3 class="sub-heading">📊 [표 4.1 상세 분석] 구체적 목표 수립을 위한 핵심 제언표</h3>
+<div class="media-card"><img src="image-60.png" alt="Table 4.1" loading="lazy"><div class="media-caption">Table 4.1</div></div>
+<p><em>TABLE 4.1 Suggestions for Specific Goals.</em></p>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><strong>[표 4.1 상세 보충설명: 현장 맞춤형 안전 목표 제언 항목]</strong><br><em> 고위험 작업 구역 및 설비에 대한 정기 주간 안전 점검 실시.<br></em> 안전 개선 우선순위가 유효하게 반영된 유지보수 작업 오더 완료율 관리.<br><em> 관리감독자와 현장 근로자 간의 1:1 안전 대화 채널 구축.<br></em> 작업 전 일일 TBM, 주간 안전 미팅, 월간 안전 협의체 운영.<br><em> 기계별 일일 안전 점검 체크리스트 운용 및 작업자 서명 의무화.<br></em> 신규 채용자, 임시직, 전보자에 대한 위험성 중심 안전 온보딩 프로그램 재검토.</p></div>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 14. DEFINING OBJECTIVES (세부 실행 과업 정의) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-15-15-writing-objectives">
+      <h2 class="sec-heading">✍️ 15. WRITING OBJECTIVES (효과적인 세부목표 작성 공식)</h2>
+<p>잘 작성된 세부목표의 4대 핵심 요건:</p>
+<ol>
+  <li><strong>강력한 행동 동사로 시작할 것</strong> (감소시키다, 증대하다, 개선하다 등).</li>
+  <li><strong>달성해야 할 핵심 결과물을 명시할 것</strong>.</li>
+  <li><strong>정량화(Quantifiable)할 것</strong> (수치로 측정 가능한 변화율 명시).</li>
+  <li><strong>구체적인 달성 목표일을 명시할 것</strong>.</li>
+</ol>
+<h3 class="sub-heading">📊 [표 4.2 상세 분석] 세부목표 작성을 위한 실무 가이드라인</h3>
+<div class="media-card"><img src="image-61.png" alt="Table 4.2" loading="lazy"><div class="media-caption">Table 4.2</div></div>
+<p><em>TABLE 4.2 Guidelines for Writing Objectives.</em></p>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><strong>[표 4.2 상세 보충설명: 세부목표 작성 7대 지침과 실무 모범 문구]</strong><br><em> <strong>1. 행동 동사로 시작</strong>: "실시한다(Conduct)."<br></em> <strong>2. 핵심 결과물 명시</strong>: "일일 작업 전 일상 점검 1회(One pre-shift daily review)."<br><em> <strong>3. 목표 기한 명시</strong>: "...(특정 일자/시간)까지 완료한다."<br></em> <strong>4. 조직 구성원의 역할과 직결</strong>: "해당 구역의 유해위험요인에 관한 일일 메시지 전파."<br><em> <strong>5. 참여자가 쉽게 이해 가능한 언어 사용</strong>: 현장 작업자의 일상 언어로 소통.<br></em> <strong>6. 현실적이면서도 도전적인 과업 설정</strong>: 안전 전문가가 관리감독자를 코칭하여 자체 주제 개발 유도.<br>* <strong>7. 가용 자원 및 사규와의 정렬</strong>: 피드백 미팅, 점검표, 설문지 등 기존 인사·경영 양식 활용.</p></div>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 15. WRITING OBJECTIVES (효과적인 세부목표 작성 공식) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-16-16-communicating-goals-an">
+      <h2 class="sec-heading">🗣️ 16. COMMUNICATING GOALS AND OBJECTIVES (목표의 전사적 전파와 캐스케이딩)</h2>
+<p>목표를 수립한 후에는 전 직원이 경영진의 기대 수준을 완벽히 이해할 수 있도록 투명하게 소통해야 합니다. 목표 달성이 지지부진한 경우, 목표가 너무 낮게 설정되었거나, 무가치한 활동에 매달렸거나, 조직 여건이 급변(소유권 변경, 구조조정 등)했기 때문일 수 있습니다.</p>
+<p>환경이 바뀌면 즉시 경영진과 대면 회의를 열어 목표를 현실에 맞게 보정해야 합니다. 비디오, 오디오 등 시각적 미디어를 활용하여 목표 진척도를 실시간으로 업데이트하는 것이 효과적입니다.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 16. COMMUNICATING GOALS AND OBJECTIVES (목표의 전사적 전파와 캐스케이딩) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-17-17-reviewing-objectives">
+      <h2 class="sec-heading">🔍 17. REVIEWING OBJECTIVES (정기 검토와 탄력적 피드백)</h2>
+<p>세부목표에 대한 정기 평가는 질책이나 비난(gotcha/blaming)을 위한 자리가 아니라, <strong>격려와 추가 교육, 근로자 참여를 촉진하는 학습의 장</strong>이 되어야 합니다.</p>
+<ul>
+  <li>평가받는 직원이 당황하지 않도록 사전에 기대치를 명확히 공유해야 함.</li>
+  <li>개인적·조직적 목표 표류가 발견되면 목표를 SMART 원칙에 따라 탄력적으로 수정함.</li>
+  <li>목표를 달성했을 때 긍정적 인정과 즉각적인 피드백을 제공함.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 17. REVIEWING OBJECTIVES (정기 검토와 탄력적 피드백) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-18-18-resistance-to-goals-an">
+      <h2 class="sec-heading">🛑 18. RESISTANCE TO GOALS AND OBJECTIVES (목표에 대한 저항 극복)</h2>
+<p>새로운 목표는 기존의 관습과 신념을 바꾸도록 요구하므로 필연적으로 저항을 부릅니다. 특히 타 부서는 안전 목표가 생산 활동을 방해하는 비생산적 부담이라고 여길 수 있습니다.</p>
+<h3 class="sub-heading">💡 [Lesson Learned 7] "본사 목표 하달 유예(Moratorium)"를 외친 현장의 절규와 소셜 네트워크 분석</h3>
+<ul>
+  <li><strong>원문 생생한 사례</strong>: 한 회의에서 본사의 수많은 부서가 경쟁적으로 하달한 우선순위 프로젝트에 치이던 한 관리자가 진행자에게 이렇게 절규했습니다: <em>"제게는 너무 많은 목표가 쏟아지고 있습니다. 각 본사 부서마다 자기네 과업이 가장 중요하다며 최우선 순위로 하라고 강요합니다. 제발 신규 이니셔티브 하달을 잠시 유예(moratorium)해 주시면 안 됩니까? 본사 숙제를 하느라 제 진짜 본업(real job)을 아예 할 수가 없습니다!"</em></li>
+  <li><strong>해결책: 소셜 네트워크 분석(SNA)과 참여적 목표 설정</strong>:</li>
+  <li>목표를 일방적으로 강요하지 말고, 조직 내 영향력(influence)이 실제로 어디에 존재하는지 파악하기 위해 <strong>네트워크 매핑(Network Mapping, 제3장 연계)</strong>을 활용해야 합니다.</li>
+  <li>전 계층의 구성원이 목표 설정 과정에 직접 참여할 때 비로소 진정한 주인의식(Buy-in)과 신뢰가 형성되며 저항을 원천적으로 극복할 수 있습니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 18. RESISTANCE TO GOALS AND OBJECTIVES (목표에 대한 저항 극복) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-19-19-the-plan">
+      <h2 class="sec-heading">📋 19. THE PLAN (종합 안전 실행 계획서의 구축)</h2>
+<p>현장 진단과 갭 분석이 완료되면 공식적인 <strong>실행 계획서(The Plan)</strong>를 작성합니다.</p>
+<ul>
+  <li><strong>미-스페인 전쟁 당시의 교훈</strong>: 루스벨트가 제1의용기병대를 조직할 때 국방부의 계획을 묻자 국방부는 <em>"계획 같은 건 전혀 없다"</em>고 답했습니다. 철저한 계획 없는 참전은 수많은 병사의 무고한 희생을 낳았습니다.</li>
+  <li>계획은 현재 상태에서 미래의 바람직한 상태로 나아가는 <strong>시각적 로드맵(Visual Road Map)</strong>입니다. 계획 수립 초기부터 광범위한 현장 네트워크의 의견을 수렴해야 실행력이 보장됩니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 19. THE PLAN (종합 안전 실행 계획서의 구축) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-20-20-the-critical-part-of-p">
+      <h2 class="sec-heading">⚡ 20. THE CRITICAL PART OF PLANNING (계획의 성패를 가르는 결정적 핵심)</h2>
+<p>계획에서 가장 간과하기 쉬운 핵심은 <strong>"달성된 시스템을 어떻게 지속 가능하게 유지할 것인가(How to sustain the system)"</strong>입니다. 지속을 위한 메커니즘이 없는 계획은 자원과 시간, 에너지를 낭비하고 직원의 사기만 떨어뜨립니다.</p>
+<h3 class="sub-heading">🔍 [Observation 4] 문제 과녁을 향해 닥치는 대로 다트를 던지는 '다트보드 접근법'의 함정</h3>
+<ul>
+  <li><strong>원문 상세 사례</strong>: 안전 전문가들은 종종 생산 압박과 빠른 해결책을 내놓아야 한다는 조급증에 시달립니다. 이로 인해 근본 원인을 찾지 않고 자원을 닥치는 대로 쏟아붓는 <strong>'다트보드 접근법(Dartboard Approach)'</strong>에 빠집니다.</li>
+  <li><strong>문제점</strong>: 문제들이 적힌 다트 과녁을 향해 무수한 '해결책 다트'를 마구 던지다 보면 그중 하나가 우연히 맞아 문제가 해결된 것처럼 보일 수 있습니다. 그러나 도대체 어떤 조치가 주효했는지, 근본 원인이 무엇이었는지는 영원히 알 수 없습니다.</li>
+  <li><strong>식스시그마 구조화 문제 해결 4단계 (James의 경험)</strong>:</li>
+</ul>
+<ol>
+  <li>철저한 데이터 수집 (Collect Data).</li>
+  <li>객관적 기준선 설정 (Develop a Baseline).</li>
+  <li>데이터가 스스로 해답을 가리키도록 신뢰하고 추적함 (Trust and Let Data Lead).</li>
+  <li>재발 방지를 위한 영구적 해결책 도출 (Arrive at a Conclusion).</li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 20. THE CRITICAL PART OF PLANNING (계획의 성패를 가르는 결정적 핵심) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-21-21-summary">
+      <h2 class="sec-heading">📝 21. SUMMARY (요약 및 핵심 결론)</h2>
+<p>안전경영시스템의 핵심 목표는 비전, 미션, 안전 방침, 그리고 SMART 목표를 전사 구성원에게 명확히 각인시키는 것입니다.</p>
+<h3 class="sub-heading">🖼️ [그림 4.4 상세 분석] 다트보드 효과 (Dartboard effect)</h3>
+<div class="media-card"><img src="image-62.png" alt="Fig 4.4" loading="lazy"><div class="media-caption">Fig 4.4</div></div>
+<p><em>FIG. 4.4 Dartboard effect.</em></p>
+<div class="callout info"><div class="callout-title">💡 상세 분석 및 보충설명</div><p><strong>[그림 4.4 상세 보충설명: 주먹구구식 처방과 정밀 타격의 차이]</strong><br>* 맹목적으로 다트를 난사하는 행위를 멈추고, 4단계의 과학적 문제 해결 절차를 통해 정확한 근본 원인을 타격해야 합니다.</p></div>
+<ul>
+  <li><strong>안전 기획 및 목표 수립의 8대 핵심 체크포인트</strong>:</li>
+</ul>
+<ol>
+  <li>안전경영시스템과 안전문화를 실질적으로 개선하는 목표가 선정되었는가?</li>
+  <li>SMART 원칙에 따라 목표가 엄밀히 평가되었는가?</li>
+  <li>각 목표와 세부목표에 대한 책임자(R&R)가 명확히 지정되었는가?</li>
+  <li>시간 및 예산 제약을 고려한 일정 평가가 완료되었는가?</li>
+  <li>인력, 자금, 미디어, 장비 등 소요 자원이 확정되었는가?</li>
+  <li>목표가 전사적으로 소통되고, 추적 및 평가되고 있는가?</li>
+  <li>궤도 이탈을 막기 위한 중간 경로 보정(Course Corrections)이 이루어졌는가?</li>
+  <li>달성된 성과를 항구적으로 유지하기 위한 지속성 요건이 수립되었는가?</li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 21. SUMMARY (요약 및 핵심 결론) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-22-22-chapter-review-questio">
+      <h2 class="sec-heading">❓ 22. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석)</h2>
+<ol>
+  <li><strong>기존 조직 기획 프로세스 활용의 이점</strong>: 기존 회사 양식에 맞출 때 안전 목표의 수용성이 높아지는 이유는?</li>
+  <li><strong>비전(Vision)과 미션(Mission)의 본질적 차이</strong>: 두 개념의 시간 지향점과 역할 차이는?</li>
+  <li><strong>개인적·조직적 목표 표류(Scope Drift)의 위험성</strong>: 조준경이 어긋난 소총처럼 목표 표류가 안전에 미치는 영향은?</li>
+  <li><strong>안전 방침 진술문(Safety Policy Statement)의 정의 및 모범 문구 작성 요령은?</strong></li>
+  <li><strong>안전 방침 진술문과 안전 절차서(Safety Procedure)의 차이점은?</strong></li>
+  <li><strong>안전 방침 진술문을 전사적으로 효과적으로 전파하는 매체와 기법은?</strong></li>
+  <li><strong>안전 방침이 타 경영 방침(품질, 생산)과 정렬되어야 하는 결정적 이유는?</strong></li>
+  <li><strong>목표(Goal)와 세부목표(Objective)의 상호 연동 메커니즘은?</strong></li>
+  <li><strong>SMART 목표 수립 모델의 5단계별 핵심 질문은?</strong></li>
+  <li><strong>새로운 안전 목표에 대한 현장과 타 부서의 저항 원인과 이를 극복하는 소셜 네트워크 소통 방안은?</strong></li>
+</ol>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 22. CHAPTER REVIEW QUESTIONS (복습 문제 10문항 정밀 분석) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-23-23-appendix-4-1-sample-sa">
+      <h2 class="sec-heading">📁 23. [APPENDIX 4.1] SAMPLE SAFETY POLICY (샘플 안전 방침서 템플릿)</h2>
+<pre style="background:var(--bg-input); padding:16px; border-radius:8px; overflow-x:auto; margin:16px 0; font-family:'JetBrains Mono', monospace; font-size:13px; border:1px solid var(--border-color);"><code>[회사명]은 임직원, 협력사 직원, 그리고 방문객을 보호하는 안전경영시스템 구축에 전폭적으로 헌신한다. 
+조직의 모든 직급의 임직원은 자신의 안전에 대해 책임을 진다. 
+성공적인 안전 시스템을 위해서는 모든 업무에서, 항상, 전 임직원의 적극적인 참여가 필수적이다. 
+경영진은 안전 방침과 절차를 개발하고, 적절한 교육과 장비, 안전하게 직무를 수행하는 데 충분한 자원을 지원함으로써 솔선수범할 것이다. 
+모든 직원은 사내 안전 수칙을 준수하고 리더십 팀과 긴밀히 협력한다. 
+우리의 목표는 무재해 일터(Injury-free Workplace)의 실현이다. 
+함께 협력할 때 우리는 이 목표를 반드시 달성할 수 있다.
+
+____________________________________       __________________
+최고경영자 성명 및 서명                        일자</code></pre>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 23. [APPENDIX 4.1] SAMPLE SAFETY POLICY (샘플 안전 방침서 템플릿) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-24-24-appendix-4-2-numerical">
+      <h2 class="sec-heading">📁 24. [APPENDIX 4.2] NUMERICAL AND DESCRIPTIVE GOALS (정량적 목표와 서술형 목표의 균형)</h2>
+<h3 class="sub-heading">📊 24.1 정량적 목표 (Numerical Goals)와 데밍의 11번째 원칙</h3>
+<ul>
+  <li>정량적 목표는 측정이 쉬우나 운(luck)이나 확률에 의해 좌우될 위험이 큽니다.</li>
+  <li>재해율을 단순히 10~30% 감축하겠다는 목표는 작업 시간 변동이나 경기 변동에 따라 왜곡될 수 있습니다.</li>
+  <li><strong>에드워즈 데밍의 11번째 원칙 (수량 할당량 및 숫자 목표 폐기)</strong>: 데밍은 결과에만 집착하는 숫자 목표를 배격했습니다. 안정적인 시스템이라면 목표가 없어도 시스템 역량만큼의 성과가 나올 것이며, 불안정한 시스템이라면 숫자를 강요해 봤자 성과를 예측할 수 없기 때문입니다.</li>
+</ul>
+<h3 class="sub-heading">📊 24.2 서술형 목표 (Descriptive Goals)와 네이선의 실화</h3>
+<ul>
+  <li>서술형 목표는 제도나 프로세스의 실제 '도입 및 실행(Implementation)'에 초점을 맞춥니다.</li>
+  <li><strong>네이선(Nathan)의 관리감독자 교육 일화</strong>: 심각한 사고 이력을 가진 공장에서 관리감독자들을 모아놓고 위험성평가 교육을 진행하던 중, 한 노련한 감독자가 분통을 터뜨렸습니다: <em>"이 교육은 시간 낭비입니다! 우리는 이미 위험을 완벽히 찾아내고 훌륭한 점검 보고서를 씁니다. 문제는 우리가 제출한 보고서를 한 중간관리자가 서랍 속에 처박아 두고 아무런 조치도, 피드백도 주지 않는다는 것입니다!"</em></li>
+  <li><strong>교훈</strong>: 교육을 실시했다는 숫자(이수율 100%)에만 만족하지 말고, 현장의 프로세스가 실제로 막힘없이 작동하는지(서술형 목표)를 확인해야 합니다.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 24. [APPENDIX 4.2] NUMERICAL AND DESCRIPTIVE GOALS (정량적 목표와 서술형 목표의 균형) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+    <section class="section-box" id="sec-25-25-bibliography">
+      <h2 class="sec-heading">📚 25. BIBLIOGRAPHY (참고 문헌)</h2>
+<ul>
+  <li>Carroll, L. (2018). <em>Alice's adventures in wonderland</em>. SparkNotes.</li>
+  <li>Covey, S. R. (1990). <em>The 7 habits of highly effective people: Powerful lessons in personal change</em>. Simon and Schuster.</li>
+  <li>Deming, W. E. (2010). <em>Out of the Crisis: Quality, Productivity and Competitive Position</em>. MIT Press.</li>
+  <li>Meyer, P. J. (2003). <em>What would you do if you knew you couldn't fail? Creating S.M.A.R.T. Goals</em>. In <em>Attitude Is Everything</em>.</li>
+  <li>Occupational Health & Safety Management Systems. (2012). <em>ANSI/AIHA/ASSE Z10-2012</em>.</li>
+  <li>Roosevelt, T., Lodge, H. C., & Bishop, J. B. (2017). <em>Theodore Roosevelt—Ultimate collection</em>. Madison & Adams Press.</li>
+  <li>Sinek, S. (2009). <em>Start with why: How great leaders inspire everyone to take action</em>. Penguin.</li>
+</ul>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-tag">🤖 AI 토론 및 심화 학습 프롬프트</span>
+          <div class="prompt-actions">
+            <button class="copy-prompt-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-box').querySelector('.prompt-text').innerText); showToast('프롬프트 복사 완료!');">📋 복사</button>
+            <button class="send-prompt-btn" onclick="sendToAI(this.closest('.prompt-box').querySelector('.prompt-text').innerText);">💬 AI에게 질문</button>
+          </div>
+        </div>
+        <div class="prompt-text">Chapter 4 25. BIBLIOGRAPHY (참고 문헌) 파트를 기반으로 비전과 미션 수립 시 고려해야 할 현장 위험요인과 SMART 목표 연계 방안을 제시해 주세요.</div>
+      </div>
+    </section>
+  </main>
+
+<aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-panel-header">
+      <h3>🤖 안전문화 AI 튜터</h3>
+      <span class="ai-status-tag" id="ai-status-tag">내장 지식엔진</span>
+    </div>
+    
+    <div class="ai-mode-bar">
+      <span>엔진 선택:</span>
+      <select class="ai-mode-select" id="ai-engine-select">
+        <option value="builtin">내장 지식 엔진 (Built-in)</option>
+        <option value="gemini">Google Gemini API</option>
+        <option value="openai">OpenAI API</option>
+      </select>
+    </div>
+
+    <!-- Quick Question Chips -->
+    <div class="ai-quick-questions">
+      <div class="quick-chip" data-q="발현적 속성(Emergent Property)이란 무엇인가요?">🌱 발현적 속성 정의</div>
+      <div class="quick-chip" data-q="몬탄테의 안전 정의와 'Safety First' 비판 이유는?">🔬 몬탄테의 안전 정의</div>
+      <div class="quick-chip" data-q="래드포드 모델에서 리더십과 안전 부서의 갈등 원인은?">🔀 래드포드 갈등 기제</div>
+      <div class="quick-chip" data-q="아이젠하워 제2분면과 안전문화 구축의 연관성은?">⏱️ 2분면 시간 관리</div>
+      <div class="quick-chip" data-q="오리엔테이션과 온보딩의 본질적 차이는?">🚀 온보딩 vs 오리엔테이션</div>
+      <div class="quick-chip" data-q="조직 마찰(Friction)과 윤활 메커니즘을 설명해주세요.">⚙️ 조직 마찰과 윤활</div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="chat-bubble ai">
+        반갑습니다! <strong>Chapter 1 (Defining the Perception of Safety)</strong> 전문 AI 학습 튜터입니다. 🎓<br><br>
+        발현적 속성, 몬탄테의 정의, 래드포드 의사결정 모델, 시간 관리 매트릭스, 온보딩 등 본 챕터의 핵심 이론과 실무 적용에 대해 무엇이든 질문해 주세요!
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="ai-input-area">
+      <form class="ai-form" id="ai-chat-form">
+        <textarea class="ai-input" id="ai-user-input" placeholder="질문을 입력하세요... (Enter로 전송)"></textarea>
+        <button type="submit" class="ai-send-btn">전송</button>
+      </form>
+    </div>
+  </aside>
+
+</div>
+
+<div class="modal-overlay" id="api-modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 class="modal-title">🔑 API 연동 설정</h3>
+      <button class="close-modal-btn" id="close-modal-btn">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13px; color: var(--text-muted);">
+        Google Gemini API Key 또는 OpenAI API Key를 등록하면 실시간 대규모 언어 모델을 통해 보다 정밀한 학술 분석 및 질의응답을 제공받을 수 있습니다. (키는 브라우저 로컬 스토리지에만 저장됩니다.)
+      </p>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini API Key</label>
+        <input type="password" id="gemini-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="AIzaSy...">
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">Gemini Model</label>
+        <select id="gemini-model-select" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;">
+          <option value="gemini-1.5-flash">gemini-1.5-flash (빠른 응답)</option>
+          <option value="gemini-1.5-pro">gemini-1.5-pro (심화 학술 분석)</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size: 12px; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 4px;">OpenAI API Key (선택사항)</label>
+        <input type="password" id="openai-key-input" style="width: 100%; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 13px;" placeholder="sk-...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="action-btn" id="clear-key-btn">초기화</button>
+      <button class="action-btn primary" id="save-key-btn">저장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Message -->
+<div class="toast" id="toast-msg">알림 메시지</div>
+
+
+<script>
+// Built-in Knowledge Base for Chapter 1
+const CHAPTER1_KB = {
+  emergent: `[발현적 속성(Emergent Property) 핵심 해설]\n• 정의: 하위 구성 요소들이 상호 제약적 관계(Constraining relations) 속에서 결합할 때 상위 시스템 차원에서 새롭게 나타나는 예측 불가능한 고유 속성입니다 (Emergent Property, 2018).\n• 안전문화 연계: 안전은 특정 안전 부서만의 개별 프로그램이 아닙니다. 조직의 6대 영역(환경, 구조, 과업, 기술, 인간-사회, 목표)이 유기적으로 맞물려 작동할 때 비로소 조직 전체에서 '안전한 환경' 또는 '불안전한 환경'이 최종 발현됩니다.`,
+  montante: `[윌리엄 몬탄테의 안전 정의 및 비판]\n• 정의: "안전이란 리스크와 그로부터 파생된 유해위험요인이 수용 가능하거나(Acceptable) 통제 하에 있다(In control)고 판단되는 존재 상태(State of being)이다" (Montante, 2006).\n• 패러다임 전환: 몬탄테는 'Safety First', 'Think Safety'와 같은 공허한 전통적 구호(Mantra)를 폐기할 것을 촉구했습니다. 대신 현장의 모든 구성원이 스스로 '유해위험요인 제어 관리자(Hazard Control Manager)'로서 위험을 어떻게 통제하고 있는지 증명할 수 있는 개인적·조직적 숙달(Mastery)을 요구합니다.`,
+  radford: `[래드포드(Radford, 1988)의 의사결정 모델과 갈등 기제]\n• 경영 리더십(비구조화된 상황): 정보의 불완전성, 비용/편익 정량화 불가, 수많은 이해관계자와 다중 목표 속에서 수학적 최적해가 불가능하므로 타협안인 '만족화(Satisficing)' 결정을 내립니다.\n• 안전 부서(구조화된 상황): 단일 목표(무사고)와 단일 규정을 근거로 '단일 최적해(Rational decision)'만을 고집합니다.\n• 갈등의 본질: 리더십이 불확실성 속에서 비즈니스 결정을 내릴 때, 안전 부서가 단순 규제 위협("예산 안 주면 처벌받는다")만 가하면 상호 불신과 갈등이 폭발합니다.`,
+  eisenhower: `[시간 관리 매트릭스와 제2분면의 중요성]\n• 스티븐 코비와 아이젠하워의 4분면 매트릭스에서 안전문화가 발전하는 핵심 영역은 바로 제2분면(긴급하지 않지만 중요한 영역: DECIDE)입니다.\n• 위험성평가(JHA), 비상대응계획, 안전 교육 체계화 등은 당장 발등에 불이 떨어진 위기가 아니기 때문에 1분면(사고 수습)이나 3분면(잡무)에 밀리기 쉽습니다.\n• 안전 관리자는 '활동의 덫(Activity Trap)'에서 벗어나 의식적으로 제2분면에 시간을 투자해야 합니다.`,
+  onboarding: `[오리엔테이션 vs. 온보딩의 본질적 차이]\n• 오리엔테이션: 입사 직후 인사부서에서 복리후생, 사내 규정 등을 전달하는 1회성 단발 집체 교육(1일~2주).\n• 온보딩: 채용 합격부터 완전한 성과 창출 구성원으로 안착할 때까지 수개월~1년 이상 지속되는 맞춤형·진화형 프로세스.\n• 실무 수칙: 톰 피터스의 MBWA(Management By Wandering Around)를 실천하되, 현장 작업자의 말을 들을 때는 수첩을 적지 말고 전적으로 경청(Just Listen)해야 신뢰를 얻습니다.`,
+  friction: `[조직 마찰(Friction)과 윤활 메커니즘 (Fig 1.8)]\n• 조직 마찰은 상이한 부서의 전문성과 목표 불일치에서 자연스럽게 발생합니다.\n• 리더십(녹색 기어), 안전 부서(분홍 기어), 현장 직원(노란 기어)의 세 톱니바퀴가 중앙의 안전문화(파란 기어)를 구동합니다.\n• 리더십의 적극적인 제도적 지원과 왜곡 없는 열린 소통이 바로 기어가 맞물려 돌아가게 하는 '윤활유(Oil can)' 역할을 합니다.`
+};
+
+const PROMPTS_DATA = {
+  p1: `당신은 안전문화 및 주관성 연구(Q방법론) 전문 교수입니다.
+Elsevier의 'Safety Culture' Chapter 1(Defining the Perception of Safety)의 핵심 이론(상대적 위험 수용성, 몬탄테의 안전 정의, 래드포드의 복합 의사결정 모델, 6대 핵심 신념 간극 등)을 바탕으로 현장 작업자와 관리자 집단의 안전 지각 유형을 실증 분석하기 위한 Q-진술문(Q-Sample) 34개를 도출하고 범주별 설계 논리를 제시해 주십시오.`,
+  p2: `Chapter 1의 래드포드(Radford) 의사결정 모델(Fig 1.11)에 따르면 경영 리더십은 불확실성과 다중 목표 속에서 '만족화(Satisficing)' 결정을 내리는 반면, 안전 전문가는 단일 규범에 기반한 '단일 최적해'를 고집하여 갈등이 발생합니다.
+신임 안전 관리자가 이러한 구조적 갈등을 극복하고 경영진과 비즈니스 언어로 소통하며 안전 예산을 확보하기 위한 구체적 5단계 커뮤니케이션 전략을 수립해 주십시오.`
+};
+
+// DOM References
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const apiKeyBtn = document.getElementById('api-key-btn');
+const apiModalOverlay = document.getElementById('api-modal-overlay');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const saveKeyBtn = document.getElementById('save-key-btn');
+const clearKeyBtn = document.getElementById('clear-key-btn');
+const geminiKeyInput = document.getElementById('gemini-key-input');
+const geminiModelSelect = document.getElementById('gemini-model-select');
+const openaiKeyInput = document.getElementById('openai-key-input');
+const aiEngineSelect = document.getElementById('ai-engine-select');
+const aiStatusTag = document.getElementById('ai-status-tag');
+const aiChatForm = document.getElementById('ai-chat-form');
+const aiUserInput = document.getElementById('ai-user-input');
+const aiChatMessages = document.getElementById('ai-chat-messages');
+const toastMsg = document.getElementById('toast-msg');
+
+// LocalStorage State
+let storedGeminiKey = localStorage.getItem('chapter1_gemini_key') || '';
+let storedOpenaiKey = localStorage.getItem('chapter1_openai_key') || '';
+let storedModel = localStorage.getItem('chapter1_gemini_model') || 'gemini-1.5-flash';
+
+if (storedGeminiKey) {
+  geminiKeyInput.value = storedGeminiKey;
+  aiEngineSelect.value = 'gemini';
+  aiStatusTag.textContent = 'Gemini API 연동';
+  aiStatusTag.style.color = '#38bdf8';
+}
+
+// Theme Toggle
+themeToggleBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const target = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', target);
+  localStorage.setItem('chapter1_theme', target);
+});
+
+if (localStorage.getItem('chapter1_theme')) {
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('chapter1_theme'));
+}
+
+// AI Panel Toggle
+toggleAiBtn.addEventListener('click', () => {
+  rightAiPanel.classList.toggle('collapsed');
+});
+
+// Modal Logic
+apiKeyBtn.addEventListener('click', () => apiModalOverlay.classList.add('active'));
+closeModalBtn.addEventListener('click', () => apiModalOverlay.classList.remove('active'));
+apiModalOverlay.addEventListener('click', (e) => {
+  if (e.target === apiModalOverlay) apiModalOverlay.classList.remove('active');
+});
+
+saveKeyBtn.addEventListener('click', () => {
+  storedGeminiKey = geminiKeyInput.value.trim();
+  storedOpenaiKey = openaiKeyInput.value.trim();
+  storedModel = geminiModelSelect.value;
+  localStorage.setItem('chapter1_gemini_key', storedGeminiKey);
+  localStorage.setItem('chapter1_openai_key', storedOpenaiKey);
+  localStorage.setItem('chapter1_gemini_model', storedModel);
+
+  if (storedGeminiKey) {
+    aiEngineSelect.value = 'gemini';
+    aiStatusTag.textContent = 'Gemini API 연동';
+    aiStatusTag.style.color = '#38bdf8';
+  } else {
+    aiEngineSelect.value = 'builtin';
+    aiStatusTag.textContent = '내장 지식엔진';
+    aiStatusTag.style.color = '';
+  }
+  apiModalOverlay.classList.remove('active');
+  showToast('API 설정이 저장되었습니다. ✅');
+});
+
+clearKeyBtn.addEventListener('click', () => {
+  geminiKeyInput.value = '';
+  openaiKeyInput.value = '';
+  localStorage.removeItem('chapter1_gemini_key');
+  localStorage.removeItem('chapter1_openai_key');
+  storedGeminiKey = '';
+  storedOpenaiKey = '';
+  aiEngineSelect.value = 'builtin';
+  aiStatusTag.textContent = '내장 지식엔진';
+  aiStatusTag.style.color = '';
+  showToast('API 키가 삭제되었습니다.');
+});
+
+// Toast Helper
+function showToast(msg) {
+  toastMsg.textContent = msg;
+  toastMsg.classList.add('show');
+  setTimeout(() => toastMsg.classList.remove('show'), 2500);
+}
+
+// Copy Prompt Buttons
+document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('프롬프트가 클립보드에 복사되었습니다! 📋');
+      });
+    }
+  });
+});
+
+// Send Prompt to AI Panel
+document.querySelectorAll('.send-prompt-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-prompt-id');
+    const text = PROMPTS_DATA[id];
+    if (text) {
+      if (rightAiPanel.classList.contains('collapsed')) {
+        rightAiPanel.classList.remove('collapsed');
+      }
+      aiUserInput.value = text;
+      handleSendMessage();
+    }
+  });
+});
+
+// Quick Chips
+document.querySelectorAll('.quick-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (rightAiPanel.classList.contains('collapsed')) {
+      rightAiPanel.classList.remove('collapsed');
+    }
+    aiUserInput.value = chip.getAttribute('data-q');
+    handleSendMessage();
+  });
+});
+
+// Append Message to Chat
+function appendMessage(role, text) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = text.replace(/\n/g, '<br>');
+  aiChatMessages.appendChild(bubble);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+  return bubble;
+}
+
+// Handle AI Chat Form Submission
+aiChatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleSendMessage();
+});
+
+// Enter key submit in textarea (Shift+Enter for newline)
+aiUserInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSendMessage();
+  }
+});
+
+async function handleSendMessage() {
+  const query = aiUserInput.value.trim();
+  if (!query) return;
+
+  appendMessage('user', query);
+  aiUserInput.value = '';
+
+  const loadingBubble = appendMessage('ai', '답변을 생성하고 있습니다... 💭');
+  const engine = aiEngineSelect.value;
+
+  if (engine === 'gemini' && storedGeminiKey) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${storedModel}:generateContent?key=${storedGeminiKey}`;
+      const systemContext = `당신은 Elsevier 명저 'Safety Culture' Chapter 1 (Defining the Perception of Safety)의 학술 지도 교수이자 안전문화 전문 AI입니다. 원문의 이론(발현적 속성, 상대적 위험 수용성, 몬탄테의 안전 정의, French & Bell의 6대 연동 영역, Radford 복합 의사결정 모델, Table 1.1 핵심 신념 간극, 아이젠하워 4분면, 디버전 수레바퀴, 온보딩과 MBWA 경청 등)에 근거하여 엄밀하고 학술적이며 실무적인 답변을 제공하십시오.`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: `${systemContext}\n\n질문/요청사항:\n${query}` }]
+            }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        loadingBubble.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
+      } else {
+        loadingBubble.innerHTML = `⚠️ Gemini API 응답 오류: ${data.error?.message || '응답을 생성할 수 없습니다.'}`;
+      }
+    } catch (err) {
+      loadingBubble.innerHTML = `⚠️ 네트워크 또는 API 호출 실패: ${err.message}<br><small>내장 지식 모드로 전환해 답변을 확인하세요.</small>`;
+    }
+  } else {
+    // Built-in Knowledge Base Fallback & Smart Matcher
+    setTimeout(() => {
+      let reply = "";
+      const lower = query.toLowerCase();
+
+      if (lower.includes('발현') || lower.includes('emergent') || lower.includes('속성')) {
+        reply = CHAPTER1_KB.emergent;
+      } else if (lower.includes('몬탄테') || lower.includes('montante') || lower.includes('safety first') || lower.includes('구호')) {
+        reply = CHAPTER1_KB.montante;
+      } else if (lower.includes('래드포드') || lower.includes('radford') || lower.includes('갈등') || lower.includes('의사결정')) {
+        reply = CHAPTER1_KB.radford;
+      } else if (lower.includes('시간') || lower.includes('아이젠하워') || lower.includes('코비') || lower.includes('2분면') || lower.includes('matrix')) {
+        reply = CHAPTER1_KB.eisenhower;
+      } else if (lower.includes('온보딩') || lower.includes('onboarding') || lower.includes('오리엔테이션') || lower.includes('mbwa')) {
+        reply = CHAPTER1_KB.onboarding;
+      } else if (lower.includes('마찰') || lower.includes('friction') || lower.includes('톱니바퀴') || lower.includes('기어')) {
+        reply = CHAPTER1_KB.friction;
+      } else {
+        reply = `[Chapter 1 내장 지식엔진 답변]\n질의: "${query}"\n\nChapter 1 'Defining the Perception of Safety'에서는 안전문화 확립에서 '지각(Perception)'의 전환을 가장 핵심적인 요소로 규정합니다.\n• 안전은 고립된 프로그램이 아니라 시스템 전체의 '발현적 속성(Emergent Property)'입니다.\n• 경영진의 불확실한 '만족화' 의사결정과 안전 부서의 '단일 최적해' 의사결정 간의 차이(Radford 모델)를 극복하기 위해 비즈니스 공통 언어로 소통해야 합니다.\n• 아이젠하워 제2분면(위험성평가, 장기 전략)을 보호하고, 체계적인 안전 온보딩을 통해 조직문화를 내재화해야 합니다.\n\n💡 상단 [🔑 API 설정]에서 Gemini API Key를 등록하시면 실시간 생성형 심화 분석을 받으실 수 있습니다!`;
+      }
+      loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+    }, 500);
+  }
+}
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navLinks = document.querySelectorAll('#nav-menu-list .nav-link');
+navSearchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  navLinks.forEach(link => {
+    const text = link.textContent.toLowerCase();
+    link.parentElement.style.display = text.includes(term) ? '' : 'none';
+  });
+});
+
+// Scrollspy for active link
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('main section.section-box');
+  let currentId = '';
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    if (window.scrollY >= top) {
+      currentId = sec.getAttribute('id');
+    }
+  });
+  if (currentId) {
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+});
+</script>
+
+
+</body>
+</html>
