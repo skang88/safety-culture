@@ -59,14 +59,14 @@ export default function Navbar({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-lg tracking-tight text-slate-900">
+                <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 whitespace-nowrap">
                   SafePulse <span className="text-blue-600">360</span>
                 </span>
-                <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-800 whitespace-nowrap">
                   Roughton et al. Model
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 hidden md:block">
+              <p className="text-[10px] text-slate-400 hidden md:block whitespace-nowrap">
                 조직 안전문화 & 리더십 자가진단 플랫폼
               </p>
             </div>
@@ -74,26 +74,26 @@ export default function Navbar({
         </div>
 
         {/* 중앙: 현재 접속 중인 회사 정보 및 업종 뱃지 */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200">
           <Building2 className="w-4 h-4 text-blue-600 shrink-0" />
           <div className="flex items-center gap-1.5">
             <span className="text-xs font-bold text-slate-900 max-w-[140px] sm:max-w-none truncate">
               {companyName}
             </span>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold shrink-0">
+            <span className="text-[10px] px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold shrink-0 whitespace-nowrap">
               {currentIndustryLabel}
             </span>
           </div>
           <button
             onClick={onOpenOnboarding}
-            className="text-[11px] font-bold text-blue-600 hover:text-blue-800 hover:underline pl-1 ml-1 border-l border-slate-200"
+            className="text-[11px] font-bold text-blue-600 hover:text-blue-800 hover:underline pl-1 ml-1 border-l border-slate-200 whitespace-nowrap"
           >
             변경
           </button>
         </div>
 
         {/* 우측: 사용자 정보, 상태 뱃지 및 로그아웃 */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {hasAssessmentResult ? (
             <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />

@@ -115,34 +115,34 @@ export default function Home() {
     return (
       <div className="min-h-screen flex flex-col bg-slate-50">
         <header className="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16 items-center">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16 items-center gap-2">
+              <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm sm:text-base shrink-0">
                   S
                 </div>
-                <div>
-                  <span className="font-extrabold text-lg text-slate-900">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-base sm:text-lg text-slate-900 whitespace-nowrap">
                     SafePulse <span className="text-blue-600">360</span>
                   </span>
-                  <span className="text-[10px] bg-blue-100 text-blue-800 font-bold px-1.5 py-0.5 rounded-full ml-1.5">
+                  <span className="hidden sm:inline-block text-[10px] bg-blue-100 text-blue-800 font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
                     Roughton et al. Model
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <button
                   onClick={() => { setAuthMode("login"); setIsAuthOpen(true); }}
-                  className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-100 transition-colors"
+                  className="px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs font-bold text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-100 transition-colors whitespace-nowrap shrink-0"
                 >
                   로그인
                 </button>
                 <button
                   onClick={() => { setAuthMode("register"); setIsAuthOpen(true); }}
-                  className="px-4 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-sm transition-all"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
                 >
-                  무료 자가진단 시작
+                  <span className="hidden sm:inline">무료 </span>자가진단 시작
                 </button>
               </div>
             </div>
