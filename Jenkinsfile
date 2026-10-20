@@ -75,12 +75,25 @@ pipeline {
 
         stage('4. 컨테이너 배포 (Deploy)') {
             steps {
-                echo "🚢 [STAGE 4] 도커 컨테이너를 가동 및 무중단 재배포합니다..."
-                sh '''
-                    # 기존 컨테이너 안전 정지 및 최신 이미지로 백그라운드 기동
-                    docker compose -f ${DOCKER_COMPOSE_FILE} down --remove-orphans
-                    docker compose -f ${DOCKER_COMPOSE_FILE} up -d
-                '''
+                echo "🚢 [STAGE 4] Jenkins Credential을 주입하여 안전하게 컨테이너를 가동 및 배포합니다..."
+                withCredentials([string(credentialsId: 'safepulse-jwt-secret', variable: 'JWT_SECRET_VAL')]) {
+                    sh '''
+                        # 젠킨스 Credential로부터 운영용 .env 자동 생성
+                        cat <<EOF > .env
+ENV=production
+JWT_SECRET=${JWT_SECRET_VAL}
+MONGO_URI=mongodb://mongodb:27017/safepulse
+DB_NAME=safepulse
+BACKEND_PORT=${BACKEND_PORT}
+FRONTEND_PORT=${FRONTEND_PORT}
+EOF
+                        chmod 600 .env
+
+                        # 기존 컨테이너 안전 정지 및 최신 이미지로 백그라운드 기동
+                        docker compose -f ${DOCKER_COMPOSE_FILE} down --remove-orphans
+                        docker compose -f ${DOCKER_COMPOSE_FILE} --env-file .env up -d
+                    '''
+                }
             }
         }
 
@@ -137,8 +150,11 @@ pipeline {
             sh 'docker compose -f ${DOCKER_COMPOSE_FILE} logs --tail=50'
         }
         always {
-            echo "🧹 댕글링(Dangling) 미사용 도커 이미지를 정리합니다..."
-            sh 'docker image prune -f || true'
+            echo "🧹 워크스페이스 내 임시 .env 및 댕글링(Dangling) 도커 이미지를 안전하게 정리합니다..."
+            sh '''
+                rm -f .env || true
+                docker image prune -f || true
+            '''
         }
     }
 }
