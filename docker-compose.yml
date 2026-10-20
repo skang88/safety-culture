@@ -4,7 +4,8 @@ services:
     container_name: safepulse-mongodb
     restart: unless-stopped
     ports:
-      - "27017:27017"
+      # 외부 침투 방지: 호스트 로컬(127.0.0.1)에서만 접속 허용
+      - "127.0.0.1:27017:27017"
     volumes:
       - mongo_data:/data/db
     networks:
@@ -23,11 +24,12 @@ services:
     container_name: safepulse-backend
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "${BACKEND_PORT:-8000}:8000"
     environment:
-      - ENV=production
-      - MONGO_URI=mongodb://mongodb:27017/safepulse
-      - JWT_SECRET=safepulse_jwt_secret_key_2026_xyz
+      - ENV=${ENV:-production}
+      - MONGO_URI=${MONGO_URI:-mongodb://mongodb:27017/safepulse}
+      - DB_NAME=${DB_NAME:-safepulse}
+      - JWT_SECRET=${JWT_SECRET:-safepulse_dev_insecure_secret_change_me}
     depends_on:
       mongodb:
         condition: service_healthy
@@ -45,7 +47,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-}
     container_name: safepulse-frontend
     restart: unless-stopped
     ports:

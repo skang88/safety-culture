@@ -1,14 +1,21 @@
 import os
 import uuid
 import datetime
+import logging
 import bcrypt
 import jwt
 from typing import Optional, Dict, Any
 from backend.app.core.db import get_database, mongo_db
 from backend.app.models.schemas import UserRegister, UserLogin, UserResponse, AuthResponse
 
-JWT_SECRET = os.getenv("JWT_SECRET", "safepulse_jwt_secret_key_2026_xyz")
+logger = logging.getLogger("safepulse.auth")
+
+_DEFAULT_DEV_SECRET = "safepulse_dev_insecure_secret_change_me"
+JWT_SECRET = os.getenv("JWT_SECRET", _DEFAULT_DEV_SECRET)
 JWT_ALGORITHM = "HS256"
+
+if os.getenv("ENV") == "production" and (not os.getenv("JWT_SECRET") or JWT_SECRET == _DEFAULT_DEV_SECRET):
+    logger.warning("⚠️ [SECURITY WARNING] 프로덕션 환경에서 기본 JWT_SECRET이 사용 중입니다. .env에서 안전한 난수 키로 교체하세요.")
 
 # 로컬 메모리 폴백 스토어
 _MEMORY_USERS: Dict[str, Dict[str, Any]] = {}
