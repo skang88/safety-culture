@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Query, Header
 from typing import List, Dict, Any, Optional
 from backend.app.models.schemas import (
     AssessmentItem, AssessmentSubmission, AssessmentResult,
-    ONAGraphData, KPIMetric, KPISummary, ConsultingReport,
+    ONAGraphData, KPIMetric, KPISummary, KPIValueUpdate, ConsultingReport,
     ChecklistGroup, ChecklistSubmission,
     CompanyProfile, AssessmentSessionCreate, AssessmentSessionUpdate, AssessmentSessionResponse,
     UserRegister, UserLogin, UserResponse, AuthResponse
@@ -10,7 +10,9 @@ from backend.app.models.schemas import (
 from backend.app.data.seed_data import DEFAULT_ASSESSMENT_ITEMS
 from backend.app.services.raa_service import calculate_assessment_result
 from backend.app.services.ona_service import analyze_ona_network
-from backend.app.services.kpi_service import get_kpi_summary, add_or_update_kpi
+from backend.app.services.kpi_service import (
+    get_kpi_summary, add_or_update_kpi, update_kpi_value, delete_kpi, reset_kpis
+)
 from backend.app.services.consulting_service import generate_consulting_report
 from backend.app.services.checklist_service import (
     get_checklist_groups, update_checklist_status, get_checklist_overview_stats
@@ -74,12 +76,35 @@ def get_ona_graph():
     return analyze_ona_network()
 
 @router.get("/kpi/summary", response_model=KPISummary)
-def get_kpis():
-    return get_kpi_summary()
+async def get_kpis():
+    return await get_kpi_summary()
 
 @router.post("/kpi/metric", response_model=KPIMetric)
-def save_kpi(metric: KPIMetric):
-    return add_or_update_kpi(metric)
+async def save_kpi(metric: KPIMetric):
+    return await add_or_update_kpi(metric)
+
+@router.put("/kpi/metric/{metric_id}", response_model=KPIMetric)
+async def update_kpi(metric_id: str, metric: KPIMetric):
+    metric.id = metric_id
+    return await add_or_update_kpi(metric)
+
+@router.patch("/kpi/metric/{metric_id}/value", response_model=KPIMetric)
+async def update_kpi_metric_value(metric_id: str, update_data: KPIValueUpdate):
+    try:
+        return await update_kpi_value(metric_id, update_data)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+@router.delete("/kpi/metric/{metric_id}", response_model=Dict[str, Any])
+async def remove_kpi(metric_id: str):
+    success = await delete_kpi(metric_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="해당 KPI 지표를 찾을 수 없습니다.")
+    return {"message": "KPI 지표가 성공적으로 삭제되었습니다.", "id": metric_id}
+
+@router.post("/kpi/reset", response_model=KPISummary)
+async def reset_kpi_metrics():
+    return await reset_kpis()
 
 @router.get("/consulting/report", response_model=ConsultingReport)
 def get_consulting_report(org_name: str = "안전문화 혁신 추진단"):

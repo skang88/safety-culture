@@ -2,19 +2,19 @@ from typing import Dict, Any, List
 from backend.app.models.schemas import ConsultingReport, RoadmapMilestone
 from backend.app.services.raa_service import calculate_assessment_result
 from backend.app.services.ona_service import analyze_ona_network
-from backend.app.services.kpi_service import get_kpi_summary
+from backend.app.services.kpi_service import get_kpi_summary_sync
 
 def generate_consulting_report(org_name: str = "안전문화 혁신 추진단") -> ConsultingReport:
     assessment_res = calculate_assessment_result([])
     ona_res = analyze_ona_network()
-    kpi_res = get_kpi_summary()
+    kpi_res = get_kpi_summary_sync()
 
     # 종합 안전문화 성숙도 지수 (100점 만점)
     # RAA 균형(30%) + 리더십 8대 기대치(30%) + ONA 네트워크 밀도/영향력(20%) + KPI 달성률(20%)
     raa_score = assessment_res.raa_scores.balance_index * 0.3
     lead_score = (assessment_res.leadership_scores.average_score / 5.0 * 100.0) * 0.3
     ona_score = min(100.0, (ona_res.network_density * 200.0 + (len(ona_res.opinion_leaders) * 10.0))) * 0.2
-    kpi_score = 88.0 * 0.2  # 평균 KPI 진척률 기반
+    kpi_score = (kpi_res.overall_progress or 88.0) * 0.2  # 평균 KPI 진척률 기반
 
     overall_index = round(raa_score + lead_score + ona_score + kpi_score, 1)
 

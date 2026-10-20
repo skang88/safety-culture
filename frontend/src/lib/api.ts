@@ -141,9 +141,86 @@ export async function fetchKPISummary() {
   try {
     const res = await fetch(`${API_BASE}/kpi/summary`);
     if (!res.ok) throw new Error("Failed to fetch KPI summary");
-    return await res.json();
+    const data = await res.json();
+    if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_kpi_cache", JSON.stringify(data));
+    }
+    return data;
   } catch (err) {
     console.warn("Using fallback KPI data:", err);
+    return getStoredOrFallbackKPIData();
+  }
+}
+
+export async function saveKPIMetric(metric: any) {
+  try {
+    const res = await fetch(`${API_BASE}/kpi/metric`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(metric),
+    });
+    if (!res.ok) throw new Error("Failed to save KPI metric");
+    const updated = await res.json();
+    // 로컬 캐시도 갱신
+    updateLocalKPICache(updated);
+    return updated;
+  } catch (err) {
+    console.warn("API save failed, saving to local storage fallback:", err);
+    return updateLocalKPICache(metric);
+  }
+}
+
+export async function updateKPIValue(
+  metricId: string,
+  data: { current_value: number; progress_rate?: number; target_value?: string; note?: string }
+) {
+  try {
+    const res = await fetch(`${API_BASE}/kpi/metric/${metricId}/value`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error("Failed to update KPI value");
+    const updated = await res.json();
+    updateLocalKPICache(updated);
+    return updated;
+  } catch (err) {
+    console.warn("API update value failed, saving to local fallback:", err);
+    return updateLocalKPIValueFallback(metricId, data);
+  }
+}
+
+export async function deleteKPIMetric(metricId: string) {
+  try {
+    const res = await fetch(`${API_BASE}/kpi/metric/${metricId}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw new Error("Failed to delete KPI metric");
+    removeLocalKPICache(metricId);
+    return await res.json();
+  } catch (err) {
+    console.warn("API delete failed, removing from local storage:", err);
+    removeLocalKPICache(metricId);
+    return { message: "Deleted locally", id: metricId };
+  }
+}
+
+export async function resetKPIMetrics() {
+  try {
+    const res = await fetch(`${API_BASE}/kpi/reset`, {
+      method: "POST",
+    });
+    if (!res.ok) throw new Error("Failed to reset KPI metrics");
+    const data = await res.json();
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("safepulse_kpi_cache");
+    }
+    return data;
+  } catch (err) {
+    console.warn("API reset failed, clearing local storage:", err);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("safepulse_kpi_cache");
+    }
     return getFallbackKPIData();
   }
 }
@@ -467,47 +544,237 @@ function getFallbackONAData() {
   };
 }
 
-function getFallbackKPIData() {
-  return {
-    total_metrics: 6,
-    inherent_count: 4,
-    collaborative_count: 2,
-    stage_breakdown: { prevention: 2, preparedness: 2, response: 1, recovery: 1 },
-    department_summary: {
-      "생산본부 (과/팀 단위)": [
-        {
-          id: "KPI_PREV_1",
-          name: "작업위험성평가(JHA) 참여율 및 유해위험요인 발굴 건수",
-          lifecycle_stage: "prevention",
-          type: "inherent",
-          weight: 0.7,
-          department: "생산본부 (과/팀 단위)",
-          target_value: "100% 참여 / 월 15건 이상",
-          unit: "건 / %",
-          statutory_basis: "산업안전보건법 제36조(위험성평가의 실시) 및 노동부 고시 제2023-19호",
-          subnote_evidence: "Ch 7 3.3절 JHA 4단계 전환 메커니즘 및 Ch 1 ANSI Z10 리스크 기반 접근법",
-          current_value: 85.0,
-          progress_rate: 85.0
-        }
-      ],
-      "전사 현장부서": [
-        {
-          id: "KPI_RESP_1",
-          name: "작업중지권(Stop-Work) 발동 시 경영진 무문책 보장 및 즉시 개선 조치율",
-          lifecycle_stage: "response",
-          type: "inherent",
-          weight: 0.7,
-          department: "전사 현장부서",
-          target_value: "24시간 이내 100% 피드백",
-          unit: "%",
-          statutory_basis: "산업안전보건법 제52조(근로자의 작업중지) 및 중대재해처벌법 제4조",
-          subnote_evidence: "Ch 7 표 7.1 번호 6: 부하에게 권한 위임 및 리스크 감수",
-          current_value: 92.0,
-          progress_rate: 92.0
-        }
-      ]
+function getDefaultKPIDataRaw() {
+  return [
+    {
+      id: "KPI_PREV_1",
+      name: "작업위험성평가(JHA) 참여율 및 유해위험요인 발굴 건수",
+      lifecycle_stage: "prevention",
+      type: "inherent",
+      weight: 0.7,
+      department: "생산본부 (과/팀 단위)",
+      target_value: "100% 참여 / 월 15건 이상",
+      unit: "건 / %",
+      statutory_basis: "산업안전보건법 제36조(위험성평가의 실시) 및 노동부 고시 제2023-19호",
+      subnote_evidence: "Ch 7 3.3절 JHA 4단계 전환 메커니즘 및 Ch 1 ANSI Z10 리스크 기반 접근법",
+      current_value: 85.0,
+      progress_rate: 85.0,
+      note: "월간 안전점검 회의 참여율 포함",
+      updated_at: "2026-10-15 14:00"
+    },
+    {
+      id: "KPI_PREV_2",
+      name: "협력업체 합동 안전보건점검 및 위험 정보 사전 교환율",
+      lifecycle_stage: "prevention",
+      type: "collaborative",
+      weight: 0.3,
+      department: "EHS안전부 & 사내협력사",
+      target_value: "분기 1회 전원 참석 (100%)",
+      unit: "%",
+      statutory_basis: "산업안전보건법 제64조(도급에 따른 산업재해 예방조치) 제1항 제1호",
+      subnote_evidence: "Ch 3 다계층 소통 네트워크 및 협업 가중치 분배 원칙 (7:3/5:5)",
+      current_value: 90.0,
+      progress_rate: 90.0,
+      note: "협력업체 간담회 및 합동순회점검 실시 완료",
+      updated_at: "2026-10-10 10:30"
+    },
+    {
+      id: "KPI_PREP_1",
+      name: "비상대응 절차 훈련 이수율 및 개인보호구(PPE) 점검률",
+      lifecycle_stage: "preparedness",
+      type: "inherent",
+      weight: 0.7,
+      department: "설비정비팀",
+      target_value: "100%",
+      unit: "%",
+      statutory_basis: "산업안전보건법 제29조(근로자에 대한 안전보건교육) 및 중처법 시행령 제4조 제5호",
+      subnote_evidence: "Ch 6 안전 프로세스 구축 (PDCA: Plan-Do-Check-Act) 중 대비(Do) 절차",
+      current_value: 95.0,
+      progress_rate: 95.0,
+      note: "보호구 불시 점검 및 비상샤워기 작동점검",
+      updated_at: "2026-10-12 16:45"
+    },
+    {
+      id: "KPI_PREP_2",
+      name: "유관기관(소방서·경찰서) 합동 비상연락망 갱신 및 시뮬레이션",
+      lifecycle_stage: "preparedness",
+      type: "collaborative",
+      weight: 0.3,
+      department: "EHS안전부 & 지역소방서",
+      target_value: "반기 1회",
+      unit: "회",
+      statutory_basis: "중대재해처벌법 시행령 제4조 제8호(비상대응 매뉴얼 마련 및 훈련)",
+      subnote_evidence: "Ch 3 사회적 네트워크 확장 및 위기대응 외부 연결망(Bridges)",
+      current_value: 100.0,
+      progress_rate: 100.0,
+      note: "관할 소방서 합동 화학물질 누출 가상 훈련 실시",
+      updated_at: "2026-09-28 11:00"
+    },
+    {
+      id: "KPI_RESP_1",
+      name: "작업중지권(Stop-Work) 발동 시 경영진 무문책 보장 및 즉시 개선 조치율",
+      lifecycle_stage: "response",
+      type: "inherent",
+      weight: 0.7,
+      department: "전사 현장부서",
+      target_value: "24시간 이내 100% 피드백",
+      unit: "%",
+      statutory_basis: "산업안전보건법 제52조(근로자의 작업중지) 및 중대재해처벌법 제4조",
+      subnote_evidence: "Ch 7 표 7.1 번호 6: 부하에게 권한 위임 및 리스크 감수(Empower subordinates)",
+      current_value: 92.0,
+      progress_rate: 92.0,
+      note: "Stop-Work 발동 3건 전건 당일 개선 조치 완료",
+      updated_at: "2026-10-18 09:20"
+    },
+    {
+      id: "KPI_RECOV_1",
+      name: "아차사고 및 부상 재발방지 원인분석(RCA) 및 표준작업서(SOP) 개정 완료율",
+      lifecycle_stage: "recovery",
+      type: "inherent",
+      weight: 0.7,
+      department: "품질보증팀 & 안전부",
+      target_value: "사고 발생 후 7일 이내 100%",
+      unit: "%",
+      statutory_basis: "산업안전보건법 제10조(산업재해 발생 은폐 금지 및 보고 등)",
+      subnote_evidence: "Ch 7 RAA 삼원조: 실패를 부하 탓으로 돌리지 않고 프로세스를 개선하는 궁극적 책임",
+      current_value: 88.0,
+      progress_rate: 88.0,
+      note: "아차사고 5건 근본원인분석 및 표준개정",
+      updated_at: "2026-10-14 15:10"
     }
+  ];
+}
+
+function buildKPISummaryFromMetrics(metrics: any[]) {
+  const stageBreakdown: Record<string, number> = { prevention: 0, preparedness: 0, response: 0, recovery: 0 };
+  const stageSums: Record<string, number> = { prevention: 0, preparedness: 0, response: 0, recovery: 0 };
+  const stageCounts: Record<string, number> = { prevention: 0, preparedness: 0, response: 0, recovery: 0 };
+
+  let inherentCount = 0;
+  let collabCount = 0;
+  let inherentSum = 0;
+  let collabSum = 0;
+  const deptSummary: Record<string, any[]> = {};
+
+  metrics.forEach((kpi) => {
+    const stage = kpi.lifecycle_stage;
+    const rate = Number(kpi.progress_rate || 0);
+
+    if (stage in stageBreakdown) {
+      stageBreakdown[stage] += 1;
+      stageSums[stage] += rate;
+      stageCounts[stage] += 1;
+    }
+
+    if (kpi.type === "inherent") {
+      inherentCount += 1;
+      inherentSum += rate;
+    } else {
+      collabCount += 1;
+      collabSum += rate;
+    }
+
+    const dept = kpi.department || "기타";
+    if (!deptSummary[dept]) deptSummary[dept] = [];
+    deptSummary[dept].push(kpi);
+  });
+
+  const inherentAvg = inherentCount > 0 ? Math.round((inherentSum / inherentCount) * 10) / 10 : 0;
+  const collabAvg = collabCount > 0 ? Math.round((collabSum / collabCount) * 10) / 10 : 0;
+  const overallProgress =
+    inherentCount > 0 && collabCount > 0
+      ? Math.round((inherentAvg * 0.7 + collabAvg * 0.3) * 10) / 10
+      : metrics.length > 0
+      ? Math.round((metrics.reduce((acc, k) => acc + Number(k.progress_rate || 0), 0) / metrics.length) * 10) / 10
+      : 0;
+
+  const stageProgress: Record<string, number> = {};
+  for (const st of ["prevention", "preparedness", "response", "recovery"]) {
+    stageProgress[st] = stageCounts[st] > 0 ? Math.round((stageSums[st] / stageCounts[st]) * 10) / 10 : 0;
+  }
+
+  return {
+    total_metrics: metrics.length,
+    inherent_count: inherentCount,
+    collaborative_count: collabCount,
+    stage_breakdown: stageBreakdown,
+    department_summary: deptSummary,
+    overall_progress: overallProgress,
+    inherent_avg_progress: inherentAvg,
+    collaborative_avg_progress: collabAvg,
+    stage_progress: stageProgress
   };
+}
+
+export function getStoredOrFallbackKPIData() {
+  if (typeof window !== "undefined") {
+    try {
+      const cached = localStorage.getItem("safepulse_kpi_cache");
+      if (cached) {
+        return JSON.parse(cached);
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return getFallbackKPIData();
+}
+
+function getFallbackKPIData() {
+  const defaults = getDefaultKPIDataRaw();
+  return buildKPISummaryFromMetrics(defaults);
+}
+
+function updateLocalKPICache(metric: any) {
+  if (typeof window === "undefined") return metric;
+  const summary = getStoredOrFallbackKPIData();
+  const allList: any[] = Object.values(summary.department_summary || {}).flatMap((l: any) => l);
+
+  let updatedList = allList;
+  const idx = allList.findIndex((item) => item.id === metric.id);
+  if (idx >= 0) {
+    updatedList[idx] = { ...updatedList[idx], ...metric };
+  } else {
+    updatedList.push(metric);
+  }
+
+  const newSummary = buildKPISummaryFromMetrics(updatedList);
+  localStorage.setItem("safepulse_kpi_cache", JSON.stringify(newSummary));
+  return metric;
+}
+
+function updateLocalKPIValueFallback(
+  metricId: string,
+  data: { current_value: number; progress_rate?: number; target_value?: string; note?: string }
+) {
+  if (typeof window === "undefined") return { id: metricId, ...data };
+  const summary = getStoredOrFallbackKPIData();
+  const allList: any[] = Object.values(summary.department_summary || {}).flatMap((l: any) => l);
+
+  const idx = allList.findIndex((item) => item.id === metricId);
+  if (idx >= 0) {
+    allList[idx] = {
+      ...allList[idx],
+      current_value: data.current_value,
+      progress_rate: data.progress_rate !== undefined ? data.progress_rate : allList[idx].progress_rate,
+      target_value: data.target_value !== undefined ? data.target_value : allList[idx].target_value,
+      note: data.note !== undefined ? data.note : allList[idx].note,
+      updated_at: new Date().toISOString().slice(0, 16).replace("T", " ")
+    };
+    const newSummary = buildKPISummaryFromMetrics(allList);
+    localStorage.setItem("safepulse_kpi_cache", JSON.stringify(newSummary));
+    return allList[idx];
+  }
+  return { id: metricId, ...data };
+}
+
+function removeLocalKPICache(metricId: string) {
+  if (typeof window === "undefined") return;
+  const summary = getStoredOrFallbackKPIData();
+  const allList: any[] = Object.values(summary.department_summary || {}).flatMap((l: any) => l);
+  const filtered = allList.filter((item) => item.id !== metricId);
+  const newSummary = buildKPISummaryFromMetrics(filtered);
+  localStorage.setItem("safepulse_kpi_cache", JSON.stringify(newSummary));
 }
 
 function getFallbackConsultingReport() {

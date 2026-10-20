@@ -158,6 +158,14 @@ class KPIMetric(BaseModel):
     subnote_evidence: str  # 교재 서브노트 판단 근거 (표 7.1, 7.2 등)
     current_value: Optional[float] = 0.0
     progress_rate: Optional[float] = 0.0
+    note: Optional[str] = ""
+    updated_at: Optional[str] = None
+
+class KPIValueUpdate(BaseModel):
+    current_value: float
+    progress_rate: Optional[float] = None
+    target_value: Optional[str] = None
+    note: Optional[str] = None
 
 class KPISummary(BaseModel):
     total_metrics: int
@@ -165,6 +173,10 @@ class KPISummary(BaseModel):
     collaborative_count: int
     stage_breakdown: Dict[str, int]
     department_summary: Dict[str, List[KPIMetric]]
+    overall_progress: Optional[float] = 0.0
+    inherent_avg_progress: Optional[float] = 0.0
+    collaborative_avg_progress: Optional[float] = 0.0
+    stage_progress: Optional[Dict[str, float]] = None
 
 # -------------------------------------------------------------
 # 4. 종합 컨설팅 및 결과 관리 모델 (Consulting & Roadmap)
