@@ -1,6 +1,48 @@
 // frontend/src/lib/api.ts
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+export function getApiBase(): string {
+  if (typeof window !== "undefined") {
+    const envUrl = process.env.NEXT_PUBLIC_API_URL;
+    const hostname = window.location.hostname;
+    const protocol = window.location.protocol;
+
+    // 만약 현재 브라우저 접속 호스트가 외부 IP나 도메인인 경우 (모바일 접속, 사내망 IP 등)
+    if (hostname && hostname !== "localhost" && hostname !== "127.0.0.1") {
+      // 환경변수가 없거나 localhost로 지정되어 있다면 현재 접속 IP의 8000번 포트로 자동 전환
+      if (!envUrl || envUrl.includes("localhost") || envUrl.includes("127.0.0.1")) {
+        return `${protocol}//${hostname}:8000/api`;
+      }
+      return envUrl;
+    }
+
+    if (envUrl) return envUrl;
+    return `${protocol}//localhost:8000/api`;
+  }
+
+  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+}
+
+export async function apiFetch(path: string, options: RequestInit = {}): Promise<Response> {
+  const base = getApiBase();
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  const url = path.startsWith("http") ? path : `${base}${cleanPath}`;
+
+  try {
+    return await fetch(url, options);
+  } catch (err: any) {
+    // 1차 실패 시 (예: 모바일에서 8000번 포트 직접 접근 불가 시), Next.js의 /api 프록시로 2차 시도
+    if (typeof window !== "undefined" && !path.startsWith("http")) {
+      const proxyUrl = `/api${cleanPath}`;
+      try {
+        console.warn(`[SafePulse API] ${url} 직접 연결 실패, 내부 프록시(${proxyUrl})로 재시도합니다.`);
+        return await fetch(proxyUrl, options);
+      } catch (proxyErr) {
+        // 둘 다 실패 시 아래에서 원본 에러 전달
+      }
+    }
+    throw err;
+  }
+}
 
 // -------------------------------------------------------------
 // 인증 토큰 관리 및 사용자 인증 API
@@ -37,36 +79,64 @@ export function setStoredUser(user: any) {
   }
 }
 
+export function loginGuestUser(name: string = "현장 안전체험자", company: string = "우수안전산업") {
+  const guestUser = {
+    id: `guest_${Date.now()}`,
+    email: "guest@safepulse.local",
+    name: name || "체험관리자",
+    company_name: company || "우수안전산업",
+    has_completed_assessment: false,
+    active_session_id: null
+  };
+  setAuthToken("mock_guest_token_" + Date.now());
+  setStoredUser(guestUser);
+  return guestUser;
+}
+
 export async function registerUser(data: { email: string; password: string; name: string; company_name: string }) {
-  const res = await fetch(`${API_BASE}/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: "회원가입에 실패했습니다." }));
-    throw new Error(err.detail || "회원가입에 실패했습니다.");
+  try {
+    const res = await apiFetch("/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: "회원가입에 실패했습니다." }));
+      throw new Error(err.detail || "회원가입에 실패했습니다.");
+    }
+    const result = await res.json();
+    setAuthToken(result.access_token);
+    setStoredUser(result.user);
+    return result;
+  } catch (err: any) {
+    if (err.name === "TypeError" && err.message.includes("fetch")) {
+      throw new Error("백엔드 서버(포트 8000)에 연결할 수 없습니다. 모바일과 서버가 동일 네트워크(Wi-Fi)에 있는지 확인해 주세요.");
+    }
+    throw err;
   }
-  const result = await res.json();
-  setAuthToken(result.access_token);
-  setStoredUser(result.user);
-  return result;
 }
 
 export async function loginUser(data: { email: string; password: string }) {
-  const res = await fetch(`${API_BASE}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: "로그인에 실패했습니다." }));
-    throw new Error(err.detail || "로그인에 실패했습니다.");
+  try {
+    const res = await apiFetch("/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: "로그인에 실패했습니다." }));
+      throw new Error(err.detail || "로그인에 실패했습니다.");
+    }
+    const result = await res.json();
+    setAuthToken(result.access_token);
+    setStoredUser(result.user);
+    return result;
+  } catch (err: any) {
+    if (err.name === "TypeError" && err.message.includes("fetch")) {
+      throw new Error("백엔드 서버(포트 8000)에 연결할 수 없습니다. 모바일과 서버가 동일 네트워크(Wi-Fi)에 있는지 확인해 주세요.");
+    }
+    throw err;
   }
-  const result = await res.json();
-  setAuthToken(result.access_token);
-  setStoredUser(result.user);
-  return result;
 }
 
 export async function fetchCurrentUser() {
@@ -74,7 +144,7 @@ export async function fetchCurrentUser() {
   if (!token) return null;
 
   try {
-    const res = await fetch(`${API_BASE}/auth/me`, {
+    const res = await apiFetch("/auth/me", {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) {
@@ -92,7 +162,7 @@ export async function fetchCurrentUser() {
 
 export async function fetchAssessmentItems() {
   try {
-    const res = await fetch(`${API_BASE}/assessment/items`);
+    const res = await apiFetch("/assessment/items");
     if (!res.ok) throw new Error("Failed to fetch assessment items");
     return await res.json();
   } catch (err) {
@@ -103,7 +173,7 @@ export async function fetchAssessmentItems() {
 
 export async function fetchAssessmentResults() {
   try {
-    const res = await fetch(`${API_BASE}/assessment/results`);
+    const res = await apiFetch("/assessment/results");
     if (!res.ok) throw new Error("Failed to fetch assessment results");
     return await res.json();
   } catch (err) {
@@ -114,7 +184,7 @@ export async function fetchAssessmentResults() {
 
 export async function submitAssessmentAnswers(data: any) {
   try {
-    const res = await fetch(`${API_BASE}/assessment/submit`, {
+    const res = await apiFetch("/assessment/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -128,7 +198,7 @@ export async function submitAssessmentAnswers(data: any) {
 
 export async function fetchONAGraph() {
   try {
-    const res = await fetch(`${API_BASE}/ona/graph`);
+    const res = await apiFetch("/ona/graph");
     if (!res.ok) throw new Error("Failed to fetch ONA graph");
     return await res.json();
   } catch (err) {
@@ -139,7 +209,7 @@ export async function fetchONAGraph() {
 
 export async function fetchKPISummary() {
   try {
-    const res = await fetch(`${API_BASE}/kpi/summary`);
+    const res = await apiFetch("/kpi/summary");
     if (!res.ok) throw new Error("Failed to fetch KPI summary");
     const data = await res.json();
     if (typeof window !== "undefined") {
@@ -154,7 +224,7 @@ export async function fetchKPISummary() {
 
 export async function saveKPIMetric(metric: any) {
   try {
-    const res = await fetch(`${API_BASE}/kpi/metric`, {
+    const res = await apiFetch("/kpi/metric", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(metric),
@@ -175,7 +245,7 @@ export async function updateKPIValue(
   data: { current_value: number; progress_rate?: number; target_value?: string; note?: string }
 ) {
   try {
-    const res = await fetch(`${API_BASE}/kpi/metric/${metricId}/value`, {
+    const res = await apiFetch(`/kpi/metric/${metricId}/value`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -192,7 +262,7 @@ export async function updateKPIValue(
 
 export async function deleteKPIMetric(metricId: string) {
   try {
-    const res = await fetch(`${API_BASE}/kpi/metric/${metricId}`, {
+    const res = await apiFetch(`/kpi/metric/${metricId}`, {
       method: "DELETE",
     });
     if (!res.ok) throw new Error("Failed to delete KPI metric");
@@ -207,7 +277,7 @@ export async function deleteKPIMetric(metricId: string) {
 
 export async function resetKPIMetrics() {
   try {
-    const res = await fetch(`${API_BASE}/kpi/reset`, {
+    const res = await apiFetch("/kpi/reset", {
       method: "POST",
     });
     if (!res.ok) throw new Error("Failed to reset KPI metrics");
@@ -227,7 +297,7 @@ export async function resetKPIMetrics() {
 
 export async function fetchConsultingReport() {
   try {
-    const res = await fetch(`${API_BASE}/consulting/report`);
+    const res = await apiFetch("/consulting/report");
     if (!res.ok) throw new Error("Failed to fetch consulting report");
     return await res.json();
   } catch (err) {
@@ -242,7 +312,7 @@ export async function fetchChecklistGroups(category?: string, targetRole?: strin
     if (category && category !== "all") params.append("category", category);
     if (targetRole && targetRole !== "all") params.append("target_role", targetRole);
 
-    const res = await fetch(`${API_BASE}/checklists/groups?${params.toString()}`);
+    const res = await apiFetch(`/checklists/groups?${params.toString()}`);
     if (!res.ok) throw new Error("Failed to fetch checklists");
     return await res.json();
   } catch (err) {
@@ -253,7 +323,7 @@ export async function fetchChecklistGroups(category?: string, targetRole?: strin
 
 export async function submitChecklistStatus(submission: any) {
   try {
-    const res = await fetch(`${API_BASE}/checklists/submit`, {
+    const res = await apiFetch("/checklists/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(submission),
@@ -268,7 +338,7 @@ export async function submitChecklistStatus(submission: any) {
 
 export async function fetchChecklistStats() {
   try {
-    const res = await fetch(`${API_BASE}/checklists/stats`);
+    const res = await apiFetch("/checklists/stats");
     if (!res.ok) throw new Error("Failed to fetch checklist stats");
     return await res.json();
   } catch (err) {
@@ -295,7 +365,7 @@ export async function startCompanySession(company: any) {
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const res = await fetch(`${API_BASE}/session/start`, {
+    const res = await apiFetch("/session/start", {
       method: "POST",
       headers,
       body: JSON.stringify({ company }),
@@ -330,7 +400,7 @@ export async function startCompanySession(company: any) {
 
 export async function fetchSession(sessionId: string) {
   try {
-    const res = await fetch(`${API_BASE}/session/${sessionId}`);
+    const res = await apiFetch(`/session/${sessionId}`);
     if (!res.ok) throw new Error("Failed to fetch session");
     return await res.json();
   } catch (err) {
@@ -341,7 +411,7 @@ export async function fetchSession(sessionId: string) {
 
 export async function saveSessionProgress(sessionId: string, currentStep: number, answers: Record<string, number>, isCompleted: boolean = false) {
   try {
-    const res = await fetch(`${API_BASE}/session/${sessionId}/save`, {
+    const res = await apiFetch(`/session/${sessionId}/save`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldCheck, Lock, Mail, User, Building2, ArrowRight, X } from "lucide-react";
-import { registerUser, loginUser } from "@/lib/api";
+import { ShieldCheck, Lock, Mail, User, Building2, ArrowRight, X, Sparkles, AlertCircle } from "lucide-react";
+import { registerUser, loginUser, loginGuestUser } from "@/lib/api";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -115,8 +115,23 @@ export default function AuthModal({
         </div>
 
         {errorMsg && (
-          <div className="mt-4 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
-            {errorMsg}
+          <div className="mt-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold space-y-2">
+            <div className="flex items-start gap-1.5">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 mt-0.5" />
+              <span>{errorMsg}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                const guest = loginGuestUser(name || "모바일 체험자", companyName || "우수안전산업");
+                onSuccess(guest);
+                onClose();
+              }}
+              className="w-full mt-2 py-1.5 px-3 rounded-lg bg-white border border-rose-300 text-rose-800 text-[11px] font-bold hover:bg-rose-100/70 transition-all text-center flex items-center justify-center gap-1.5 shadow-2xs"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span>오프라인/체험 게스트 모드로 즉시 접속하기</span>
+            </button>
           </div>
         )}
 
