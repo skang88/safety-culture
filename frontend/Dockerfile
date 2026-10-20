@@ -22,8 +22,8 @@ COPY . .
 # 빌드 타임 환경변수
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
-# 클라이언트가 브라우저에서 접근하는 백엔드 URL
-ARG NEXT_PUBLIC_API_URL=http://localhost:8000/api
+# 클라이언트가 브라우저에서 접근하는 백엔드 URL (기본값: 동일 출처 /api 프록시)
+ARG NEXT_PUBLIC_API_URL=/api
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
 RUN npm run build
