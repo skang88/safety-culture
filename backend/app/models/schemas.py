@@ -148,7 +148,9 @@ class ONAGraphData(BaseModel):
 class KPIMetric(BaseModel):
     id: str
     name: str
-    lifecycle_stage: str  # prevention(예방), preparedness(대비), response(대응), recovery(복구)
+    chapter_source: Optional[str] = "Ch 1"  # Ch 1 ~ Ch 10
+    table_figure_ref: Optional[str] = ""  # Fig 1.1, Table 7.1 등
+    lifecycle_stage: str  # planning(기획), prevention(예방), preparedness(대비), response(대응), recovery(복구/개선)
     type: str  # inherent(고유 70%), collaborative(협업 30%)
     weight: float  # 0.7 or 0.3
     department: str

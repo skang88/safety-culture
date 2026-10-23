@@ -184,6 +184,46 @@ DEFAULT_ASSESSMENT_ITEMS = [
         "question": "안전위원회나 현장 개선 제안 제도에 적극적으로 참여하며, 제안된 안전 의견이 실제 경영 피드백으로 신속히 반영된다.",
         "description": "Ch 8 현장 참여 메커니즘과 권한 부여.",
         "target_role": "all"
+    },
+
+    # [Chapter 2 - 조직문화 3수준 및 사일로 극복 (Culture Levels & Silo)]
+    {
+        "id": "CULT_1",
+        "dimension": "CULTURE_LEVEL",
+        "category": "조직문화 3수준 및 사일로 극복",
+        "question": "우리 회사는 부서 간 장벽(사일로)을 넘어 안전 정보와 노하우를 투명하게 공유하며 협업 안전 문화를 실천한다.",
+        "description": "Ch 2 에드가 샤인의 3수준 문화 모델 및 사일로(Silo) 경영의 폐해 극복.",
+        "target_role": "all"
+    },
+
+    # [Chapter 4 - 비전·미션 정렬 및 경계 확장 (Vision-Mission & Boundary Spanning)]
+    {
+        "id": "ALIGN_1",
+        "dimension": "VISION_MISSION",
+        "category": "비전·미션 정렬 및 경계 확장",
+        "question": "경영진의 안전 비전과 현장의 안전 실천 목표(미션)가 모순 없이 하나로 정렬되어 있으며, 안전부서는 타 부서와 유기적으로 소통한다.",
+        "description": "Ch 4 미션과 비전의 정합성 및 전사적 경계 확장(Boundary Spanning).",
+        "target_role": "all"
+    },
+
+    # [Chapter 5 & 6 - SMS 6대 빌딩블록 및 DMAIC 프로세스 (SMS Framework & Process)]
+    {
+        "id": "PROC_1",
+        "dimension": "SAFETY_PROCESS",
+        "category": "SMS 프레임워크 및 프로세스 개선",
+        "question": "안전경영시스템(SMS)이 보여주기식 서류(페이퍼워크)에 치우치지 않고, DMAIC 방법론에 따라 현장 위험 요인을 지속적으로 개선한다.",
+        "description": "Ch 5 SMS 6대 핵심 빌딩블록 및 Ch 6 DMAIC 프로세스·형식주의(Cons) 탈피.",
+        "target_role": "all"
+    },
+
+    # [Chapter 10 - 기본 위험관리 원칙 및 잔여위험 통제 (Risk Management Principles)]
+    {
+        "id": "RISK_1",
+        "dimension": "RISK_MANAGEMENT",
+        "category": "기본 위험관리 및 잔여위험 통제",
+        "question": "안전 대책 수립 후에도 완전히 제거되지 않고 잔존하는 '잔여 위험(Residual Risk)'을 체계적으로 식별하고 상시 모니터링한다.",
+        "description": "Ch 10 8단계 위험관리 생애주기 프로세스(Fig 10.2) 및 잔여 위험 통제(Fig 10.3).",
+        "target_role": "all"
     }
 ]
 
@@ -226,91 +266,167 @@ DEFAULT_ONA_EDGES = [
 ]
 
 # --------------------------------------------------------------------------
-# 3. 생애주기 & 법령 연계 현장 KPI (교수님 6대 원칙 준수)
+# 3. 생애주기 & 법령 연계 현장 KPI (Ch 1 ~ Ch 10 전 챕터 1:1 강제 매핑)
 # --------------------------------------------------------------------------
 DEFAULT_KPI_METRICS = [
     {
-        "id": "KPI_PREV_1",
-        "name": "작업위험성평가(JHA) 참여율 및 유해위험요인 발굴 건수",
+        "id": "KPI_CH01_PERC",
+        "name": "안전 지각 갭(Perception Gap) 해소율 및 안전 온보딩 이수율",
+        "chapter_source": "Ch 1",
+        "table_figure_ref": "Fig 1.1 (소통 갭) & Table 1.5 (온보딩 차이)",
         "lifecycle_stage": "prevention",  # 예방
         "type": "inherent",               # 고유 지표 (70%)
         "weight": 0.7,
-        "department": "생산본부 (과/팀 단위)",
-        "target_value": "100% 참여 / 월 15건 이상",
-        "unit": "건 / %",
-        "statutory_basis": "산업안전보건법 제36조(위험성평가의 실시) 및 노동부 고시 제2023-19호",
-        "subnote_evidence": "Ch 7 3.3절 JHA 4단계 전환 메커니즘 및 Ch 1 ANSI Z10 리스크 기반 접근법",
-        "current_value": 85.0,
-        "progress_rate": 85.0
+        "department": "인사교육팀 & 전사 현장부서",
+        "target_value": "지각 갭 15% 미만 / 온보딩 100%",
+        "unit": "%",
+        "statutory_basis": "산업안전보건법 제29조(근로자에 대한 안전보건교육) 제1항",
+        "subnote_evidence": "Ch 1 4절 지각의 격차(Fig 1.1) 및 19절 Table 1.5 안전 온보딩 실천",
+        "current_value": 88.0,
+        "progress_rate": 88.0
     },
     {
-        "id": "KPI_PREV_2",
-        "name": "협력업체 합동 안전보건점검 및 위험 정보 사전 교환율",
+        "id": "KPI_CH02_SILO",
+        "name": "사일로 극복 협업 안전점검 및 기본가정(Assumptions) 일치율",
+        "chapter_source": "Ch 2",
+        "table_figure_ref": "Fig 2.2 (샤인 3수준) & Fig 2.5 (사일로 장벽)",
         "lifecycle_stage": "prevention",  # 예방
         "type": "collaborative",          # 협업 지표 (30%)
         "weight": 0.3,
-        "department": "EHS안전부 & 사내협력사",
-        "target_value": "분기 1회 전원 참석 (100%)",
+        "department": "생산본부 & EHS안전부 & 정비팀",
+        "target_value": "분기 1회 부서교차 점검 (100%)",
         "unit": "%",
-        "statutory_basis": "산업안전보건법 제64조(도급에 따른 산업재해 예방조치) 제1항 제1호",
-        "subnote_evidence": "Ch 3 다계층 소통 네트워크 및 협업 가중치 분배 원칙 (7:3/5:5)",
+        "statutory_basis": "중대재해처벌법 제4조 제1호(안전보건 경영방침 수립) 및 산안법 제64조",
+        "subnote_evidence": "Ch 2 에드가 샤인 3수준 문화(Fig 2.2) 및 10절 사일로 경영 극복(Fig 2.5)",
+        "current_value": 82.0,
+        "progress_rate": 82.0
+    },
+    {
+        "id": "KPI_CH03_ONA",
+        "name": "비공식 안전 오피니언 리더(Key Bridge) 발굴 및 3-Hop 영향력 전파율",
+        "chapter_source": "Ch 3",
+        "table_figure_ref": "Fig 3.1 (실제 네트워크) & Christakis 3도 이론",
+        "lifecycle_stage": "preparedness", # 대비
+        "type": "collaborative",           # 협업 지표 (30%)
+        "weight": 0.3,
+        "department": "EHS안전부 & 사내협력사",
+        "target_value": "조직 내 브리지 노드 100% 매핑",
+        "unit": "%",
+        "statutory_basis": "산업안전보건법 제14조(관리감독자) 및 제16조(안전보건총괄책임자)",
+        "subnote_evidence": "Ch 3 조직 네트워크 분석(ONA) 및 Christakis & Fowler 3단계 영향력 법칙",
         "current_value": 90.0,
         "progress_rate": 90.0
     },
     {
-        "id": "KPI_PREP_1",
-        "name": "비상대응 절차 훈련 이수율 및 개인보호구(PPE) 점검률",
-        "lifecycle_stage": "preparedness", # 대비
+        "id": "KPI_CH04_ALIGN",
+        "name": "전사 부서 간 안전 비전·미션 정렬도 및 경계확장(Boundary Spanning) 지수",
+        "chapter_source": "Ch 4",
+        "table_figure_ref": "Ch 4 7절 Boundary Spanning & SMART 모델",
+        "lifecycle_stage": "planning",     # 기획
         "type": "inherent",                # 고유 지표 (70%)
         "weight": 0.7,
-        "department": "설비정비팀",
-        "target_value": "100%",
-        "unit": "%",
-        "statutory_basis": "산업안전보건법 제29조(근로자에 대한 안전보건교육) 및 중처법 시행령 제4조 제5호",
-        "subnote_evidence": "Ch 6 안전 프로세스 구축 (PDCA: Plan-Do-Check-Act) 중 대비(Do) 절차",
-        "current_value": 95.0,
-        "progress_rate": 95.0
-    },
-    {
-        "id": "KPI_PREP_2",
-        "name": "유관기관(소방서·경찰서) 합동 비상연락망 갱신 및 시뮬레이션",
-        "lifecycle_stage": "preparedness", # 대비
-        "type": "collaborative",           # 협업 지표 (30%)
-        "weight": 0.3,
-        "department": "EHS안전부 & 지역소방서",
-        "target_value": "반기 1회",
-        "unit": "회",
-        "statutory_basis": "중대재해처벌법 시행령 제4조 제8호(비상대응 매뉴얼 마련 및 훈련)",
-        "subnote_evidence": "Ch 3 사회적 네트워크 확장 및 위기대응 외부 연결망(Bridges)",
-        "current_value": 100.0,
-        "progress_rate": 100.0
-    },
-    {
-        "id": "KPI_RESP_1",
-        "name": "작업중지권(Stop-Work) 발동 시 경영진 무문책 보장 및 즉시 개선 조치율",
-        "lifecycle_stage": "response",     # 대응
-        "type": "inherent",                # 고유 지표 (70%)
-        "weight": 0.7,
-        "department": "전사 현장부서",
-        "target_value": "24시간 이내 100% 피드백",
-        "unit": "%",
-        "statutory_basis": "산업안전보건법 제52조(근로자의 작업중지) 및 중대재해처벌법 제4조",
-        "subnote_evidence": "Ch 7 표 7.1 번호 6: 부하에게 권한 위임 및 리스크 감수(Empower subordinates)",
+        "department": "경영기획실 & 전사 사업부",
+        "target_value": "SMART 정렬 지수 90점 이상",
+        "unit": "점",
+        "statutory_basis": "중대재해처벌법 시행령 제4조 제1호(안전보건 목표와 경영방침의 설정)",
+        "subnote_evidence": "Ch 4 4절 미션 vs 비전 비교 및 7절 전사적 경계 확장(Boundary Spanning) 모델",
         "current_value": 92.0,
         "progress_rate": 92.0
     },
     {
-        "id": "KPI_RECOV_1",
-        "name": "아차사고 및 부상 재발방지 원인분석(RCA) 및 표준작업서(SOP) 개정 완료율",
-        "lifecycle_stage": "recovery",     # 복구
+        "id": "KPI_CH05_SMS",
+        "name": "SMS 6대 빌딩블록 균형도 및 RAA 역할·권한·책임 명문화율",
+        "chapter_source": "Ch 5",
+        "table_figure_ref": "Ch 5 3절 SMS 6대 빌딩블록 & ANSI Z10 구조",
+        "lifecycle_stage": "planning",     # 기획
         "type": "inherent",                # 고유 지표 (70%)
         "weight": 0.7,
-        "department": "품질보증팀 & 안전부",
-        "target_value": "사고 발생 후 7일 이내 100%",
+        "department": "EHS안전부 & 직무분석위원회",
+        "target_value": "직무기술서(JD) RAA 반영률 100%",
         "unit": "%",
-        "statutory_basis": "산업안전보건법 제10조(산업재해 발생 은폐 금지 및 보고 등)",
-        "subnote_evidence": "Ch 7 RAA 삼원조: 실패를 부하 탓으로 돌리지 않고 프로세스를 개선하는 궁극적 책임",
-        "current_value": 88.0,
-        "progress_rate": 88.0
+        "statutory_basis": "산업안전보건법 제15조(안전관리자) 및 중대재해처벌법 제4조 제2호",
+        "subnote_evidence": "Ch 5 3절 SMS 핵심 6대 공통 요소 및 5절 명확한 RAA 직무기술서 체계",
+        "current_value": 95.0,
+        "progress_rate": 95.0
+    },
+    {
+        "id": "KPI_CH06_DMAIC",
+        "name": "DMAIC 공정 개선 이행률 및 실질 안전코칭 비율(형식주의 탈피)",
+        "chapter_source": "Ch 6",
+        "table_figure_ref": "Ch 6 4절 DMAIC 모델 & SMS Cons(부작용) 방어",
+        "lifecycle_stage": "recovery",     # 복구/개선
+        "type": "inherent",                # 고유 지표 (70%)
+        "weight": 0.7,
+        "department": "생산기술팀 & 공정품질팀",
+        "target_value": "개선 조치 100% / 코칭 시간 60% 이상",
+        "unit": "%",
+        "statutory_basis": "산업안전보건법 제36조 제3항(위험성평가 결과에 따른 개선조치)",
+        "subnote_evidence": "Ch 6 4절 DMAIC 모델 안전 적용 및 5절 페이퍼워크 과잉(Cons) 극복",
+        "current_value": 86.0,
+        "progress_rate": 86.0
+    },
+    {
+        "id": "KPI_CH07_LEAD",
+        "name": "Table 7.1 8대 리더십 실천율 및 현장 작업중지권(Stop-Work) 보장률",
+        "chapter_source": "Ch 7",
+        "table_figure_ref": "Table 7.1 (육군 8대 기대치) & RAA 삼원조 트라이어드",
+        "lifecycle_stage": "response",     # 대응
+        "type": "inherent",                # 고유 지표 (70%)
+        "weight": 0.7,
+        "department": "전사 관리감독자 & 현장작업팀",
+        "target_value": "24시간 이내 100% 무문책 피드백",
+        "unit": "%",
+        "statutory_basis": "산업안전보건법 제52조(근로자의 작업중지) 및 중처법 제4조",
+        "subnote_evidence": "Ch 7 Table 7.1 번호 6(권한위임 및 리스크감수) 및 RAA 삼각 균형",
+        "current_value": 94.0,
+        "progress_rate": 94.0
+    },
+    {
+        "id": "KPI_CH08_VOICE",
+        "name": "'Just Ask' 일상 대화율 및 현장 근로자 안전제안 채택·포상률",
+        "chapter_source": "Ch 8",
+        "table_figure_ref": "Ch 8 6절 Just Ask & 참여 5대 장벽 극복 로드맵",
+        "lifecycle_stage": "response",     # 대응
+        "type": "collaborative",           # 협업 지표 (30%)
+        "weight": 0.3,
+        "department": "노사협의체 & 현장 근로자대표",
+        "target_value": "분기 제안 30건 이상 / 채택률 80%",
+        "unit": "%",
+        "statutory_basis": "산업안전보건법 제24조(산업안전보건위원회) 및 동법 시행령 제35조",
+        "subnote_evidence": "Ch 8 6절 Just Ask 기법 및 참여 5대 심리적 장벽(무관심, 두려움) 타파",
+        "current_value": 89.0,
+        "progress_rate": 89.0
+    },
+    {
+        "id": "KPI_CH09_BIAS",
+        "name": "정상화 편향(Normalization of Deviance) 탈피율 및 아차사고 발굴 선행지수",
+        "chapter_source": "Ch 9",
+        "table_figure_ref": "위험 지각 4분면 매트릭스 & Lesson 1 (롤러 참사)",
+        "lifecycle_stage": "preparedness", # 대비
+        "type": "inherent",                # 고유 지표 (70%)
+        "weight": 0.7,
+        "department": "설비정비팀 & 안전보건팀",
+        "target_value": "월 아차사고 20건 이상 선제 발굴",
+        "unit": "건",
+        "statutory_basis": "산업안전보건법 제36조(위험성평가) 및 산안법 제10조(보고의무)",
+        "subnote_evidence": "Ch 9 위험 지각 4분면, 정상화 편향 극복 및 Lesson 1 인쇄기 롤러 참사 교훈",
+        "current_value": 87.0,
+        "progress_rate": 87.0
+    },
+    {
+        "id": "KPI_CH10_RISK",
+        "name": "8단계 위험성평가 적시 완료율 및 잔여 위험(Residual Risk) 상시 통제율",
+        "chapter_source": "Ch 10",
+        "table_figure_ref": "Fig 10.2 (8단계 프로세스) & Fig 10.3 (잔여위험)",
+        "lifecycle_stage": "preparedness", # 대비
+        "type": "inherent",                # 고유 지표 (70%)
+        "weight": 0.7,
+        "department": "전 생산공정 & 유해위험작업부서",
+        "target_value": "정기평가 100% / 잔여위험 등급 허용범위(ALARP) 유지",
+        "unit": "%",
+        "statutory_basis": "고용노동부 고시 제2023-19호(사업장 위험성평가에 관한 지침) 및 산안법 제36조",
+        "subnote_evidence": "Ch 10 Fig 10.2 위험관리 8단계 프로세스 및 Fig 10.3 잔여 위험(Residual Risk) 감소 모델",
+        "current_value": 91.0,
+        "progress_rate": 91.0
     }
 ]

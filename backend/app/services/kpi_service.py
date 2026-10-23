@@ -24,9 +24,9 @@ async def _sync_from_mongo_if_needed():
             pass
 
 def _calculate_summary() -> KPISummary:
-    stage_breakdown = {"prevention": 0, "preparedness": 0, "response": 0, "recovery": 0}
-    stage_sums = {"prevention": 0.0, "preparedness": 0.0, "response": 0.0, "recovery": 0.0}
-    stage_counts = {"prevention": 0, "preparedness": 0, "response": 0, "recovery": 0}
+    stage_breakdown = {"planning": 0, "prevention": 0, "preparedness": 0, "response": 0, "recovery": 0}
+    stage_sums = {"planning": 0.0, "prevention": 0.0, "preparedness": 0.0, "response": 0.0, "recovery": 0.0}
+    stage_counts = {"planning": 0, "prevention": 0, "preparedness": 0, "response": 0, "recovery": 0}
     
     inherent_cnt = 0
     collab_cnt = 0

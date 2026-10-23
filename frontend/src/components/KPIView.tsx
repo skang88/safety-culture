@@ -49,6 +49,7 @@ export default function KPIView() {
   const [kpiData, setKpiData] = useState<any>(null);
   const [selectedStage, setSelectedStage] = useState<string>("all");
   const [selectedType, setSelectedType] = useState<string>("all");
+  const [selectedChapter, setSelectedChapter] = useState<string>("all");
   const [trackingMode, setTrackingMode] = useState<"monthly" | "quarterly">("monthly");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -89,10 +90,25 @@ export default function KPIView() {
 
   const stages = [
     { id: "all", label: "전체 생애주기" },
-    { id: "prevention", label: "1. 예방 (Prevention)" },
-    { id: "preparedness", label: "2. 대비 (Preparedness)" },
-    { id: "response", label: "3. 대응 (Response)" },
-    { id: "recovery", label: "4. 복구 (Recovery)" },
+    { id: "planning", label: "1. 기획 (Planning)" },
+    { id: "prevention", label: "2. 예방 (Prevention)" },
+    { id: "preparedness", label: "3. 대비 (Preparedness)" },
+    { id: "response", label: "4. 대응 (Response)" },
+    { id: "recovery", label: "5. 개선·복구 (Recovery)" },
+  ];
+
+  const chapters = [
+    { id: "all", label: "전체 챕터 (Ch 1~10)" },
+    { id: "Ch 1", label: "Ch 1. 지각 & 브랜딩" },
+    { id: "Ch 2", label: "Ch 2. 3수준 문화 & 사일로" },
+    { id: "Ch 3", label: "Ch 3. ONA & 3도 영향력" },
+    { id: "Ch 4", label: "Ch 4. 비전 & 미션 정렬" },
+    { id: "Ch 5", label: "Ch 5. SMS 6대 빌딩블록" },
+    { id: "Ch 6", label: "Ch 6. DMAIC & 프로세스" },
+    { id: "Ch 7", label: "Ch 7. RAA & 8대 리더십" },
+    { id: "Ch 8", label: "Ch 8. Just Ask & 직원참여" },
+    { id: "Ch 9", label: "Ch 9. 리스크 지각 & 편향" },
+    { id: "Ch 10", label: "Ch 10. 위험관리 8단계" },
   ];
 
   const allKpis = kpiData
@@ -102,6 +118,7 @@ export default function KPIView() {
   const filteredKpis = allKpis.filter((k: any) => {
     if (selectedStage !== "all" && k.lifecycle_stage !== selectedStage) return false;
     if (selectedType !== "all" && k.type !== selectedType) return false;
+    if (selectedChapter !== "all" && k.chapter_source !== selectedChapter) return false;
     return true;
   });
 
@@ -196,6 +213,8 @@ export default function KPIView() {
     setEditingKpi({
       id: `KPI_CUSTOM_${Date.now()}`,
       name: "",
+      chapter_source: "Ch 1",
+      table_figure_ref: "Fig 1.1",
       lifecycle_stage: "prevention",
       type: "inherent",
       weight: 0.7,
@@ -203,7 +222,7 @@ export default function KPIView() {
       target_value: "100%",
       unit: "%",
       statutory_basis: "산업안전보건법 제36조(위험성평가의 실시)",
-      subnote_evidence: "Ch 7 표 7.1 안전 리더십 기대치 및 위험 통제 메커니즘",
+      subnote_evidence: "Ch 1 4절 지각의 격차 및 리스크 기반 접근법",
       current_value: 80.0,
       progress_rate: 80.0,
       note: ""
@@ -469,50 +488,71 @@ export default function KPIView() {
       </div>
 
       {/* 필터 툴바 */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-        {/* 생애주기 필터 */}
-        <div className="flex flex-wrap gap-1.5">
-          {stages.map((st) => (
+      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        {/* 상단: 생애주기 필터 & 고유/협업 필터 */}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap gap-1.5">
+            {stages.map((st) => (
+              <button
+                key={st.id}
+                onClick={() => setSelectedStage(st.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  selectedStage === st.id
+                    ? "bg-slate-900 text-white shadow-sm"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                {st.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-1.5">
             <button
-              key={st.id}
-              onClick={() => setSelectedStage(st.id)}
+              onClick={() => setSelectedType("all")}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                selectedStage === st.id
-                  ? "bg-slate-900 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                selectedType === "all" ? "bg-blue-600 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {st.label}
+              전체 유형
             </button>
-          ))}
+            <button
+              onClick={() => setSelectedType("inherent")}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                selectedType === "inherent" ? "bg-blue-600 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }`}
+            >
+              고유 (70%)
+            </button>
+            <button
+              onClick={() => setSelectedType("collaborative")}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                selectedType === "collaborative" ? "bg-emerald-600 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }`}
+            >
+              협업 (30%)
+            </button>
+          </div>
         </div>
 
-        {/* 고유/협업 필터 */}
-        <div className="flex items-center gap-1.5">
-          <button
-            onClick={() => setSelectedType("all")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              selectedType === "all" ? "bg-blue-600 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            전체 유형
-          </button>
-          <button
-            onClick={() => setSelectedType("inherent")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              selectedType === "inherent" ? "bg-blue-600 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            고유 (70%)
-          </button>
-          <button
-            onClick={() => setSelectedType("collaborative")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              selectedType === "collaborative" ? "bg-emerald-600 text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            협업 (30%)
-          </button>
+        {/* 하단: 10대 챕터(Ch 1 ~ Ch 10) 필터 뱃지 바 */}
+        <div className="pt-2 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1">
+          <span className="text-[11px] font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg shrink-0 flex items-center gap-1 border border-indigo-200">
+            <BookOpen className="w-3 h-3" /> 챕터별 필터
+          </span>
+          {chapters.map((ch) => (
+            <button
+              key={ch.id}
+              onClick={() => setSelectedChapter(ch.id)}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 transition-all ${
+                selectedChapter === ch.id
+                  ? "bg-indigo-600 text-white shadow-xs"
+                  : "bg-slate-100/80 text-slate-600 hover:bg-slate-200/80"
+              }`}
+            >
+              {ch.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -535,6 +575,11 @@ export default function KPIView() {
                 <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-4">
                   <div className="space-y-1.5 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
+                      {kpi.chapter_source && (
+                        <span className="text-[11px] font-black px-2.5 py-0.5 rounded-md bg-indigo-600 text-white shadow-2xs">
+                          {kpi.chapter_source}
+                        </span>
+                      )}
                       <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700 uppercase">
                         {kpi.lifecycle_stage}
                       </span>
@@ -547,6 +592,11 @@ export default function KPIView() {
                       >
                         {kpi.type === "inherent" ? "고유 지표 (70%)" : "협업 지표 (30%)"}
                       </span>
+                      {kpi.table_figure_ref && (
+                        <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 border border-purple-200">
+                          {kpi.table_figure_ref}
+                        </span>
+                      )}
                       <span className="text-xs text-slate-500 font-medium">| {kpi.department}</span>
                       {kpi.updated_at && (
                         <span className="text-[11px] text-slate-400">
@@ -783,6 +833,40 @@ export default function KPIView() {
                 />
               </div>
 
+              {/* 챕터 출처 & 연계 도표 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">교재 연계 챕터 (Ch 1 ~ Ch 10)</label>
+                  <select
+                    value={editingKpi.chapter_source || "Ch 1"}
+                    onChange={(e) => setEditingKpi({ ...editingKpi, chapter_source: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 text-xs font-semibold bg-white"
+                  >
+                    <option value="Ch 1">Chapter 1 (안전 지각 & 브랜딩)</option>
+                    <option value="Ch 2">Chapter 2 (조직문화 3수준 & 사일로)</option>
+                    <option value="Ch 3">Chapter 3 (ONA 네트워크 & 3-Hop)</option>
+                    <option value="Ch 4">Chapter 4 (비전·미션 정렬 & 경계확장)</option>
+                    <option value="Ch 5">Chapter 5 (SMS 6대 빌딩블록)</option>
+                    <option value="Ch 6">Chapter 6 (DMAIC & 형식주의 탈피)</option>
+                    <option value="Ch 7">Chapter 7 (RAA 삼원조 & 8대 리더십)</option>
+                    <option value="Ch 8">Chapter 8 (Just Ask & 직원 참여)</option>
+                    <option value="Ch 9">Chapter 9 (위험 지각 & 정상화 편향)</option>
+                    <option value="Ch 10">Chapter 10 (위험관리 8단계 & 잔여위험)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">연계 도표/그림 번호</label>
+                  <input
+                    type="text"
+                    value={editingKpi.table_figure_ref || ""}
+                    onChange={(e) => setEditingKpi({ ...editingKpi, table_figure_ref: e.target.value })}
+                    placeholder="예: Fig 1.1, Table 7.1, Fig 10.2 등"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 text-xs"
+                  />
+                </div>
+              </div>
+
               {/* 생애주기 단계 & 지표 유형 */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
@@ -792,10 +876,11 @@ export default function KPIView() {
                     onChange={(e) => setEditingKpi({ ...editingKpi, lifecycle_stage: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 text-xs font-semibold bg-white"
                   >
-                    <option value="prevention">1. 예방 (Prevention)</option>
-                    <option value="preparedness">2. 대비 (Preparedness)</option>
-                    <option value="response">3. 대응 (Response)</option>
-                    <option value="recovery">4. 복구 (Recovery)</option>
+                    <option value="planning">1. 기획 (Planning)</option>
+                    <option value="prevention">2. 예방 (Prevention)</option>
+                    <option value="preparedness">3. 대비 (Preparedness)</option>
+                    <option value="response">4. 대응 (Response)</option>
+                    <option value="recovery">5. 개선·복구 (Recovery)</option>
                   </select>
                 </div>
 

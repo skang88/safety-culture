@@ -24,20 +24,21 @@ def test_ona_network_analysis():
 
 def test_kpi_summary():
     kpi_summary = get_kpi_summary_sync()
-    assert kpi_summary.total_metrics >= 6
-    assert kpi_summary.inherent_count >= 4
-    assert kpi_summary.collaborative_count >= 2
+    assert kpi_summary.total_metrics == 10
+    assert kpi_summary.inherent_count == 7
+    assert kpi_summary.collaborative_count == 3
     assert "prevention" in kpi_summary.stage_breakdown
+    assert "planning" in kpi_summary.stage_breakdown
     assert kpi_summary.overall_progress > 0
 
 def test_kpi_value_update_and_reset():
-    # 수치 수정 테스트
+    # 수치 수정 테스트 (Ch 1 지표)
     update_data = KPIValueUpdate(
         current_value=99.0,
         progress_rate=99.0,
         note="10월 실적 갱신"
     )
-    updated = asyncio.run(update_kpi_value("KPI_PREV_1", update_data))
+    updated = asyncio.run(update_kpi_value("KPI_CH01_PERC", update_data))
     assert updated.current_value == 99.0
     assert updated.progress_rate == 99.0
     assert updated.note == "10월 실적 갱신"
@@ -46,9 +47,9 @@ def test_kpi_value_update_and_reset():
     summary = get_kpi_summary_sync()
     assert summary.overall_progress > 0
 
-    # 리셋 복원 확인
+    # 리셋 복원 확인 (10대 챕터)
     resetted = asyncio.run(reset_kpis())
-    assert resetted.total_metrics == 6
+    assert resetted.total_metrics == 10
 
 def test_consulting_report():
     report = generate_consulting_report("테스트조직")
