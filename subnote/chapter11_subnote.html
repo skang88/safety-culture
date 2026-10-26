@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 11: Developing an Activity-Based Safety System — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            fontFamily: 'IBM Plex Sans KR, sans-serif'
+        });
+    </script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 300px;
+  --ai-panel-w: 390px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #9333ea;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 15.5px;
+  overflow-x: hidden;
+}
+
+/* Header */
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .app-header {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo-badge {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.header-title-box h1 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.header-title-box p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.btn-icon:hover {
+  background: var(--bg-card-sub);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+/* Layout Wrapper */
+.app-wrapper {
+  display: flex;
+  margin-top: var(--header-h);
+  min-height: calc(100vh - var(--header-h));
+}
+
+/* Left Sidebar */
+.left-sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  padding: 24px 16px;
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 13px;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.nav-menu {
+  list-style: none;
+}
+
+.nav-menu li {
+  margin-bottom: 3px;
+}
+
+.nav-link {
+  display: block;
+  padding: 8px 12px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+
+.nav-link:hover {
+  background: var(--bg-card-sub);
+  color: var(--accent-blue);
+  transform: translateX(3px);
+}
+
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 600;
+  border-left: 3px solid var(--accent-blue);
+}
+
+.case-link {
+  color: var(--accent-gold);
+  font-size: 12.5px;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: var(--sidebar-w);
+  margin-right: var(--ai-panel-w);
+  flex: 1;
+  padding: 40px 48px;
+  max-width: 1100px;
+  transition: margin 0.3s ease;
+}
+
+/* Intro Hero */
+.intro-hero {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.intro-hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.intro-hero p.lead {
+  font-size: 16.5px;
+  color: var(--text-sub);
+  margin-bottom: 24px;
+}
+
+.epigraph-box {
+  background: var(--bg-card-sub);
+  border-left: 4px solid var(--accent-purple);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 14px;
+  font-style: italic;
+  color: var(--text-sub);
+  font-size: 14.5px;
+}
+
+.epigraph-author {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--accent-gold);
+  font-size: 13.5px;
+}
+
+/* Section Cards */
+.subnote-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 32px 36px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+
+.subnote-section h2 {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subnote-section h2 .sec-badge {
+  background: var(--accent-blue);
+  color: #0b1120;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 6px;
+}
+
+.subnote-section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  margin: 24px 0 14px 0;
+}
+
+.subnote-section h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin: 18px 0 10px 0;
+}
+
+.subnote-section p {
+  margin-bottom: 14px;
+  color: var(--text-sub);
+}
+
+.subnote-section ul, .subnote-section ol {
+  margin-bottom: 18px;
+  padding-left: 24px;
+  color: var(--text-sub);
+}
+
+.subnote-section li {
+  margin-bottom: 8px;
+}
+
+/* Callout Box */
+.callout {
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.callout-note {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: var(--accent-blue);
+  color: var(--text-sub);
+}
+
+.callout-important {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--accent-red);
+  color: var(--text-sub);
+}
+
+.callout-tip {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--accent-green);
+  color: var(--text-sub);
+}
+
+.callout-gold {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: var(--accent-gold);
+  color: var(--text-sub);
+}
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Case Study / Observation Box */
+.case-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 22px 0;
+  position: relative;
+}
+
+.case-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--accent-gold);
+  color: #0b1120;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.case-box h4 {
+  color: var(--text-main);
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+/* Tables */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+thead {
+  background: var(--bg-card-sub);
+  border-bottom: 2px solid var(--border-color);
+}
+
+th {
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Mermaid Wrapper */
+.mermaid-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+}
+
+/* Right AI Panel */
+.right-ai-panel {
+  width: var(--ai-panel-w);
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  position: fixed;
+  top: var(--header-h);
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 900;
+  transition: transform 0.3s ease;
+}
+
+.ai-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+}
+
+.ai-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-purple);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-header p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.ai-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prompt-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.prompt-card:hover {
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+}
+
+.prompt-card h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.prompt-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.ai-chat-output {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text-sub);
+  min-height: 160px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.ai-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  gap: 8px;
+}
+
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.btn-send {
+  background: var(--accent-purple);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-send:hover {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  .right-ai-panel {
+    transform: translateX(100%);
+  }
+  .main-content {
+    margin-right: 0;
+  }
+  .right-ai-panel.open {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .left-sidebar {
+    transform: translateX(-100%);
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 24px 20px;
+  }
+  .left-sidebar.open {
+    transform: translateX(0);
+  }
+}
+    </style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <button class="btn-icon" id="toggle-sidebar-btn" title="목차 열기/닫기">☰ 목차</button>
+    <div class="header-logo-badge">CHAPTER 11</div>
+    <div class="header-title-box">
+      <h1>활동 기반 안전시스템의 구축 (Developing an ABSS)</h1>
+      <p>Safety Culture Research Subnote &amp; Interactive Learning Platform</p>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn-icon" id="toggle-theme-btn">🌓 모드 전환</button>
+    <button class="btn-icon" id="toggle-ai-btn">🤖 AI 튜터 &amp; KPI 검증기</button>
+  </div>
+</header>
+
+<div class="app-wrapper">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <div class="sidebar-title">차례 검색 &amp; 네비게이션</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="목차 실시간 필터...">
+    
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-intro" class="nav-link active">01. 도입: 양방향 소통 혁신</a></li>
+      <li><a href="#sec-abss-concept" class="nav-link">02. ABSS 개념 &amp; 착수 단계</a></li>
+      <li><a href="#sec-how-it-works" class="nav-link">03. 주입식 탈피 &amp; 7대 요소</a></li>
+      <li><a href="#sec-safety-meetings" class="nav-link">04. 3계층 미팅 &amp; 3단계 영향력</a></li>
+      <li><a href="#case-obs-1" class="nav-link case-link">💡 관찰 1: 위험 전문가로의 진화</a></li>
+      <li><a href="#sec-direct-engagement" class="nav-link">05. 직접 소통 &amp; 위험 발굴 기법</a></li>
+      <li><a href="#case-obs-2" class="nav-link case-link">💡 관찰 2: 제지공장 볼트 추락</a></li>
+      <li><a href="#case-obs-3" class="nav-link case-link">💡 관찰 3: 후속조치팀 협업</a></li>
+      <li><a href="#sec-roles-responsibilities" class="nav-link">06. 계층별 역할과 책임 분장</a></li>
+      <li><a href="#sec-training-doe" class="nav-link">07. 식스시그마 DOE 교육 혁신</a></li>
+      <li><a href="#case-obs-4" class="nav-link case-link">💡 관찰 4: 시각 학습의 뇌인지 과학</a></li>
+      <li><a href="#sec-tips-metrics" class="nav-link">08. 5대 실무 팁 &amp; 선행/후행 지표</a></li>
+      <li><a href="#sec-incident-investigation" class="nav-link">09. 사고 조사 미로 &amp; Grab N Go Kit</a></li>
+      <li><a href="#sec-summary" class="nav-link">10. 제11장 총괄 요약</a></li>
+      <li><a href="#sec-review-questions" class="nav-link">11. 복습 질문 &amp; 심화 해설</a></li>
+      <li><a href="#sec-kpi-framework" class="nav-link" style="color:var(--accent-purple);font-weight:700;">🌟 12. [특화] 교수님 지도 KPI &amp; 산안법</a></li>
+      <li><a href="#sec-bibliography" class="nav-link">13. 참고문헌</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:20px;">연계 서브노트 바로가기</div>
+    <ul class="nav-menu">
+      <li><a href="chapter10_subnote.html" class="nav-link">Chapter 10: 위험관리 원칙 (Risk Mgmt)</a></li>
+      <li><a href="chapter9_subnote.html" class="nav-link">Chapter 9: 위험 지각의 정의</a></li>
+      <li><a href="chapter8_subnote.html" class="nav-link">Chapter 8: 조직 안전학습 체계</a></li>
+      <li><a href="chapter7_subnote.html" class="nav-link">Chapter 7: 리더십 책무성 (RAA)</a></li>
+      <li><a href="chapter1_subnote.html" class="nav-link">Chapter 1: 안전문화의 기초</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+
+    <!-- Intro Hero -->
+    <div class="intro-hero">
+      <span class="hero-tag">Part IV Tools to Enhance Your Safety Management System</span>
+      <h1>Chapter 11: Developing an Activity-Based Safety System (ABSS)</h1>
+      <p class="lead">활동 기반 안전시스템의 구축: 하향식 일방 낭독에서 현장 밀착형 양방향 소통 네트워크로</p>
+      
+      <div class="epigraph-box">
+        "변화 없이는 진보가 불가능하며, 자신의 생각을 바꾸지 못하는 사람은 그 어떤 것도 바꿀 수 없다."
+        <span class="epigraph-author">— 조지 버나드 쇼 (George Bernard Shaw)</span>
+      </div>
+
+      <div class="epigraph-box" style="border-left-color: var(--accent-blue);">
+        "아이들의 프로그램 '블루스 클루스(Blue’s Clues)'의 핵심은 반복(Repetition)과 상호작용이다. 만약 기업이 구성원 내면에 잠자고 있는 상상력과 창의성을 이끌어낼 수만 있다면, 그 기업에는 경쟁자가 없을 것이다."
+        <span class="epigraph-author">— 다이앤 트레이시 (Diane Tracy, 2002)</span>
+      </div>
+    </div>
+
+    <!-- Section 1 -->
+    <section class="subnote-section" id="sec-intro">
+      <h2><span class="sec-badge">01</span> INTRODUCTION (도입: 양방향 소통 혁신)</h2>
+      <p>성공적인 안전경영시스템(Safety Management System, SMS)을 구축하고 안전문화를 질적으로 개선하기 위해 최고경영진과 현장 관리자는 조직의 안전 비전, 목표, 세부 과제를 정기적으로 전파해야 합니다. 그러나 대다수 조직에서 일어나는 안전 커뮤니케이션은 <strong>위에서 아래로만 일방적으로 전달되는 '하향식 일방통행(Top-down, one-way)'</strong>에 머물러 있습니다.</p>
+      
+      <p>본 장에서 제시하는 <strong>활동 기반 안전시스템(Activity-Based Safety System, ABSS)</strong>은 이러한 일방향 소통의 구조적 한계를 타파하고, 조직 전반에 걸쳐 <strong>'양방향 소통(Two-way communication)'의 잠재력을 극대화할 수 있는 강력한 프레임워크와 운영 구조</strong>를 제공합니다.</p>
+
+      <div class="callout callout-note">
+        <div class="callout-title">💡 ABSS의 핵심 운영 원칙: 시간·장소·주기의 표준화 (No Exceptions)</div>
+        ABSS는 특정한 핵심 활동을 <strong>정해진 시간(Specific time), 정해진 날짜(Specific date), 정해진 장소(Specific place)</strong>에서 예외 없이(No exceptions) 일일(Daily), 주간(Weekly), 월간(Monthly) 단위로 루틴하게 수행하도록 강제합니다. 일상적 습관이 될 때 비로소 진정한 안전의식이 내재화됩니다.
+      </div>
+
+      <div class="mermaid-box">
+        <div class="mermaid">
+flowchart LR
+    subgraph Traditional["전통적 하향식 일방 소통 (Top-Down)"]
+        T1["경영진 방침 하달"] --> T2["관리자의 형식적 대본 낭독"]
+        T2 --> T3["근로자의 수동적 청취<br/>(소통 단절 및 형식화)"]
+        T3 -.->|침묵 / 위험 은폐| T1
+    end
+    
+    subgraph ABSS["활동 기반 안전시스템 (ABSS 양방향 소통)"]
+        A1["리더십 안전 비전 공유"] <--> A2["일일·주간·월간 표준 활동<br/>(정시·정소·무예외)"]
+        A2 <--> A3["현장 근로자 실시간 피드백<br/>(지각 위험 표출 & 신속 개선)"]
+        A3 <--> A4["후속조치팀 즉각 해결 &<br/>선행지표 실시간 피드백"]
+        A4 <--> A1
+    end
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="subnote-section" id="sec-abss-concept">
+      <h2><span class="sec-badge">02</span> ACTIVITY-BASED SAFETY SYSTEM &amp; GETTING STARTED (ABSS의 개념과 착수 단계)</h2>
+      <p>안전 프로세스를 현장에 가장 성공적으로 안착시키는 비결은 안전 개선을 실질적으로 견인하는 <strong>'핵심 필수 활동(Main essential activities)'에 역량을 집중하는 체계적 접근법</strong>입니다.</p>
+
+      <h3>2.1 착수 1단계: 기존 SMS 활동 전수 진단 및 무가치 활동 폐기</h3>
+      <p>ABSS 도입의 첫걸음은 현재 조직에서 수행 중인 안전 활동들을 전수 조사하여, <strong>어떤 활동이 실제로 안전 프로세스에 '실질적 가치(Value)'를 더하고 있는지</strong>를 엄밀히 판별하는 것입니다.</p>
+      <ul>
+        <li><strong>무가치한 구태 활동 폐기</strong>: 유해위험요인을 통제하지 못하거나, 위험도를 낮추지 못하며, 서류 작업만 유발하는 형식적 활동(Ineffective activities)을 과감히 제거(Remove), 수정(Modify), 대체(Replace)합니다.</li>
+        <li><strong>가치 창출형 활동의 신규 통합</strong>: 안전경영시스템의 실질적 위험 통제력을 높이는 새로운 표준 활동을 체계적으로 도입합니다.</li>
+      </ul>
+
+      <div class="case-box">
+        <span class="case-badge">Case Study</span>
+        <h4>James의 M&amp;A 기업 인수 현장 적용 사례: 업무 가중이 아닌 일하는 방식의 혁신</h4>
+        <p>저자 James가 M&amp;A를 통해 새롭게 인수한 공장에 ABSS를 처음 도입했을 때, 현장 관리자와 직원들로부터 <em>"이런 복잡한 시스템은 우리 공장에는 절대 맞지 않는다"</em>는 극심한 반발에 부딪혔습니다. 그러나 기존 안전 규정을 정밀 실사하여 서류 작업만 유발하던 낭비 활동들을 대거 폐기하고 현장 밀착형 소통으로 전환하자, 경영진과 근로자 모두 ABSS의 실질적 가치를 인정하게 되었습니다. <strong>ABSS의 본질은 새로운 잡무를 얹는 것이 아니라 낭비를 걷어내고 일하는 방식을 바꾸는 것입니다.</strong></p>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="subnote-section" id="sec-how-it-works">
+      <h2><span class="sec-badge">03</span> HOW ABSS WORKS &amp; BASIC ELEMENTS (주입식 탈피 &amp; 7대 요소)</h2>
+      <p>많은 기업들이 안전 미팅을 운영할 때 본사에서 배포한 <strong>"미리 작성된 규격화된 대본(Canned scripted topics)"을 그대로 낭독</strong>하는 구태의연한 방식에 의존합니다.</p>
+
+      <div class="callout callout-important">
+        <div class="callout-title">⚠️ IAEA 원자력 안전지침 (2002): 교육훈련은 현장 작업 조건과 반드시 일치해야 한다</div>
+        "교육훈련은 실제 현장 적용점과 반드시 일치해야 한다(Training Must Match the Application). 강사가 현장 작업 조건과 전혀 맞지 않는 대본을 영혼 없이 낭독할 때, 교육생들은 그 정보가 자신과 무관함을 직감하며 안전 정보의 수용을 전면 거부하게 된다."
+      </div>
+
+      <h3>3.1 ABSS 7대 핵심 구성 요소</h3>
+      <ol>
+        <li><strong>3계층 근로자 미팅</strong>: 일일 작업 전 브리핑(Preshift review), 주간 회의, 월간 회의.</li>
+        <li><strong>1:1 개별 대면 면담 (One-on-One Discussions)</strong>: 현장 밀착형 소통 및 신뢰 구축.</li>
+        <li><strong>현장 순회 관찰 투어 (Safety Walk-Through Tours)</strong>: 정리정돈 및 유해위험요인 발굴.</li>
+        <li><strong>기계·설비별 맞춤형 체크리스트 (Machine/Equipment-Specific Checklists)</strong>: 15개 핵심 위험 중심.</li>
+        <li><strong>다기능 후속조치팀 (Follow-Up Teams)</strong>: 작업의뢰서 즉각 해결 및 당사자 서명 종결.</li>
+        <li><strong>실시간 선행 성과지표 (Performance Metrics)</strong>: 행동 및 프로세스 중심 측정.</li>
+        <li><strong>계층별 책임 보고 체계 (Leadership Specific Activities)</strong>: 일일·주간 활동 보고서.</li>
+      </ol>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="subnote-section" id="sec-safety-meetings">
+      <h2><span class="sec-badge">04</span> SAFETY MEETINGS &amp; COMMUNICATION NETWORK (3계층 미팅 &amp; 3단계 영향력)</h2>
+      <p>조직은 단순한 조직도상의 박스가 아니라, 사람과 사람이 얼굴을 맞대고 상호작용하는 <strong>살아있는 유기적 네트워크(Network of individuals)</strong>입니다.</p>
+
+      <h3>4.1 소셜 네트워크와 '영향력의 3단계 법칙' (Christakis &amp; Fowler, 2009)</h3>
+      <p>하버드대 니콜라스 크리스타키스 교수의 연구에 따르면, 우리가 행하거나 말하는 모든 것은 네트워크를 통해 파문을 일으켜 <strong>친구(1단계) ➔ 친구의 친구(2단계) ➔ 친구의 친구의 친구(3단계)</strong>까지 전파되어 인간의 감정과 행동을 변화시킵니다. 관리자의 진정성 있는 안전 메시지는 미팅 참석자에게서 멈추지 않고, 휴게실, 식당, 사외 소통을 통해 전사로 확대 증폭됩니다.</p>
+
+      <h3>4.2 일일 작업 전 안전브리핑 (Daily Preshift Review / Toolbox Talk)</h3>
+      <ul>
+        <li><strong>골든 타임의 활용</strong>: 교대 시작 직후는 작업자의 피로도가 가장 낮고 집중력이 최고조에 달하는 최적의 타이밍입니다.</li>
+        <li><strong>짐 콜린스의 '20마일 행진(20 Mile March)'</strong>: 구체적이고 엄격하게 매일 추구되는 실행 메커니즘이 안전을 체질화합니다.</li>
+        <li><strong>미팅 종료 시 절대 빠뜨려선 안 될 1가지 골든 질문</strong>:
+          <blockquote style="margin:8px 0;padding-left:12px;border-left:3px solid var(--accent-gold);color:var(--accent-gold);font-weight:600;">
+            "오늘 이 자리에서, 여러분 중 누구라도 안전하게 일하는 것을 방해하는 장애 요인이 있습니까?"
+          </blockquote>
+        </li>
+      </ul>
+
+      <div class="case-box" id="case-obs-1">
+        <span class="case-badge">Observation 1</span>
+        <h4>스스로 위험을 모르는 감독자에서 현장 위험 전문가로의 진화</h4>
+        <p>과거에는 안전부서 직원이 지적 사항을 적어 감독자에게 넘겨주어 낭독하게 했으나, 감독자는 자기 구역의 위험을 전혀 알지 못했습니다. ABSS 도입 후 감독자가 매일 직접 현장 위험을 찾아 브리핑을 주도하면서, 감독관 스스로 현장 최고의 위험 전문가로 거듭났습니다.</p>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="subnote-section" id="sec-direct-engagement">
+      <h2><span class="sec-badge">05</span> DIRECT ENGAGEMENT &amp; HAZARD HUNTING (직접 소통 &amp; 위험 발굴)</h2>
+      
+      <h3>5.1 1:1 개별 대면 면담 (One-on-One Discussions)</h3>
+      <p>군중 심리나 처벌에 대한 두려움으로 다수 미팅에서 말하지 못하는 은폐된 위험을 청취하는 도구입니다. <strong>절대로 관리자 사무실로 직원을 불러서는 안 되며, 직원이 일하는 친숙한 작업 현장 바닥(Work environment)으로 찾아가 대화해야 합니다.</strong></p>
+
+      <h3>5.2 기계·설비별 맞춤형 체크리스트 (Machine/Equipment-Specific Checklist)</h3>
+      <p>두꺼운 수백 개 항목의 점검표는 형식주의로 전락합니다. 설비별로 인명 피해를 유발할 수 있는 <strong>가장 치명적인 15개 내외의 고유 위험에 집중</strong>하는 살아있는 점검표를 운용합니다.</p>
+
+      <div class="case-box" id="case-obs-2">
+        <span class="case-badge">Observation 2</span>
+        <h4>제지공장 로드 터너(Load Turner) 볼트 추락 사고와 체크리스트 탄생</h4>
+        <p>6피트 높이의 종이 뭉치를 회전시키는 로드 터너 기계의 300파운드(약 136kg) 상판 볼트가 파손되어 상판이 추락하는 중대 사고가 발생했습니다. 조사 결과 볼트 결함 점검 기준이 부재했음이 밝혀져, 설비별 핵심 점검표를 제정하고 전 공장에 확대 적용했습니다.</p>
+      </div>
+
+      <div class="case-box" id="case-obs-3">
+        <span class="case-badge">Observation 3</span>
+        <h4>후속조치팀(Follow-up Team)의 객관적 검증과 당사자 서명 종결제</h4>
+        <p>정당한 위험 근거 없이 사적 편의를 위해 안전을 핑계로 설비 개조를 요구하던 관행을 차단하기 위해, 다기능 후속조치팀이 제9장의 '위험 지각 카드'를 기준으로 실제 위험 여부를 객관적으로 검증하고, 최초 제기 근로자가 직접 현장을 확인하고 서명(Sign-off)해야만 작업을 종결하도록 규정했습니다.</p>
+      </div>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="subnote-section" id="sec-roles-responsibilities">
+      <h2><span class="sec-badge">06</span> ABSS ROLES AND RESPONSIBILITIES (계층별 역할과 책임 분장)</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>조직 계층</th>
+              <th>주요 수행 주기</th>
+              <th>핵심 안전 활동 및 책무성</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>최고 리더십<br/>(Senior Leadership)</strong></td>
+              <td>분기별 / 월간</td>
+              <td>분기별 현장 순회 투어(MBWA) 필수 동행, 월 1회 일일 브리핑 참석 및 직원 5명 1:1 면담, 오픈도어 정책 및 반기별 라운드테이블.</td>
+            </tr>
+            <tr>
+              <td><strong>중간 관리자<br/>(Middle Management)</strong></td>
+              <td>월간 / 분기별</td>
+              <td>월간 지정 시간 안전 활동 직접 투입, 월 1회 브리핑 참석 및 직원 5명 면담, 분기별 기계 체크리스트 검토 및 워크스루 투어.</td>
+            </tr>
+            <tr>
+              <td><strong>현장 감독자<br/>(Supervisor - 린치핀)</strong></td>
+              <td>매일 / 매주</td>
+              <td>매일 작업 전 브리핑(TBM) 주재, 일일 2~3회 현장 스팟 관찰 및 1:1 면담, 기계별 일일 점검 승인, 매주 월요일 주간 안전보고서 상부 보고.</td>
+            </tr>
+            <tr>
+              <td><strong>안전 전문가<br/>(Site Safety Pro)</strong></td>
+              <td>매주 상시</td>
+              <td>감독자의 미팅 자료 개발 지원 및 기술 코칭, 무작위 5건 1:1 면담 및 기계 체크리스트 검증, 사고조사 주도 및 Grab N Go Kit 관리.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="subnote-section" id="sec-training-doe">
+      <h2><span class="sec-badge">07</span> TRAINING INNOVATION &amp; DOE (식스시그마 DOE 기반 교육 혁신)</h2>
+      <p>날카로운 칼과 기계 조작으로 인한 손 베임(Hand lacerations) 사고를 줄이기 위해 식스시그마 실험계획법(DOE)을 안전 교육에 도입했습니다.</p>
+
+      <div class="case-box" id="case-obs-4">
+        <span class="case-badge">Observation 4</span>
+        <h4>시각 학습의 뇌인지 과학 데이터와 블루스 클루스(Blue's Clues) 원리</h4>
+        <ul>
+          <li><strong>텍스트 vs 시각자료 결합</strong>: 순수 텍스트만 읽었을 때 이해·잔존율 <strong>70%</strong> ➔ 그림과 사진을 결합하면 <strong>95%로 수직 상승</strong> (Bladon, 2017).</li>
+          <li><strong>지시문 이행률의 차이</strong>: 그림과 텍스트를 함께 제공하면 글자만 있는 지침보다 실행력이 <strong>323% 우수</strong> (Dowse &amp; Ehlers, 2005).</li>
+          <li><strong>뇌의 시각 처리 속도</strong>: 인간의 뇌는 시각 데이터를 텍스트보다 <strong>60,000배 빠르게 처리</strong>합니다.</li>
+          <li><strong>3일 후 기억 보존 법칙 (Medina, 2017)</strong>: 귀로만 들은 정보는 3일 후 <strong>10%만 기억</strong>되지만, 시각 이미지를 결합하면 3일 후에도 <strong>65%를 선명히 기억</strong>합니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="subnote-section" id="sec-tips-metrics">
+      <h2><span class="sec-badge">08</span> TIPS FOR ABSS &amp; PERFORMANCE METRICS (5대 실무 팁 &amp; 선행/후행 지표)</h2>
+      
+      <div class="callout callout-gold">
+        <div class="callout-title">🌟 Judy Agnew &amp; Aubrey Daniels (2011): 선행 지표의 대원칙</div>
+        "성과지표의 대다수는 모든 근로자가 사고를 예방하기 위해 매일 수행하는 능동적 활동을 추적하는 <strong>선행 지표(Leading indicators)</strong>여야 한다. 이러한 지표가 확립될 때 즉각적이고 확실한 안전 행동이 조직에 체화된다."
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>후행 지표 (Lagging Indicators)</th>
+              <th>선행 지표 (Leading Indicators)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>개념</strong></td>
+              <td>사건 발생 후의 사후 손실 결과를 측정</td>
+              <td>사고 예방을 위한 일상적 활동 프로세스를 측정</td>
+            </tr>
+            <tr>
+              <td><strong>측정 대상</strong></td>
+              <td>재해율, 사망만인율, 휴업일수, 산재 보상금</td>
+              <td>일일 브리핑 실시율, 1:1 면담 횟수, 설비 점검률</td>
+            </tr>
+            <tr>
+              <td><strong>ABSS 적용</strong></td>
+              <td>거시적 참고자료로만 제한적 활용</td>
+              <td><strong>전사 실시간 대시보드 및 핵심 평가 척도로 운영</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 9 -->
+    <section class="subnote-section" id="sec-incident-investigation">
+      <h2><span class="sec-badge">09</span> INCIDENT INVESTIGATION &amp; INJURY MANAGEMENT (사고 조사 &amp; Grab N Go Kit)</h2>
+      
+      <h3>9.1 사고 조사의 미로(Maze) 메타포와 사후확증편향 탈피 (US DOE, 2012)</h3>
+      <p>조사관이 결과를 다 알고 뒤에서 거꾸로 추적하는 '미로 풀이'의 사후 편향(Hindsight bias)을 배제하고, 당시 작업자의 불확실성 관점에서 사실(Facts)만을 추적해야 합니다.</p>
+
+      <h3>9.2 부상 관리 패키지: "Grab N Go Kit" (16대 표준 서식 북클릿)</h3>
+      <p>사고 발생 시 공황을 막기 위해 모든 필수 서식을 가방 하나에 패키징하여, 응급처치부터 의사의 <strong>'Can Do' 잔여 역량 평가</strong>, 전환 업무(Transitional Duty) 조기 복귀, 인시던트 트리(Incident Tree) 근본원인 분석(RCA)을 원스톱으로 처리합니다.</p>
+    </section>
+
+    <!-- Section 10 -->
+    <section class="subnote-section" id="sec-summary">
+      <h2><span class="sec-badge">10</span> SUMMARY (제11장 총괄 요약)</h2>
+      <ul>
+        <li><strong>하향식 일방 낭독 탈피</strong>: 미리 작성된 대본(Canned script)을 낭독하는 구태를 폐기하고, 현장 맞춤형 양방향 소통 체계 확립.</li>
+        <li><strong>시간·장소·주기의 표준화</strong>: 일일 TBM, 주간 회의, 월간 회의의 20마일 행진을 통해 안전을 일상적 습관으로 정착.</li>
+        <li><strong>1:1 현장 대면 경청</strong>: 사무실이 아닌 작업 현장 바닥에서 비징계적 경청 면담을 실시하여 은폐된 위험 발굴.</li>
+        <li><strong>시각 학습과 반복의 힘</strong>: 식스시그마 DOE 및 블루스 클루스 원리를 적용하여 사진+텍스트+대면 토의 결합 교육 실행.</li>
+        <li><strong>선행 지표 중심 통제</strong>: 사후 손실 지표에서 벗어나 일상 예방 활동을 실시간 측정하는 선행 지표 대시보드 운영.</li>
+        <li><strong>Grab N Go Kit</strong>: 16대 표준 서식을 통해 조기 복귀(Transitional Duty)와 인시던트 트리 근본원인 분석 체계화.</li>
+      </ul>
+    </section>
+
+    <!-- Section 11 -->
+    <section class="subnote-section" id="sec-review-questions">
+      <h2><span class="sec-badge">11</span> CHAPTER REVIEW QUESTIONS (복습 질문 &amp; 심화 해설)</h2>
+      <div class="callout callout-note">
+        <div class="callout-title">Q1. 활동 기반 안전시스템(ABSS)의 핵심 용도와 개념을 정의하라.</div>
+        ABSS는 일일·주간·월간 단위로 명확히 구조화된 핵심 안전 활동을 정해진 시간과 장소에서 지속 수행함으로써, 조직 내 실재하는 위험과 지각된 위험을 경영진과 현장 근로자가 격의 없이 양방향으로 소통하고 해결하도록 돕는 선제적 안전경영 프레임워크입니다.
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-title">Q4. 근로자와의 1:1 대면 면담(One-on-One Discussions)이 중요한 이유를 설명하라.</div>
+        다수 미팅에서는 동료들의 시선이나 처벌에 대한 두려움으로 인해 말하지 못하는 은폐된 위험 우려를, 관리자가 현장 작업 공간으로 직접 찾아가 편안하고 신뢰감 있는 환경에서 청취함으로써 진솔한 현장 피드백을 확보할 수 있기 때문입니다.
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-title">Q6. 기계·설비별 맞춤형 안전 체크리스트의 구축 배경과 운영 원리를 설명하라.</div>
+        제지공장 볼트 추락 사고와 같이 보이지 않는 부품 결함이 대형 참사로 이어지는 것을 막기 위해, 장비별로 가장 치명적인 15개 이내의 핵심 위험을 작업자가 가동 전 5분 내로 점검하도록 설계된 살아있는(Living) 현장 검증 도구입니다.
+      </div>
+    </section>
+
+    <!-- Section 12 Special KPI Framework -->
+    <section class="subnote-section" id="sec-kpi-framework">
+      <h2><span class="sec-badge" style="background:var(--accent-purple);color:#fff;">12</span> [특화] 교수님 지도 연계 KPI 도출 및 안전문화 진단 플랫폼</h2>
+      
+      <div class="callout callout-important">
+        <div class="callout-title">🎯 교수님 심화 지도 6대 핵심 원칙의 완벽한 투영</div>
+        1. 업무 단계화 (ABSS 5단계 생애주기 경계 설정) | 2. 구체화 (과·팀·작업조 단위 밀착 Break-down) | 3. 철저한 법적 근거 (산업안전보건법 조문 강제 매핑) | 4. 고유/협업 전략적 가중치 배분 (7:3 / 5:5 논리 입증) | 5. 기존 서식(부록 11.1~11.9)의 KPI 판단근거화 | 6. 비판적 검토 및 AI 재학습 역질문 프로토콜
+      </div>
+
+      <div class="mermaid-box">
+        <div class="mermaid">
+flowchart LR
+    S1["[1단계: 예방/사전점검]<br/>Preshift 브리핑 &<br/>설비 일일 체크리스트"] --> S2["[2단계: 일상 실행]<br/>현장 순회 투어 &<br/>1:1 개별 대면 면담"]
+    S2 --> S3["[3단계: 현안 해결]<br/>후속조치팀 가동 &<br/>작업의뢰서 즉각 개선"]
+    S3 --> S4["[4단계: 사건 대응]<br/>Grab N Go Kit 가동 &<br/>Can Do 조기복귀 프로그램"]
+    S4 --> S5["[5단계: 평가/환류]<br/>선행지표 대시보드 &<br/>인시던트 트리 RCA 분석"]
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>생애주기 단계</th>
+              <th>대상 계층</th>
+              <th>핵심 성과지표 (KPI)</th>
+              <th>성격 &amp; 가중치</th>
+              <th>산출 공식 및 목표치</th>
+              <th>관련 법적 근거 (산안법 조문 매핑)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1단계 (예방/사전)</strong></td>
+              <td>현장 감독자 (Supervisor)</td>
+              <td>일일 작업 전 안전브리핑(TBM) 정시 실행률</td>
+              <td><strong>고유 (70%)</strong></td>
+              <td>실행일수 / 총작업일수 × 100 ≥ 98%</td>
+              <td>산안법 제16조 (관리감독자 유해위험 점검 의무)</td>
+            </tr>
+            <tr>
+              <td><strong>1단계 (예방/사전)</strong></td>
+              <td>현장 작업자 (Operator)</td>
+              <td>설비별 가동 전 15대 맞춤 체크리스트 이행률</td>
+              <td><strong>고유 (70%)</strong></td>
+              <td>점검완료 설비 / 총가동 설비 × 100 = 100%</td>
+              <td>산안법 제38조 (안전조치 의무 - 방호장치)</td>
+            </tr>
+            <tr>
+              <td><strong>2단계 (일상/실행)</strong></td>
+              <td>현장 감독자 (Supervisor)</td>
+              <td>일일 1:1 대면 면담 및 스팟 관찰 건수</td>
+              <td><strong>고유 (70%)</strong></td>
+              <td>1인당 일일 2~3회 이상 면담 실시율 ≥ 95%</td>
+              <td>산안법 제16조 및 제32조 (안전보건 점검 지도)</td>
+            </tr>
+            <tr>
+              <td><strong>2단계 (일상/실행)</strong></td>
+              <td>최고경영진 (Senior Mgmt)</td>
+              <td>경영진 현장 순회 투어(MBWA) 참여율</td>
+              <td><strong>협업 (30%)</strong></td>
+              <td>분기당 1회 이상 현장 순회 및 피드백 100%</td>
+              <td>산안법 제14조 (이사회 보고 및 승인)</td>
+            </tr>
+            <tr>
+              <td><strong>3단계 (현안/개선)</strong></td>
+              <td>후속조치팀 (Follow-Up Team)</td>
+              <td>안전 작업의뢰서 적기 조치율 및 당사자 서명율</td>
+              <td><strong>협업 (50%)</strong></td>
+              <td>기한 내 조치 완료건 / 총접수건 × 100 ≥ 95%</td>
+              <td>산안법 제36조 (위험성평가 시정조치)</td>
+            </tr>
+            <tr>
+              <td><strong>4단계 (사건/대응)</strong></td>
+              <td>안전관리자 &amp; 부서장</td>
+              <td>Grab N Go Kit 24시간 내 초동조치율</td>
+              <td><strong>협업 (50%)</strong></td>
+              <td>24시간 내 1~3페이지 작성 완료율 = 100%</td>
+              <td>산안법 제57조 (산업재해 은폐 금지 및 보고)</td>
+            </tr>
+            <tr>
+              <td><strong>4단계 (사건/대응)</strong></td>
+              <td>의료기관 협력팀</td>
+              <td>의사 "Can Do" 잔여역량 기반 전환배치율</td>
+              <td><strong>협업 (50%)</strong></td>
+              <td>전환배치 근로자 / 경업무 가능 판정자 ≥ 90%</td>
+              <td>근로기준법 제78조 및 산안법 제140조</td>
+            </tr>
+            <tr>
+              <td><strong>5단계 (평가/환류)</strong></td>
+              <td>안전위원회 (Joint Committee)</td>
+              <td>인시던트 트리 근본원인(RCA) 규명률</td>
+              <td><strong>협업 (50%)</strong></td>
+              <td>5-Why 연동 원인 도출건 / 총조사건 ≥ 95%</td>
+              <td>산안법 제24조 (산업안전보건위원회 심의·의결)</td>
+            </tr>
+            <tr>
+              <td><strong>5단계 (평가/환류)</strong></td>
+              <td>전사 부서장 (Dept Managers)</td>
+              <td>선행지표(Leading Metrics) 주간 종합보고 달성도</td>
+              <td><strong>고유 (70%)</strong></td>
+              <td>주간 보고서 매주 월요일 적기 제출율 ≥ 98%</td>
+              <td>산안법 제15조 (안전보건관리책임자 총괄 의무)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 13 Bibliography -->
+    <section class="subnote-section" id="sec-bibliography">
+      <h2><span class="sec-badge">13</span> BIBLIOGRAPHY (참고문헌)</h2>
+      <ul>
+        <li>Christakis, N. A., &amp; Fowler, J. H. (2009). <em>Connected: The surprising power of our social networks and how they shape our lives</em>. Little, Brown and Company.</li>
+        <li>Collins, J., &amp; Hansen, M. T. (2011). <em>Great by choice: Uncertainty, chaos, and luck—Why some thrive despite them all</em>. HarperCollins.</li>
+        <li>Dowse, R., &amp; Ehlers, M. (2005). Medicine labels incorporating pictograms: do they influence understanding and adherence? <em>Patient Education and Counseling</em>, 58(1), 63–70.</li>
+        <li>Judy Agnew, P. D., &amp; Aubrey Daniels, P. D. (2011). Developing high-impact leading indicators for safety. <em>Performance Management Magazine</em>.</li>
+        <li>Medina, J. (2017). <em>Brain rule rundown, rule 10: Vision trumps all other senses</em>. Pear Press.</li>
+        <li>Peters, T. J., &amp; Waterman, R. H. (2004). <em>In search of excellence: Lessons from America’s best-run companies</em>. HarperBusiness.</li>
+        <li>Roughton, J., &amp; Crutchfield, N. (2013). <em>Safety culture: An innovative leadership approach</em>. Butterworth-Heinemann.</li>
+        <li>Safety Culture in Nuclear Installations. (2002). <em>International Atomic Energy Agency (IAEA)</em>, IAEA-TECDOC-1329.</li>
+        <li>US Coast Guard Leadership Development Center. (2014). <em>Performance improvement guide</em> (6th ed.). US Government Printing Office.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Right AI Panel -->
+  <aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-header">
+      <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
+      <p>교수님 심화 지도 원칙에 입각한 실시간 질의 및 KPI 도출기</p>
+    </div>
+    
+    <div class="ai-body">
+      <div class="sidebar-title">추천 프롬프트 템플릿</div>
+      
+      <div class="prompt-card" onclick="setPrompt('ABSS 5단계 생애주기에 맞춰 의령소방서 119구조대에 적용할 수 있는 현장 밀착형 KPI 3가지를 도출하고, 산업안전보건법 조문과 7:3 가중치 배분 논리를 설명해줘.')">
+        <h5>🚒 현장 소방/구조대 맞춤형 KPI 도출</h5>
+        <p>119구조대 조직 특성 반영 및 고유/협업 7:3 가중치 배분 검증</p>
+      </div>
+
+      <div class="prompt-card" onclick="setPrompt('Chapter 11의 인체공학적 위험도 평가 공식(난이도×빈도)과 Grab N Go Kit의 Can Do 서식이 실제 근골격계 질환 산재 예방에 어떻게 기여하는지 학술적으로 분석해줘.')">
+        <h5>🏥 Can Do 서식과 산재 조기복귀 효과</h5>
+        <p>포괄적 휴업 배제 및 Transitional Duty의 의학적·경영학적 의의</p>
+      </div>
+
+      <div class="prompt-card" onclick="setPrompt('식스시그마 실험계획법(DOE)과 블루스 클루스(Blue's Clues) 원리가 안전 교육의 기억 잔존율을 323% 높인 인지과학적 메커니즘을 설명해줘.')">
+        <h5>🧠 인지과학 시각 학습과 323% 잔존율</h5>
+        <p>Medina(2017)의 시각 우위 법칙과 일일 TBM의 뇌인지적 결합</p>
+      </div>
+
+      <div class="ai-chat-output" id="ai-chat-output">💡 프롬프트 카드를 클릭하거나 아래 입력창에 질문을 입력하여 AI 튜터와 학습을 진행하세요. (로컬 스토리지에 API 키 설정 시 실시간 대화 지원)</div>
+    </div>
+
+    <div class="ai-footer">
+      <input type="text" class="ai-input" id="ai-user-input" placeholder="안전문화 및 KPI 질문 입력...">
+      <button class="btn-send" id="ai-send-btn">전송</button>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// Sidebar Toggle
+const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+const leftSidebar = document.getElementById('left-sidebar');
+toggleSidebarBtn.addEventListener('click', () => {
+  leftSidebar.classList.toggle('open');
+});
+
+// AI Panel Toggle
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+toggleAiBtn.addEventListener('click', () => {
+  rightAiPanel.classList.toggle('open');
+});
+
+// Theme Toggle
+const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+toggleThemeBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+});
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navMenuList = document.getElementById('nav-menu-list');
+navSearchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase();
+  const links = navMenuList.querySelectorAll('li');
+  links.forEach(li => {
+    const text = li.textContent.toLowerCase();
+    if (text.includes(query)) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
+  });
+});
+
+// Quick Prompt Set
+function setPrompt(text) {
+  document.getElementById('ai-user-input').value = text;
+  document.getElementById('ai-chat-output').textContent = "질문 입력됨: " + text + "\n\n[답변 생성 준비 중: 브라우저 로컬 환경에서 시뮬레이션 프롬프트가 설정되었습니다.]";
+}
+
+document.getElementById('ai-send-btn').addEventListener('click', () => {
+  const input = document.getElementById('ai-user-input');
+  if (input.value.trim()) {
+    setPrompt(input.value.trim());
+    input.value = '';
+  }
+});
+</script>
+
+</body>
+</html>
