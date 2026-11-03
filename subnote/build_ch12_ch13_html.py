@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Full Subnote HTML Generator for Chapter 12 and Chapter 13
-Matches the design system of Chapter 11.
+Full Subnote HTML Generator with Fixed AI Panel Toggle (Chapters 11, 12, 13, 14)
 """
 
 import os
@@ -114,12 +113,9 @@ def parse_markdown_to_html(md_text):
         return text
 
     i = 0
-    # Skip frontmatter / header lines until first section
     while i < len(lines):
         line = lines[i]
         trimmed = line.strip()
-
-        # Stop skipping once we hit first H2
         if trimmed.startswith('## '):
             break
         i += 1
@@ -129,7 +125,6 @@ def parse_markdown_to_html(md_text):
         line = lines[i]
         trimmed = line.strip()
 
-        # Mermaid block
         if trimmed.startswith('```mermaid'):
             output.append(close_list())
             output.append(close_table())
@@ -147,7 +142,6 @@ def parse_markdown_to_html(md_text):
             i += 1
             continue
 
-        # Code block
         if trimmed.startswith('```'):
             output.append(close_list())
             output.append(close_table())
@@ -161,7 +155,6 @@ def parse_markdown_to_html(md_text):
             i += 1
             continue
 
-        # Blockquote
         if trimmed.startswith('>'):
             output.append(close_list())
             output.append(close_table())
@@ -173,7 +166,6 @@ def parse_markdown_to_html(md_text):
         elif in_blockquote:
             output.append(close_blockquote())
 
-        # Table row
         if trimmed.startswith('|') and trimmed.endswith('|'):
             output.append(close_list())
             cells = [c.strip() for c in trimmed[1:-1].split('|')]
@@ -189,7 +181,6 @@ def parse_markdown_to_html(md_text):
         elif in_table:
             output.append(close_table())
 
-        # Headers
         if trimmed.startswith('## '):
             output.append(close_list())
             output.append(close_case())
@@ -227,7 +218,6 @@ def parse_markdown_to_html(md_text):
             i += 1
             continue
 
-        # Lists
         if re.match(r'^[*\-]\s+', trimmed):
             if not in_ul:
                 output.append(close_list())
@@ -283,7 +273,6 @@ def build_nav_links(md_text):
                 sec_num = badge_m.group(1)
                 sec_title = badge_m.group(2)
                 sec_id = f"sec-{sec_num}"
-                # short title
                 short_title = sec_title.split('(')[0].strip()
                 if len(short_title) > 30:
                     short_title = short_title[:28] + "..."
@@ -312,7 +301,6 @@ HTML_TEMPLATE = """<!doctype html>
             fontFamily: 'IBM Plex Sans KR, sans-serif'
         }});
     </script>
-    <!-- MathJax for formula rendering -->
     <script>
     window.MathJax = {{
       tex: {{
@@ -533,6 +521,11 @@ body {{
   padding: 40px 48px;
   max-width: 1100px;
   transition: margin 0.3s ease;
+}}
+
+/* AI 패널 닫혔을 때 본문 너비 확장 */
+body.ai-closed .main-content {{
+  margin-right: 0 !important;
 }}
 
 /* Intro Hero */
@@ -827,16 +820,25 @@ hr.divider {{
   flex-direction: column;
   z-index: 900;
   transition: transform 0.3s ease;
+  transform: translateX(0);
+}}
+
+/* AI 패널 닫힘 클래스 */
+.right-ai-panel.closed {{
+  transform: translateX(100%) !important;
 }}
 
 .ai-header {{
-  padding: 20px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-card-sub);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }}
 
-.ai-header h3 {{
-  font-size: 16px;
+.ai-header-title h3 {{
+  font-size: 15px;
   font-weight: 700;
   color: var(--accent-purple);
   display: flex;
@@ -844,10 +846,28 @@ hr.divider {{
   gap: 8px;
 }}
 
-.ai-header p {{
-  font-size: 12px;
+.ai-header-title p {{
+  font-size: 11.5px;
   color: var(--text-muted);
-  margin-top: 4px;
+  margin-top: 2px;
+}}
+
+.ai-close-btn {{
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all 0.2s;
+}}
+
+.ai-close-btn:hover {{
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.1);
 }}
 
 .ai-body {{
@@ -935,9 +955,10 @@ hr.divider {{
 @media (max-width: 1200px) {{
   .right-ai-panel {{
     transform: translateX(100%);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
   }}
   .right-ai-panel.open {{
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }}
   .main-content {{
     margin-right: 0;
@@ -971,7 +992,7 @@ hr.divider {{
   </div>
   <div class="header-actions">
     <button class="btn-icon" id="toggle-theme-btn" title="테마 전환">🌓 테마</button>
-    <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 토글">🤖 AI 튜터</button>
+    <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 열기/닫기">🤖 AI 튜터</button>
   </div>
 </header>
 
@@ -1011,8 +1032,11 @@ hr.divider {{
   <!-- Right AI Panel -->
   <aside class="right-ai-panel" id="right-ai-panel">
     <div class="ai-header">
-      <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
-      <p>교수님 심화 지도 원칙에 입각한 실시간 질의 및 KPI 도출기</p>
+      <div class="ai-header-title">
+        <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
+        <p>교수님 심화 지도 원칙 실시간 질의기</p>
+      </div>
+      <button class="ai-close-btn" id="close-ai-panel-btn" title="AI 패널 닫기">✕</button>
     </div>
     
     <div class="ai-body">
@@ -1037,12 +1061,27 @@ toggleSidebarBtn.addEventListener('click', () => {{
   leftSidebar.classList.toggle('open');
 }});
 
-// AI Panel Toggle
+// AI Panel Toggle (Desktop & Mobile)
 const toggleAiBtn = document.getElementById('toggle-ai-btn');
 const rightAiPanel = document.getElementById('right-ai-panel');
-toggleAiBtn.addEventListener('click', () => {{
-  rightAiPanel.classList.toggle('open');
-}});
+const closeAiPanelBtn = document.getElementById('close-ai-panel-btn');
+
+function toggleAiPanel() {{
+  const isMobile = window.innerWidth <= 1200;
+  if (isMobile) {{
+    rightAiPanel.classList.toggle('open');
+  }} else {{
+    const isClosed = rightAiPanel.classList.toggle('closed');
+    document.body.classList.toggle('ai-closed', isClosed);
+  }}
+}}
+
+if (toggleAiBtn) {{
+  toggleAiBtn.addEventListener('click', toggleAiPanel);
+}}
+if (closeAiPanelBtn) {{
+  closeAiPanelBtn.addEventListener('click', toggleAiPanel);
+}}
 
 // Theme Toggle
 const toggleThemeBtn = document.getElementById('toggle-theme-btn');
@@ -1127,6 +1166,38 @@ def generate_chapter_html(ch_num, title_en, title_ko, part_info, epigraph_text, 
 if __name__ == '__main__':
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
+    # Chapter 11
+    ch11_prompts = [
+        {
+            "title": "🚒 현장 소방/구조대 맞춤형 ABSS KPI 도출",
+            "desc": "119구조대 조직 특성 반영 및 고유/협업 7:3 가중치 배분 검증",
+            "query": "ABSS 5단계 생애주기에 맞춰 의령소방서 119구조대에 적용할 수 있는 현장 밀착형 KPI 3가지를 도출하고, 산업안전보건법 조문과 7:3 가중치 배분 논리를 설명해줘."
+        },
+        {
+            "title": "🏥 Can Do 서식과 산재 조기복귀 효과",
+            "desc": "포괄적 휴업 배제 및 Transitional Duty의 의학적·경영학적 의의",
+            "query": "Chapter 11의 인체공학적 위험도 평가 공식(난이도×빈도)과 Grab N Go Kit의 Can Do 서식이 실제 근골격계 질환 산재 예방에 어떻게 기여하는지 학술적으로 분석해줘."
+        },
+        {
+            "title": "🧠 인지과학 시각 학습과 323% 잔존율",
+            "desc": "Medina(2017)의 시각 우위 법칙과 일일 TBM의 뇌인지적 결합",
+            "query": "식스시그마 실험계획법(DOE)과 블루스 클루스(Blue's Clues) 원리가 안전 교육의 기억 잔존율을 323% 높인 인지과학적 메커니즘을 설명해줘."
+        }
+    ]
+
+    generate_chapter_html(
+        ch_num=11,
+        title_en="Developing an Activity-Based Safety System",
+        title_ko="활동 기반 안전 시스템 구축",
+        part_info="PART IV Tools to Enhance Your Safety Management System",
+        epigraph_text="변화 없이는 진보가 불가능하며, 마음을 바꿀 수 없는 사람은 아무것도 바꿀 수 없다.",
+        epigraph_author="조지 버나드 쇼 (George Bernard Shaw)",
+        overview_img="image-106.png",
+        md_file=os.path.join(base_dir, "chapter11-subnote.md"),
+        out_file=os.path.join(base_dir, "chapter11_subnote.html"),
+        prompts=ch11_prompts
+    )
+
     # Chapter 12
     ch12_prompts = [
         {
@@ -1189,4 +1260,36 @@ if __name__ == '__main__':
         md_file=os.path.join(base_dir, "chapter13-subnote.md"),
         out_file=os.path.join(base_dir, "chapter13_subnote.html"),
         prompts=ch13_prompts
+    )
+
+    # Chapter 14
+    ch14_prompts = [
+        {
+            "title": "🚒 119구조대 및 화학플랜트 SMS 평가 KPI 도출",
+            "desc": "SMS 평가 5단계 생애주기 기반 119구조대/플랜트 고유/협업 지표 및 산안법 제14조·제36조 매핑",
+            "query": "SMS 평가 5단계 생애주기에 맞춰 의령소방서 119구조대 및 화학 플랜트에 적용할 수 있는 현장 밀착형 KPI 3가지를 도출하고, 산업안전보건법 제14조, 제36조 및 중처법 시행령 제4조 연계 논리를 설명해줘."
+        },
+        {
+            "title": "🪞 거울 비유와 '시스템 탓하기(Blaming the System)' 극복",
+            "desc": "성과 미흡 시 시스템을 갈아엎는 악순환 타파와 식스시그마 결함(Defect) 수리 메커니즘 학술 분석",
+            "query": "제14장의 핵심 은유인 '거울 비유'와 '시스템 탓하기(Blaming the System)' 심리를 극복하기 위해, 식스시그마의 결함(Defect) 개념과 제임스의 월별 1개 요소 점검 방식이 어떻게 조직문화를 혁신하는지 학술적으로 분석해줘."
+        },
+        {
+            "title": "🔍 내부 자체 평가와 외부 제3자 평가의 융합 전략",
+            "desc": "현장 잠재 취약점(Latent Weaknesses) 발굴과 조직적 맹점(Blind Spots) 교정의 상호보완적 감사 설계",
+            "query": "DOE HPI 핸드북에 근거하여, 현장 작업자 중심의 내부 자체 평가와 외부 전문가의 제3자 독립 평가가 어떻게 상호보완하여 조직의 맹점(Blind spots)과 규범적 표류(Drift)를 교정하는지 구체적으로 논증해줘."
+        }
+    ]
+
+    generate_chapter_html(
+        ch_num=14,
+        title_en="Assessing Your Safety Management System",
+        title_ko="안전경영시스템 평가",
+        part_info="PART IV Tools to Enhance Your Safety Management System",
+        epigraph_text="목표에 도달하고 싶다면, 그곳에 도달하기 전에 마음속에서 먼저 '도달하는 모습'을 그려보아야 한다.",
+        epigraph_author="지그 지글러 (Zig Ziglar)",
+        overview_img="image-173.png",
+        md_file=os.path.join(base_dir, "chapter14-subnote.md"),
+        out_file=os.path.join(base_dir, "chapter14_subnote.html"),
+        prompts=ch14_prompts
     )

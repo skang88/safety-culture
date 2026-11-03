@@ -16,7 +16,6 @@
             fontFamily: 'IBM Plex Sans KR, sans-serif'
         });
     </script>
-    <!-- MathJax for formula rendering -->
     <script>
     window.MathJax = {
       tex: {
@@ -237,6 +236,11 @@ body {
   padding: 40px 48px;
   max-width: 1100px;
   transition: margin 0.3s ease;
+}
+
+/* AI 패널 닫혔을 때 본문 너비 확장 */
+body.ai-closed .main-content {
+  margin-right: 0 !important;
 }
 
 /* Intro Hero */
@@ -531,16 +535,25 @@ hr.divider {
   flex-direction: column;
   z-index: 900;
   transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+/* AI 패널 닫힘 클래스 */
+.right-ai-panel.closed {
+  transform: translateX(100%) !important;
 }
 
 .ai-header {
-  padding: 20px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-card-sub);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.ai-header h3 {
-  font-size: 16px;
+.ai-header-title h3 {
+  font-size: 15px;
   font-weight: 700;
   color: var(--accent-purple);
   display: flex;
@@ -548,10 +561,28 @@ hr.divider {
   gap: 8px;
 }
 
-.ai-header p {
-  font-size: 12px;
+.ai-header-title p {
+  font-size: 11.5px;
   color: var(--text-muted);
-  margin-top: 4px;
+  margin-top: 2px;
+}
+
+.ai-close-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.ai-close-btn:hover {
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.1);
 }
 
 .ai-body {
@@ -639,9 +670,10 @@ hr.divider {
 @media (max-width: 1200px) {
   .right-ai-panel {
     transform: translateX(100%);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
   }
   .right-ai-panel.open {
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
   .main-content {
     margin-right: 0;
@@ -675,7 +707,7 @@ hr.divider {
   </div>
   <div class="header-actions">
     <button class="btn-icon" id="toggle-theme-btn" title="테마 전환">🌓 테마</button>
-    <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 토글">🤖 AI 튜터</button>
+    <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 열기/닫기">🤖 AI 튜터</button>
   </div>
 </header>
 
@@ -2222,8 +2254,11 @@ flowchart LR
   <!-- Right AI Panel -->
   <aside class="right-ai-panel" id="right-ai-panel">
     <div class="ai-header">
-      <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
-      <p>교수님 심화 지도 원칙에 입각한 실시간 질의 및 KPI 도출기</p>
+      <div class="ai-header-title">
+        <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
+        <p>교수님 심화 지도 원칙 실시간 질의기</p>
+      </div>
+      <button class="ai-close-btn" id="close-ai-panel-btn" title="AI 패널 닫기">✕</button>
     </div>
     
     <div class="ai-body">
@@ -2259,12 +2294,27 @@ toggleSidebarBtn.addEventListener('click', () => {
   leftSidebar.classList.toggle('open');
 });
 
-// AI Panel Toggle
+// AI Panel Toggle (Desktop & Mobile)
 const toggleAiBtn = document.getElementById('toggle-ai-btn');
 const rightAiPanel = document.getElementById('right-ai-panel');
-toggleAiBtn.addEventListener('click', () => {
-  rightAiPanel.classList.toggle('open');
-});
+const closeAiPanelBtn = document.getElementById('close-ai-panel-btn');
+
+function toggleAiPanel() {
+  const isMobile = window.innerWidth <= 1200;
+  if (isMobile) {
+    rightAiPanel.classList.toggle('open');
+  } else {
+    const isClosed = rightAiPanel.classList.toggle('closed');
+    document.body.classList.toggle('ai-closed', isClosed);
+  }
+}
+
+if (toggleAiBtn) {
+  toggleAiBtn.addEventListener('click', toggleAiPanel);
+}
+if (closeAiPanelBtn) {
+  closeAiPanelBtn.addEventListener('click', toggleAiPanel);
+}
 
 // Theme Toggle
 const toggleThemeBtn = document.getElementById('toggle-theme-btn');
