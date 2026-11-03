@@ -298,7 +298,18 @@ HTML_TEMPLATE = """<!doctype html>
             startOnLoad: true,
             theme: 'dark',
             securityLevel: 'loose',
-            fontFamily: 'IBM Plex Sans KR, sans-serif'
+            fontFamily: 'IBM Plex Sans KR, sans-serif',
+            flowchart: {{
+                useMaxWidth: false,
+                htmlLabels: true
+            }},
+            sequence: {{
+                useMaxWidth: false
+            }},
+            themeVariables: {{
+                fontSize: '15px',
+                fontFamily: 'IBM Plex Sans KR, sans-serif'
+            }}
         }});
     </script>
     <script>
@@ -799,12 +810,46 @@ hr.divider {{
   background: var(--bg-card-sub);
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  padding: 24px;
+  padding: 24px 20px;
   margin: 24px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}}
+
+.mermaid-box .mermaid {{
+  display: inline-block;
+  text-align: left;
+  min-width: min-content;
+}}
+
+.mermaid-box svg {{
+  display: inline-block;
+  height: auto !important;
+  max-width: none !important;
+}}
+
+.mermaid-box .nodeLabel, 
+.mermaid-box .label,
+.mermaid-box .cluster-label {{
+  font-family: 'IBM Plex Sans KR', sans-serif !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+}}
+
+.mermaid-box::-webkit-scrollbar {{
+  height: 8px;
+}}
+.mermaid-box::-webkit-scrollbar-track {{
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}}
+.mermaid-box::-webkit-scrollbar-thumb {{
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}}
+.mermaid-box::-webkit-scrollbar-thumb:hover {{
+  background: rgba(255, 255, 255, 0.4);
 }}
 
 /* Right AI Panel */
@@ -1192,7 +1237,7 @@ if __name__ == '__main__':
         part_info="PART IV Tools to Enhance Your Safety Management System",
         epigraph_text="변화 없이는 진보가 불가능하며, 마음을 바꿀 수 없는 사람은 아무것도 바꿀 수 없다.",
         epigraph_author="조지 버나드 쇼 (George Bernard Shaw)",
-        overview_img="image-106.png",
+        overview_img="",
         md_file=os.path.join(base_dir, "chapter11-subnote.md"),
         out_file=os.path.join(base_dir, "chapter11_subnote.html"),
         prompts=ch11_prompts
@@ -1224,7 +1269,7 @@ if __name__ == '__main__':
         part_info="PART IV Tools to Enhance Your Safety Management System",
         epigraph_text="우리는 생산과 별개의 안전 프로그램을 원하거나, 생산과 안전, 혹은 안전을 동반한 생산을 원하는 것이 아닙니다. 우리가 진정으로 원하는 것은 '안전한 생산(Safe Production)' 그 자체입니다.",
         epigraph_author="댄 피터슨 (Dan Petersen)",
-        overview_img="image-129.png",
+        overview_img="",
         md_file=os.path.join(base_dir, "chapter12-subnote.md"),
         out_file=os.path.join(base_dir, "chapter12_subnote.html"),
         prompts=ch12_prompts
@@ -1256,7 +1301,7 @@ if __name__ == '__main__':
         part_info="PART IV Tools to Enhance Your Safety Management System",
         epigraph_text="자신이 가르쳐야만 하는 상황에 직면한 사람만큼 어떤 주제에 대해 깊이 배우는 사람은 없다.",
         epigraph_author="피터 드러커 (Peter F. Drucker)",
-        overview_img="image-162.png",
+        overview_img="",
         md_file=os.path.join(base_dir, "chapter13-subnote.md"),
         out_file=os.path.join(base_dir, "chapter13_subnote.html"),
         prompts=ch13_prompts
@@ -1288,7 +1333,7 @@ if __name__ == '__main__':
         part_info="PART IV Tools to Enhance Your Safety Management System",
         epigraph_text="목표에 도달하고 싶다면, 그곳에 도달하기 전에 마음속에서 먼저 '도달하는 모습'을 그려보아야 한다.",
         epigraph_author="지그 지글러 (Zig Ziglar)",
-        overview_img="image-173.png",
+        overview_img="",
         md_file=os.path.join(base_dir, "chapter14-subnote.md"),
         out_file=os.path.join(base_dir, "chapter14_subnote.html"),
         prompts=ch14_prompts

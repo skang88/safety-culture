@@ -13,7 +13,18 @@
             startOnLoad: true,
             theme: 'dark',
             securityLevel: 'loose',
-            fontFamily: 'IBM Plex Sans KR, sans-serif'
+            fontFamily: 'IBM Plex Sans KR, sans-serif',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true
+            },
+            sequence: {
+                useMaxWidth: false
+            },
+            themeVariables: {
+                fontSize: '15px',
+                fontFamily: 'IBM Plex Sans KR, sans-serif'
+            }
         });
     </script>
     <style>
@@ -587,9 +598,46 @@ table.custom-table tr:hover td {
   background: var(--bg-card-sub);
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
+  padding: 24px 20px;
+  margin: 24px 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}
+
+.mermaid-box .mermaid {
+  display: inline-block;
+  text-align: left;
+  min-width: min-content;
+}
+
+.mermaid-box svg {
+  display: inline-block;
+  height: auto !important;
+  max-width: none !important;
+}
+
+.mermaid-box .nodeLabel, 
+.mermaid-box .label,
+.mermaid-box .cluster-label {
+  font-family: 'IBM Plex Sans KR', sans-serif !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+}
+
+.mermaid-box::-webkit-scrollbar {
+  height: 8px;
+}
+.mermaid-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.mermaid-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+.mermaid-box::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 /* API Modal */
@@ -657,6 +705,11 @@ table.custom-table tr:hover td {
     top: var(--header-h);
     bottom: 0;
     box-shadow: var(--shadow);
+    transform: translateX(100%);
+  }
+  aside.right-ai-panel.active {
+    transform: translateX(0);
+    width: var(--ai-panel-w);
   }
 }
 @media (max-width: 900px) {
@@ -1469,7 +1522,6 @@ flowchart TD
         <div class="callout-title">Q5. 수용 가능한 위험(Acceptable Risk)과 ALARP의 개념 및 잠재적 영향을 설명하라.</div>
         <p><strong>답변</strong>: 위험을 0으로 만드는 것은 불가능하므로, 통제 대책을 통해 위험 사건의 발생 확률과 피해 심각도를 <strong>"합리적으로 실행 가능한 한 낮추고(ALARP)", 사회적·조직적 관점에서 감내할 수 있는 수준(Tolerable)으로 낮춘 상태</strong>를 의미합니다. 명확한 수용 기준이 없으면 미숙련 작업자가 자의적으로 위험을 수용하다 대형 참사를 초래하므로, 반드시 권한 있는 조직 직급에서만 공식 결정해야 합니다.</p>
       </div>
-      </div>
 
       <div class="callout info">
         <div class="callout-title">Q6. 위험 스펙트럼(Risk Spectrum)의 5단계 계층 구조를 설명하라.</div>
@@ -1647,7 +1699,11 @@ toggleSidebarBtn.addEventListener('click', () => {
 });
 
 function toggleAiPanel() {
-  rightAiPanel.classList.toggle('collapsed');
+  if (window.innerWidth <= 1200) {
+    rightAiPanel.classList.toggle('active');
+  } else {
+    rightAiPanel.classList.toggle('collapsed');
+  }
 }
 toggleAiBtn.addEventListener('click', toggleAiPanel);
 closeAiPanelBtn.addEventListener('click', toggleAiPanel);

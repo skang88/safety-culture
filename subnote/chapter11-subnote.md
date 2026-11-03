@@ -80,6 +80,12 @@ flowchart TD
 ### 2.3 ABSS의 차별적 우위성: 규제 준수를 넘어선 현장 맞춤형 리더십
 전통적인 규제 준수(Compliance) 중심의 안전관리는 눈에 보이는 피상적 지적에 머무릅니다. 반면 ABSS는 **리더십 팀 각자의 풍부한 실무 경험과 관할 업무 영역의 전문성을 결합**하여, 담당 직원들이 피부로 깊이 공감할 수 있는 맞춤형 안전 대화를 주도하도록 지원합니다.
 
+![FIG. 11.1 Overview of the ABSS process](image-106.png)
+* **FIG. 11.1 활동 기반 안전시스템(ABSS) 전체 프로세스 개요**: 리더십 팀의 참여로부터 출발하여 작업 전 안전브리핑(Daily Preshift Review), 일일 활동 보고서, 작업자 점검 체크리스트, 다기능 후속조치팀(Follow-up Team) 운영, 책무성 평가 및 실시간 피드백으로 이어지는 선순환 폐루프(Closed-loop) 소통 체계를 보여줍니다.
+
+![FIG. 11.2 Overview of accountability and results measurements](image-107.png)
+* **FIG. 11.2 책무성 활동과 성과 결과 측정의 인과관계 개요**: 리더십의 일상적 선행 안전 활동(Leading Indicators: 브리핑, 현장 순회, 1:1 면담, 설비 점검)이 작업 프로세스 실행력을 높이고, 최종적으로 손실 감소 및 안전문화 향상(Lagging Results)으로 직결되는 성과 연계 메커니즘을 도식화합니다.
+
 ---
 
 ## 3. HOW ABSS WORKS & BASIC ELEMENTS (ABSS 작동 메커니즘과 핵심 요소)
@@ -141,6 +147,9 @@ flowchart LR
   > *"오늘 이 자리에서, 여러분 중 누구라도 안전하게 일하는 것을 방해하는 장애 요인이 있습니까?" (Is there anything preventing anyone here from working safely today?)*
   - 이 단순한 질문 하나가 숨겨진 방호장치 파손, 환기 불량, 유독물질 취급 불안감 등을 수면 위로 즉각 끌어올립니다.
 
+![부록 11.5 Sample Daily Preshift Reviews Report](image-119.png)
+* **부록 11.5 작업 전 안전브리핑(Daily Preshift Reviews) 일일 보고서 서식**: 날짜, 부서/공정 위치, 논의된 위험 주제(Near miss, 과거 유사 재해, 응급처치 사례 등), 근로자 피드백 및 참석자 서명을 매일 기록하는 표준 운영 양식입니다.
+
 ### 4.3 교대근무(Multishift) 인수인계와 주간·월간 안전 회의
 * **교대 인수인계 (Shift Handoff)**: 교대 전 감독자는 이전 근무조의 이상 징후, 적색 태그(Red-tagged) 설비 내역, 작업자 건의 사항 등을 차기 근무조에 문서 또는 구두로 명확히 인계합니다.
 * **주간 안전 회의 (Weekly Meetings)**: 15~30분간 진행. 지난 한 주의 이슈를 결산하고, 일일 브리핑 피드백을 종합하여 우선순위에 따른 **안전 행동 계획(Action Plan: 조치 내용, 담당자, 완료 목표일)**을 수립합니다. (월 3회 주간 회의 실시 후 4주 차에 월간 회의 전환).
@@ -167,6 +176,12 @@ flowchart LR
 * **제지공장 로드 터너(Load Turner) 참사 교훈 (Observation 2)**:
   - 6피트 높이의 종이 뭉치를 회전시키는 로드 터너 기계의 300파운드(약 136kg) 상판 볼트가 파손되면서 상판이 추락하는 중대 사고 발생.
   - 조사 결과 볼트 결함 점검 기준이 부재했음이 밝혀져, 즉시 설비별 체크리스트를 제정하고 전 공장에 확대 적용함.
+
+![FIG. 11.3 Example operator general observations & machine/equipment-specific daily inspection checklist](image-108.png)
+* **FIG. 11.3 작업자 일반 관찰 및 기계·설비별 일일 점검 체크리스트 예시**: 설비 가동 전 5분 이내에 위험 지각 카드(Chapter 9) 기준에 따라 기계별 핵심 15대 방호장치 및 위험요인을 평가하고 부적합 발견 시 감독자에게 즉각 인계하도록 설계된 현장 점검표입니다.
+
+![부록 11.7 Sample Operator Machine/Equipment Checklist](image-123.png)
+* **부록 11.7 기계·설비별 맞춤형 일일 점검 체크리스트 표준 서식 (Appendix 11.7)**: 각 사업장의 설비 특성에 맞게 커스터마이징하여 작업자가 매 교대 시작 시 서명하고 결함을 기록·승인받는 운영 양식입니다.
 
 ### 5.4 다기능 후속조치팀 (Follow-Up Team)
 * **구성 및 역할**: 유지보수 기사, 감독자, 현장 근로자로 구성된 다기능 연합팀(Cross-functional team)으로, 안전 작업의뢰서(Safety Work Order)를 공정하고 신속하게 해결합니다.
@@ -211,6 +226,16 @@ flowchart TD
     Supervisor <--> SafetyPro
 ```
 
+![FIG. 11.4 Overview, frequency of activities performed by level](image-109.png)
+* **FIG. 11.4 직급·계층별 ABSS 수행 활동 및 주기(빈도) 매트릭스**: 최고 리더십, 중간 관리자, 현장 감독자, 안전 전문가가 일일, 주간, 월간, 분기별로 실행해야 하는 핵심 활동(브리핑, 1:1 면담, 워크스루 투어, 체크리스트 승인 등)의 정량적 빈도 기준을 명시합니다.
+
+![부록 11.4 Sample Daily Leadership Team Activity Report](image-120.png)
+* **부록 11.4 일일 리더십팀 활동 보고서 서식 (Appendix 11.4)**: 각 계층별 관리자가 매일 실시한 일일 브리핑 주제, 1:1 근로자 대화 대상자 이름, 현장 안전 순회(Walk-through) 구역, 설비 점검 건수를 기록하는 책임성(Accountability) 추적 서식입니다.
+
+![부록 11.6 Sample Weekly Summary Leadership Activity Report - Page 1](image-121.png)
+![부록 11.6 Sample Weekly Summary Leadership Activity Report - Page 2](image-122.png)
+* **부록 11.6 주간 리더십 활동 요약 보고서 서식 (Appendix 11.6, Page 1 & 2)**: 한 주 동안 부서별·관리자별로 수행된 ABSS 안전 활동의 누적 실적과 미이행 항목을 상부에 보고하고 전사적 안전 실행력을 평가하는 주간 종합 대시보드 양식입니다.
+
 ---
 
 ## 7. TRAINING INNOVATION, DOE & SCIENTIFIC LEARNING (식스시그마 DOE 기반 교육 혁신)
@@ -242,6 +267,12 @@ James는 날카로운 칼과 기계 조작으로 인한 손 베임(Hand lacerati
 * **3일 후 기억 보존 법칙 (Medina, 2017)**: 귀로만 들은 정보는 3일 후 **10%만 기억**되지만, 시각 이미지를 결합하면 3일 후에도 **65%를 선명하게 기억**합니다.
 * **2차 게이지 R&R 검증**: 사진과 대면 토의를 결합한 Method 4 방식을 도입한 후, 근로자의 불안전 행동 식별 능력이 1차 대비 **35% 향상되어 71%에 도달**했습니다.
 
+![FIG. 11.5 Shift-review retention effectiveness](image-110.png)
+* **FIG. 11.5 작업 전 안전브리핑의 인지 기억 잔존율(Retention Effectiveness)**: 일방적 강의식 설명(Method 1~3)에 비해 시각 자료(사진/설명문)와 대면 토의가 결합된 Method 4 방식이 시간 경과 후에도 월등히 높은 기억 잔존율을 유지함을 실증합니다.
+
+![FIG. 11.6 Communication methods for an overview of the project](image-111.png)
+* **FIG. 11.6 식스시그마 프로젝트의 4단계 소통 방식 및 학습 효과 비교**: 1단계(구두 설명), 2단계(문서 배포), 3단계(사진 제공), 4단계(대면 토의+시각 자료)로 갈수록 인지 처리 속도와 교육 효과성이 비약적으로 증가함을 보여줍니다.
+
 ---
 
 ## 8. TIPS FOR ABSS IMPLEMENTATION & PERFORMANCE METRICS (성공 팁과 성과지표)
@@ -265,6 +296,12 @@ James는 날카로운 칼과 기계 조작으로 인한 손 베임(Hand lacerati
 | **한계 및 장점** | 이미 발생한 손실이므로 미래 사고를 예측할 수 없음 | 조직의 실시간 '안전 건강성(Safety Health)'을 진단 가능 |
 | **ABSS 적용** | 개선 방향의 거시적 참고자료로만 활용 | **ABSS의 핵심 평가 척도로 전사 대시보드에 실시간 반영** |
 
+#### 부록 11.3 추천 ABSS 선행·후행 성과지표 매트릭스 (Appendix 11.3)
+![Suggested ABSS Metrics - Page 1](image-115.png)
+![Suggested ABSS Metrics - Page 2](image-116.png)
+![Suggested ABSS Metrics - Page 3](image-117.png)
+* **부록 11.3 추천 ABSS 성과지표 매트릭스 (Page 1~3)**: 일일 Preshift 브리핑 실시율, 1:1 대면 면담 목표 달성률, 설비 체크리스트 점검 및 결함 시정률, 워크스루 투어 참여율 등 각 직급별로 측정할 수 있는 구체적인 선행 성과지표(Leading Metrics)의 산식, 목표치 및 보고 주기를 집대성한 가이드라인입니다.
+
 ---
 
 ## 9. INCIDENT INVESTIGATION & INJURY MANAGEMENT FRAMEWORK (사고 조사 및 부상 관리)
@@ -272,6 +309,9 @@ James는 날카로운 칼과 기계 조작으로 인한 손 베임(Hand lacerati
 ### 9.1 사고 조사의 미로(Maze) 메타포와 사후 확증 편향 (FIG. 11.7)
 * **미로 풀이의 역설 (US DOE, 2012)**: 사람들에게 복잡한 미로를 가장 빨리 푸는 법을 물으면 모두 **'도착점(Finish)에서 출발점(Start)으로 거꾸로 추적하는 것'**이라고 답합니다.
 * **사후 조사의 맹점**: 사고 조사관은 이미 결과를 알고 뒤를 돌아보기 때문에 모든 인과관계가 명백해 보입니다(Hindsight bias). 그러나 사고 당시 현장 작업자에게 앞길은 불확실성으로 가득 찬 미로와 같았습니다. 따라서 조사관은 사후 편향을 배제하고 **'당시 작업자의 관점에서 사실(Facts)만을 추적'**해야 합니다.
+
+![FIG. 11.7 Example of a typical maze](image-112.png)
+* **FIG. 11.7 사고 조사 미로(Maze)의 비유**: 출구에서 거꾸로 볼 때(사후 확증 편향)는 너무나 명확해 보이는 경로가, 입구에서 앞을 헤쳐나가야 했던 작업자의 시점에서는 무수한 불확실성과 갈림길로 가득 차 있었음을 상징적으로 보여줍니다.
 
 ### 9.2 부상 관리 프로세스 북클릿: "Grab N Go Kit" 운용 (FIG. 11.8)
 사고가 발생하면 현장은 공황(Panic) 상태에 빠집니다. 이를 방지하기 위해 모든 필수 서식을 가방 하나에 패키징한 **'Grab N Go Kit'**를 현장에 비치합니다.
@@ -288,15 +328,54 @@ flowchart TD
     G --> H["인시던트 트리(Incident Tree) 기반 RCA &<br/>재발방지대책 종결 (Page 11~16)"]
 ```
 
+![FIG. 11.8 Sample process for managing and controlling injuries](image-113.png)
+* **FIG. 11.8 부상 관리 및 통제 표준 프로세스 순서도**: 사고 발생 즉시 응급 대응부터 현장 Grab N Go 서식 가동, 전담 의사 소통, Can Do 잔여역량 평가, 전환업무(Transitional duty) 배치 및 근본원인 분석 종결에 이르는 전 주기 부상 통제 워크플로우를 도식화합니다.
+
+#### Grab N Go Kit 17대 핵심 실무 서식 체계 (Form Pages 0~16)
+부상 관리 패키지(Grab N Go Kit) 북클릿에 수록된 17대 표준 서식 목록과 주요 목적은 다음과 같습니다:
+1. **[Form Page 0] 키트 전면 표지 (Front Cover)**: 키트 개요 및 사업장 비상 연락망.
+2. **[Form Page 1] 사고 후속조치 체크리스트 (Sample Incident Follow-Up Checklist)**: 병원 이송부터 복귀까지 단계별 조치 사항 점검.
+3. **[Form Page 2] 사고 사실 보고서 (Sample Incident Fact Sheet)**: 육하원칙에 입각한 초기 기초 사실 기록.
+4. **[Form Page 3] 부상자 초기 진술서 (Sample Initial Statement of Injured Employee)**: 근로자 본인의 직접 서명 진술 청취.
+5. **[Form Page 4] 병원 이동 정책 안내서 (Sample Travel Policy Letter)**: 의료기관 이동 및 교통비 지원 규정 안내.
+6. **[Form Page 5] 초진 의사 안내 서한 (Sample Initial Treatment Physician Letter)**: 전환업무 운영 원칙 안내 및 직무기술서 동봉 전달.
+7. **[Form Page 6] 기능적 잔여역량 평가서 (Sample Functional Capacity Questionnaire / Can Do Form)**: 의사의 활동 가능 범위 판정 (포괄적 휴업 배제).
+8. **[Form Page 7] 직무별 필수 신체 요구도 (Sample Essential Functions of the Job)**: 직무별 들기, 굽히기, 서있기 등 신체 부담 기준서.
+9. **[Form Page 8] 약제비 지원 안내서 (Sample Pharmacy Benefits Form)**: 산재 관련 약제비 신속 정산 안내.
+10. **[Form Page 9] 전환업무 공식 제안서 (Sample Formal Offer of Transitional Duty)**: 잔여 역량 맞춤형 경작업 배치 통지 및 수락 확인.
+11. **[Form Page 10] 전환업무 사후 관리표 (Sample Transitional Duty Program Follow Up)**: 주간 면담 및 상태 재평가 추적 관리.
+12. **[Form Page 11] 사건 경위 타임라인 (Sample Sequence of Events)**: 분초 단위의 사건 전후 시간대별 재구성.
+13. **[Form Page 12] 구급처치 기록대장 (Sample First Aid Log)**: 경미 사고 전조 증상 추적 (무과실 사실주의 기록).
+14. **[Form Page 13] 목격자 진술서 (Sample Witness Statement of Facts)**: 객관적 제3자 목격 정황 청취.
+15. **[Form Page 14] 근로자 심층 인터뷰지 (Sample Employee Interview Form)**: 치료 완료 후 재발 방지를 위한 심층 면담 기록.
+16. **[Form Page 15] 인체공학 자가진단표 (Sample Ergonomics Awareness Checklist)**: 연부조직 질환 사전 평가 (난이도×빈도 매트릭스).
+17. **[Form Page 16] 사고조사 최종 보고 프레젠테이션 (Sample Injury Reporting Presentation)**: 경영진 및 안전위원회 최종 보고 템플릿.  
+*(※ 상기 Form Page 0~16 개별 실무 서식 스크린샷은 교재 원문 서식 추가 등록 대기 중)*
+
 ### 9.3 연부조직 부상(Soft Tissue Injury)과 인체공학적 통제 (FIG. 11.9)
 근골격계 질환(MSD)과 같은 연부조직 부상은 원인 규명이 모호하여 관리가 극히 어렵습니다.
 * **인체공학적 위험도 평가 공식**:
   $$\text{총 위험 점수(Total Risk Score)} = \text{작업 난이도(How Hard, 1~5점)} \times \text{작업 빈도(How Often, 1~5점)}$$
 * 점수가 높은 고위험 공정부터 인체공학적 개선 장비(리프트, 치공구 등)를 집중 투입합니다.
 
+![FIG. 11.9 Sample overview of alleged reports of soft tissue injuries](image-114.png)
+* **FIG. 11.9 연부조직 부상(근골격계 질환) 보고 및 인체공학적 위험 분석 현황**: 통증 호소 시점과 누적 작업 부담, 작업 난이도×빈도 매트릭스를 연계 분석하여 가짜 증상(Alleged injury)을 걸러내고 실제 인체공학적 엔지니어링 개선이 필요한 공정을 선별하는 데이터 분석 틀입니다.
+
 ### 9.4 인시던트 트리(Incident Tree) 분석 기법 (Table 11.2 ~ 11.5)
 * **재해 형태(Incident Type) 13대 표준 분류**: 물체에 맞음(Struck by), 물체에 부딪힘(Struck against), 유해물질 접촉(Contact by), 위험물 접촉(Contact with), 끼임/말림(Caught in/between), 걸림(Caught on), 동일 평면 넘어짐(Fall-same level), 높은 곳 추락(Fall-different level), 무리한 동작/과도한 힘(Strain/sprain), 갇힘(Trapped in), 화재/폭발(Fire/explosion), 교통사고(Motor vehicle), 유해환경 노출(Exposure).
 * **5-Why 다이어그램 결합**: 불안전한 행동과 상태 이면에 도사린 관리적·시스템적 근본 원인(Systemic Root Causes)을 규명할 때까지 질문을 반복합니다.
+
+![Table 11.2 Procedure for Completing Incident Tree Method](image-124.png)
+* **Table 11.2 인시던트 트리 작성 표준 절차 (Procedure for Completing Incident Tree Method)**: 사고 발생부터 최종 손실까지의 연속된 사건(Timeline of events)을 순차적으로 전개하고 각 단계별 기여 요인을 체계적으로 규명하는 5단계 프로토콜입니다.
+
+![Table 11.3 Analysis of Contributing Factors](image-126.png)
+* **Table 11.3 기여 요인 분석표 (Analysis of Contributing Factors)**: 작업 절차, 교육훈련, 장비 상태, 감독 체계, 작업장 환경 등 5개 범주별 심층 기여 요인을 표준 코드로 분류하여 통계화하는 분석 틀입니다.
+
+![Table 11.4 Actions Contributing to Incident](image-127.png)
+* **Table 11.4 사고 기여 행동 분류표 (Actions Contributing to Incident)**: 불안전한 상태와 결합하여 사고를 촉발한 구체적인 작업 행동(규정 미준수, 부적절한 위치 선정, 개인보호구 미착용 등)을 객관적 사실에 기반하여 기록하는 양식입니다.
+
+![Table 11.5 Injury Information Incident Type](image-128.png)
+* **Table 11.5 재해 형태 및 부상 정보 표준 분류표 (Injury Information Incident Type)**: 맞음, 끼임, 추락, 넘어짐, 접촉, 무리한 동작 등 OSHA/산안법 13대 표준 재해 형태를 코딩화하여 전사 안전 통계의 정합성을 확보하는 분류 기준표입니다.
 
 ---
 

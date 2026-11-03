@@ -13,7 +13,18 @@
             startOnLoad: true,
             theme: 'dark',
             securityLevel: 'loose',
-            fontFamily: 'IBM Plex Sans KR, sans-serif'
+            fontFamily: 'IBM Plex Sans KR, sans-serif',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true
+            },
+            sequence: {
+                useMaxWidth: false
+            },
+            themeVariables: {
+                fontSize: '15px',
+                fontFamily: 'IBM Plex Sans KR, sans-serif'
+            }
         });
     </script>
     <script>
@@ -514,12 +525,46 @@ hr.divider {
   background: var(--bg-card-sub);
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  padding: 24px;
+  padding: 24px 20px;
   margin: 24px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}
+
+.mermaid-box .mermaid {
+  display: inline-block;
+  text-align: left;
+  min-width: min-content;
+}
+
+.mermaid-box svg {
+  display: inline-block;
+  height: auto !important;
+  max-width: none !important;
+}
+
+.mermaid-box .nodeLabel, 
+.mermaid-box .label,
+.mermaid-box .cluster-label {
+  font-family: 'IBM Plex Sans KR', sans-serif !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+}
+
+.mermaid-box::-webkit-scrollbar {
+  height: 8px;
+}
+.mermaid-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.mermaid-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+.mermaid-box::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 /* Right AI Panel */
@@ -750,7 +795,7 @@ hr.divider {
       <h1>Chapter 13. 안전 교육훈련 니즈 개발</h1>
       <p class="lead">Developing Safety Training Needs</p>
       
-      <img src="image-162.png" alt="Chapter 13 Overview" class="hero-overview-img">
+      
 
       <div class="epigraph-box">
         "자신이 가르쳐야만 하는 상황에 직면한 사람만큼 어떤 주제에 대해 깊이 배우는 사람은 없다."

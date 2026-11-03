@@ -6,6 +6,7 @@
 > *출처: Safety Culture (Elsevier, 2019, pp. 289-326), PART IV Tools to Enhance Your Safety Management System, Chapter 12*  
 > *DOI: https://doi.org/10.1016/B978-0-12-814663-7.00012-1*
 
+![alt text](image-184.png) -- 
 ![Chapter 12 Overview](image-129.png)
 
 ---
