@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>안전문화(Safety Culture) — 학술 연구 & 1:1 영·한 대조 리더 플랫폼</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 850: '#111b2d', 950: '#070c18' },
+                        navy: { 900: '#0a0f1d' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'IBM Plex Sans KR', sans-serif; }
+        code, .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .glass-card {
+            background: rgba(17, 27, 45, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.15);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #070c18; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-amber-400 flex items-center justify-center font-bold text-slate-950 shadow-md shadow-sky-500/20">
+                    SC
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-sky-400 font-mono tracking-wider">SAFETY CULTURE</span>
+                        <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">ELSEVIER 2019</span>
+                    </div>
+                    <h1 class="text-sm sm:text-base font-extrabold text-white tracking-tight">
+                        학술 연구 &amp; 1:1 대조 리더 플랫폼
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Global Search & Actions -->
+            <div class="flex items-center gap-3">
+                <div class="relative hidden sm:block">
+                    <input type="text" id="globalSearch" placeholder="챕터 제목, 키워드 검색..." oninput="filterCards(this.value)" class="w-56 lg:w-72 px-3.5 py-1.5 pl-9 text-xs rounded-xl bg-slate-800/90 text-slate-200 border border-slate-700 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition">
+                    <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+
+                <a href="integrated_subnote.html" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 text-xs font-semibold transition">
+                    <span>📚 통합 서브노트</span>
+                </a>
+
+                <button onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                    <span id="themeIcon">☀️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="border-b border-slate-800/80 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 px-4 sm:px-6 lg:px-8 py-10 sm:py-14 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-sky-500/10 via-transparent to-transparent pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-300 mb-4 shadow">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Vercel Cloud Ready &bull; 원문 100% 무삭제 1:1 대조 &bull; 심화 서브노트</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                조직 안전문화 진단 및<br class="hidden sm:inline" />
+                <span class="bg-gradient-to-r from-sky-400 via-teal-300 to-amber-300 bg-clip-text text-transparent">
+                    1:1 대조형 학술 연구 플랫폼
+                </span>
+            </h2>
+            <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed mb-6">
+                Elsevier <em>Safety Culture</em>의 전 14개 챕터에 대한 심화 서브노트, 원문 마크다운, 그리고 원문과 번역문을 1:1로 실시간 대조하여 열람할 수 있는 반응형 학술 리더를 한곳에서 제공합니다.
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto text-left">
+                <div class="p-3 rounded-xl bg-slate-850/80 border border-slate-800">
+                    <div class="text-[11px] text-slate-400">총 챕터</div>
+                    <div class="text-lg font-bold text-white">14 Chapters</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-850/80 border border-slate-800">
+                    <div class="text-[11px] text-slate-400">심화 서브노트</div>
+                    <div class="text-lg font-bold text-amber-300">14편 전수 완비</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-850/80 border border-slate-800">
+                    <div class="text-[11px] text-slate-400">1:1 대조 리더</div>
+                    <div class="text-lg font-bold text-sky-400">Ch 1 (확장 중)</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-850/80 border border-slate-800">
+                    <div class="text-[11px] text-slate-400">시각 자료 &amp; 표</div>
+                    <div class="text-lg font-bold text-emerald-400">184 Figures</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Special Highlights & Quick Jump -->
+        <section class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                <span class="w-2 h-2 rounded bg-amber-400"></span> 특별 연구 자료 및 프레임워크 (Featured Frameworks)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Ch 1 Bilingual Highlight -->
+                <a href="chapter1_bilingual.html" class="group p-4 rounded-2xl glass-card transition relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">HOT &bull; NEW</span>
+                            <span class="text-xs font-mono text-slate-400">134 Blocks 1:1</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white group-hover:text-sky-300 transition mb-1">
+                            제1장: 1:1 영·한 완전 대조 리더
+                        </h4>
+                        <p class="text-xs text-slate-400 line-clamp-2">
+                            원문과 100% 무삭제 정밀 번역을 좌우 5:5로 나란히 비교하며 읽는 인터랙티브 학술 리더
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-sky-400 font-semibold">
+                        <span>리더 실행하기 &rarr;</span>
+                        <span class="text-[11px] font-mono text-slate-500">Bilingual Reader</span>
+                    </div>
+                </a>
+
+                <!-- Ch 7 KPI Framework -->
+                <a href="chapter7_kpi_framework.html" class="group p-4 rounded-2xl glass-card transition relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">KPI &bull; 법적근거</span>
+                            <span class="text-xs font-mono text-slate-400">Chapter 7</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition mb-1">
+                            제7장 안전문화 진단 KPI 프레임워크
+                        </h4>
+                        <p class="text-xs text-slate-400 line-clamp-2">
+                            산안법·중처법 조문 매핑, 소방 119구조대 고유/협업 지표 7:3 가중치 및 플랫폼 적용안
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-amber-400 font-semibold">
+                        <span>프레임워크 열람 &rarr;</span>
+                        <span class="text-[11px] font-mono text-slate-500">Framework</span>
+                    </div>
+                </a>
+
+                <!-- Integrated Subnote -->
+                <a href="integrated_subnote.html" class="group p-4 rounded-2xl glass-card transition relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">전체 통합판</span>
+                            <span class="text-xs font-mono text-slate-400">Total Book</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white group-hover:text-emerald-300 transition mb-1">
+                            Safety Culture 종합 통합 서브노트
+                        </h4>
+                        <p class="text-xs text-slate-400 line-clamp-2">
+                            방대한 챕터별 분석 내용과 도표·이미지 전체를 단일 페이지에서 체계적으로 검색·열람
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-emerald-400 font-semibold">
+                        <span>통합판 열람 &rarr;</span>
+                        <span class="text-[11px] font-mono text-slate-500">Integrated HTML</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Chapter Directory Tabs & Grid -->
+        <section class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+                <div>
+                    <h3 class="text-xl font-extrabold text-white tracking-tight">전체 14개 챕터 열람 디렉토리</h3>
+                    <p class="text-xs text-slate-400">원하는 챕터의 서브노트, 원문 마크다운, 또는 1:1 대조 리더를 선택하세요.</p>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="inline-flex rounded-xl bg-slate-900 p-1 border border-slate-800 text-xs overflow-x-auto max-w-full">
+                    <button onclick="setCategoryFilter('all')" id="pill-all" class="px-3 py-1.5 rounded-lg bg-sky-600 text-white font-medium shadow-sm transition">전체 (14)</button>
+                    <button onclick="setCategoryFilter('part1')" id="pill-part1" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Part I</button>
+                    <button onclick="setCategoryFilter('part2')" id="pill-part2" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Part II</button>
+                    <button onclick="setCategoryFilter('part3')" id="pill-part3" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Part III</button>
+                    <button onclick="setCategoryFilter('part4')" id="pill-part4" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">Part IV</button>
+                </div>
+            </div>
+
+            <!-- Chapter Cards Grid -->
+            <div id="chaptersGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                
+                <!-- Chapter 1 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part1" data-title="Chapter 1 Defining the Perception of Safety 안전에 대한 지각의 정의">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">CHAPTER 01</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART I</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Defining the Perception of Safety
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">안전에 대한 지각의 정의</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            안전문화의 다학제적 접근, 창발적 특성(Emergent Property), 퍼스널 브랜드, 사내 정치, 4사분면 시간 매트릭스, 오리엔테이션 vs 온보딩
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <a href="chapter1_bilingual.html" class="flex items-center justify-between w-full px-3 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-500 hover:to-sky-600 text-white text-xs font-bold shadow-md transition">
+                            <span class="flex items-center gap-1.5">🌐 1:1 영·한 대조 리더</span>
+                            <span class="text-[10px] font-mono uppercase bg-sky-900/60 px-1.5 py-0.5 rounded">100% 무삭제</span>
+                        </a>
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <a href="chapter1_subnote.html" class="px-2 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-medium text-center border border-slate-700 transition truncate" title="심화 서브노트">
+                                📘 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter1-원문.md" class="px-2 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-[11px] font-medium text-center border border-slate-800 transition truncate" title="영어 원문 마크다운">
+                                📜 영문 원문
+                            </a>
+                            <a href="markdown_reader.html?file=chapter1-번역.md" class="px-2 py-2 rounded-xl bg-amber-950/40 hover:bg-amber-900/40 text-amber-300 text-[11px] font-medium text-center border border-amber-800/60 transition truncate" title="한국어 100% 완전번역">
+                                🇰🇷 완전 번역
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part1" data-title="Chapter 2 Analyzing the Organizational Culture 조직문화 분석">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">CHAPTER 02</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART I</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Analyzing the Organizational Culture
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">조직문화 분석</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            샤인(Schein)의 조직문화 3수준, 표방된 가치(Espoused Values) 대 실제 기본 가정, 조직 진단 체크리스트
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter2_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter2-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 3 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part1" data-title="Chapter 3 Analyzing and Using Your Network 네트워크 분석 및 활용">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">CHAPTER 03</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART I</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Analyzing and Using Your Network
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">네트워크 분석 및 활용</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            공식 조직도 vs 비공식 네트워크, 사내 소셜 네트워크(SNA) 분석, 정보의 단축 경로(Short Circuit) 구축
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter3_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter3-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 4 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part2" data-title="Chapter 4 Establishing the Direction for the Safety Culture 안전문화를 위한 방향 설정">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-teal-500/20 text-teal-400 border border-teal-500/30">CHAPTER 04</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART II</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Establishing the Direction for the Safety Culture
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">안전문화를 위한 방향 설정</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            안전 비전 및 사명 수립, 전략적 방향성 설정, 커뮤니케이션 다차원 흐름 설계
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter4_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter4-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 5 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part2" data-title="Chapter 5 Overview of Basic Safety Management Systems 기본 안전경영시스템의 개요">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-teal-500/20 text-teal-400 border border-teal-500/30">CHAPTER 05</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART II</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Overview of Basic Safety Management Systems
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">기본 안전경영시스템의 개요</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            OSHA 가이드라인, ANSI/AIHA Z10, ISO 45001, 동적 안전경영시스템의 회복탄력성
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter5_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter5-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 6 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part2" data-title="Chapter 6 Creating the Safety Process 안전 프로세스의 창출">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-teal-500/20 text-teal-400 border border-teal-500/30">CHAPTER 06</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART II</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Creating the Safety Process
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">안전 프로세스의 창출</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            안전 프로세스 모델 설계, PDCA 사이클, 프로세스 매핑 및 운영 연속성 확보
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter6_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter6-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 7 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition border-amber-500/40" data-part="part2" data-title="Chapter 7 Evaluating Leadership and the Safety Culture 리더십과 안전문화 평가">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">CHAPTER 07 &bull; CORE</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART II</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Evaluating Leadership &amp; Safety Culture
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">리더십과 안전문화 평가</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            리더십 원칙, 책임·권한·책무성(RAA), 성과지표 도출 6대 원칙, 산안법·중처법 조문 매핑
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <a href="chapter7_kpi_framework.html" class="flex items-center justify-between w-full px-3 py-2 rounded-xl bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 text-xs font-bold transition">
+                            <span>⚖️ 제7장 KPI 프레임워크</span>
+                            <span class="text-[10px] font-mono">KPI Framework</span>
+                        </a>
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter7_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter7-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 8 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part3" data-title="Chapter 8 Getting Employee Involvement in the Safety Management System 안전경영시스템 근로자 참여 유도">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">CHAPTER 08</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART III</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Getting Employee Involvement in SMS
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">안전경영시스템 근로자 참여 유도</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            근로자 참여 메커니즘, 안전보건위원회 운영, 자발적 위험 신고 및 심리적 안전감 형성
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter8_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter8-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 9 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part3" data-title="Chapter 9 Defining Risk Perception 위험 지각의 정의">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">CHAPTER 09</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART III</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Defining Risk Perception
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">위험 지각의 정의</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            객관적 위험 vs 주관적 위험 지각, 슬로빅(Slovic)의 심리측정 패러다임, 공포 요인 및 미지의 위험
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter9_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter9-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 10 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part3" data-title="Chapter 10 Understanding Basic Risk Management Principles 기본 위험관리 원칙의 이해">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">CHAPTER 10</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART III</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Basic Risk Management Principles
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">기본 위험관리 원칙의 이해</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            위험 평가 매트릭스, 통제 계층 구조(Hierarchy of Controls), 허용 가능성(ALARP) 원칙
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter10_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter10-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 11 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part4" data-title="Chapter 11 Developing an Activity-Based Safety System 활동 기반 안전시스템 구축">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">CHAPTER 11</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART IV</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Activity-Based Safety System
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">활동 기반 안전시스템 구축</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            선행지표(Leading Indicators) 기반 시스템, 일상 안전 활동 정량화 및 성과 연계
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter11_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter11-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 12 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part4" data-title="Chapter 12 Using the Job Hazard Analysis 직무재해분석(JHA)의 활용">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">CHAPTER 12</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART IV</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Using the Job Hazard Analysis (JHA)
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">직무재해분석(JHA)의 활용</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            JHA 4단계 표준 프로세스, 작업 단계 분해, 잠재 위험 식별 및 현장 맞춤형 표준작업절차(SOP) 연계
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter12_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter12-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 13 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part4" data-title="Chapter 13 Developing Safety Training Needs 안전 교육훈련 니즈 개발">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">CHAPTER 13</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART IV</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Developing Safety Training Needs
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">안전 교육훈련 니즈 개발</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            교육 필요점 분석(TNA), 성인 학습 원리(Andragogy), 교육 유효성 평가(Kirkpatrick 4수준)
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter13_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter13-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 14 -->
+                <div class="chapter-card glass-card rounded-2xl p-5 flex flex-col justify-between transition" data-part="part4" data-title="Chapter 14 Assessing Your Safety Management System 안전경영시스템 평가">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">CHAPTER 14</span>
+                            <span class="text-[11px] font-mono text-slate-400">PART IV</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1">
+                            Assessing Your SMS
+                        </h4>
+                        <p class="text-xs font-medium text-amber-300/90 mb-3">안전경영시스템 평가</p>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            시스템 탓하기 극복, 거울 비유, 내부 자체 평가와 제3자 감사, 지속적 개선 메커니즘
+                        </p>
+                    </div>
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="chapter14_subnote.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+                                📘 심화 서브노트
+                            </a>
+                            <a href="markdown_reader.html?file=chapter14-원문.md" class="px-3 py-2 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 text-xs font-medium text-center border border-slate-800 transition">
+                                📜 영문 원문
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/60 py-8 px-4 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto space-y-2">
+            <p>Safety Culture Academic Research &amp; Bilingual Reader Platform &copy; 2026</p>
+            <p class="text-[11px] text-slate-600">Based on <em>Safety Culture</em> (Elsevier, 2019) by James Roughton &amp; Nathan Crutchfield &bull; Deployed on Vercel</p>
+        </div>
+    </footer>
+
+    <!-- Filter & Search Scripts -->
+    <script>
+        function filterCards(query) {
+            const q = query.trim().toLowerCase();
+            const cards = document.querySelectorAll('.chapter-card');
+            cards.forEach(card => {
+                const text = card.getAttribute('data-title').toLowerCase();
+                const part = card.getAttribute('data-part').toLowerCase();
+                if (text.includes(q) || part.includes(q)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function setCategoryFilter(category) {
+            // Update active pill
+            document.querySelectorAll('[id^="pill-"]').forEach(p => {
+                p.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition';
+            });
+            document.getElementById(`pill-${category}`).className = 'px-3 py-1.5 rounded-lg bg-sky-600 text-white font-medium shadow-sm transition';
+
+            const cards = document.querySelectorAll('.chapter-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-part') === category) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.textContent = '🌙';
+            } else {
+                html.classList.add('dark');
+                icon.textContent = '☀️';
+            }
+        }
+    </script>
+</body>
+</html>
