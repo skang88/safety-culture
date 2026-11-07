@@ -58,85 +58,46 @@
 * **Frontend**: Next.js 16 (App Router, React 19) + TypeScript + Tailwind CSS v4
   * **차트 및 시각화**: Recharts (Radar / Bar Charts), D3.js (Force-Directed Graph)
   * **아이콘**: Lucide React
-* **Backend**: FastAPI (Python 3.11+)
-  * **네트워크 분석**: NetworkX
-  * **데이터 검증**: Pydantic v2
-* **개발 서버 통합 제어**: Shell Script (`dev.sh`)
+## 🛠️ 기술 스택 (Tech Stack)
+
+* **Architecture**: Next.js Fullstack Serverless on Vercel
+* **Frontend**: Next.js 16 (App Router, React 19) + TypeScript + Tailwind CSS v4
+  * **차트 및 시각화**: Recharts (Radar / Bar Charts), D3.js (Force-Directed Graph)
+  * **아이콘**: Lucide React
+* **Backend API**: Next.js Route Handlers (`src/app/api/...`)
+  * **인증**: Jose (JWT), Bcrypt.js
+* **Database**: MongoDB Atlas Cloud (M0 Free Tier)
+* **Hosting**: Vercel (Hobby Tier - 0원)
 
 ---
 
-## 🚀 빠른 시작 가이드 (Quick Start)
+## 🚀 로컬 개발 및 실행
 
-### 0. 환경변수 설정 (보안 필수)
-공개 저장소 보안을 위해 민감한 시크릿 키는 `.env` 파일로 분리 관리합니다:
+### 1. 환경변수 설정
+`frontend/.env.local` 파일을 생성하고 아래 설정을 입력합니다:
 ```bash
-# 환경변수 템플릿 복사
-cp .env.example .env
-
-# (선택) 프로덕션용 강력한 JWT 시크릿 키 생성
-# openssl rand -hex 32
+# frontend/.env.local
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.cf30dla.mongodb.net/safepulse?retryWrites=true&w=majority&appName=Cluster0
+DB_NAME=safepulse
+JWT_SECRET=your_jwt_secret_key
 ```
 
-### 1. 로컬 개발 서버 실행
+### 2. 로컬 개발 서버 실행
 ```bash
-./dev.sh
+cd frontend
+npm install
+npm run dev
 ```
-* **프론트엔드 개발 포털**: `http://localhost:3000`
-* **백엔드 대화형 API 문서 (Swagger)**: `http://localhost:8000/docs`
+* **접속 주소**: `http://localhost:3000`
 
 ---
 
-## 🐳 Docker 컨테이너 배포 및 운영
+## ☁️ Vercel 프로덕션 배포
 
-### 1. 컨테이너 빌드 및 백그라운드 가동
-```bash
-# 도커 컴포즈 빌드 & 실행
-docker compose up -d --build
-```
-* **프론트엔드 서비스**: `http://localhost:3001` (Next.js Standalone Runner)
-* **백엔드 서비스**: `http://localhost:8000` (FastAPI + Uvicorn)
-* **헬스체크 확인**:
-  ```bash
-  docker compose ps
-  ```
-
-### 2. 컨테이너 중지 및 로그 확인
-```bash
-# 실시간 컨테이너 로그 확인
-docker compose logs -f
-
-# 서비스 안전 종료
-docker compose down
-```
-
----
-
-## 🔄 Jenkins CI/CD 자동화 파이프라인
-
-루트 디렉토리에 **산업 표준 Declarative Pipeline(`Jenkinsfile`)**이 구축되어 있습니다.
-
-```mermaid
-flowchart LR
-    S1["1. Init<br/>(환경/도커 검사)"] --> S2["2. Parallel Test<br/>(Pytest & Typecheck)"]
-    S2 --> S3["3. Build<br/>(Docker Compose Build)"]
-    S3 --> S4["4. Deploy<br/>(Zero-downtime Up)"]
-    S4 --> S5["5. Verification<br/>(HTTP 헬스체크)"]
-```
-
-### 파이프라인 단계별 세부 수행 내용:
-1. **Init**: Docker 및 Docker Compose 버전 확인
-2. **Parallel Test**:
-   - `Backend`: `pytest tests/test_api.py -v` (RAA 삼각점수, ONA 3단계 영향력, KPI, 로드맵 자동 검증)
-   - `Frontend`: `npx tsc --noEmit` (TypeScript 정적 타입 유효성 검증)
-3. **Docker Build**: 멀티스테이지 Dockerfile을 통해 캐시 최적화 빌드
-4. **Deploy**: `docker compose up -d` 컨테이너 자동 재배포
-5. **Verification**: 백엔드(8000) 및 프론트엔드(3001) HTTP 200 응답 헬스체크 (최대 10회 재시도)
-6. **Post Cleanup**: 빌드 성공 알림 및 미사용 댕글링(Dangling) 이미지 자동 정리
-
-### 젠킨스 서버 로컬 기동 (선택 사항)
-로컬에서 젠킨스 파이프라인을 테스트하려면 제공된 `docker-compose.jenkins.yml`을 실행할 수 있습니다:
-```bash
-docker compose -f docker-compose.jenkins.yml up -d
-```
-* **젠킨스 웹 콘솔**: `http://localhost:8080` (호스트의 docker.sock 마운트 지원)
+1. [Vercel](https://vercel.com)에서 GitHub 저장소 연동
+2. **Root Directory**: `frontend` 설정
+3. **Environment Variables** 등록:
+   * `MONGODB_URI`: MongoDB Atlas 연결 문자열
+   * `JWT_SECRET`: JWT 서명 시크릿 키
+4. 배포 완료 시 Vercel 도메인으로 즉시 무중단 서비스 가동
 
