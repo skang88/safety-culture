@@ -2,41 +2,16 @@
 
 export function getApiBase(): string {
   if (typeof window !== "undefined") {
-    const envUrl = process.env.NEXT_PUBLIC_API_URL;
-    if (envUrl && !envUrl.includes("localhost") && !envUrl.includes("127.0.0.1")) {
-      return envUrl;
-    }
-    // 브라우저 환경에서는 기본적으로 동일 출처 프록시(/api)를 사용하여
-    // 방화벽/SSL 포트(8000) 차단으로 인한 연결 타임아웃 지연을 방지합니다.
     return "/api";
   }
-
-  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 }
 
 export async function apiFetch(path: string, options: RequestInit = {}): Promise<Response> {
   const base = getApiBase();
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   const url = path.startsWith("http") ? path : `${base}${cleanPath}`;
-
-  try {
-    return await fetch(url, options);
-  } catch (err: any) {
-    // 1차 실패 시 (예: 로컬 개발 환경에서 /api 프록시 미작동 시), 현재 호스트의 8000번 포트로 2차 시도
-    if (typeof window !== "undefined" && !path.startsWith("http")) {
-      const { protocol, hostname } = window.location;
-      const directUrl = `${protocol}//${hostname}:8000/api${cleanPath}`;
-      if (url !== directUrl) {
-        try {
-          console.warn(`[SafePulse API] ${url} 연결 실패, 직접 연결(${directUrl})로 재시도합니다.`);
-          return await fetch(directUrl, options);
-        } catch (directErr) {
-          // 둘 다 실패 시 아래에서 원본 에러 전달
-        }
-      }
-    }
-    throw err;
-  }
+  return await fetch(url, options);
 }
 
 // -------------------------------------------------------------
