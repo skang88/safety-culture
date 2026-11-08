@@ -1,0 +1,594 @@
+[
+  {
+    "id": "B01",
+    "content": "# Chapter 14 Assessing Your Safety Management System\n\n*Safety Culture. https://doi.org/10.1016/B978-0-12-814663-7.00014-5*  \n*©2019 Elsevier Inc. All rights reserved. pp. 345–374*"
+  },
+  {
+    "id": "B02",
+    "content": "<!-- [그림 삽입 위치: Chapter 14 Overview] -->\n![alt text](image-173.png)\n<!-- ![Chapter 14 Overview](image-xxx.png) -->\n\n> \"If you want to reach a goal, you must “see the reaching” in your mind before you arrive at your goal.\"  \n> — Zig Ziglar"
+  },
+  {
+    "id": "B03",
+    "content": "## INTRODUCTION\n\nA Safety Management System comprehensive assessment provides insights and validation about the current state of safety management activities, their administration, and general effectiveness. The assessment of the safety process, when routinely reviewed, reflects the real values and beliefs of the organization regarding the actual safety culture. A structured and detailed assessment should provide details concerning potential gaps and opportunities for further improvement, not just in the safety management system but within the organization as well (Fig. 14.1)."
+  },
+  {
+    "id": "B04",
+    "content": "<!-- [그림 14.1 스크린샷 삽입 위치: Standing in front of a mirror] -->\n![alt text](image-174.png)\n<!-- ![FIG. 14.1 Standing in front of a mirror](image-xxx.png) -->\n\n### FIG. 14.1 Standing in front of a mirror."
+  },
+  {
+    "id": "B05",
+    "content": "An in-depth assessment conducted and taken seriously is like looking into a high-quality mirror which gives a fully accurate picture of what reality looks like. A good mirror does not lie, as it reflects what is currently good and what is not so good!"
+  },
+  {
+    "id": "B06",
+    "content": "A full assessment of a safety management system provides the structure for guiding decisions and activities critical to the long-term success of the safety culture (Geigle, 2011). For example, the ANSI Z10-2012 requires an overview process to “gather and review information to identify the Occupational Health and Safety Management System (OHSMS) issues. This includes the processes necessary to establish or improve its management system,” whether customized by the organization or one selected from national or international sources, essentially follow the “Plan-Do-Check-Act” (Shewhart, 1980) concept incorporating a follow-up (Check) process into its activities."
+  },
+  {
+    "id": "B07",
+    "content": "Resources are readily and economically available for providing general content for a safety process, its programs, and criteria. The problem remains in the communication and feedback required to ensure the safety process is being fully utilized and reaches its goals and objectives. An assessment determines if safety management system concepts, materials, and criteria are incorporated into the daily activities of the organization."
+  },
+  {
+    "id": "B08",
+    "content": "When you complete this chapter, you will be able to:\n* Discuss developing the coordination needed for a safety management system assessment.\n* Discuss how to avoid the mentality of “blaming the system.”\n* Discuss the types of safety management systems assessments.\n* Discuss the selection and development of an assessment team.\n* Discuss the preassessment activities.\n* Discuss the elements of a safety management system assessment.\n* Discuss the importance of the final report and action plan.\n* Discuss why it is important to communicate the results of the assessment."
+  },
+  {
+    "id": "B09",
+    "content": "## PLANNING FOR YOUR SAFETY MANAGEMENT SYSTEM ASSESSMENT\n\nSafety Management Systems use six basic core principles as we discussed in Chapter 5, Overview of Basic Safety Management Systems. When improving, building, or sustaining a safety culture, you immediately increase your probability for improvement if the assessment keeps its primary focus on these core principles. The assessment will prove valuable only if it leads to improved performance in meeting identified safety goals and objectives (refer Table 14.1 and Fig. 14.2)."
+  },
+  {
+    "id": "B10",
+    "content": "Within this six-part structure, each element may require some subcategories that give guidance to implementing the selected safety management system. System elements must be viewed from the vantage point of the organization and how a process such as the six basic core principles can improve the safety culture. If just beginning to implement a safety management system, a phased approach should be considered to not overwhelm the leadership and employees with system elements that they cannot immediately lead or manage."
+  },
+  {
+    "id": "B11",
+    "content": "Trying to implement process elements just because you think that they will benefit an organization, can be detrimental to the success of the safety management system. You are not trying to implement a program. You are trying to implement a process that changes the overall safety culture and changes the habits that may be preventing improvement (Duhigg, 2012). As discussed in several other chapters, you are trying to change the perception of safety, extend your influence within the organization, and expand your internal network, all for the benefit of the organization. A personal assessment should verify how effectively you are accomplishing these goals as well as the implementation of the safety management system."
+  },
+  {
+    "id": "B12",
+    "content": "<!-- [표 14.1 스크린샷 삽입 위치: Six Basic Core Principles of a Typical Management System] -->\n![alt text](image-175.png)\n<!-- ![TABLE 14.1 Six Basic Core Principles of a Typical Management System](image-xxx.png) -->\n\n### TABLE 14.1 Six Basic Core Principles of a Typical Management System"
+  },
+  {
+    "id": "B13",
+    "content": "* Management leadership\n* Employee involvement\n* Risk and hazard identification and assessment\n* Hazard prevention and control\n* Information and training\n* Evaluation of program effectiveness"
+  },
+  {
+    "id": "B14",
+    "content": "<!-- [그림 14.2 스크린샷 삽입 위치: Six basic core principles of a typical management system] -->\n![alt text](image-176.png)\n<!-- ![FIG. 14.2 Six basic core principles of a typical management system](image-xxx.png) -->\n\n### FIG. 14.2 Six basic core principles of a typical management system."
+  },
+  {
+    "id": "B15",
+    "content": "### LESSON LEARNED 1\n\nIn addition to assessing the Safety Management System, complete a Personal Assessment. Look into your mirror and assess yourself:\n* What is the current perception held by the organization of safety-related activities?\n* What is your level of influence within the organization? How are you perceived in the organization?\n* What is the span and depth of your network in your organization?"
+  },
+  {
+    "id": "B16",
+    "content": "As an assessment is completed, a wide range of recommendations may be identified, from quick-fix one-time corrections to completely changing emphasis or trying new activities. Knowledge of your organization’s general budget process and its cycle is essential when addressing the findings of an assessment. An element of the safety management system may require a level of funding to pay for materials and references and require time for leaders and employees. Knowing how to work the budget system provides an effective tool when presenting a request for funding (Managing Worker Safety and Health, 2016)."
+  },
+  {
+    "id": "B17",
+    "content": "## THE FOCUS OF THE ASSESSMENT TEAM\n\nThe planning of how to best review the safety management system should be thorough and in-depth. The plan should consider the complexity of the safety management system, its programs or processes, the time constraints of leadership and employees, and the current skill levels of both location employees and the assessment team."
+  },
+  {
+    "id": "B18",
+    "content": "The assessment plan should use a phased-in approach taking into consideration daily assignments and job requirements. The organization’s primary mission is to provide a specific product or service, and the assessment team should always keep this in mind. In other words, the assessment team should arrange and tailor its time to meet the needs of the location it is reviewing. Leadership and employees will appreciate an effort to make sure their time away from mandated responsibilities are taken into account."
+  },
+  {
+    "id": "B19",
+    "content": "The focus of the assessment process is on the organization and not for the personal benefit of the assessors. The ongoing safety management system assessment effort is not to determine if a series of programs are in use but are to ensure that all activities are a functioning system with processes in place for improving the overall safety culture."
+  },
+  {
+    "id": "B20",
+    "content": "The mission of any form of assessment is to enhance the perception of safety, extend safety leadership’s influence within the organization, and expand the internal communication network for the benefit of the safety culture."
+  },
+  {
+    "id": "B21",
+    "content": "### OBSERVATION\n\nBefore designing an assessment, there must be an understanding of the current organizational status:\n* Does the history of the organization provide any indication of nature and depth of the senior leadership in support of current safety management activities?\n* What is the current perception held by the organization of safety-related activities? Are they viewed as separate from general operations, an add-on, not an integral part of operations? Or are the activities woven into the fabric of the organization?\n* What is the safety leader’s level of influence within the organization?\n* What is the perceived reputation of the safety professional and leadership in the organization?\n* What is the span and depth of the safety professional’s communication network in the organization?"
+  },
+  {
+    "id": "B22",
+    "content": "## AVOIDING A “BLAME THE SYSTEM” MENTALITY\n\nIn many cases we tend to blame the safety management system as the problem when the results we get are not what was either intended or because it did not perform as well as we expected. This is a “shoot the messenger” mind-set that leads to an ongoing search for a more effective system, even when it is known that most systems have the same basic core principles."
+  },
+  {
+    "id": "B23",
+    "content": "You can lose sight of what is trying to be accomplished and waste time and resources as new structures and formats are developed and efforts restarted. Leadership and employees lose interest in the current system knowing that it may change after all their effort. You may desire to evolve from one basic system to a more formally recognized format but this can be normally accomplished using a gradual process as we discussed briefly in Chapter 1, Defining the Perception of Safety."
+  },
+  {
+    "id": "B24",
+    "content": "### LESSON LEARNED 2\n\nAs a regional safety manager, James used a system in which each facility would review only one element of the organization’s safety management system each month. The monthly review was placed on each facility’s general activity calendar used for prescheduling designated leadership and employee time."
+  },
+  {
+    "id": "B25",
+    "content": "A list of questions was provided to guide the internal assessment allowing leadership and employees to know what was to be covered. They could then allocate the necessary time for preparation and discussions. The benefit of monthly safety management system reviews kept it visible throughout the year and not just an annual intensive time burden."
+  },
+  {
+    "id": "B26",
+    "content": "To combat this cycle of “Blame the System” mentality, a constant, active search for errors in the system is important, as Six Sigma techniques stress. The objective is not to change the system but find and fix the defects or errors in the system (How to effectively assess and improve your safety and health program through safety and health evaluation, 2018; Schembri, 2012)."
+  },
+  {
+    "id": "B27",
+    "content": "### Six Sigma Learning about defects in the System\n* A **defect** is defined as anything outside of customer specifications.\n* An **opportunity** is the total quantity of chances for a defect.  \n*(Schembri, 2012)*"
+  },
+  {
+    "id": "B28",
+    "content": "The understanding must be developed that a safety management system assessment goes beyond just physical reviews such as the typical plant inspections. Inspections are important and valuable when reviewing facilities to identify and eliminate or control hazards. The use or misuses are “artifacts,” as was discussed in Chapter 2, Analyzing the Organizational Culture, found in the organization that gives indications about the value placed on the safety management system (Schein, 2004). They are a program element that is part of the overall process but not the actual safety management system under review."
+  },
+  {
+    "id": "B29",
+    "content": "## TYPES OF SAFETY MANAGEMENT ASSESSMENTS\n\nAs with any process, a safety management system consists of inputs, the process, and outputs. These three categories provide another dimension of the safety management system (How to effectively assess and improve your safety and health program through safety and health evaluation, 2018)."
+  },
+  {
+    "id": "B30",
+    "content": "To be effective and timely, an assessment should be part of an overall strategy scheduled into your annual planning process. The assessment can be spread over time to make use of available windows of opportunity given all the other activities that must be completed by the leadership team members who should be involved."
+  },
+  {
+    "id": "B31",
+    "content": "An assessment should include members drawn from the leadership team, safety committee members, and employees with specific knowledge of the topic under discussion. The best evaluators will be employees who can provide an unbiased and fresh look at the organization. While many employees will be candid in their comments, care must be taken to not shut down critical comments or discussions as these results in not getting the solid, honest feedback essential to any assessment."
+  },
+  {
+    "id": "B32",
+    "content": "> Before various measurement systems are devised, their purpose and limitations need to be thoroughly understood.  \n> — (Spear, 2010)"
+  },
+  {
+    "id": "B33",
+    "content": "Refer Fig. 14.3 for a basic safety management system assessment process. This flow diagram outlines the basic concepts of a successful assessment process."
+  },
+  {
+    "id": "B34",
+    "content": "Two types of assessments are used:\n* An internal self-assessment.\n* An external or third-party assessment."
+  },
+  {
+    "id": "B35",
+    "content": "<!-- [그림 14.3 스크린샷 삽입 위치: Basic safety management system assessment process] -->\n![alt text](image-177.png)\n<!-- ![FIG. 14.3 Basic safety management system assessment process](image-xxx.png) -->\n\n### FIG. 14.3 Basic safety management system assessment process."
+  },
+  {
+    "id": "B36",
+    "content": "## INTERNAL SELF-ASSESSMENTS\n\nThis type of assessment uses your leadership team and employees to review, analyze, document, and communicate the findings and the status of the system to all leadership and employees in the organization."
+  },
+  {
+    "id": "B37",
+    "content": "> Self-assessment is the formal or informal process of identifying one’s opportunities for improvement by comparing present practices and results with desired practices, results, and standards. Because no one knows better how things are done in the facility than those working in the performing organizations, self-assessments can be the most effective means of identifying latent weaknesses in the organization and the facility.  \n> — *(Human performance tools for individuals, work teams, and management, 2009)*"
+  },
+  {
+    "id": "B38",
+    "content": "### LESSON LEARNED 3\n\nJames, as a regional safety manager, set up a system review method that had each plant take on one element of the organization’s safety management system under review each month. As the system had ten sections, a full review would be completed in ten months. Each review was placed on the formal agenda schedule and discussed over lunch or a staff meeting with designated employees participating. A list of questions was provided to guide the internal assessment. The benefit was that time was spread throughout the year, and the safety management system kept visible as it was formally placed on agendas throughout the year."
+  },
+  {
+    "id": "B39",
+    "content": "To be consistent with your assessment, a customized self-assessment worksheet or checklist is used that covers all the core principles and the subelements that are to be considered under each principle. The key is to consistently use a regularly scheduled self-assessment to evaluate current performance and compare the results against the ideal or expected. The core safety management system elements, as provided in Table 14.1, Six Basic Core Principles of a Typical Management System, are reviewed using a self-assessment worksheet or checklist to provide a consistent, structured approach. Refer Appendix 14.1, Instructions for Using the Safety Management System Worksheet and Appendix 14.2, Attributes of a Safety Management System."
+  },
+  {
+    "id": "B40",
+    "content": "> An organization may choose to use a qualitative or a quantitative evaluation system based on its size, operations, services, or culture.  \n> — *(Occupational Health and Safety Systems, 2012)*"
+  },
+  {
+    "id": "B41",
+    "content": "## THIRD-PARTY ASSESSMENTS\n\nThird-Party assessments are conducted by an outside resource selected or designed to provide an unbiased view of the system. While internal self-assessments are an essential part of the assessment process, an outside point of view or perspective can uncover or identify gaps that have been unconsciously overlooked by the internal assessment. The day-to-day familiarity with “how things get done around here” may have allowed the program to gradually drift away over the course of time from the initial guidelines and established standards. If the facility has completed an internal self-assessment, the independent review will serve as verification (calibration) of management commitment to safety."
+  },
+  {
+    "id": "B42",
+    "content": "> Reviews of facility activities by outside organizations or agencies provide an opportunity to reveal “blind spots” to facility management and personnel that could otherwise remain hidden. Independent oversight can identify conditions, processes, and practices that fall short of industry best practices and those that could lead to degraded facility performance if uncorrected.  \n> — *(Human performance tools for individuals, work teams, and management, 2009)*"
+  },
+  {
+    "id": "B43",
+    "content": "## SELECTING THE ASSESSMENT TEAM\n\nTo ensure effective employee involvement, a cross-functional, diverse team is used to administer the assessment. By maintaining a diverse perspective, the different experiences, skills, and expertise can bring additional insights. The team membership should be rotated using a percentage of new members for each assessment."
+  },
+  {
+    "id": "B44",
+    "content": "Refer Table 14.2 for Review Process Checklist and Structure, Suggested Review Structure."
+  },
+  {
+    "id": "B45",
+    "content": "<!-- [표 14.2 스크린샷 삽입 위치: Review Process Checklist and Structure, Suggested Review Structure] -->\n![alt text](image-178.png)\n<!-- ![TABLE 14.2 Review Process Checklist and Structure, Suggested Review Structure](image-xxx.png) -->\n\n### TABLE 14.2 Review Process Checklist and Structure, Suggested Review Structure (Roughton & Mercurio, 2002)"
+  },
+  {
+    "id": "B46",
+    "content": "**Suggested Team Members:**\n* The safety professional or coordinator or a person knowledgeable about the safety management process to act as assessment coordinator\n* A member of leadership or safety management from a different company location\n* A safety consultant with an understanding of the organization might be considered\n* One member of the location leadership team, for example, Production/plant manager\n* Hourly employees on a selected basis, particularly from another environment"
+  },
+  {
+    "id": "B47",
+    "content": "The team members should be trained in the concepts and elements of the safety management system and have the technical expertise to review process, and its supporting elements and programs."
+  },
+  {
+    "id": "B48",
+    "content": "> Gain buy-in from plant floor through cross-functional collaboration. To drive the vision of the executive, collaboration amongst the functional groups is critical: EH&S, quality, safety, manufacturing, engineering, production, and even the supply chain. Without regular sharing of vision and effort, it becomes far more difficult to achieve the performance benefits of the Leaders.  \n> — *(Ismail, 2012)*"
+  },
+  {
+    "id": "B49",
+    "content": "## PREASSESSMENT ACTIVITIES\n\nInitial coordination is made with the location having a safety management system review. The preassessment is to begin the coordination with local leadership on the requirements of the assessment, its planning, and communication:\n* Establish the dates and times of the assessment that are mutually acceptable to the local leadership and schedules of both the location and the assessment teams.\n* Coordinate the assessment team for the available dates and times.\n* Request the required documents and information to be available at the beginning of the assessment:\n  * Background information about the location’s current activities and overall status.\n  * Previous assessments, five years if possible, include internal and external other surveys or assessments by insurance loss control, other consultants, and so on.\n  * Current policies, procedures, programs, job hazard analyses, inspection reports (machine/equipment checklist, property/facility specific), safety meetings and safety committee meetings, and so on.\n  * Leadership and employees perception survey results.\n  * History of loss-producing events—injuries, damage reports, near-misses, insurance claims reports (Workers’ Compensation, vehicle, liability, property, incident investigations)."
+  },
+  {
+    "id": "B50",
+    "content": "Safety perception surveys are an important tool used to ask questions employees can answer anonymously and in confidence. They provide the ability to measure the answers to questions and summarize responses. They can provide statistical validation of the perceptions of employees about the safety culture. Surveys must be carefully selected and structured to prevent personal bias and a skewing of the responses."
+  },
+  {
+    "id": "B51",
+    "content": "Refer Appendix 14.3, “Safety Management Perception Questionnaire” for an example of a perception survey, an instrument developed by Bob Lapidus and Dr. Michael Waite. This perception survey is a tested and validated format which has been used to identify safety program opinion differences between leadership and employees (Lapidus & Waite, 2013)."
+  },
+  {
+    "id": "B52",
+    "content": "The US Department of Energy, Human Performance Improvement Handbook, Volume II, has several surveys and tools that can be used to aid in defining the organizational safety climate, human performance gap analysis tool, and a job site conditions self-assessment (Human performance tools for individuals, work teams, and management, 2009)."
+  },
+  {
+    "id": "B53",
+    "content": "## THE OPENING MEETING\n\nThe opening meeting is used to discuss with the local leadership team and employees the purpose, scope, intent, and activities that will be needed for the Assessment:\n* Discuss the objectives and scope of the assessment and its intent.\n* Discuss the assessment process, checklists/forms, and the resources needed, schedule of interviews, employee group meetings, focus groups, and so on.\n* Introduce assessment team members and share expertise and skills.\n* Discuss personal safety considerations, for example, personal protective equipment, visitor guidelines, escort areas, security clearances, and so on.\n* Establish communication, media to use (internet, Skype, e-mails, and so on), develop a schedule based on activities, timing.\n* Develop schedule and agenda for the closing meeting."
+  },
+  {
+    "id": "B54",
+    "content": "The Preassessment meeting should be brief and, if all the preassessment activities have been completed, should take approximately 30 min to 1 hour (Safety and Health Achievement Recognition Program, 2016)."
+  },
+  {
+    "id": "B55",
+    "content": "## SAFETY MANAGEMENT SYSTEM ASSESSMENT ACTIVITIES\n\nActivities involved in the Assessment of a safety management system include:\n* An initial tour to become familiar with the nature of operations, worksites, facilities.\n* Review requested documents and materials provided.\n* Begin process using more in-depth observations of activities, specific high hazard jobs, general environment.\n* Interview employees during observations."
+  },
+  {
+    "id": "B56",
+    "content": "As we have stressed throughout this book, any activity that is undertaken must be considered as having the potential for either improving or degrading the safety culture of the organization. The methods used for coordination and the completion of the assessment must be conducted in a manner that is seen as professional, organized, respectful, and considered of value to the location’s leadership team and employees. An assessment has the potential to be seen as critical of the leadership team and if not communicated and presented properly may create issues within the organization."
+  },
+  {
+    "id": "B57",
+    "content": "## INITIAL LOCATION TOUR\n\nWhen the opening meeting has concluded, the assessment team completes a tour of the location to familiarize themselves with the nature of the equipment, tools, materials, processes in use, and general activities. This tour provides the team an initial perspective of conditions, hazards, and associated risk."
+  },
+  {
+    "id": "B58",
+    "content": "## DOCUMENT REVIEWS\n\nThe review of the location’s documentation determines the scope and quality of each of the specific activities required by the safety management system that is in use. The documentation should provide a comprehensive and clear picture of how the location has been administering and managing the system."
+  },
+  {
+    "id": "B59",
+    "content": "> There are many ways to categorize safety performance measures. They are often classified as trailing or leading indicators, outcome or process-oriented, results or activity-based measures, downstream factors or upstream factors, and qualitative or quantitative metrics.  \n> — *(Spear, 2010)*"
+  },
+  {
+    "id": "B60",
+    "content": "> Without measurement, accountability becomes meaningless.  \n> — *(Spear, 2010)*"
+  },
+  {
+    "id": "B61",
+    "content": "### Problems with current measure(s)\n* Relying on any single metric is problematic\n* OSHA rates do not drive superior safety and health performance\n* Overly inclusive\n* Not very accurate\n* The more pressure you put on them, the less accurate they get\n* S&H measurement mindset is one of tracking failure or showing loss avoidance, not positive contribution to the business\n* S&H metrics often undermine management credibility  \n*(Newell, 2001)*"
+  },
+  {
+    "id": "B62",
+    "content": "## LEADERSHIP AND EMPLOYEE INTERVIEWS\n\nThe primary goal is to collect information about employee involvement in the safety management system using several methods:\n* Formal interviews with the leadership team.\n* Formal interviews with small groups of employees.\n* Informal one-on-one interviews with employees in their work environment."
+  },
+  {
+    "id": "B63",
+    "content": "The process starts with formal interviews with the senior leader/general manager. After a discussion that gets the senior leader’s insights and concerns, interviews would be conducted with selected individuals of the leadership team (managers, supervision). The interviews will be made to include all work shifts and at various times throughout each work shift."
+  },
+  {
+    "id": "B64",
+    "content": "Meetings with small groups of employees, optimum size is six employees, will be held with a representative number of employees to discuss their understanding and use of the safety management systems elements. The meetings would last approximately one hour based on the size of the group and their engagement."
+  },
+  {
+    "id": "B65",
+    "content": "Informal one-on-one interviews will be conducted with employees to verify feedback received from the small group meetings. It should be stressed that all interviews are to be considered confidential."
+  },
+  {
+    "id": "B66",
+    "content": "During walk-through of work areas the assessment team would interview employees one-on-one in their work area about their training and perceptions of the safety management system. Any topic is acceptable if it leads to a better understanding of problems or concerns about the workplace. If safety-related training is effective, employees will be able to describe the hazards inherent in their work and the effectiveness of the controls that are in place. In this discussion, an indicator of the depth of the safety culture is how well employees can describe what is expected of them in any safety-related activities."
+  },
+  {
+    "id": "B67",
+    "content": "For example, employees’ perceptions and opinions about the ease or difficulty in reporting hazards and the time it takes to get a response will validate the effectiveness of any hazard reporting system. If employees indicate that the system for enforcing safety rules and work practices is inconsistent or confusing, a gap in this system element is identified."
+  },
+  {
+    "id": "B68",
+    "content": "## COMMUNICATION AND FEEDBACK\n\nThe assessment team leader is the focal point of all information collected by team members and will provide updates to the leadership on the assessment process. If potential high severity hazards and associated risks are identified, the assessment is stopped, and the problem/issue is immediately relayed to leadership for corrective actions. At the end of each day or work shift, a meeting should be held with the leadership team and employees to update findings, additional documentation needs, and immediate concerns about the assessment."
+  },
+  {
+    "id": "B69",
+    "content": "Before the final closing meeting, the assessment team provides a verbal review of the findings and recommendations of the leadership team. The assessment is to be a mutual effort and should not “blindside” leadership with its findings in any final written report."
+  },
+  {
+    "id": "B70",
+    "content": "## REVIEW OF SITE CONDITIONS\n\nThe review of site conditions can provide a strong indicator of the true safety culture of the organization. If the documentation shows that inspections are routinely completed, yet the conditions indicate uncontrolled hazards and associated risks are present, then a gap exists between what the organization espouses and what beliefs and norms are actually in place."
+  },
+  {
+    "id": "B71",
+    "content": "Conditions are “artifacts,” tangible visible signs about what is allowed to exist. A well-written inspection program may be available but not properly used. Refer Chapter 2, Analyzing the Organizational Culture."
+  },
+  {
+    "id": "B72",
+    "content": "## PRESENTING RESULTS OF THE SAFETY MANAGEMENT SYSTEM ASSESSMENT\n\nThe methods for presenting the findings of the assessment should be determined in the initial planning meeting with a clearly defined format, style, and structure. The structure should follow the outline of the safety management system’s content to be consistent over time. A wide range of methods can be used that can involve either quantitative and qualitative information. A scoring method is usually followed to allow a measurement of the finding along with a predetermined scale."
+  },
+  {
+    "id": "B73",
+    "content": "### LESSON LEARNED 4\n\nJames recalls an assessment that he participated in when at the initial meeting of leadership team members and employees everyone was given a paper showing the past scores received in previous assessments. At the final assessment review, unfortunately, the scores were lower than a previous assessment. An immediate problem arose as the assessment team was challenged to prove why it had rated the location lower. Resistance to assessment results must be considered in the initial planning and throughout the assessment by documenting in detail why and how any gaps are identified and backup information that can be logically discussed."
+  },
+  {
+    "id": "B74",
+    "content": "The use of interactive spreadsheets and custom-designed software are available and has been successfully used. By using a spreadsheet or similar format, scoring can be tracked over time to show the improvement or lack of improvement of the safety management system."
+  },
+  {
+    "id": "B75",
+    "content": "> Measuring safety is difficult because it is difficult to predict the impact that new safety metrics will have on individual behavior, attitudes, and the overall safety climate.  \n> — *(Spear, 2010)*"
+  },
+  {
+    "id": "B76",
+    "content": "## DEVELOPING THE ACTION PLAN\n\nAfter the leadership team has reviewed gaps identified by the assessment, opportunities and obstacles for improvement are discussed with the assessment team. The location would be responsible for establishing an action plan with goals and objectives needed to close the gaps identified in the final report. The action plan should describe the specific actions that will be taken, responsibilities, and the estimated completion dates for corrective actions."
+  },
+  {
+    "id": "B77",
+    "content": "Refer Chapter 4, Establishing the Direction for the Safety Culture for an overview of the SMART method for developing an action plan’s goals and objectives."
+  },
+  {
+    "id": "B78",
+    "content": "## COMMUNICATING THE ASSESSMENT AND THE ACTION PLANS\n\nThroughout the assessment, members of leadership and employees will have been involved in the meetings, discussions, reviews, and observations. It is important that all employees be provided with the results of the assessment, its findings, recommendations, and the action plan that has been developed. In our experience, too often, employee involvement is not recognized by a sharing of information. After the action plan has been developed, the findings must be communicated by:\n* Providing a summary of the final assessment report.\n* Providing information on how the assessment was completed and who was involved.\n* Listing the assessment findings and opportunities for improvement.\n* Sharing the action plan that may have resulted from the assessment."
+  },
+  {
+    "id": "B79",
+    "content": "Communicating results promptly fulfills the commitments made to employees and demonstrates the organization’s support for the safety management system."
+  },
+  {
+    "id": "B80",
+    "content": "## EXAMPLE ASSESSMENT AND ACTION PLAN\n\nRefer Appendix 14.4 for an Example Safety Management System Assessment and Action Plan Strategy which is an outline providing the various activities to be included in the assessment of a safety management system. It follows a strategy, measurement, an outline of how the assessment would be organized, the metrics required, and how hazards and associated risk would be treated."
+  },
+  {
+    "id": "B81",
+    "content": "This example is based on the ANSI Z10-2012 content (Occupational Health and Safety Systems, 2012) to demonstrate how an assessment would follow any selected safety management system to ensure all of its components are reviewed."
+  },
+  {
+    "id": "B82",
+    "content": "With this example, you will note the shift from reviewing elements to implementing specific actions. This was done to emphasize that the assessment may identify areas that must receive immediate action and action planning to prevent re-occurrence."
+  },
+  {
+    "id": "B83",
+    "content": "## ASSESSMENT EXAMPLES\n\nThere are several excellent self-assessment tools that are available to help with assessing the Safety Management System. These assessment tools are public domain documents that can be downloaded and used for your library:\n* “Worksheets and a Rating Tool to Help Strengthen Jobsite Safety Climate” (2016) — Refer Appendix 14.5.\n* “Safety and Health Program Audit Tool” as outlined in the Recommended Practices for Safety and Health Programs General Industry, OSHA 3885 (2016) — Refer Appendix 14.6."
+  },
+  {
+    "id": "B84",
+    "content": "## SUMMARY\n\n* A Safety Management System assessment provides a comprehensive assessment of the current state of the safety culture.\n* The safety management system should reflect the real values and beliefs of the organization.\n* The full implementation of a safety management system provides the structure to guide decisions and activities for the long-term success of a safety culture.\n* As discussed in several other chapters, an effort should be made to assess and change as necessary the perception of safety, extend safety leadership influence within the organization, and expand the internal safety network, all for the benefit of the organization. A personal assessment should verify how goals are accomplished as well as the implementation of the safety management system.\n* The understanding should be developed that a safety management system assessment goes beyond just physical reviews such as the traditional facility inspections.\n* Inspections are critical and valuable in reviewing facilities to identify and eliminate or control hazards.\n* An efficient and timely assessment should be part of an overall strategy scheduled for the annual planning process.\n* An assessment should include members drawn from the leadership team, safety committee members, and employees with knowledge about the topic under discussion.\n* By maintaining a diverse perspective, the different experiences, skills, and expertise can bring additional insights. The team members should be rotated using a percentage of new members for each assessment.\n* The preassessment is to begin the coordination with local leadership on the requirements of the assessment, its planning, and communication.\n* The initial meeting is used to refresh the local leadership team and employees on the purpose, scope, intent, and activities that will be needed for the Assessment.\n* The review of the location’s documentation determines the scope and quality of each of the activities required by the safety management system in use. The documentation should provide a comprehensive and clear picture of how the location has been administering and managing the system.\n* The assessment team leader is the focal point of all information from the team and provides location leadership with updates on the assessment process.\n* The review of site conditions may be a reliable indicator of the organization’s existing safety culture.\n* Opportunities and obstacles to improvement are discussed with the assessment team after the leadership team has reviewed the gaps identified using the assessment.\n* In Chapter 15, we will shift our focus from safety culture and discuss how a professional should become a curator for the safety management system. We will discuss how there is a desire for wanting information immediately and how library and curation methodology and structure should be adapted to organize all of the various media used to accomplish assigned tasks and responsibilities.\n* This reinforces the common theme of communication as presented throughout the book. The key is that the safety management system and safety culture are dependent on the leadership team and employees maintaining open lines of communication and the delivery of impartial and factual messages."
+  },
+  {
+    "id": "B85",
+    "content": "## CHAPTER REVIEW QUESTIONS\n\n1. Explain how to develop the coordination needed for a safety management system assessment.\n2. Explain how to avoid the mentality of “blaming the system.”\n3. Explain the types of safety management systems assessments.\n4. Explain the selection and development of an assessment team.\n5. Explain the preassessment activities before conducting a safety management system assessment.\n6. Explain the elements of a safety management system assessment.\n7. Explain the importance of the final report and action plan.\n8. Explain why it is necessary to communicate the results of an assessment."
+  },
+  {
+    "id": "B86",
+    "content": "## APPENDIX 14.1 INSTRUCTIONS FOR USING THE SAFETY MANAGEMENT SYSTEM ASSESSMENT WORKSHEET\n\nThe Occupational Safety and Health Administration (OSHA) has several assessment worksheets that can be used as a starting point for measuring a safety management system and should be expanded to meet your organization’s needs."
+  },
+  {
+    "id": "B87",
+    "content": "The following is a brief worksheet from the OSHA SHARP program and is divided into the following six safety management system elements:\n* Management leadership\n* Employee involvement\n* Risk and hazard identification and assessment\n* Hazard prevention and control\n* Education and training\n* Performance and measurement"
+  },
+  {
+    "id": "B88",
+    "content": "### Attributes or Subelements in Each Category\n* **Attributes**: Each attribute or subelement is listed as a survey question. All attributes are positive statements that the evaluator agrees with varying degrees of continuity. The attributes are considered building blocks to effective safety management systems.\n* **Rating instructions**: Each survey question or attribute has five possible ratings: 0, 1, 2, 3, or NA. The value for each rating is described in the following table."
+  },
+  {
+    "id": "B89",
+    "content": "<!-- [부록 14.1 표 스크린샷 삽입 위치: Rating Description & Descriptors] -->"
+  },
+  {
+    "id": "B90",
+    "content": "| Rating | Description | Descriptor |\n| :---: | :--- | :--- |\n| **0** | No discernible or meaningful indication that the item is even partially in place | No or mostly no / None |\n| **1** | Some portion or aspect is present, although major improvement is needed | Some |\n| **2** | Item is largely in place, with only minor improvements needed | Yes or mostly yes / Most |\n| **3** | Item is completely in place | All |\n| **NA** | Not applicable: Must have justification in the comments box why the item is not applicable | Not applicable |"
+  },
+  {
+    "id": "B91",
+    "content": "The key is to use your best professional judgment when you rate each attribute based on the information obtained during the assessment. To rate an attribute, place an “X” in the box under the desired rating indicator."
+  },
+  {
+    "id": "B92",
+    "content": "### Rating Cues\nThe bits of information obtained in the assessment are rating cues. A rating cue is a fact or perception that prompts and supports the rating of a relevant topic. Each attribute is worded as a positive statement. All rating cues will either confirm (support) or negate (deny) the statement. The cues give weight to the rating for the individual attributes."
+  },
+  {
+    "id": "B93",
+    "content": "Cues confirm or deny: the existence of the attribute, the extent of the attribute, the character of the attribute, and the effect of the attribute. Cues are found in observations and measurements, interviews, and reviews of documentation. There can be multiple cues: initial cues, corroborating cues, and conflicting cues. The following table presents how cues are used to rate attributes:"
+  },
+  {
+    "id": "B94",
+    "content": "| Rating | Value |\n| :---: | :--- |\n| **0** | Eliminated by a single CONFIRMING cue |\n| **1** | Requires a few CONFIRMING cues and one or more NEGATING cues |\n| **2** | Requires multiple CONFIRMING cues and a few NEGATING cues |\n| **3** | Eliminated by a single NEGATING cue |"
+  },
+  {
+    "id": "B95",
+    "content": "**Suggestions**: In reality, a very small gap exists between the 0 (zero) rating and the 1 (one) rating and between the 2 (two) rating and the 3 (three) rating. There is a large gap between the 1 (one) rating and the 2 (two) rating. That gap is the difference between mostly no and mostly yes."
+  },
+  {
+    "id": "B96",
+    "content": "Look for things that are done well. Reinforce these things with the leadership team and employees for their good efforts. The more you can encourage small positive steps, the greater chance that significant positive change will follow and the greater the opportunity to return and provide comprehensive assistance."
+  },
+  {
+    "id": "B97",
+    "content": "### Safety Management System Assessment Worksheet\n\n*(Adapted from OSHA SHARP Program Worksheet)*"
+  },
+  {
+    "id": "B98",
+    "content": "#### 1. The Leadership Team\n* Top management policy establishes clear priority for safety and health\n* Top management considers safety and health to be a line rather than a staff function\n* Top management provides competent safety and health staff support to line managers and supervisors\n* Managers personally follow safety and health rules\n* Managers delegate the authority necessary for personnel to carry out their assigned safety and health responsibilities effectively\n* Managers allocate the resources needed to properly support the organization's safety and health system\n* Managers support fair and effective policies that promote safety and health performance\n* Managers assure that appropriate safety and health training is provided\n* Top management is involved in the planning and evaluation of safety and health performance\n* Top management values employee involvement and participation in safety and health issues"
+  },
+  {
+    "id": "B99",
+    "content": "#### 2. Employee Involvement\n* There is an effective process to involve employees in safety and health issues\n* Employees are involved in organizational decision making regarding safety and health policy\n* Employees are involved in organizational decision making regarding the allocation of safety and health resources\n* Employees are involved in organizational decision making regarding safety and health training\n* Employees participate in hazard detection activities\n* Employees participate in hazard prevention and control activities\n* Employees participate in the safety and health training of coworkers\n* Employees participate in safety and health planning activities\n* Employees participate in the evaluation of safety and health performance"
+  },
+  {
+    "id": "B100",
+    "content": "#### 3. Risk and Hazard Identification and Assessment\n* A comprehensive, baseline hazard survey has been conducted within the past five (5) years\n* Effective safety and health self-inspections are performed regularly\n* Effective surveillance of established hazard controls is conducted\n* An effective hazard reporting system exists\n* Change analysis is performed whenever a change in facilities, equipment, materials, or processes occurs\n* Accidents are investigated for root causes\n* Material Safety Data Sheets are used to reveal potential hazards associated with chemical products in the workplace\n* Effective job hazard analysis is performed\n* Expert hazard analysis is performed\n* Incidents are investigated for root causes"
+  },
+  {
+    "id": "B101",
+    "content": "#### 4. Hazard Prevention and Control\n* Feasible engineering controls are in place\n* Effective safety and health rules and work practices are in place\n* Applicable OSHA-mandated programs are effectively in place\n* Personal protective equipment is effectively used\n* Housekeeping is properly maintained\n* The organization is properly prepared for emergencies\n* The organization has an effective plan for providing competent emergency medical care to employees and others present at the site\n* Effective preventive maintenance is performed\n* An effective procedure for tracking hazard correction is in place"
+  },
+  {
+    "id": "B102",
+    "content": "#### 5. Education and Training\n* Employees receive appropriate safety and health training\n* New employee orientation includes applicable safety and health information\n* Supervisors receive appropriate safety and health training\n* Supervisors receive training that covers the supervisory aspects of their safety and health responsibilities\n* Safety and health training is provided to managers\n* Relevant safety and health aspects are integrated into management training"
+  },
+  {
+    "id": "B103",
+    "content": "#### 6. Performance and Measurement\n* Workplace injury/illness data are effectively analyzed\n* Hazard incidence data are effectively analyzed\n* A safety and health goal and supporting objectives exist\n* An action plan designed to accomplish the organization's safety and health objectives is in place\n* A review of in-place OSHA-mandated programs is conducted at least annually\n* A review of the overall safety and health management system is conducted at least annually\n* Safety and health program tasks are each specifically assigned to a person or position for performance or coordination\n* Each assignment of safety and health responsibility is clearly communicated\n* An accountability mechanism is included with each assignment of safety and health responsibility\n* Individuals with assigned safety and health responsibilities have the necessary knowledge, skills, and timely information to perform their duties\n* Individuals with assigned safety and health responsibilities have the authority to perform their duties\n* Individuals with assigned safety and health responsibilities have the resources to perform their duties\n* Organizational policies promote the performance of safety and health responsibilities\n* Organizational policies result in correction of nonperformance of safety and health responsibilities"
+  },
+  {
+    "id": "B104",
+    "content": "*(58 Attributes of Excellence of a Safety, Health and Ergonomic Program, 2016; Managing Worker Safety and Health, 2016; Managing Worker Safety and Health, Sample Assignment of Safety and Health Responsibilities, 2018; Safety and Health Program Assessment Worksheet—33A, 2016; Safety and Health Program Assessment Worksheet Instructions, 2016; Safety and Health Program Assessment Worksheet, 2007)*"
+  },
+  {
+    "id": "B105",
+    "content": "## APPENDIX 14.2 ATTRIBUTES OF A SAFETY MANAGEMENT SYSTEM\n\nThe following list was adapted from Health and Ergonomic Program and can be used to develop a basic assessment of the Safety Management System (58 Attributes of Excellence of a Safety, Health and Ergonomic Program, 2016):"
+  },
+  {
+    "id": "B106",
+    "content": "### 1. Leadership Commitment\n* The positive influence of the leadership team is evident in all elements of the safety management system.\n* All employees perceive the leadership team is exercising positive leadership and can provide examples of positive leadership."
+  },
+  {
+    "id": "B107",
+    "content": "### 2. Authority and Resources\n* **Authority**:\n  * Authority to meet assigned responsibilities exists for all employees.\n  * Authority is granted in writing.\n  * Authority is exclusively in the control of the employee holding the responsibility.\n  * Each employee believes they have the authority granted to them.\n  * Each employee understands how to exercise the authority granted to them.\n  * Each employee uses their will to exercise the authority granted to them.\n  * Responsibilities are being met appropriately and on time.\n* **Resources**:\n  * Adequate resources (methods, equipment, and funds) are provided to meet responsibilities and are available to all employees.\n  * The required and necessary resources are exclusively in the control of each employee holding the responsibility.\n  * Each employee is effectively applying resources to meet responsibilities."
+  },
+  {
+    "id": "B108",
+    "content": "### 3. Accountability\n* Each employee is being held accountable for meeting their safety responsibilities.\n* Methods exist for monitoring performance of responsibilities.\n* Failure to meet assigned responsibilities is addressed and results in appropriate coaching and/or negative consequences.\n* Each employee meeting or exceeding their responsibilities is appropriately reinforced for their behavior with positive consequences.\n* Data related to key elements of safety performance are accumulated and displayed in the workplace to inform all employees of progress being made.\n* Each employee and team uses accountability data to revise goals and objectives so as to facilitate continuous improvement in safety."
+  },
+  {
+    "id": "B109",
+    "content": "### 4. Leadership Examples\n* The leadership team knows and understands all safety rules of the organization and the safe behaviors expected.\n* The leadership team throughout the organization consistently follows all rules and behavioral expectations.\n* Employees perceive the leadership team to be consistently setting positive examples and can illustrate why they hold these positive perceptions.\n* The leadership team at all levels consistently addresses the safe behavior of others by coaching and correcting poor behavior and positively reinforcing good behavior.\n* Employees credit the leadership team with establishing and maintaining positive safety values in the organization through their personal example and attention to the behavior of others."
+  },
+  {
+    "id": "B110",
+    "content": "### 5. Employee Involvement\n* Employees accept personal responsibility to ensure that there is a safe workplace.\n* The leadership team provides opportunities and mechanism(s) for employees to influence the safety program design and operation.\n* There is evidence of the leadership team support of employee safety interventions.\n* Employees have a substantial impact on the design and operation of the safety management system.\n* There are multiple avenues for employee involvement. These avenues are well known, understood, and utilized by all employees.\n* The avenues and mechanisms for involvement are effective in reducing loss-producing events and enhancing safe behaviors."
+  },
+  {
+    "id": "B111",
+    "content": "### 6. Structured Safety Forum That Encourages Employee Involvement\n* A written Charter or Standard Operating Procedure (SOP) outlines the safety committee structure.\n* There is a structured safety forum in the goals. All employees throughout the company are aware of the forums.\n* Safety Meetings are planned, using an agenda, and remain focused on safety.\n* Safety committees and/or employees of the committee hold regularly scheduled meetings.\n* Employees on the committee are actively involved in and contributing to discussions.\n* Minutes are kept and made available to all employees.\n* The leadership team actively participates in committee and employee meetings.\n* A method exists for systematic tracking of recommendations, progress reports, resolutions, and outcomes.\n* Employees are involved in selecting topics.\n* Involvement in the committee is respected and valued in the organization.\n* The safety committee is supplemented with other forums like employee and preshift safety meetings.\n* Clear roles and responsibilities are established for the committee and the leadership team.\n* There are open lines of communication between employees and forum meetings.\n* The safety committee analyzes safety hazards to identify deficiencies in the safety management system.\n* The safety committee assesses annual review of the safety management system.\n* Reviewed results are used to make positive changes in policies, procedures, and plans."
+  },
+  {
+    "id": "B112",
+    "content": "### 7. Hazard Reporting System\n* A system for employees to report hazards is in place and is known to all employees.\n* The system allows for the reporting of physical, specific hazards, and associated risk.\n* Supervisors and managers actively encourage the use of the system and employees feel comfortable using the system in all situations.\n* The system provides for self-correction through empowerment.\n* The system involves employees in correction planning, as appropriate.\n* The system provides for rapid and regular feedback to employees on the status of evaluation and correction.\n* Employees are consistently reinforced for using the system.\n* Appropriate corrective action is taken promptly on all confirmed hazards.\n* Interim corrective action is taken immediately on all confirmed hazards where delay in final correction will put employees or others at risk.\n* The system provides for data collection and display as a means to measure the success of the system in resolving identified hazards."
+  },
+  {
+    "id": "B113",
+    "content": "### 8. Hazard Identification (Third-Party Assessment)\n* Assessments are completed at appropriate intervals, with consideration to more frequent surveys in more hazardous, complex, and highly changing environments.\n* These assessments are performed by individuals competent in hazard identification and control, especially with specific hazards.\n* The assessments drive immediate corrective action on items found.\n* The assessments result in optimum controls for hazards found.\n* The assessments result in updated hazard inventories."
+  },
+  {
+    "id": "B114",
+    "content": "### 9. Hazard Controls\n* Hazard controls are in place.\n* Hazard controls are selected in appropriate priority order, giving preference to engineering controls, safe work procedures, administrative controls, and personal protective equipment.\n* Once identified, hazards are promptly eliminated or controlled.\n* Employees get involved in developing and implementing methods for the elimination or control of hazards in their work areas.\n* Employees are fully trained in the use of controls and ways to protect themselves in their work area, and utilize those controls."
+  },
+  {
+    "id": "B115",
+    "content": "### 10. Hazard Identification (Change Analysis)\n* Operational changes in space, processes, materials, or equipment at the facility are planned.\n* Planned operational changes are known to responsible management and affected workers during the planning process.\n* A comprehensive hazard review process exists and is used for all operational changes.\n* The comprehensive hazard review process involves competent, qualified specialists appropriate to the hazards anticipated and the operational changes being planned.\n* Employees actively participate in the comprehensive hazard review process.\n* The comprehensive hazard review process results in recommendations for enhancement or improvement in safety elements of the planned operational change that are accepted and implemented prior to operational start-up."
+  },
+  {
+    "id": "B116",
+    "content": "### 11. Hazard Identification (Job Hazard Analysis)\n* Members of the leadership team and of employees are aware that hazards can develop in existing job tasks, processes, and/or phases of activity.\n* One or more hazard analysis systems designed to address routine job, process, or phase hazards is in place at the facility.\n* All jobs, processes, or phases of activity are analyzed using the appropriate hazards analysis system.\n* All jobs, processes, or phases of activity are analyzed when there is a change, when a loss incident occurs, or on a schedule of no more than three years.\n* All hazard analyses identify corrective or preventive action to be taken to reduce or eliminate the risk of injury or loss, where applicable.\n* All corrective or preventive actions identified by the hazard analysis process have been implemented.\n* Upon implementation of the corrective or preventive actions identified by the hazard analysis process, the written hazard analysis is revised to reflect those actions.\n* All employees of the workforce have been trained on the use of appropriate hazard analysis systems.\n* A representative sample of employees is involved in the analysis of the job, process, or phase of activity that applies to their assigned work.\n* All employees of the workforce have ready access to, and can explain the key elements of, the hazard analysis that applies to their work."
+  },
+  {
+    "id": "B117",
+    "content": "### 12. Hazard Identification (Routine Inspection)\n* Inspections of the workplace are conducted in all work areas to identify new, reoccurring, or previously missed safety hazards and/or failures in hazard control systems.\n* Inspections are conducted routinely at an interval determined necessary based on previous findings or industry experience (at least quarterly at fixed worksites, weekly at rapidly changing sites such as construction, as frequently as daily or at each use where necessary).\n* Employees at all levels of the organization are routinely involved in safety inspections.\n* All employees involved in inspections have been trained in the inspection process and in hazard identification.\n* Standards exist that outline minimum acceptable levels of safety consistent with federal or state requirements as applicable.\n* Standards cover all work and workplaces at the facility and are readily available to all employees.\n* All employees involved in inspections have been trained on the workplace safety standards and demonstrate competence and their application to the workplace.\n* All inspections result in a written report of hazard findings, where applicable.\n* All written reports of inspections are retained for a period required by law or sufficient to show a clear pattern of inspections.\n* All hazard findings are corrected as soon as practically possible and are not repeated on subsequent inspections.\n* Statistical summaries of all routine inspections are prepared, charted, and distributed to management and employees to show status and progress of hazard elimination."
+  },
+  {
+    "id": "B118",
+    "content": "### 13. Safety Program Review\n* The safety management system is reviewed at least annually.\n* The criteria for the review are against established guidelines or other recognized consensus criteria in addition to the internal goals and objectives and any other specific criteria.\n* The review samples evidence over the entire organization.\n* The review examines written materials, the status of goals and objectives, records of incidents, records of training and inspections, employee and management opinions, observable behavior, and physical conditions.\n* The review is conducted by an individual (or team) determined competent in all applicable areas by virtue of education, experience, and/or examination.\n* The results of the review are documented and drive appropriate changes or adjustments in the program.\n* Identified deficiencies do not appear on subsequent reviews as deficiencies.\n* A process exists that allows deficiencies in the program to become immediately apparent and corrected in addition to a periodic comprehensive review.\n* Evidence exists which demonstrates that program components actually result in the reduction or elimination of incidents."
+  },
+  {
+    "id": "B119",
+    "content": "### 14. Other Program Review Elements\n* **Written safety policy**:\n  * There is a policy that promotes safety.\n  * The policy is available in writing.\n  * The policy is straightforward and clearly written.\n  * The leadership supports the safety policy.\n  * The policy can be easily explained or paraphrased by everyone in the organization.\n  * The policy is expressed in the context of other organizational values.\n  * The policy statement goes beyond compliance to address the safe behavior of everyone in the organization.\n  * The policy guides all employees in making a decision in favor of safety when apparent conflicts arise with other values and priorities.\n* **Clear goals are established and communicated to all employees**:\n  * A set of safety goals exists in writing.\n  * The goals relate directly to the safety policy, vision/mission.\n  * The goals incorporate the essence of “a positive and supportive safety management system integrated into the workplace culture.”\n  * The goals are supported by the leadership team and can be easily explained or paraphrased by others in the organization.\n* **Clear objectives are established and communicated to all employees**:\n  * Objectives exist that are designed to achieve the goals.\n  * The objectives relating to opportunities for improvements are identified in a safety management assessment and/or when using other comparable assessment tools.\n  * The objectives are clearly assigned to responsible individual(s).\n  * A measurement system exists that indicates progress on objectives toward the goal.\n  * The measurement system is consistently used to manage work on objectives.\n  * Others can easily explain the objectives in the organization.\n  * All employees know measures used to track objective progress.\n  * Members of the workforce are active participants in the objective process.\n* **Company-specific work rules**:\n  * All rules are clearly written and relate to the safety policy.\n  * All rules address potential hazards and associated risk.\n  * Safe work rules are understood and followed as a result of training and accountability.\n  * The leadership team supports work rules as a condition of employment.\n  * Methods exist for monitoring performance.\n  * All employees, including managers, are held accountable to follow stated rules.\n  * Employees have significant input to the rules.\n  * Employees have authority to refuse unsafe work.\n  * Employees are allowed access to information needed to make informed decisions.\n  * Documented observations demonstrate that employees at all levels are adhering to safe work rules."
+  },
+  {
+    "id": "B120",
+    "content": "*(58 Attributes of excellence of a safety, health and ergonomic program, 2016; Safety and Health Achievement Recognition Program, 2016)*"
+  },
+  {
+    "id": "B121",
+    "content": "## APPENDIX 14.3 SAFETY MANAGEMENT PERCEPTION QUESTIONNAIRE\n\n**Purpose**: This questionnaire is designed to identify your perceptions about your organization’s current occupational safety and health program.  \n**Directions**: Answer each question to the best of your knowledge by placing a check mark (✓) in the appropriate column."
+  },
+  {
+    "id": "B122",
+    "content": "<!-- [부록 14.3 설문지 양식 스크린샷 삽입 위치: Safety Management Perception Questionnaire pp. 365-367] -->\n<!-- ![APPENDIX 14.3 Safety Management Perception Questionnaire Part 1](image-xxx.png) -->\n![alt text](image-179.png)\n<!-- ![APPENDIX 14.3 Safety Management Perception Questionnaire Part 2](image-xxx.png) -->\n![alt text](image-180.png)\n<!-- ![APPENDIX 14.3 Safety Management Perception Questionnaire Part 3](image-xxx.png) -->\n![alt text](image-181.png)"
+  },
+  {
+    "id": "B123",
+    "content": "### Percentage Scoring Table\n\n| Score | Percentage | Score | Percentage |\n| :---: | :---: | :---: | :---: |\n| **36** | 100% | **18** | 50% |\n| **35** | 97% | **17** | 47% |\n| **34** | 94% | **16** | 44% |\n| **33** | 92% | **15** | 42% |\n| **32** | 89% | **14** | 39% |\n| **31** | 86% | **13** | 36% |\n| **30** | 83% | **12** | 33% |\n| **29** | 81% | **11** | 31% |\n| **28** | 78% | **10** | 28% |\n| **27** | 75% | **9** | 25% |\n| **26** | 72% | **8** | 22% |\n| **25** | 69% | **7** | 19% |\n| **24** | 67% | **6** | 17% |\n| **23** | 64% | **5** | 14% |\n| **22** | 61% | **4** | 11% |\n| **21** | 58% | **3** | 8% |\n| **20** | 56% | **2** | 6% |\n| **19** | 53% | **1** | 3% |\n| **0** | 0% | | |"
+  },
+  {
+    "id": "B124",
+    "content": "*Safety Management Perception Questionnaire, Permission to reproduce as is.*  \n*Notes from Authors of this questionnaire: This questionnaire may be reproduced without change in its entirety for non-commercial purposes without permission of Lapidus & Waite. Any manipulation or other utilization of this material must be authorized by Lapidus & Waite in writing. Copyright ©1995-2013, Robert A. Lapidus & Michael J. Waite. All Rights Reserved.*"
+  },
+  {
+    "id": "B125",
+    "content": "## APPENDIX 14.4 EXAMPLE SAFETY MANAGEMENT SYSTEM ASSESSMENT AND ACTION PLAN STRATEGY"
+  },
+  {
+    "id": "B126",
+    "content": "### 1. Organizational Information and History\n* Develop a problem statement that defines the scope of the issues\n* Develop understanding of organizational culture and structure, history of situation, past attempts to resolve, barriers or obstacles to past solutions, demographics, business environment, employee issues, regulatory issues/history\n* Develop understanding of current activities, processes, operations, and so on\n* Develop understanding of problem-solving process in use by Organization\n* Develop understanding of current safety management system, its administration\n* Assess the current safety culture with survey of leadership, employees"
+  },
+  {
+    "id": "B127",
+    "content": "### 2. Develop Overall Action Plan\n* Vision—desired future situation; develop the mission\n* Establish team (Leadership, Employees)—skill sets required\n* Assessment design and scheduling, sequencing actions\n* Communication (media, contacts, formats, timing), time, budget\n* Logistics—material, equipment, travel, and so on"
+  },
+  {
+    "id": "B128",
+    "content": "### 3. Assess the Safety Management System (Outline based on ANSI Z10-2012)\n*(Occupational Health and Safety Systems, 2012)*"
+  },
+  {
+    "id": "B129",
+    "content": "#### 3.1 Management Leadership Team and Employee Involvement\n* **OHSMS**: Review directives to establish and maintain OHSMS\n* **OHSMS policy**: Review foundational documents to support OHSMS\n* **Responsibility and authority**: Leadership, support, roles, delegations, and so on\n* **Management involvement**: Review current senior management involvement\n* **Employee involvement**: Depth and scope, time, resources"
+  },
+  {
+    "id": "B130",
+    "content": "#### 3.2 Planning\n* **Initial and ongoing reviews of the OHSMS**:\n  * Ongoing review—issues, job hazard analysis, standards, regulatory, and so on\n  * Assessment and prioritization: Review hazard impact, level of risk, priorities, causes; Review process for setting goals, objectives, priorities\n  * Objectives and objective implementation plans: Review OHSMS improvement process; Review project management involvement in planning for risk reduction and/or elimination of high severity\n* Review current scope and status of safety management, leadership and employee perception of safety, safety network\n* Develop and implement field survey for safety culture climate"
+  },
+  {
+    "id": "B131",
+    "content": "#### 3.3 Implementation and Operation\n* **Initial review (see measurement)**: Meet with designated organization personnel to:\n  * Review all preloss programs, processes—see “treatment”\n  * Review postloss incident investigations\n  * Review first aid and workers’ compensation claims\n  * Review job hazard analysis process and format\n* Review inspection process and hazard and associated risk identification training\n* Review supervisor and employee selection, orientation, core safety-related training, refresher\n* Review and observe preshift, pre-high-risk activity/situation meetings (Preshift reviews)\n* Review current checklists used prior to high risk activity/situations—risk assessment and hazard identification, Job hazard analysis\n* Review current standards, regulatory, and so on, in place—general compliance\n* **Using data, identify high hazard/risk situations, activities, and human error potential**:\n  * Prioritize high hazard activities using Risk Guidance Card/worksheets\n  * Review safety programs specific to high hazard and associated risk\n  * Develop ad hoc teams to complete job hazard analysis of each job/tasks/steps designated high hazard potential\n  * Begin Job Hazard Analysis of designated operations/activities/situations\n  * Develop Action Plan with goals and objectives for hazard and associated risk management\n  * Review controls and implementation of corrective action items"
+  },
+  {
+    "id": "B132",
+    "content": "#### 3.4 OHSMS Operational Elements\n* **Risk assessment**:\n  * Review current use of risk assessment concepts and methods\n  * Develop risk guidance process\n  * Determine employees to receive risk-related training\n  * Design training on risk assessment\n  * Implement beta test of the Risk Guidance Card process to selected test groups\n  * Introduce risk guidance card process to organization\n* **Hierarchy of controls (HoC)**:\n  * Review process in place to establish hazard controls\n  * Determine employees to receive HoC training\n  * Design training on HoC\n  * Implement beta test of the HoC process to selected test groups\n  * Introduce HoC to organization\n* **Design review and management of change**:\n  * Review process of design\n  * Form team (leadership, safety and risk management, employees) to review ongoing design process\n  * Introduce design team assessment process to include preactivities for jobs, activities\n* **Procurement of materials, equipment, and so on**:\n  * Review programs to select and ensure quality of PPE, fall protection, and so on, safety-related\n  * Review programs for replacement of damaged, defective equipment\n* **Contractors**:\n  * Review contractor control program\n  * Review contractor high risk activities and situations\n  * Review contractor potential to create high severity events\n* **Emergency preparedness**:\n  * Review crisis management process (CMP), response and medical\n  * Review structure of crisis communications\n  * Assist in designing/revising CMP\n* **Education, training & awareness**:\n  * Review general and specific safety training\n  * Review safety trainer criteria and selection\n  * Review classroom, material in use, and training environment\n  * Review employee orientation and refresher sessions\n  * Review hands-on training demonstrations\n  * Review leadership communication, problem-solving training\n  * Review training on risk management/risk control\n  * Develop/revise training process as warranted\n* **Communication**:\n  * Review current hazards and risk communications\n  * Review and map communication networks\n  * Review feedback systems/methods and risk signal detection\n  * Review information flow on risk issues and are there any obstacles or resistance to reporting\n  * Develop High Risk and Hazard communications media\n* **Document & record control process**:\n  * Review information and data curation and references available\n  * Review scope of access to safety-related information and data"
+  },
+  {
+    "id": "B133",
+    "content": "#### 3.5 Evaluation and Corrective Action\n* **Monitoring and measurement of industrial hygiene**:\n  * Review Industrial hygiene studies—dust, vapors, fumes, noise, vibration\n  * Determine IH high severity event potential\n* **Incident investigation & analysis**:\n  * Review forms and process of postloss data gathering\n  * Review incident analysis and cause methods\n  * As warranted, design high risk investigation forms\n  * Implement Severe Loss Incident Teams and methods for analysis\n* **Audits**:\n  * Review audit/assessment forms and follow-up procedures\n  * Review and match audits/assessment against Risk assessment\n  * Revise audit/assessment process as warranted\n* **Corrective and preventative actions**:\n  * Review action planning process, goals, and objectives development\n  * Assess corrective actions, time frames, budgets, completion\n* **Feedback to the planning process**:\n  * Review overall information and reporting system for goals and objectives development for improving safety management system\n  * Review time frames and pathways for risk communications\n  * Review risk priority planning process"
+  },
+  {
+    "id": "B134",
+    "content": "#### 3.6 Management Review Process\n* Assess Senior Management Review of Outcomes and Follow-up\n* Assess Senior Management communication to organization"
+  },
+  {
+    "id": "B135",
+    "content": "### 4. Measurement\n* Risk assessment and analysis—severity, frequency, nature of exposures\n* Hazard assessment and analysis\n* High hazard activities from risk and loss analysis\n* Loss-producing incidents—employee, facility/equipment/vehicles damage, third party\n* Organizational change—technology, tasks, structure, human-social, environment, goals (French & Bell, 1984)\n* High Severity Hazard Communications and feedback"
+  },
+  {
+    "id": "B136",
+    "content": "### 5. Treatment\n* **Risk and occupational health and safety**:\n  * Review and observation of specific programs and processes to control High Risk situations and activities: Fire/explosion, Electrical, Motor vehicles, heavy equipment, Confined space entry, Lockout/tagout, Fall protection, High pressure equipment/operations, Hot work, welding, Powered industrial trucks, Housekeeping, Hazard communication, Personal protective equipment, Respirator program, Ergonomics, Hearing conservation program, Radiation/lasers, Bloodborne pathogens, General life safety, Others as identified\n  * Assist organization in developing or modifying control programs\n* **Industry specific**: To be determined as information is developed"
+  },
+  {
+    "id": "B137",
+    "content": "### 6. Potential Tools for Use in Safety Management System\n*(Human performance tools for individuals, work teams, and management, 2009)*"
+  },
+  {
+    "id": "B138",
+    "content": "* **Individuals**:\n  * Task preview\n  * Job-site review\n  * Questioning attitude—at the activity level\n  * Questioning attitude—work planning and preparation\n  * “Pause when unsure”\n  * Procedure use and adherence\n  * Validate assumptions\n  * Signature (sign-off)\n  * Effective communications\n  * Place keeping\n* **Work-teams**:\n  * Prejob briefing\n  * Technical task prejob briefing\n  * Checking and verification practices\n  * Peer-checking\n  * Concurrent verification\n  * Independent verification\n  * Peer review\n  * Flagging (marking/identifying)\n  * Turnover—shift change information\n  * Postjob review—field review\n  * Technical task postjob review\n  * Project planning\n  * Problem-solving\n  * Decision making\n  * Project review meeting\n  * Vendor oversight\n* **Management tools**:\n  * Benchmarking\n  * Observations\n  * Self-assessments\n  * Performance indicators\n  * Independent oversight\n  * Work product review\n  * Investigating events triggered by human error\n  * Operating experience\n  * Change management\n  * Reporting errors and near misses\n  * Culpability decision tree\n  * Employee surveys\n  * Organizational safety climate surveys\n  * Human performance gap analysis\n  * Job-site conditions self-assessment questionnaire"
+  },
+  {
+    "id": "B139",
+    "content": "## APPENDIX 14.5 WORKSHEETS AND A RATING TOOL TO HELP STRENGTHEN JOBSITE SAFETY CLIMATE\n\nAppendix 14.5 provides a weblink to “Worksheets and a Rating Tool to Help You Strengthen Jobsite Safety,” developed by The Center for Construction Research and Training (CPWR) (Worksheets and a rating tool to help you strengthen jobsite safety, 2016)."
+  },
+  {
+    "id": "B140",
+    "content": "This workbook is designed to help construction management and safety professionals learn more about how to strengthen and improve their job site safety climate and safety outcomes by focusing on eight leading indicators. It includes the Safety Climate Assessment Tool (S-CAT) and provides the reader with a link to the free online version of the S-CAT (Safety Climate Assessment Tool (S-CAT), 2016)."
+  },
+  {
+    "id": "B141",
+    "content": "For more detail, please review the stated sources for Instructions on using the Safety Management System Assessment Worksheet (Safety and Health Program Assessment Worksheet Instructions, 2016; Safety Climate Assessment Tool (S-CAT), 2016; Worksheets and a rating tool to help you strengthen jobsite safety, 2016)."
+  },
+  {
+    "id": "B142",
+    "content": "Also, you can review the CPWR Safety Climate web page which has much more information on the Safety Climate/Culture efforts, the eight leading indicators and link to the S-CAT website (Safety Climate Assessment Tool (S-CAT), 2016)."
+  },
+  {
+    "id": "B143",
+    "content": "<!-- [부록 14.5 스크린샷 삽입 위치: CPWR S-CAT Tool] -->\n![alt text](image-182.png)\n<!-- ![APPENDIX 14.5 CPWR S-CAT Tool](image-xxx.png) -->"
+  },
+  {
+    "id": "B144",
+    "content": "* Worksheets and a rating tool to help you strengthen jobsite safety. (2016). ©2016, CPWR-The Center for Construction Research and Training. Retrieved from http://bit.ly/2v4efvu\n* Safety Climate Assessment Tool (S-CAT). (2016). ©2016, CPWR-The Center for Construction Research and Training. Retrieved from http://bit.ly/2K4ZPzn"
+  },
+  {
+    "id": "B145",
+    "content": "## APPENDIX 14.6 SAFETY AND HEALTH PROGRAM AUDIT TOOL\n\nAppendix 14.6 provides a weblink for a Safety and health program audit tool, a public domain document that can be downloaded and used for your library (Recommended Practices for Safety and Health Programs General Industry, OSHA 3885, 2016; Recommended Practices for Safety and Health Programs in Construction, 2015)."
+  },
+  {
+    "id": "B146",
+    "content": "<!-- [부록 14.6 스크린샷 삽입 위치: OSHA 3885 Audit Tool] -->\n![alt text](image-183.png)\n<!-- ![APPENDIX 14.6 OSHA 3885 Audit Tool](image-xxx.png) -->"
+  },
+  {
+    "id": "B147",
+    "content": "* Recommended Practices for Safety and Health Programs General Industry, OSHA 3885. (2016). Occupational Safety and Health Administration (OSHA), Public Domain. October. Retrieved from http://bit.ly/2ke6ZZM"
+  },
+  {
+    "id": "B148",
+    "content": "## BIBLIOGRAPHY\n\n* 58 Attributes of Excellence of a Safety, Health and Ergonomic Program. (2016). Oregon Occupational Safety and Health Division (Oregon OSHA), Public Domain, Adapted for Use. Retrieved from http://bit.ly/W4ZY8A.\n* Duhigg, C. (2012). The power of habit: Why we do what we do in life and business. Canada: Toronto, Doubleday.\n* French, W., & Bell, C. (1984). Organizational development: Behavioral science interventions for organizational movement. Englewood Cliffs, NJ: Prentice-Hall.\n* Geigle, S. J. (2011). Safety management system evaluation, course 716 study guide. OSHAcademy (TM) Course 703 Study Guide, Adapt as necessary. Retrieved from http://bit.ly/YKv7Br.\n* How to effectively assess and improve your safety and health program through safety and health evaluation. (2018). Oregon Occupational Safety and Health Division (Oregon OSHA), OR-OSHA 116, Public Domain, Adapted for Use. Retrieved from http://bit.ly/106AhmR.\n* Human performance tools for individuals, work teams, and management. (2009). In Vol. 2. Human performance improvement handbook: US Department of Energy. Public Domain.\n* Ismail, N. (2012). Environmental, health and safety, going beyond compliance. Aberdeen Group, A Harte-Hanks Company. White Paper, April, Retrieved from http://bit.ly/2xSRj3v.\n* Lapidus, R. A., & Waite, M. J. (2013). Safety management perception questionnaire. Lapidus & Waite.\n* Managing Worker Safety and Health. (2016). Illinois OSHA Onsite Safety & Health Consultation Program, Public Domain, Based on Information as Presented and Adapted for Use.\n* Managing Worker Safety and Health, Sample Assignment of Safety and Health Responsibilities. (2018). Missouri Occupational Safety and Health Administration (OSHA), Office of Cooperative Programs, Public Domain, Based on Information as Presented and Adapted for Use. Retrieved from http://on.mo.gov/2tdaySb.\n* Newell, S. A. (2001). A new paradigm for safety and health metrics: framework, tools, applications, and opportunities. Reprinted with Permission. ORC.\n* Occupational Health and Safety Systems. (2012). The American Industrial Hygiene Association. ANSI/AIHA Z10.\n* Recommended Practices for Safety and Health Programs General Industry, OSHA 3885. (2016). Occupational Safety and Health Administration (OSHA), Public Domain. October. Retrieved from http://bit.ly/2ke6ZZM.\n* Recommended Practices for Safety and Health Programs in Construction. (2015). Electronic Library of Construction Occupational Safety and Health (elcosh), public domain. Retrieved from http://bit.ly/2fuNDOp.\n* Roughton, J. E., & Mercurio, J. J. (2002). Developing an effective safety culture: A leadership approach, adapted for use. Butterworth-Heinemann. Retrieved from http://amzn.to/X8Gaz8.\n* Safety and Health Achievement Recognition Program. (2016). Oregon Occupational Safety and Health Division (Oregon OSHA), SHARP Program, Public Domain, Adapted as Necessary. Retrieved from http://bit.ly/XHf9nd.\n* Safety and Health Program Assessment Worksheet. (2007). Oregon Occupational Safety and Health Division (Oregon OSHA), Public Domain, Permission to Reprint, Modified and/or Adapted as Necessary. Retrieved from http://bit.ly/XLNphg.\n* Safety and Health Program Assessment Worksheet Instructions. (2016). Occupational Safety and Health Administration (OSHA), Public Domain, Adapted for Use. Retrieved from http://1.usa.gov/Y95L9T.\n* Safety and Health Program Assessment Worksheet—33A. (2016). Department of Labor and Industries WISHA OSHA, Public Domain, Adapted for Use. Retrieved from http://1.usa.gov/VRfgjK.\n* Safety Climate Assessment Tool (S-CAT). (2016). CPWR-The Center for Construction Research and Training. Retrieved from http://bit.ly/2K4ZPzn.\n* Schein, E. H. (2004). Organizational culture and leadership. The Jossey-Bass business & management series. John Wiley & Sons.\n* Schembri, J. (2012). Input output model. Bisk, Six Sigma Daily, Your everyday fix, August. Retrieved from http://bit.ly/2vuoU2o.\n* Shewhart, W. A. (1980). Economic control of quality of manufactured product. Chelsea, MI: BookCrafters.\n* Spear, J. E. (2010). Measuring safety and health performance, a review of commonly-used performance indicators. Spear Consulting, LP.\n* Worksheets and a rating tool to help you strengthen jobsite safety. (2016). CPWR-The Center for Construction Research and Training. Retrieved from http://bit.ly/2v4efvu."
+  }
+]
