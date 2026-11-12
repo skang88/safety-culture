@@ -56,11 +56,7 @@
 ## 안전 프로그램의 분석적 뿌리 (THE ANALYTICAL ROOTS OF SAFETY PROGRAMS)
 
 <!-- Block B08 -->
-근대적 안전 개념은 20세기 초반에 태동하기 시작했으며, 그 기본 원리는 당시 새롭게 등장했던 공학적 분석 기법과 현대 산업 경영 이론에 깊은 뿌리를 두고 있었다. 그 시기는 프레더릭 윈슬로 테일러(Frederick Winslow Taylor)의 과학적 관리법이 전 산업계를 지배하던 시대였다. 테일러의 이론은 철저한 관찰, 시간 및 동작 연구(Time and Motion Studies), 그리고 직무를 표준화된 최소 단위로 쪼개는 작업 표준화를 통해 노동 생산성을 극대화하는 데 초점을 맞추었다 (Taylor, 1911).
-
-이러한 고전적 분석 접근법은 생산성 향상에는 기여했으나, 인간을 마치 기계의 한 부품처럼 취급하는 환원주의적 한계를 지니고 있었다. 복잡한 시스템으로서의 조직을 이해하지 못한 채 개별 부품이나 단편적인 작업 동작만을 뜯어고치려 했던 초기 안전 프로그램의 유산은, 오늘날까지도 많은 현장에서 안전을 '단순한 규정 준수'나 '체크리스트 작성' 수준으로 협소하게 바라보게 만드는 부작용을 낳았다.
-
-진정한 안전 프로세스는 테일러 식의 단순 기계적 통제를 넘어, 전체 시스템의 복잡성과 인간적 요소를 온전히 포용하는 현대적 시스템 사고(Systems Thinking)로 진화해야만 한다.
+초기 안전 개념은 20세기 초에 개발되었으며, 그 원리는 제조업에서의 생산성 향상을 위한 새로운 방법에 기반을 두었다. 프레더릭 테일러(Fredrick Taylor)의 과학적 관리 원칙(Principles of Scientific Management)은 안전 프로그래밍에 적용되었다(Frederick Winslow Taylor, 1919). 테일러의 "과학적 관리(Scientific Management)" 당시, 대부분의 직무는 주로 수작업이었으며, 공정에 내재된 안전 노력은 제한적이었다. 예를 들어, 테일러는 직무 작업을 구성 요소로 분해하여 분석함으로써 그 효율성을 높일 수 있다고 믿었다. 돌이켜보면, 작업 위험 분석(Job Hazard Analysis, JHA)은 동일한 과정을 거쳐 각 작업의 위험 요소를 식별한다는 점에서 테일러의 개념에 기반을 두고 있다. 이러한 전통적인 JHA 접근법은 위험(risk) 개념을 통합하지 않으며, 현재 대다수의 직무가 어떻게 설계되었는지도 고려하지 않는다. 작업 위험 분석의 사용은 제12장에서 상세히 논의될 것이다. 테일러는 다음과 같이 네 가지 원칙을 제시했다. "경험 법칙(rule of thumb)"이나 단순한 습관 및 상식에 의한 작업 방식을 대체하고, 대신 과학적 방법을 사용하여 작업을 연구하고 특정 작업을 수행하는 가장 효율적인 방법을 결정한다. 단순히 작업자를 아무 직무에나 배정하는 것이 아니라, 능력과 동기에 기반하여 작업자를 직무에 매칭하고, 최대 효율로 작업하도록 훈련시킨다. 작업자의 성과를 모니터링하고, 가장 효율적인 작업 방식을 사용하고 있는지 확인하기 위해 지시와 감독을 제공한다. 관리자와 작업자 간에 작업을 배분하여, 관리자가 계획 및 훈련에 시간을 할애하고 작업자가 작업을 효율적으로 수행할 수 있도록 한다. Frederick Taylor and Scientific Management, Understanding Taylorism and Early Management Theory (2017). 전통적인 안전 프로그램을 검토할 때, 테일러의 네 가지 원칙의 잔재가 분명하게 드러난다. 맥크리스탈(McChrystal) 장군은 "…대부분의 산업이 프레더릭 테일러의 '과학적 관리'와 유사한 관리 교리를 채택해 왔으며, 이는 대규모로 알려진 반복 가능한 프로세스의 매우 효율적인 실행을 달성하는 데 탁월한 시스템이다"라고 지적한다(McChrystal et al., 2015). 맥크리스탈은 이를 "규율적이고 계층화된 환원주의의 구조와 문화"라고 부른다. 기본적인 직무 작업을 검토할 때, 이러한 방법은 여전히 유효할 수 있다. 기술과 노동력의 변화는 안전 관리에 대한 다른 사고 개념을 요구한다. 테일러의 과학적 관리 이론은 무언가를 수행하는 데 "단 하나의 올바른 방법(one right way)"이 있다는 생각을 촉진한다. 따라서 이는 목표에 의한 관리(Management By Objectives, MBO), 지속적 개선(Continuous Improvement) 이니셔티브, 업무 프로세스 재설계(Business Process Reengineering, BPR) 및 이와 유사한 다른 도구들과 같은 현재의 접근법과 상충된다. 이러한 접근법은 개인의 책임을 촉진하며, 조직 내 모든 수준으로 의사 결정을 확산시키고자 한다. Frederick Taylor and scientific management, understanding taylorism and early management theory (2017). 맥크리스탈에 따르면, 조직과 운영이 더욱 복잡해짐에 따라 "효율성만으로는 더 이상 충분하지 않다(Efficiency is no longer enough)." 테일러는 결과가 예측 가능한 직무 작업을 개선하기 위한 방법을 개발했다. 그의 방법은 조직의 모든 상호 연결성과 역학을 고려하도록 설계된 시스템 접근법(systems approach)이 아니었다. 예측 가능한 결과를 갖는 "복잡한(complicated) 과제", 프로그램, 지침, 특정 작업만을 엄격하게 다루는 것에서, 잠재적으로 예측 불가능한 결과와 진화하는 네트워크를 수반하는 다양한 시스템 상호작용의 복잡성을 다루는 다른 상황으로의 전환이 이루어져야 한다. 안전 관리 시스템의 설계는 조직의 복잡성을 총체적으로 접근하고 평가하여 전반적인 안전 프로세스를 더 잘 관리하려는 시도를 한다. 불행히도, 안전을 단순한 과정으로 계속 인식하는 인식이 여전히 존재하며, 사용되는 방법들은 복잡하지 않거나 많은 계획을 요구하지 않는다.
 
 <!-- Block B09 -->
 ### 관찰 1 (Observation 1)
@@ -298,41 +294,81 @@ DMAIC은 전통적인 PDCA보다 훨씬 더 정밀하고 진보된 데이터 기
 ## 안전보건경영시스템의 "단점과 한계" (THE “CONS” OF THE SAFETY MANAGEMENT SYSTEMS)
 
 <!-- Block B41 -->
-안전보건경영시스템의 단점 및 한계는 지속적인 프로세스가 유지되어야 하고 끊임없이 모니터링되어야 한다는 점이다. 다음과 같은 경우 안전보건경영시스템에 문제가 발생할 수 있다:
-* 적절하게 실행되지 않아 다른 경영 프로세스와 통합되지 못한 "박제된/판에 박힌(canned)" 접근법으로 비춰질 때, 즉 표방된 가치(espoused values)만 제공할 뿐 조직을 실질적으로 이끌지 못할 때 발생한다.
-* 그 적용 범위가 지나치게 협소하여 상호 연결된 총체적(holistic) 프로세스가 아닌 일련의 일회성 단편 프로그램으로 인식될 때이다.
-* 활동과 프로세스에 대한 측정이 양심적이고 일관되게 수행되지 않으면 거짓된 안전 의식(false sense of safety)이 형성될 수 있다. 서류상으로만 완료 처리하는 "연필 굴리기(pencil whipping)"나 허위 문서화가 발생하지 않도록 정직하고 포괄적이며 일상적인 평가 시스템이 갖추어져야 한다.
-* 부적절한 안전 행동이나 안전 프로세스의 미준수에 대해 징계나 제재와 같은 부정적 결과(consequences)가 일관되게 적용되지 않거나, 그와 반대로 안전 수칙 준수 및 모범 사례에 대한 긍정적 인정(positive recognition)이 결여되어 있을 때 시스템은 형해화된다.
-* 경영진의 관심과 자원 투입이 일시적인 유행(fad)처럼 지나가고 지속적인 헌신으로 이어지지 못할 때 직원들은 냉소주의(cynicism)에 빠지게 된다.
-* 시스템이 지나치게 관료화되고 복잡한 서류 작업에 치중하여 현장 작업자의 실질적인 안전 개선 활동을 저해하고 서류 작성만을 위한 업무 부담으로 전락할 때 실패한다.
+안전 관리 시스템의 단점으로는 지속적인 프로세스가 유지되고 지속적으로 모니터링되어야 한다는 요구사항이 있다. 안전 관리 시스템은 다음과 같은 경우 문제가 발생할 수 있다:
 
-이러한 단점과 함정을 극복하기 위해서는 경영시스템의 본질이 형식적인 문서화가 아니라 현장의 유해·위험요인을 실질적으로 제거하고 지속적인 개선(continuous improvement)을 달성하는 데 있음을 명확히 인식해야 한다. 미국 에너지부(DOE)와 민간 부문은 다음 세기의 프로그램 과제에 대비하고 자율안전보건프로그램(VPP) 경험을 공유하고 발전시키기 위해 긴밀히 협력해 왔다. 계약업체 직원과 연방 직원의 안전과 보건은 부서의 최우선 순위이다(DOE VPP 일반 정보, n.d.; 자율안전보건프로그램 DOE-VPP, 2016; 작업자 보건안전, n.d.).
+* 적절하게 구현되지 않고 다른 관리 프로세스와 통합되지 않은 "기성품(canned)" 접근 방식으로 보일 경우, 즉 표방된 가치(espoused values)를 제공하지만 조직을 실제로 이끌지 못하는 경우.
+* 그 범위가 너무 좁게 구현되어 상호 연결된 전체론적(holistic) 프로세스가 아닌 일련의 일회성(one-off) 프로그램으로 간주될 경우.
+* 그 활동과 프로세스의 측정이 성실하고 일관되게 수행되지 않을 경우 안전에 대한 잘못된 인식(false sense of safety)이 발생할 수 있다. "연필 휘핑(pencil whipping)" 즉 허위 문서화(false documentation)가 발생하지 않도록 정직하고 포괄적이며 정기적인 평가 시스템이 마련되어야 한다.
+* 우수한 구현과 미흡한 구현 모두에 대한 결과(consequences)가 마련되지 않은 경우. 어떤 형태로든 가치 있는 인정(valued recognition)이 존재하지 않으면 직원들은 해당 프로세스를 단지 또 다른 행정적 업무나 처리해야 할 서류 작업으로 간주할 수 있다.
+* 시간이 너무 많이 소요되는 것으로 인식될 수 있으며 안전 관리 시스템의 이유(why)가 완전히 이해되지 않을 수 있다. 앞서 언급한 바와 같이 그리고 개념을 재강조하고자 하는데, 안전 프로그램 성공의 전통적 방법은 OSHA 기록 가능성(recordability)과 손실 발생 사건(loss-producing events)의 빈도에 의존한다. "손실 없으면 위험도 없다(no loss no risk)"는 인식이 존재하면 관련 위험이 높더라도 "우리는 이것을 할 필요가 없다!"라는 태도가 나타날 수 있다.
+* 조직에 맞게 맞춤화(customized)되지 않고 조직 구조와 기존 문화를 고려하지 않아 해당 프로세스를 거부하거나, 더 나쁘게는 표방(espouse)하기만 하고 내재화(internalize)하지 않을 수 있는 경우.
+
+정부 및 자발적 관련 안전 관리 시스템의 예시
+안전 관리 시스템은 두 가지 유형으로 나뉜다. 정부-규제 관련(governmental-regulatory related) 시스템과 국가 및 국제적으로 인정된 표준 기관(standards agencies) 및 전문 학회(professional societies)에 의해 개발된 의무적(mandated) 또는 자발적(voluntary) 시스템이다. 정부 관련 프로그램은 규정의 행정(administration of regulations)을 강조한다. 이 절에서는 다양한 형식과 요소를 보여주기 위해 여러 안전 관리 시스템에 대한 개요를 제공한다. 형식에 대한 인식은 어떤 안전 관리 시스템이 조직에 가장 적합한지에 대한 결정에 도움이 될 수 있다. 안전 관리 시스템은 국제적(international), 국가적(national), 또는 주/도/시(state/province/city) 수준일 수 있다. 많은 주와 도에서 안전 관리 시스템을 제안하거나 의무화했다. 다양한 전문, 표준 또는 학제간 그룹 또는 학회에서 표준을 제공할 수 있다. 마지막으로, 조직이 자체적으로 프로세스를 개발하고 구현했을 수도 있다. 다음은 표준화된 정부 관련 지침 안전 관리 시스템의 몇 가지 예시이다:
+
+* 연방 직업안전보건청(OSHA), 안전 및 보건 프로그램을 위한 권장 관행 (Recommended Practices for Safety and Health Programs General Industry and Construction, 2017)
+* 연방 직업안전보건청 자발적 예방 프로그램 (Voluntary Protection Program (VPP), 2016)
+* 미국 에너지부 자발적 보호 프로그램 (Voluntary Protection Program (DOE-VPP), 2016)
+
+주 또는 도 시스템에는 다음이 포함된다:
+
+* 캘리포니아 OSHA 상해 및 질병 예방 프로그램 Title 8-§3203 (Guide to developing your workplace injury and illness prevention program with checklists for self-inspection, 2016). 캘리포니아 OSHA는 안전 프로그램 관리에 대한 공식적인 접근 방식을 의무화한다.
+* 효과적인 보건 및 안전 관리 시스템 구축 (Building an Effective Health and Safety management system, 2015), 상해 감소 파트너십(Partnerships in Injury Reduction), 앨버타(Alberta).
+* 몬태나 주(State of Montana)가 의무적 몬태나 안전 문화법(Montana Safety Culture Act)으로 취한 흥미로운 접근 방식 (Job safety analysis, 2018; Safety Culture Act, 2015). 부록 6.2에서 의무적 안전 문화법 표준(Mandated Safety Culture Act standard)을 참조하라. 이는 다운로드하여 도서관에 사용할 수 있는 관련 공공 도메인 문서이다. 정부 안전 관리 시스템 모델은 규제 기반(regulation based)인 경향이 있지만 프로그램 관리를 위해 앞서 논의된 핵심 요소의 변형을 여전히 사용한다. 부록 6.3에서 정부 관련 안전 관리 시스템 프로세스 요소의 간략한 요약 비교(Brief Summary Comparison of Governmental-Related Safety Management Systems Process Elements)를 참조하라. 이는 다음과 같다: 표 6.6 다양한 직업안전보건청(OSHA) 안전 또는 연방 자발적 관행(Various Occupational Safety and Health Administration (OSHA) Safety or Federal Voluntary Practices), 표 6.7 선택된 도 또는 국제 표준(Selected Providence or International Standards), 표 6.8 OSHA의 공정 안전 관리(PSM)와 EPA 화학 위험 관리 프로그램(RMP) 비교. 다양한 규정에 대한 요약을 제공하기 위해 모든 노력이 기울여졌으며, 표 6.9 제안된 안전 관리 프로그램을 위한 오래된 표준의 역사(History of Older Standards for a Proposed Safety Management Programs)가 있다. 모든 규정은 변경될 수 있다. 제시된 정보는 현재 표준(current standard)을 기반으로 한다.
+
+안전 및 보건 프로그램을 위한 권장 관행
+직업안전보건청(OSHA)은 2017년에 안전 및 보건 프로그램을 위한 여러 지침을 업데이트하고 발표했으며 여기에는 다음이 포함된다:
+
+* 일반 산업을 위한 안전 및 보건 프로그램을 위한 권장 관행 (Recommended Practices for Safety and Health Programs General Industry)
+* 건설 분야의 안전 및 보건 프로그램을 위한 권장 관행 (Recommended Practices for Safety and Health Programs in Construction).
+
+이러한 권장 관행은 이 책에서 논의된 7가지 핵심 요소를 사용하여 기본 안전 관리 시스템을 구현하기 위한 단계별 접근 방식을 제공한다. 부록 6.4에서 다운로드하여 도서관에 사용할 수 있는 이러한 관련 공공 도메인 문서를 참조하라.
+
+자발적 보호 프로그램(VPP)
+VPP는 심층적인 준수 기반 프로그램( compliance-based programs)을 수립하는 데 있어 OSHA 연구에 기반한 효과적인 프로그램이었다. 그 제목이 암시하듯이 VPP는 자발적인 노력(voluntary effort)이며, 그 일반적인 수용은 전국적으로 약 2200명의 참가자로 제한된다. 자발적 보호 프로그램(VPP)은 효과적인 작업장 기반 안전 및 보건을 촉진한다. VPP에서 경영진, 노동자, OSHA는 포괄적인 안전 및 보건 관리 시스템을 구현한 작업장에서 협력적 관계(cooperative relationships)를 구축한다. VPP 승인은 모범적인 직업 안전 및 보건을 달성한 고용주와 직원의 뛰어난 노력에 대한 OSHA의 공식적인 인정이다. VPP의 입법적 기반(legislative underpinning)은 1970년 직업안전보건법(Occupational Safety and Health Act of 1970) 제(2)(b)(1)조로, 이는 "가능한 한 국가의 모든 근로 남성과 여성에게 안전하고 건강한 작업 조건을 보장하고 우리의 인적 자원을 보존하기 위해 - (1) 고용주와 직원이 자신의 작업장에서 직업 안전 및 보건 위험 수를 줄이기 위한 노력을 장려하고, 고용주와 직원이 안전하고 건강한 작업 조건을 제공하기 위한 새로운 프로그램을 도입하고 기존 프로그램을 완성하도록 자극함으로써"라는 의회의 의도(Congress's intent)를 선언한다. VPP의 성공에 대한 통계적 증거(statistical evidence)는 인상적이다. 평균 VPP 작업장은 해당 산업 평균에 비해 52% 낮은 결근, 제한 또는 전보(Days Away Restricted or Transferred, DART) 사례율을 보인다. 이러한 사이트는 일반적으로 처음부터 그렇게 낮은 비율로 시작하지 않는다. 상해 및 질병 감소(reductions in injuries and illnesses)는 사이트가 안전 및 보건 관리에 대한 VPP 접근 방식과 도전적인 VPP 신청 프로세스(challenging VPP application process)에 전념할 때 시작된다. All About VPP (n.d.), Voluntary Protection Program (VPP) (2016). 조직이 작거나 강력한 안전 관리 시스템을 구현할 준비가 되지 않은 경우, VPP는 그 한계가 noted된 바와 같이 이해된다면 좋은 출발점이자 따를 가치가 있는 프로그램이 될 수 있다. VPP 프로그램 성공은 상해율 감소(injury rate reduction)와 준수 기반 노력(compliance-based efforts)에 기반한다. 필요한 노력이 프로그램 사용 조직 내에 안전 문화(safety culture)가 개발되었음을 의미하지는 않는다. "하류(downstream)" 측정은 위험 감소(risk reduction)가 개선되었는지에 대한 지표일 수도 있고 아닐 수도 있다.
+
+에너지부 VPP 요소
+에너지부 자발적 보호 프로그램(DOE-VPP)은 에너지부(DOE) 계약자 사이트에서 노동자, 경영진, 정부 간의 협력적 노력을 통해 안전 및 보건 우수성(safety and health excellence)을 촉진한다. DOE는 또한 다른 연방 기관 및 민간 부문과 파트너십을 형성하여 자발적 보호 프로그램(VPP) 경험을 발전시키고 공유하고 다음 세기의 프로그램 과제에 대비했다. 계약자 및 연방 직원의 안전 및 보건은 에너지부의 높은 우선순위이다. General Information of the DOE VPP Program (n.d.), Voluntary Protection Program (DOE-VPP) (2016), Worker health and safety (n.d.)
 
 <!-- Block B42 -->
 ### 미국 자율안전보건프로그램 참가자 협회 (VPPPA, Voluntary Protection Programs Participants’ Association)
 
 <!-- Block B43 -->
-미국 자율안전보건프로그램 참가자 협회(VPPPA, Inc. - The Premier Global Safety and Health Organization)는 협력적 산업안전·보건 및 환경 경영시스템을 전담하는 선도적 조직이다. 비영리 501(c)(3) 자선 단체인 VPPPA는 미국 산업안전보건청(OSHA) 및 미국 에너지부(DOE)의 VPP 인증을 획득했거나 안전보건의 수월성을 추구하는 2,300개 이상의 기업과 사업장 네트워크를 제공하는 회원 기반 협회이다.
+The Voluntary Protection Programs Participants’ Association, Inc. (VPPPA) - The Premier Global Safety and Health Organization은 협력적 직업 안전, 보건 및 환경 관리 시스템에 전념하는 선도적인 조직이다. VPPPA는 비영리 501(c)(3) 자선 단체로서 회원 기반 협회이며, 미국 노동부 산하 직업안전보건청(OSHA) 또는 미국 에너지부(DOE)의 자발적 보호 프로그램(VPP)을 달성했거나 이를 위해 노력하는 2,300개 이상의 기업 및 작업장으로 구성된 네트워크를 제공한다.
 
-이 협회와 관련 프로그램들은 인간 과오(Human Error)에 대한 현대적 관점을 제시한다:
-인간 과오는 실패의 단독 원인이 아니라 시스템 내부의 더 깊은 문제의 결과이자 증상(effect or symptom)이다. 인간 과오는 무작위로 발생하는 것이 아니며, 작업자가 사용하는 도구의 특성, 수행하는 과업, 그리고 작업하는 운영 환경과 체계적으로 연결되어 있다(Human performance tools for individuals, work teams, and management, human performance improvement handbook, 2009).
+자발적 보호 프로그램(DOE-VPP), (2016) 미국 에너지부는 2009년에 "인간 수행 개선 핸드북(Human Performance Improvement Handbook)"이라는 포괄적인 2권 분량의 매뉴얼을 개발했다. 이 매뉴얼은 안전 관리 시스템 자체는 아니지만, 안전 관리 시스템 개발에 사용되는 다양한 개념과 기준을 제시한다. 매뉴얼에 포함된 이러한 개념과 기준은 인간 오류의 근본 원인과 안전 관리 문화 개발의 장애 요인에 대한 이해를 제공한다.
+
+이 핸드북에서 다루는 인간 수행 개선(HPI)은 Six Sigma, 전사적 품질 관리(TQM) 등과 같은 프로그램 그 자체가 아니다. 오히려 이는 인간 수행의 조직적 맥락을 설명하는 수행 모델과 관련된 일련의 개념과 원칙이다. 이 모델은 인간 수행이 반복 가능한 결과를 산출하기 위해 함께 작동하는 요소들의 네트워크로 구성된 시스템이라고 주장한다. 이 시스템은 조직적 요인, 작업 현장 조건, 개인 행동 및 결과를 포괄한다. 시스템 접근법은 인간 오류에 대한 새로운 관점을 제시한다. 즉, 인간 오류는 실패의 원인이 아니라 시스템 내 더 깊은 문제의 결과 또는 증상이다. 인간 오류는 무작위가 아니며, 사람들이 사용하는 도구, 수행하는 작업, 그리고 작업하는 운영 환경의 특징과 체계적으로 연결되어 있다.
+
+개인, 작업 팀 및 관리자를 위한 인간 수행 도구, 인간 수행 개선 핸드북(2009)
 
 <!-- Block B44 -->
 ## 효과적인 안전보건경영시스템 구축 (BUILDING AN EFFECTIVE HEALTH AND SAFETY MANAGEMENT SYSTEM)
 
 <!-- Block B45 -->
-다음은 선진 안전보건경영시스템의 대표적인 사례들이다. 이러한 시스템들은 구조상 유사한 서식과 개념을 공유하고 있다. 공인된 자율 표준들의 기본 원리를 연구하고 검토함으로써, 조직의 현재 시스템을 점검하고 보다 구조화되고 포괄적이며 업계에서 인정받는 안전보건경영시스템으로 나아가기 위한 최선의 접근 방식을 결정할 수 있다(Building an Effective Health and Safety Management System, 2015). 제4장(무대 설정: 안전문화의 요소)을 참조하라.
+다음은 선진 안전 관리 시스템의 몇 가지 사례이다. 이러한 시스템들은 그 구조에서 유사한 형식과 개념을 공유한다. 이러한 공인된 자발적 표준들의 밑줄 친 기본 원리들을 연구하고 검토함으로써, 조직의 현행 시스템에 대한 검토를 수행하여 보다 구조화되고 포괄적이며 업계에서 인정받는 안전 관리 시스템을 위한 최선의 접근법을 결정할 수 있다(Building an Effective Health and Safety Management System, 2015). 제4장, 안전 문화의 방향 설정을 참조하라.
 
-국제표준화기구(ISO)가 제정한 ISO 45001:2018은 전 세계적으로 적용 가능한 산업안전보건경영시스템의 대표적인 표준이다. 표준화된 프로세스를 채택한다는 것은 조직이 추가적인 시간, 노력 및 예산을 기꺼이 투입할 의지가 있음을 대내외에 보여주는 강력한 증거가 된다(ISO 45001 as a competitive advantage, 2018).
+* 직업안전보건 관리 시스템, ANSI/ASSE Z10, 2012 (Occupational Health and Safety Systems, 2012)
+* 직업안전보건 ISO 45001 (What is ISO 45001?, 2018)
+* 직업안전보건 관리 표준(OHSAS 18001) (2007)
+* 직업안전보건(OSH) 관리 시스템(직업안전보건 관리 시스템에 관한 지침, 2001)
 
-ISO 45001의 핵심 구조(High-Level Structure)는 다음과 같다:
-* 리더십 및 근로자 참여 (Leadership and worker participation)
-* 기획 (Planning)
-* 지원 (Support)
-* 운용 (Operation)
-* 성과 평가 (Performance Evaluation)
-* 개선 (Improvement)
-(New International Standard for Occupational Health and Safety Management Systems, 2017; Upgrade your certification to ISO 45001, 2018)
+**직업안전보건 관리, ANSI Z10-2012**
+이 표준의 목적은 조직에 그들의 안전 및 보건 성과를 지속적으로 개선하기 위한 효과적인 도구를 제공하는 것이다. Z10은 지침 표준이지만, OSHA에 의한 시행은 요구되지 않으며, 이러한 지침의 사용은 미국 조직들 사이에서 직업안전보건의 향상을 가져올 것으로 기대된다. 직업안전보건 관리 시스템(2012) 그림 6.10과 ANSI Z10-2012를 활용한 안전 관리 시스템으로의 추진에 대한 개요 및 직업안전보건 관리 시스템 Z10-2012에 기술된 다섯 가지 주요 요소에 대한 개요를 위해 표 6.1을 참조하라(직업안전보건 관리 시스템, 2012). 그림 6.10은 Z10의 다양한 요소들 간의 상호관계에 대한 관점을 제공하며 그 구현에 대한 통찰을 제시한다(직업안전보건 시스템, 2012).
+
+**지침 표준(Guidance Standard)** - 권고적이며 규제 요구사항이 아닌 표준. (용어집, 2010)
+
+**직업안전보건 ISO 45001**
+ISO 45001은 직업안전보건에 대한 국제 표준으로 갱신되어 2018년 3월 사용을 위해 발표되었다. ISO 45001은 완전히 구현될 경우 OHSAS 18001을 대체할 것이다. ISO 45001은 조직이 보건 및 안전 프로그램을 그들의 전반적인 운영 관리 시스템에 통합할 것을 권고하는 자발적 표준으로 남아 있다. 모든 안전 관리 시스템과 마찬가지로, 고위 경영진의 역할은 해당 표준에 대한 지원과 행정적 지원을 제공하는 것이다. ISO 45001은 조직이 OH&S 책임을 확대하고, 공급자와 계약자가 그들의 위험과 위해 요소를 어떻게 관리하는지 이해할 것을 요구한다(ISO 45001을 경쟁 우위로, 2018). ISO 45001의 이점은 변하지 않는다: 개선된 사업 성과, 운영 모범 사례의 일관된 적용, 감소된 부상 사고율, 그리고 증가된 직원 참여(ISO 45001을 경쟁 우위로, 2018). 공인된 국제 안전 관리 시스템 표준을 구현하는 것은 어떠한 ISO 또는 품질 관리 인증의 채택과 유사하다. 조직들이 그들의 문헌과 자료에서 안전과 보건을 표방하지만, 검증된 구조화된 프로세스를 사용하는 것은 조직이 그 노력에 추가적인 시간과 노력 및 예산을 기꺼이 투입하려 함을 보여준다(ISO 45001을 경쟁 우위로, 2018).
+
+* 리더십과 근로자 참여
+* 계획
+* 지원
+* 운영
+* 성과 평가
+* 개선
+
+(새로운 직업안전보건 관리 시스템을 위한 국제 표준, 2017; ISO 45001로 인증 업그레이드, 2018)
 
 <!-- Block B46 -->
 ![Fig 6.10](image-79.png)
@@ -340,32 +376,47 @@ ISO 45001의 핵심 구조(High-Level Structure)는 다음과 같다:
 
 <!-- Block B47 -->
 ![Table 6.1](image-80.png)
-표 6.1 산업안전보건경영시스템 ANSI/ASSE Z10-2012의 5대 핵심 요소:
-
-1. **경영 리더십 및 근로자 참여 (Management Leadership and Employee Participation)**
- - 안전보건 방침 (Occupational Health and Safety Policy)
- - 책임과 권한 (Responsibility and Authority)
- - 근로자 참여 (Employee Participation)
-2. **기획 (Planning)**
- - OHSMS 이슈 식별 및 우선순위 지정 (Identify and prioritize OHSMS issues)
- - 우선순위가 지정된 이슈 기반 위험 통제 목표 수립 (Develop objectives for risk control)
- - 우선순위 목표 달성을 위한 실행 계획 수립 (Formulate implementation plans)
-3. **실행 및 운영 (Implementation and Operation)**
- - 통제의 위계 (Hierarchy of Controls)
- - 설계 검토 및 안전 설계 (PtD, Prevention through Design)
- - 조달 및 계약업체 관리 (Procurement and Contractors)
- - 비상사태 대비 및 대응 (Emergency Preparedness)
- - 교육 훈련 및 역량 (Education, Training, and Competence)
- - 의사소통 및 정보 흐름 (Communication)
-4. **평가 및 시정 조치 (Evaluation and Corrective Action)**
- - 모니터링, 측정 및 평가 (Monitoring, Measurement, and Assessment)
- - 사고 조사 (Incident Investigation)
- - 감사 (Audit)
- - 시정 및 예방 조치 (Corrective and Preventive Action)
-5. **경영진 검토 (Management Review)**
- - 경영진 검토 프로세스 및 후속 조치 (Review Process and Outcomes)
-
-(ANSI/AIHA/ASSE Z10-2012; OHSAS 18001:2007; ILO-OSH 2001 지침 등 인용. 국제노동기구(ILO)는 자유, 형평, 안보 및 인간의 존엄성이 보장되는 조건에서 남성과 여성이 품위 있고 생산적인 일자리를 얻을 수 있는 기회를 증진하는 것을 주요 목표로 하는 유엔(UN)의 전문 기구이다.)
+표 6.1 직업안전보건 관리, Z10-2012, 다섯 가지 주요 요소
+관리 리더십 및 근로자 참여
+직업안전보건 정책
+책임과 권한
+근로자 참여
+계획
+OHSMS 이슈 식별 및 우선순위 설정
+우선순위가 설정된 OHSMS 이슈를 기반으로 위험 통제를 위한 목표 개발
+우선순위가 설정된 목표 달성을 위한 이행 계획 수립
+이행 및 운영
+통제의 계층구조
+설계 검토 및 변경 관리
+조달 및 계약자
+비상 대비
+교육, 훈련, 역량
+평가 및 시정조치
+모니터링, 측정, 평가, 사건 조사, 감사
+시정조치
+경영 검토
+OHSM 연례 검토 (“Occupational Health and Safety Systems,” 2012)
+캐나다 직업안전보건 센터
+“2006년 9월 6일, 캐나다 표준 협회(CSA)는 캐나다 최초의 합의 기반 작업장 건강 및 안전 관리 표준을 공개했다. CSA에 따르면, CSA Z1000-06 직업안전보건 관리라는 제목의 이 새로운 표준은 기업이 직업안전보건 관리 시스템을 개발하고 이행하기 위한 모델을 제공함으로써 작업장에서의 부상, 질병 및 사망을 줄이거나 예방하는 것을 목적으로 한다” (Occupational Safety and Health Management, 2006).
+“CSA Z1000은 요구사항 텍스트 외에도 사용자가 관리 시스템을 이행하는 데 도움이 되는 광범위한 지침 자료를 포함한다. 이는 ISO 14001(What is ISO 45001?, 2018) 및 ISO 9001(품질 관리)과 같이 캐나다 전역의 조직에서 현재 사용 중인 다른 관리 시스템과 호환되도록 설계되었다” (Canada’s First Consensus-Based Occupational Health and Safety Management Standard, n.d.).
+캐나다는 효과적인 건강 및 안전 관리 시스템이 다음 여덟 가지 구성 요소를 갖추는 것으로 설명한다:
+* “작업 현장에서의 건강 및 안전 위해요소의 식별 및 분석.
+* 위해요소로부터 근로자에 대한 위험을 제거 또는 줄이기 위한 통제 조치.
+* 입증된 관리적 헌신 및 서면 회사 정책.
+* 근로자 역량 및 훈련.
+* 점검 프로그램.
+* 비상 대응 계획.
+* 사건 보고 및 조사.
+* 관리 시스템 운영.”
+(Building an Effective Health and Safety Management System, 2015)
+Z1000-06에 기반한 직업안전보건 관리의 여섯 가지 주요 요소 개요는 표 6.2를 참조하라.
+부상 감소 파트너십(Partnerships in Injury Reduction)은 고용주와 근로자 대표가 정부와 협력하여 효과적인 건강 및 안전 관리 시스템을 구축하는 자발적 프로그램이다. 건강 및 안전을 개선함으로써 작업장 부상 및 질병의 사회적 및 재정적 비용이 감소한다. 앨버타 근로자 보상 위원회(WCB)는 부처, 인증 파트너 및 고용주와 협력하여 부상 감소 파트너십 프로그램을 통해 WCB 보험료 인센티브를 제공한다. 예측 목표 이하로 청구 비용을 줄이고 COR(인증서)을 획득한 고용주는 업계 요율에서 최대 20% 할인을 받을 수 있다. 앨버타 근로자 보상 위원회 (n.d.)
+이 프로그램이 근로자 보상 위원회와도 연계되어 있음에 유의하라.
+직업안전보건 관리 표준 (OHSAS 18001)
+영국 표준은 직업안전보건 관리 시스템에 대한 공식적인 합의 기준을 수립하였다. 이는 ISO 45001로 대체되고 있다. 직업안전보건 관리 표준 (OHSAS 18001) 개요는 표 6.3을 참조하라.
+OHSAS 18001은 ISO 9001(품질) 및 ISO 14001(환경) 관리 시스템 표준과 호환되도록 개발되어, 조직이 원할 경우 품질, 환경 및 직업안전보건 관리 시스템의 통합을 용이하게 한다. (OHSAS) 사양은 조직이 OH&S 위험을 통제하고 성과를 개선할 수 있도록 직업안전보건(OH&S) 관리 시스템에 대한 요구사항을 제시한다. 이는 구체적인 OH&S 성과 기준을 명시하지 않으며, 관리 시스템 설계에 대한 상세한 사양도 제공하지 않는다. 직업안전보건 관리 표준 (OHSAS 18001) (2007)
+직업안전보건(OSH) 관리 시스템, ILO-OSH 2001 지침
+“국제노동기구(ILO)는 유엔(UN)의 전문 기관으로, 여성과 남성이 자유, 형평성, 안전 및 인간 존엄성의 조건에서 품위 있고 생산적인 작업을 얻을 수 있는 기회를 증진하는 것을 주요 목표로 한다.
 
 <!-- Block B48 -->
 ![Table 6.2](image-81.png)
@@ -548,13 +599,14 @@ ISO 45001의 핵심 구조(High-Level Structure)는 다음과 같다:
 
 <!-- Block B65 -->
 ![Fig 6.11](image-84.png)
-그림 6.11 샘플 브레인스토밍 양식.
+그림 6.11 브레인스토밍 양식 예시.
 
-**친화도 (Affinity Diagrams)**
-친화도(어피니티 다이어그램)는 구두 토론 내용을 시각적 패턴으로 정리하는 데 도움을 준다. 친화도 프로세스는 구체적인 아이디어에서 출발하여 점차 광범위한 범주로 나아간다. 친화도는 다음에 기여한다:
-* 문제에 기여하는 요인 목록을 체계적으로 구조화한다.
-* 개선이 가장 시급히 필요한 핵심 영역을 식별한다.
-(미국 해안경비대 리더십 개발 센터, 2014)
+친화도 다이어그램(Affinity Diagram) 친화도 다이어그램은 언어적 논의를 시각적 패턴으로 체계화하는 데 도움을 준다. 친화도 다이어그램 과정은 구체적인 아이디어에서 시작하여 광범위한 범주로 나아가는 방식으로 진행된다. 친화도 다이어그램은 다음과 같은 도움을 줄 수 있다:
+* 문제에 기여하는 요인 목록을 체계화한다.
+* 개선이 가장 필요한 영역을 식별한다.
+(U.S. Coast Guard Leadership Development Center, 2014)
+
+친화도 다이어그램 예시 브레인스토밍 세션을 활용하여 프로젝트 내 오류 수, 문법, 구두점, 문장 구조를 줄이고 어휘 향상을 도모할 수 있다. 이는 표 6.5에 제시된 바와 같이 기준 목록을 개발함으로써 달성될 수 있으며, 이는 브레인스토밍 세션의 예시이다. 핵심은 논의 초기 단계에서 제안이나 아이디어를 제한하지 않음으로써 과정에 참여하는 모든 사람이 창의성을 발휘하도록 하는 것이다. 사람들에게 창의적으로 사고하도록 장려하라. “만약에(What if)?”라는 질문을 던지고, 원하는 대로 무엇이든 할 수 있다면 원하는 상태를 시각화하라 (U.S. Coast Guard Leadership Development Center, 2014).
 
 <!-- Block B66 -->
 ![Table 6.5](image-85.png)
@@ -615,15 +667,22 @@ ISO 45001의 핵심 구조(High-Level Structure)는 다음과 같다:
 파레토 차트는 막대그래프이다. 막대의 길이는 가장 긴 막대가 왼쪽에, 가장 짧은 막대가 오른쪽에 오도록 배열된다. 이 차트는 보다 중대한 상황을 시각적으로 묘사한다. 프로세스에서 문제나 원인의 빈도에 관한 데이터를 분석할 때, 또는 문제나 원인이 수없이 많아 가장 중대한 소수에 집중하고자 할 때 파레토 차트를 사용할 수 있다(Pareto chart, 2018). 예시는 그림 6.5를 참조하라.
 
 <!-- Block B68 -->
-![Fig 6.13](image-87.png)
-그림 6.13 관리도(Control chart) 예시 및 간트 차트 일정 양식.
+![그림 6.13](image-87.png)
+그림 6.13 표본 관리 도표.
+작업 1 하위 작업 1 하위 작업 2 하위 작업 3 작업 2 하위 작업 1 하위 작업 2 하위 작업 3 하위 작업 4 간트 차트 (월간) 여기에 텍스트 삽입 주 1월 2월 3월 4월 5월 6월 7월 8월 9월 10월 11월 12월 xx 일 작업 위험 분석 x 일 활동 개발 x 일 2월 18일 직원과의 논의 x 일 2월 10일 xx 일 x 일 8월 15일 x 일 9월 1일 x 일 9월 29일 x 일 10월 13일 2018년 1월 15일 2018년 7월 8일 2015년 12월 1일 완료 예정 완료 미시작
 
 <!-- Block B69 -->
 ![Fig 6.14](image-88.png)
-그림 6.14 간트 차트 예시.
-
-**5 Why 기법 (The Why 5 Technique)**
-"왜(Why)?"라는 질문을 5번 던지는 것은 프로세스 결함의 근본 원인을 파악하고 이해하며, 원인에 대한 잘못된 가정을 밝혀내는 데 사용할 수 있는 대단히 강력한 도구이다. "왜?"를 반복해서 묻는 것은 시스템의 껍질을 벗겨내어 특정 문제를 일으키는 시스템의 근본 증상을 발견할 수 있게 해준다. 이 기법은 또한 문제의 서로 다른 원인들이 어떻게 상호 연관되어 있는지 파악하는 데 도움을 준다(Hafey, 2009).
+그림 6.14 샘플 간트 차트.
+‘5 Why’ 기법 다섯 번의 ‘왜?’를 묻는 기법은 프로세스 내 결함의 근본 원인을 식별하고 이해하는 데 도움을 주며, 원인에 대한 잘못된 가정을 부각시키는 데 활용될 수 있는 강력한 도구이다. 반복적으로 “왜?”라고 질문함으로써 특정 문제를 야기하는 시스템의 증상들을 하나씩 벗겨내어 파악할 수 있다. 이 기법은 또한 문제의 다양한 원인들이 어떻게 서로 연관될 수 있는지를 식별하는 데에도 도움을 준다(Hafey, 2009). 다음은 몇 가지 핵심 개념이다.
+* 문제를 구체적인 용어로 기술한다.
+* 왜 발생하는지 질문한다.
+* 답변이 근본 원인을 식별하지 못하면, 다시 왜라고 질문한다.
+기억해야 할 주요 사항:
+* 오직 사실에 근거하여만 작업한다—풍문은 배제한다.
+* 관련된 개인의 성격보다는 문제의 프로세스/측면에 초점을 맞춘다. 희생양을 찾는 것은 문제를 해결하지 못한다!
+* 연속적인 각 “왜?”에 대한 답변은 정보 수집을 필요로 할 수 있다.
+(미국 해안경비대 리더십 개발 센터, 2014) 샘플 근본 원인 분석에 대해서는 제6장 “안전 프로세스 구축,” 그림 6.15를 참조하라. 가치 흐름 지도(VSM) 가치 흐름 지도 작성은 제품 또는 서비스를 전달하는 데 필요한 단계를 설명, 분석, 개선하기 위한 흐름도 기법이다(가치 흐름 지도 작성이란 무엇인가?, 2017). 가치 흐름 지도 작성은 린 방법론의 핵심 부분으로, 프로세스 단계와 정보의 흐름을 출발점에서 고객에게 전달되기까지 검토한다(가치 흐름 지도 작성이란 무엇인가?, 2017). 가치 흐름 지도는 정보 흐름 내 다양한 작업 활동을 묘사하기 위해 기호 체계를 사용한다. 프로세스 내 특정 요소들은 가치를 추가하는 것 또는 가치를 추가하지 않는 것으로 매핑되며, 그 목적은 가치를 추가하지 않는 요소들을 식별하고 제거하는 데 있다(가치 흐름 지도 작성이란 무엇인가?, 2017).
 
 <!-- Block B70 -->
 ![Fig 6.15](image-89.png)
@@ -640,11 +699,12 @@ ISO 45001의 핵심 구조(High-Level Structure)는 다음과 같다:
 
 <!-- Block B71 -->
 ![Fig 6.16](image-90.png)
-그림 6.16 안전보건경영시스템의 지속적 개선 기회를 식별하는 기본 가치 흐름 맵(Value Stream Map).
-5S는 모든 프로세스의 성공적인 실행에 필수적인 직원의 참여와 지속적 개선 문화를 육성한다(The lean and environment toolkit, 2007). 일부 조직에서는 5S 개념에 6번째 구성요소로 "안전(Safety)"을 추가하여 "6S"로 운영하기도 한다(The lean and environment toolkit, 2007).
-
-**격차 분석 (Gap Analysis)**
-격차 분석은 조직이 현재의 상태(where it is)와 미래에 도달하고자 하는 목표 상태(where it wants to be) 사이의 차이를 식별할 수 있도록 해주는 기법이다. 안전보건경영시스템에서 격차 분석은 현재의 안전 관행과 표준 요구사항 간의 차이를 평가하여 시정 계획을 수립하는 데 활용된다.
+그림 6.16 안전 관리 시스템의 지속적 개선 기회를 식별하는 기본 가치 흐름 지도.
+5S는 어떠한 프로세스의 성공적 구현에 필수적인 지속적 개선 및 직원 참여 문화를 조성한다(The lean and environment toolkit, 2007). 일부 조직은 5S 개념에 여섯 번째 구성 요소인 '안전(Safety)'을 추가하였다(The lean and environment toolkit, 2007). 격차 분석(Gap Analysis) 격차 분석은 조직이 현재 상태와 달성하고자 하는 목표 상태 간의 격차를 식별할 수 있게 하는 기법이다(Gap analysis, reaching your ideal future state, n.d.; Werde, 2015). 격차 분석은 다음으로 구성된다.
+* 현재 상황('현재 상태')의 특성 요인(속성, 역량, 성과 수준 등) 목록화
+* 미래 목표 달성에 필요한 요인('목표 상태') 목록화
+* 존재하며 시정되어야 할 격차 강조(Gap analysis, 2018).
+6장 '안전 프로세스 창출(Creating the Safety Process)'의 그림 6.12 부상 관리 및 통제 샘플 프로세스, 그리고 그림 6.13 연부 조직 손상 주장 보고서 샘플 개요를 참조하라. 히스토그램(Histogram) 히스토그램은 연속 구간 또는 특정 기간에 걸친 데이터 분포를 시각화할 수 있게 한다. 히스토그램은 값이 어디에 집중되는지, 극단값이 무엇인지, 그리고 어떠한 격차가 있는지에 대한 추정치를 제공하는 데 도움을 준다(U.S. Coast Guard Leadership Development Center, 2014). 히스토그램 예시는 그림 6.17을 참조하라.
 
 <!-- Block B72 -->
 ![Fig 6.17](image-91.png)
@@ -824,24 +884,5 @@ OSHA 안전보건 프로그램 가이드 문서 모음집.
 ## 참고문헌 (BIBLIOGRAPHY)
 
 <!-- Block B94 -->
-5S Implementation. (2017). 5S implementation, 2017, Toyota Production System (TPS). Retrieved from http://bit.ly/2nAs9Ak.
-Agarwal, A. (2015). How to get things done with trello. Digital Inspiration. Retrieved from http://bit.ly/2Duk6ea.
-Alberta Workers’ Compensation Board. (n.d.). Government of Alberta. Retrieved from http://bit.ly/2AnDusU.
-All About VPP. (n.d.). Occupational Safety & Health Administration, (OSHA). Public Domain. Retrieved from http://bit.ly/2CaYGBW.
-Analysis Paralysis. (2018). US Legal, Inc. Retrieved from http://bit.ly/2C9yN82.
-ANSI/AIHA/ASSE Z10-2012. Occupational Health and Safety Management Systems. American National Standards Institute / American Industrial Hygiene Association / American Society of Safety Engineers.
-Breakthrough Management Group, Inc. (1999–2004). Black Belt Training Manual, Define Phase, Black Belt DMAIC Methodology.
-Building an Effective Health and Safety Management System. (2015). Partnerships in Injury Reduction, Alberta Ministry of Labour.
-CSA Z1000-06 (R2011). Occupational Health and Safety Management. Canadian Standards Association.
-Deming, W. E. (2018). Out of the Crisis. MIT Press.
-DOE-VPP. (2016). Voluntary Protection Program, Department of Energy.
-ILO-OSH 2001. Guidelines on Occupational Safety and Health Management Systems. International Labour Organization, Geneva.
-ISO 45001:2018. Occupational health and safety management systems — Requirements with guidance for use. International Organization for Standardization.
-ISO 19443:2018. Quality management systems — Specific requirements for the application of ISO 9001:2015 by organizations in the supply chain of the nuclear energy sector.
-Montana Safety Culture Act. (2015). State of Montana Department of Labor and Industry.
-OHSAS 18001:2007. Occupational Health and Safety Management Systems — Requirements. British Standards Institution.
-Roughton, J. E., & Crutchfield, N. (2008). Job Hazard Analysis: A Guide for Voluntary Compliance and Beyond. Butterworth-Heinemann.
-Roughton, J. E., & Crutchfield, N. (2016). Safety Leadership and Professional Development. Butterworth-Heinemann.
-Shewhart, W. A. (1980). Economic Control of Quality of Manufactured Product. American Society for Quality Control.
-Taylor, F. W. (1911). The Principles of Scientific Management. Harper & Brothers.
+5S Implementation. (2017). 5S implementation, 2017, Toyota Production System (TPS). Retrieved from http://bit.ly/2nAs9Ak. Agarwal, A. (2015). How to get things done with trello. Digital Inspiration. Retrieved from http://bit.ly/2Duk6ea. Alberta Workers’ Compensation Board. (n.d.). Government of Alberta. Retrieved from http://bit.ly/2AnDusU. All About VPP. (n.d.). Occupational Safety & Health Administration, (OSHA). Public Domain. Retrieved from http://bit.ly/2CaYGBW. Analysis Paralysis. (2018). Urban Dictionary. Retrieved from http://bit.ly/2BSFjwR. Baker, J. (2018). The 80/20 rule and how it can transform your church. Sacred Structures. Retrieved from http://bit.ly/2DxMax5. Building an Effective Health and Safety Management System. (2015). Partnerships in Health and Safety Program, Partnerships in Injury Reduction (partnerships). Public Domain. Retrieved from http://bit.ly/WsHteC. Canada’s First Consensus-Based Occupational Health and Safety Management Standard. (n.d.). Canadian Centre for Occupational Health & Safety (CCOHS), Based on Information as Presented and Adapted for Use. Check Sheets: Five Basic Types. (2013). Six Sigma Daily. Retrieved from http://bit.ly/2BSyEmf. Comparison of HSG 65 with Other Key Management Standards. (2017). Health and Safety Executive. Retrieved from http://bit.ly/13fgmoX. Control Charts. (2018). Clare-Gladwin RESD, Michigan Algebra II KHauck. Retrieved from http://bit.ly/2FPO5y1. Creating a Gantt Chart. (2017). Microsoft, OfficeToolTips Team. Retrieved from http://bit.ly/2IqtbGA. Dababneh, A. J. (2007). Effective Occupational Safety and Health Management System: Integration of OHSAS 18001, ILO-OSH 2001, and OR-OSHA. Definition, PDCA (Plan-Do-Check-Act). (2018). TechTarget, Whatls.com. Retrieved from http://bit.ly/2DB8uFQ. Deming, W. E. (1986). Out of the crisis (p. 510). Cambridge, MA: Massachusetts Institute of Technology. Center for Advanced Engineering Study. Deming, W. E. (2018). Plan-Do-Check-Act. Wikipedia, the Free Encyclopedia. Retrieved from http://bit.ly/14FZb1H. Earl, P. G. (2016). What is the Difference Between a Mind map and a Flow Chart? Socratic. Retrieved from http://bit.ly/2CF3b9k. Evans, M. (2018). Marketing Strategy in Eight Steps, Creating a Roadmap for Success. Retrieved from http://bit.ly/2GTr5OO. Evergreen, Retaining Its Relevance, Popularity, Usefulness, etc.; Enduring. (2018). Dictionary.com. Retrieved from http://bit.ly/2Mbzlxo. Fishbone. (2018). iSixSigma. Retrieved from http://bit.ly/14v46Gn. Frederick Taylor and Scientific Management, Understanding Taylorism and Early Management Theory. (2017). MindTools. Retrieved from http://bit.ly/ 2igx9r0. Frederick Winslow Taylor, S. D. M. E. (1919). The Principes of scientific management. Haper and Brothers Publishers. Retrieved from http://bit.ly/ 2hsSBIE. Gap analysis. (2018). Business Dictionary. Retrieved from http://bit.ly/2nBdQuJ. Gap analysis, Reaching Your Ideal Future State. (n.d.). MindTools. General Information of the DOE VPP Program. (n.d.). Office of Environment, Health, Safety & Security, U.S. Department of Energy. Retrieved from http://bit.ly/2Co44m0. George, M. L., & George, M. (2003). Lean six sigma for service. New York, NY: McGraw-Hill. Glossary terms. (2010). North Carolina State University. Retrieved from http://bit.ly/XevTjx. Grover, J. (2012). 5S Workplaces: When Safety and Lean Meet. EHS Today. Retrieved from http://bit.ly/2BROT3h. Guidance for Conducting Risk Management Program Inspections Under Clean Air Act Section 112(r). (1997). United States Environmental Protection Agency. Retrieved from http://bit.ly/2GmbHhL. Guide to developing your workplace injury and illness prevention program with checklists for self-inspection. (2016). State of California, Department of and Industrial Relations. Public Domain. Retrieved from http://bit.ly/Xewi5m. Guidelines on Occupational Safety and Health Management Systems. (2001). (2nd ed.). International Labour Organization (ILO). Retrieved from http://bit.ly/2fmSqkU. Guidelines on Occupational Safety and Health Management Systems, ILO-OSH 2001, First published 2001, 2nd ed. 2009. (n.d.). International Labour Organization (ILO). Retrieved from http://bit.ly/2xDm6R8. Hafey, R. (2009). Lean safety: Transforming your safety culture with lean management. CRC Press. Retrieved from https://amzn.to/2KljCL9. Hart, R. (2016). Why 5S is the Key to a Successful CI Initiative. TRACC. Retrieved from http://bit.ly/2FPBgUy. Heinrich, H. (1931). 1959. Industrial accident prevention: A scientific approach. New York: McGraw Hill. Human performance improvement handbook: Vol. 1. 2009, Energy.gov, Office of Environment, Health, Safety, and Security. Retrieved from http://bit.ly/ 2j5OXWm. Human performance tools for individuals, work teams, and management, human performance improvement handbook. (Vol. 2). (2009). U.S. Department of Energy Public Domain. Hurley, B. (2017). Lean six sigma for good. Lean Publishing. Retrieved from http://bit.ly/2FQt1HF. ILO-OSH, overview and history, module 2, lesson 1. (2001). North Carolina Safety University. Retrieved from http://bit.ly/XOTbMM. Injury and Illness Prevention Program (I2 P2). (n.d.). Occupational Safety and Health Administration (OSHA), Public Domain, based on information as presented and adapted for use. Retrieved from http://1.usa.gov/lIszWK. ISO 45001 as a competitive advantage. (2018). Sospes LLC. Retrieved from http://bit.ly/2qEz6SB. Job safety analysis. (2018). Oregon Occupational Safety and Health (Oregon OSHA). is a division of the department of consumer & business services. Retrieved from http://bit.ly/2I3VXN0. Job safety analysis, OSH answers fact sheets, Reprinted with Permission. (n.d.). Canadian Centre for Occupational Health & Safety (CCOHS), based on information as presented and adapted for use. Retrieved from http://bit.ly/2nALGAP. Johnson, J. (2018). What is tribal knowledge and how do you capture it?. Tallyfy. Retrieved from http://bit.ly/2nVkhbY. Kaizen Event. (2018). iSixSigma. Retrieved from http://bit.ly/2BRlZjF. Kaizen for the shopfloor. (2002). Productivity Press. productivity press development team. Retrieved from http://amzn.to/2nomgGt. Lacey, J., & Jones, R. (2017). ISO 45001 and the evolution of occupational health and safety management systems. IOSH. Managing for health and safety (HSG65). (2013). Health and Safety Executive, Crown Publishing. Permission to reprint, based on information as presented and adapted for use. Retrieved from http://bit.ly/YKDzRk. Manuele, F. A. (2011). Heinrich dislodging two myths from the practice of safety. Professional Safety. Mark Twain (2018). Retrieved from http://bit.ly/2DBBoWB. Mateski, M. (2016). A belated review of stanley Mcchrystal’s team of teams. Red Team Journal. Retrieved from http://bit.ly/2hnSEcn. McChrystal, G. S., Fussell, C., Collins, T., & Silverman, D. (2015). Team of teams: New rules of engagement for a complex world. Penguin Publishing Group. Retrieved from http://amzn.to/2huRcRL. Microlearning: Training for the millennial generation. (2018). Industry Safe Safety Software. Retrieved from http://bit.ly/2tx9hHZ. Mind map. (2017). Business Dictionary. Retrieved from http://bit.ly/2IiT5w1. New International Standard for Occupational Health and Safety Management Systems. (2017). The British Standards Institution. Retrieved from http://bit. ly/2BpuPJ5. New Standard to Improve Safety in the Nuclear Sector. (2018). International Organization for Standardization. Retrieved from http://bit.ly/2KjA52m http://bit.ly/2Io27rG. Occupational Health & Safety Management Systems. (2012). The American Society of Safety Engineers. ANSI/AIHA/ASSE Z10. Retrieved from http:// bit.ly/1MsT6MG. Occupational Health and Safety Management Systems Requirements with guidance for use. (2018). International Organization for Standardization. Retrieved from http://bit.ly/2GovPjm. Occupational Health and Safety Management Standard (OHSAS 18001). (2007). Praxiom Research Group Limited. Translated into plain english. Occupational Health and Safety Systems. (2012). The American Industrial Hygiene Association ANSI/AIHA Z10. Occupational Safety and Health Management. (2006). Canadian Standards Association. CSA standard, Z 1000-06, based on information as presented and adapted for use. Pareto chart. (2018). American Society for Quality. Retrieved from http://bit.ly/2nIKLAD. Plan-Do-Study-Act (PDSA) Worksheet. (n.d.). Institute for Healthcare Improvement. Retrieved from http://bit.ly/2Dz5F8m Process Safety Management (PSM) of Highly Hazardous Chemicals 1910.119. (1997). Occupational Safety and Health Administration. Retrieved from http://bit.ly/2GpZRTG. Program Evaluation Profile (PEP). (1996). Occupational Safety and Health Administration (OSHA). public domain, based on information as presented and adapted for use. Retrieved from http://bit.ly/2xzfTpA. Rastogi, A. (2018). A brief introduction to lean, six sigma and lean six sigma. GreyCampus. Retrieved from http://bit.ly/2BQUSoR. Recommended Practices for Safety & Health Programs in Construction. (2016). Occupational Safety and Health Administration (OSHA). Public Domain. Retrieved from http://bit.ly/2ke6ZZM. Recommended Practices for Safety and Health Programs General Industry, OSHA 3885. (2016). Occupational Safety and Health Administration (OSHA). Public Domain. Retrieved from http://bit.ly/2NhCY5h. Recommended Practices for Safety and Health Programs General Industry and Construction. (2017). Occupational Safety and Health Administration (OSHA). Public Domain, based on informaton as presented and adapted for use. Retrieved from http://bit.ly/2y3lm4V. Roughton, J., & Crutchfield, N. (2016). Job hazard analysis: a guide for voluntary compliance and beyond. In Elsevier/Butterworth-Heinemann (Ed.), Chemical, petrochemical & process. (2nd ed.). Massachusetts: Elsevier/Butterworth-Heinemann Retrieved from http://amzn.to/VrSAq5. Roughton, J. E., & Awadalla, C. A. (1997). Program evaluation profile: OSHA’s new inspection strategy. Professional Safety, 42(7), 12. Roughton, J. E., & Buchalter, D. S. (1997). OSHA’s process safety management standard vs. EPA’s risk management plan: a comparison of requirements. Professional Safety, 42(1), 36. Safety Culture Act. (2015). State of Montana Department of Labor & Industry. Public Domain. Retrieved from http://1.usa.gov/ohJMKR. Seidman, D., & Clinton, B. (2011). How: Why how we do anything means everything. Wiley. Shewhart, W. A. (1980). Economic control of quality of manufactured product. Republished by Cleslesa, Michigan: BookCrafters, Inc. Sinek, S. (2009). Start with why: How great leaders inspire everyone to take action. Portfolio. Retrieved from http://bit.ly/2ugVro5. Six Sigma DMAIC Process Define Phase Capturing Voice of Customer (VOC). (2017). International Six Sigma Institutetm. Retrieved from http://bit.ly/ 2B52asA. Starak, Y. (2018). What is the 80/20 rule and why it will change your life?. Entrepreneurs Journey. Retrieved from http://bit.ly/2wmM8oS. SWOT analysis. (2018). BusinessDictionary.com. Retrieved from http://bit.ly/2kvYypQ. The environmental professional’s guide to lean & six sigma. (2009). United States Environmental Protection Agency (EPA). EPA-100-K-09-006. Public Domain. Retrieved from http://bit.ly/2npJ4pn. The lean and environment toolkit. (2007). United States Environmental Protection Agency (EPA). EPA-100-K-06-003. Public Domain. Retrieved from http://bit.ly/2npJ4pn. The process improvement notebook. (1997). Department of the Navy, Total quality leadership office. TQLO publication No. 97-01, Public Domain. Retrieved from http://1.usa.gov/Y7U2ZX. Tribal knowledge. (2018). iSixSigma. Retrieved from http://bit.ly/1JXFKTI. U.S. Coast Guard Leadership Development Center (2014). Performance improvement guide (6th ed.). Boston, MA: U.S. Government Printing Office. United States coast guard process improvement guide: Total quality tools for teams and individuals. (1994). United States. Coast Guard. Quality Center. Public Domain. Retrieved from http://books.google.com/books?id l7dxuAAACAAJ. Upgrade your certification to ISO 45001. (2018). The British Standards Institution. Retrieved from http://bit.ly/2BpuPJ5. Voluntary Protection Protection (DOE-VPP). (2016). Department of Energy (DOE). public domain. Retrieved from http://bit.ly/2x48e3y. Voluntary Protection Protection (VPP). (2016). Occupatonal Safety and Health Administration (OSHA). Public Domain, based on and adapted for use. Retrieved from http://1.usa.gov/T0j6EW. Werde, S. (2015). Early boomers + generation jones: Meet the two boomer subgroups. BridgeWorks. Retrieved from http://bit.ly/2KvldO4. What is a process flowchart?. (2018). American Society for Quality. Retrieved from http://bit.ly/2Iq5lL2. What is design of experiments (DOE)?. (2017). American Society for Quality. Retrieved from http://bit.ly/2jgQ8pv. What is ISO 45001?. (2018). TUV NORD GROUP. Retrieved from http://bit.ly/2nPzH51. What is kanban?. (2018). Leankit, by Planview. Retrieved from http://bit.ly/2CseBw5. What is value stream mapping?. (2017). Lucidchart. Retrieved from http://bit.ly/2ocNNu4. Worker health and safety. (n.d.). US Department of Energy. public domain. Retrieved from http://bit.ly/2DxO1Sz.
 

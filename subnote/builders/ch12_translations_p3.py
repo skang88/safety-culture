@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-Chapter 12 Translations Part 3: B56 to B80 (100% Unabridged Full Verbatim Translation)
+Chapter 12 Translations - Patched Verbatim via Solar-pro4
 """
 
 translations = {
-    "B56": """### 숙련 기반 수행 (SKILL-BASED PERFORMANCE)
+    'B56': """### 숙련 기반 수행 (SKILL-BASED PERFORMANCE)
 
 숙련 기반 수행(Skill-based performance)은 "의식적인 주의 집중이나 모니터링이 거의 없이도 익숙한 상황 속에서 고도로 숙달되어 주로 신체적으로 행해지는 무의식적 일상 행동"을 요구한다. "이 단계에서 발생하는 오류는 주로 실행상의 오류로서, 행동의 미끄러짐(slips)이나 주의력 및 집중력의 일시적 깜빡임(lapses)에서 비롯된다" (Concepts and principles, 2009). 고전적이고 전통적인 JHA의 기원은 바로 이러한 유형의 반복 작업에 적용하기 위해 고안된 것으로 보인다. 주로 숙련에 의존하는 단순 작업은 고도의 복잡한 사고나 의사결정을 거의 요구하지 않는다. 작업 단계와 유해위험요인이 일단 명확히 규명되고 나면 이에 상응하는 안전 통제 장치가 배치되며, 이후에는 적용된 모든 통제 조치들이 현장에서 지속적으로 사용되고 있는지를 확인하는 모니터링이 뒤따른다. 이 경우의 JHA는 대단히 단순하고 직관적으로 수립될 수 있다.""",
 
-    "B57": """### 규칙 기반 수행 (RULE-BASED PERFORMANCE)
+    'B57': """### 규칙 기반 수행 (RULE-BASED PERFORMANCE)
 
 규칙 기반 수행(Rule-based performance)은 사전에 정해진 일련의 구체적인 조치를 취함으로써 미리 확립된 기성의 솔루션을 그대로 따르는 것을 요구한다. 이러한 수행 방식은 **"만약 ~라면, 그렇다면 ~를 하라(If-Then)"**는 조건부 의사결정 프로세스를 적극적으로 활용한다. 즉, 만약 "X"라는 상황이 발생하면, 반드시 "Y"라는 대응 조치가 요구되는 식이다 (Concepts and principles, 2009). JHA는 표준 운영 절차(SOP), 사내 안전 규칙, 공식 가이드라인, 그리고 명확한 업무 구조가 절대적으로 필수적인 구체적 작업 시나리오들을 정의한다. 이 단계에서의 인간 오류는 안전 규칙이나 프로토콜을 잘못 해석하거나, 확립된 절차를 이해하지 못하고 무시했을 때 주로 발생한다.""",
 
-    "B58": """### 지식 기반 수행 (KNOWLEDGE-BASED PERFORMANCE)
+    'B58': """### 지식 기반 수행 (KNOWLEDGE-BASED PERFORMANCE)
 
 지식 기반 수행(Knowledge-based Performance)은 "과거의 숙련도나 사전에 확립된 규칙으로는 개인이 전혀 인식할 수 없는 생소하고 낯선 미지의 상황에 대한 대응"을 의미한다 (Concepts and principles, 2009). 이러한 최고 난도의 수행 레벨에서는, 통제 대책이 빈틈없이 구현되도록 보장하기 위해 전례 없는 고유한 문제나 특수한 현안을 수반하는 각각의 새로운 경험마다 특화된 JHA가 필수적으로 작성되어야 한다. 이때 포괄적인 전체 직무 요구조건이 '부모(parent)'가 되고, 향후 유사 상황에서 활용할 수 있도록 축적된 다양한 경험들의 포트폴리오가 개발되어 정기적으로 유사성을 검토받게 된다. 이러한 경험 기반의 지식은 어떤 유형의 새로운 위험요인들이 발생할 수 있으며, 그것들이 상호 결합하여 어떻게 위험의 심각도를 극적으로 증폭시킬 수 있는지에 대한 깊이 있는 통찰을 제공한다.
 
@@ -20,7 +20,7 @@ translations = {
 
 ---""",
 
-    "B59": """## 인간 오류 잠재력의 선제적 통제 (HUMAN ERROR POTENTIAL)
+    'B59': """## 인간 오류 잠재력의 선제적 통제 (HUMAN ERROR POTENTIAL)
 
 이론적으로 볼 때, 만약 어떤 직무가 논리적으로 완벽하게 설계되고 근로자들이 그 직무를 수행하는 요령을 철저히 교육받았다면, 안전은 저절로 뒤따라올 것처럼 보인다. 이러한 순진한 시나리오에서 안전은 언젠가 도달할 수 있는 정적인 목적지로 간주된다. 그러나 이 방식은 전체 생산 시스템의 설계 결함으로부터 비롯되는 잠재적이고 내재적인 인간 오류의 가능성을 전혀 고려하지 않고 직무가 개발될 수 있다는 비현실적인 전제를 깔고 있다. 즉, 설계 엔지니어링 팀이 직무를 완수하는 데 필요한 수많은 변동성과 예외 상황을 완벽하게 예측할 수 있었다고 오만하게 가정하는 것이다. 나아가 설계 팀이 위험 식별과 정밀 위험성 평가에 대해 완벽한 전문성을 지니고 있다고 전제해 버린다. 그러나 저자들의 수많은 실무 경험에 비추어 볼 때, 설계 단계에서 내장되는 잠재적 오류의 발생 가능성은 대단히 농후하며, 바로 이것이 ANSI/AIHA/ASSE Z10 등 선진 안전보건경영시스템 표준들이 엔지니어링 설계 및 사전 검토 팀의 필수 일원으로 안전경영시스템 전문가를 반드시 참여시키도록 의무화하고 있는 결정적인 이유이다 (Occupational health & safety management systems, 2012).
 
@@ -30,7 +30,7 @@ JHA는 직무와 그 세부 작업 단계들을 효과적이고 안전하게 완
 
 ---""",
 
-    "B60": """## 인간 오류의 두 가지 유형: 활동적 오류 대 잠재적 오류 (ERROR TYPES)
+    'B60': """## 인간 오류의 두 가지 유형: 활동적 오류 대 잠재적 오류 (ERROR TYPES)
 
 앞서 언급한 두 가지 유형의 오류는 손실 유발 사건을 즉각적으로 촉발하거나, 혹은 오랫동안 은폐되어 웅크리고 있으면서 장기적인 대형 참사의 불씨로 작용한다.
 
@@ -46,33 +46,33 @@ JHA는 직무와 그 세부 작업 단계들을 효과적이고 안전하게 완
 
 ---""",
 
-    "B61": """## 설계 결함의 위험성 (DESIGN FLAWS)
+    'B61': """## 설계 결함의 위험성 (DESIGN FLAWS)
 
 현재 현장에 존재하는 수많은 안전 규칙과 정부 법적 규제들은 과거 수많은 대형 참사를 초래했던 뼈아픈 설계 결함과 조직적 실패의 유구한 역사로부터 비롯되었다. 설계 결함은 근로자 채용 관행이나 취약한 인력 숙련도 체계에서도 고스란히 발견될 수 있으며, 이는 교육 훈련이 부족하거나 부적격한 인력이 자신의 역량을 훌쩍 뛰어넘는 고위험 과업에 무방비로 투입되도록 방치하는 치명적인 결과를 낳는다 (그림 12.6~그림 12.8 참조). 이 흐름도들은 개인, 작업 팀, 그리고 경영 리더십 차원에서 인간 오류의 잠재력을 원천적으로 줄이기 위해 활용할 수 있는 다양한 전문 도구와 기법의 생생한 예시를 제공한다.
 
 ---""",
 
-    "B62": """## 새로운 위험으로서의 테크놀로지 (TECHNOLOGY AS A RISK)
+    'B62': """## 새로운 위험으로서의 테크놀로지 (TECHNOLOGY AS A RISK)
 
 JHA는 특정 직무 내에 적용된 자동화(automation)의 수준을 면밀히 고려해야 하며, 자동화 프로세스가 오작동하거나 붕괴했을 때 발생할 수 있는 잠재적 충격을 반드시 평가해야 한다. 예를 들어 자동차에 장착된 후방 카메라나 사이드미러 사각지대 감지 센서 등 첨단 운전자 보조 장치들은 후진이나 차선 변경 시 운전자에게 근거 없는 허위의 안전감(false sense of security)을 심어줄 수 있다. 이러한 첨단 장치가 장착되지 않은 일반 차량을 운전할 때 운전자의 취약성이 극명하게 드러나며, 이는 오랜 세월 동안 운전 경험을 통해 체득했던 인간 고유의 공간 관찰 능력이 첨단 기술에 의존하는 과정에서 얼마나 심각하게 퇴화되었는지를 여실히 보여준다.
 
 ---""",
 
-    "B63": """![FIG. 12.6 Overview of human performance tools - Individual tool use](image-146.png)""",
+    'B63': """![FIG. 12.6 Overview of human performance tools - Individual tool use](image-146.png)""",
 
-    "B64": """### 그림 12.6 인적 수행도 도구 개요—개인 차원의 도구 활용 흐름도 (직무 기술서 진단 및 개선) (FIG. 12.6 Overview of human performance tools example flow diagram of individual tool use)
-
----""",
-
-    "B65": """![FIG. 12.7 Overview of human performance tools - Work team tool use](image-147.png)""",
-
-    "B66": """### 그림 12.7 인적 수행도 도구 개요—작업 팀 차원의 도구 활용 흐름도 (FIG. 12.7 An overview of human performance tools, example flow diagram of work team tool use)
+    'B64': """### 그림 12.6 인적 수행도 도구 개요—개인 차원의 도구 활용 흐름도 (직무 기술서 진단 및 개선) (FIG. 12.6 Overview of human performance tools example flow diagram of individual tool use)
 
 ---""",
 
-    "B67": """![FIG. 12.8 Overview of human performance tools - Management](image-148.png)""",
+    'B65': """![FIG. 12.7 Overview of human performance tools - Work team tool use](image-147.png)""",
 
-    "B68": """### 그림 12.8 인적 수행도 도구 개요—경영진 차원의 도구 활용 흐름도 (변경 관리) (FIG. 12.8 Overview of human performance tools, example flow diagram of management - Change management)
+    'B66': """### 그림 12.7 인적 수행도 도구 개요—작업 팀 차원의 도구 활용 흐름도 (FIG. 12.7 An overview of human performance tools, example flow diagram of work team tool use)
+
+---""",
+
+    'B67': """![FIG. 12.8 Overview of human performance tools - Management](image-148.png)""",
+
+    'B68': """### 그림 12.8 인적 수행도 도구 개요—경영진 차원의 도구 활용 흐름도 (변경 관리) (FIG. 12.8 Overview of human performance tools, example flow diagram of management - Change management)
 
 ---
 
@@ -88,31 +88,31 @@ JHA는 특정 직무 내에 적용된 자동화(automation)의 수준을 면밀�
 
 ---""",
 
-    "B69": """## 안전 칼 및 절단 방지 장갑 프로그램: 위험 저감 사고로의 전환 (KNIFE SAFETY AND CUT RESISTANT GLOVE PROGRAM, SHIFTING THE THOUGHT PROCESS TO RISK REDUCTION)
+    'B69': """## 안전 칼 및 절단 방지 장갑 프로그램: 위험 저감 사고로의 전환 (KNIFE SAFETY AND CUT RESISTANT GLOVE PROGRAM, SHIFTING THE THOUGHT PROCESS TO RISK REDUCTION)
 
 제임스(James)는 앞선 여러 장에서 자신이 직접 총괄했던 식스 시그마 블랙벨트 프로젝트의 다양한 요소들을 소개한 바 있다. 거듭 강조하듯이, 정교한 식스 시그마 프로그램은 현장에 도입되는 순간 그 자체로 강력한 생명력을 띠고 작동하기 시작한다.
 
 ---""",
 
-    "B70": """## 실제 현장 사례 (CASE IN POINT)
+    'B70': """## 실제 현장 사례 (CASE IN POINT)
 
 제임스가 어느 대기업의 전사 안전 총괄 디렉터로 재직하던 시절, 회사는 기존의 일반 다목적 커터칼(utility knives)을 전량 퇴출시키고 칼날이 자동으로 칼집 안으로 들어가는 안전 칼(safety knives, 칼날 자동 접이식 칼)로 전면 교체함으로써 수공구 칼 부상을 근절하겠다는 공격적인 안전 프로그램을 수립하였다. 손 베임 열상(hand lacerations)은 현장에서 가장 빈번하게 발생하는 골칫거리 재해였기에, 안전 칼만 전사적으로 지급하면 손 베임 사고가 단번에 사라질 것이라고 경영진은 굳게 믿었다. 본사 경영진은 일반 커터칼의 사내 사용을 전면 엄금하고 오직 안전 칼만을 의무적으로 사용하라는 최고경영자 지침을 전격 하달하였다. 그러나 치명적인 실수는, 그들이 현장 작업에 대한 **사전 JHA를 전혀 실시하지 않았고**, 기초적인 유해위험요인 평가도 거치지 않았으며, **도구 선정 과정에 현장 근로자들을 단 한 명도 참여시키지 않았다**는 점이다. 그 결과 이 일방적인 탑다운 프로그램은 현장 근로자들의 거센 반발과 극심한 저항(major resistance)에 직면하여 처참한 실패를 맛보아야 했다.
 
 ---""",
 
-    "B71": """## 다목적 커터칼의 위험 실태 (UTILITY KNIVES)
+    'B71': """## 다목적 커터칼의 위험 실태 (UTILITY KNIVES)
 
 표준 다목적 커터칼은 수많은 산업 현장에서 널리 쓰이고 있으며 올바르게만 사용된다면 대단히 유용한 공구이다. 문제는 현장에서 이 커터칼이 본래 설계된 목적이 아닌 엉뚱한 용도로 함부로 오용된다는 사실이다. 즉 틈새를 억지로 비틀어 벌리는 지렛대(prying)로 쓰거나, 표면을 긁어내는 스크래퍼(scraping)로 사용하고, 칼날의 강도를 훌쩍 초과하는 지나치게 두껍고 질긴 고중량 자재를 무리하게 자르는 데 사용된다. 설상가상으로 마모되어 무뎌진 칼날을 억지로 쓰다 보면 작업자는 과도한 물리적 힘을 주게 되고, 순간적으로 칼날이 미끄러지면서 치명적인 신경 절단 및 동맥 파열이라는 대형 열상 사고를 초래하게 된다.
 
 ---""",
 
-    "B72": """## 절단 방지 장갑 프로그램의 전략적 구축 (GENERIC CUT RESISTANT GLOVES PROGRAM)
+    'B72': """## 절단 방지 장갑 프로그램의 전략적 구축 (GENERIC CUT RESISTANT GLOVES PROGRAM)
 
 절단 방지 안전장갑 프로그램은 반드시 전사적인 손 안전 통합 전략(total hand safety strategy)의 유기적인 핵심 일환으로 구현되어야 한다. 정밀한 사전 위험성 평가, 근로자들에 대한 올바른 착용 교육, 그리고 현장 준수 관리 체계가 뒷받침되지 않은 채 단순히 안전장갑만을 쥐여주는 것은 결코 부상을 근절하지 못한다. 보호 장갑마다 제공하는 절단 방호 등급, 손가락 조작의 정밀도(dexterity), 그리고 미끄럼 방지 그립력(grip)이 극명하게 다르다. 현장 작업의 특성에 맞지 않는 엉뚱한 장갑을 잘못 지급할 경우, 작업자가 공구를 제대로 움켜쥐지 못해 미끄러뜨리거나, 장갑 원단이 고속 회전하는 회전체 설비에 말려들어 손 전체가 으스러지는 끔찍한 2차 참사를 유발할 수 있다.
 
 ---""",
 
-    "B73": """## 요약 (SUMMARY)
+    'B73': """## 요약 (SUMMARY)
 
 직무위험성평가(JHA)는 작업장의 잠재 유해위험요인과 연계된 위험을 과학적으로 식별하고 통제하는 데 있어 없어서는 안 될 절대적인 핵심 도구이다. 정교하게 설계된 JHA는 모든 근로자가 자신에게 부여된 과업의 핵심 안전 요구조건을 명확히 숙지하고, 실제 작업을 수행할 때 어떻게 가장 안전한 선택을 내릴 수 있는지를 온몸으로 터득하게 해주는 가장 종합적이고 실전적인 교육 훈련 교재로 활용된다.
 
@@ -134,7 +134,7 @@ JHA 프로세스는 직무 안전 정보를 조직 전반으로 신속히 전파
 
 ---""",
 
-    "B74": """## 장 복습 문제 (CHAPTER REVIEW QUESTIONS)
+    'B74': """## 장 복습 문제 (CHAPTER REVIEW QUESTIONS)
 
 * 직무위험성평가(JHA)가 조직의 안전문화에 기여하는 결정적 중요성과 다차원적 이점을 설명하라.
 * JHA 프로세스가 지닌 구체적인 장점과 잠재적인 단점(장애요인)을 비교·설명하라.
@@ -149,32 +149,50 @@ JHA 프로세스는 직무 안전 정보를 조직 전반으로 신속히 전파
 
 ---""",
 
-    "B75": """![APPENDIX 12.1 Sample JHA Prehazard Assessment Worksheet](image-149.png)""",
+    'B75': """![APPENDIX 12.1 Sample JHA Prehazard Assessment Worksheet](image-149.png)""",
 
-    "B76": """## 부록 12.1 JHA 사전 유해위험요인 평가 시트 샘플 (APPENDIX 12.1 SAMPLE JHA PREHAZARD ASSESSMENT WORKSHEET)
+    'B76': """## 부록 12.1 사전 위험 평가 작업 시트 샘플 JHA
 
-페이지: ___ / ___  
-JHA 관리번호: ___ | 직무 요약 기술서: 인과관계 다이어그램(Cause and Effect Diagram) 기반  
-필수 개인보호구(PPE) 요구조건: 전사 공통 필수 착용 보호구 명시  
+페이지 ___ / ___
+JHA 관리 번호: 간략한 작업 설명—원인 및 결과 다이어그램
+개인 보호구(PPE) 요구 사항: 시설 전체에 필요
+작업 설명
+기존 및 잠재적 위험 및/또는 노출의 결과
+위험 발생 가능 사건
+예방 조치, 인식 진술
+RA
+H
+NR
+X
+RR
+M
+차량을 도로 밖으로 견인하고, 다음을 확실히 하십시오.
+* 교통에서 벗어난 곳에 주차
+* 평탄한 지면에 주차
+* 주차 브레이크 설정
+* 시동 끄기
+* 키 제거
+* 비상 경고등 점등
+교통, 속도 및 조건
+마주 오는 차량에 치임
+환경—날씨, 지면 표면, 조건
+차량 상태
+차량 안전 운전
+* 차량이 움직이지 않도록 브레이크가 설정되어 있는지 확인
+* 차량이 교통에서 벗어나 도로 밖에 주차되어 있는지 확인
+* 차량을 들어 올릴 때 움직이지 않도록 평탄한 표면에 주차되어 있는지 확인
+RA NR RR
+각 작업이 다음 작업에 어떻게 영향을 미칠 수 있는지 기록
+작업별 개인 보호구(PPE)가 JHA의 이 섹션에 기재되어 있는지 확인
+RA NR RR
+감독자: 날짜:
+분석 수행자: 날짜:
+기타 검토자(직원 포함): 날짜:
+Job safety analysis. (2018). Oregon Occupational Safety and Health (Oregon OSHA) is a division of the Department of Consumer & Business Services. Retrieved from: http://bit.ly/2I3VXN0; Job hazard analysis, 3071. (2002). Occupational Safety and Health Administration (OSHA), U.S. Department of Labor, Public Domain, Based on Information as Presented and Adapted for Use. Retrieved from: http://bit.ly/1ZI1Q7y (1998, 1999, 2002 Revised); Roughton, J., & Crutchfield, N. (2016). Job hazard analysis: a guide for voluntary compliance and beyond (2nd ed.). In Elsevier/Butterworth-Heinemann (Ed.), Chemical, petrochemical & process (p.400), MA: Elsevier/Butterworth-Heinemann. Retrieved from: http://amzn.to/VrSAq5. 에서 수정.""",
 
-| 과업 기술 (Task Description) | 현존 및 잠재적 유해위험요인 / 노출의 결과 (Hazards & Consequences) | 잠재 위험 사건 (At-Risk Events) | 예방 통제 대책 및 안전 인식 수칙 (Preventive Measures) | 위험 평가 (RA) | 잔여 위험 (RR) |
-| :--- | :--- | :--- | :--- | :---: | :---: |
-| **차량을 도로변 안전지대로 이동하여 정차**<br/>* 주행 차선 및 교통 흐름에서 완전히 벗어나 주차<br/>* 평탄하고 단단한 지면에 주차<br/>* 주차 브레이크(사이드 브레이크) 체결<br/>* 시동을 끄고 엔진 정지<br/>* 자동차 키 탈거<br/>* 비상 점멸 표시등(비상등) 점등 | 도로 주행 교통량, 고속 주행 차량 및 도로 조건<br/>다가오는 후속 차량에 의한 추돌 및 충돌 위험<br/>외부 환경—기상 악화, 노면 상태, 지반 침하<br/>차량 자체의 결함 및 비상 상태 | 주행 차량과의 충돌<br/>차량 밀림 및 전도 | * 주차 브레이크를 확실히 체결하여 차량의 불시 움직임을 완벽 차단<br/>* 주행 차선에서 충분히 벗어나 안전지대에 주차하여 교통 흐름 간섭 제거<br/>* 잭(작기)으로 들어 올릴 때 차량이 넘어지지 않도록 반드시 수평 지면에 주차 | **H** (높음)<br/>(NR: 위험 미저감) | **M** (중간)<br/>(RR: 잔여 위험) |
+    'B77': """![APPENDIX 12.2 Example of an Annotated JHA for Changing a Tire](image-150.png)""",
 
-*각 과업이 다음 후속 과업에 어떠한 연쇄적 영향을 미치는지 주의 깊게 분석할 것.*  
-*해당 과업에 특화된 전용 개인보호구(PPE)를 본 란에 빠짐없이 명시할 것.*  
-
-관리감독자: ________ (서명) | 일자: ________  
-평가 실시자: ________ (서명) | 일자: ________  
-기타 검토자 (현장 근로자 포함): ________ (서명) | 일자: ________  
-
-*(출처: Oregon OSHA Job safety analysis, 2018; US OSHA Job hazard analysis 3071, 2002; Roughton & Crutchfield, 2016)*
-
----""",
-
-    "B77": """![APPENDIX 12.2 Example of an Annotated JHA for Changing a Tire](image-150.png)""",
-
-    "B78": """## 부록 12.2 자동차 타이어 교체 작업에 관한 상세 해설 JHA 샘플 (APPENDIX 12.2 EXAMPLE OF AN ANNOTATED JHA FOR CHANGING A TIRE)
+    'B78': """## 부록 12.2 자동차 타이어 교체 작업에 관한 상세 해설 JHA 샘플 (APPENDIX 12.2 EXAMPLE OF AN ANNOTATED JHA FOR CHANGING A TIRE)
 
 *(ROUGHTON & CRUTCHFIELD, 2016)*
 
@@ -182,7 +200,7 @@ JHA 관리번호: ___ | 직무 요약 기술서: 인과관계 다이어그램(Ca
 
 ---""",
 
-    "B79": """## 부록 12.3 칼 안전 사용 및 절단 방지 장갑 표준 운영 절차 샘플 (APPENDIX 12.3 SAMPLE KNIFE SAFETY AND CUT RESISTANT GLOVES PROCEDURE)
+    'B79': """## 부록 12.3 칼 안전 사용 및 절단 방지 장갑 표준 운영 절차 샘플 (APPENDIX 12.3 SAMPLE KNIFE SAFETY AND CUT RESISTANT GLOVES PROCEDURE)
 
 본 '칼 안전 사용 및 절단 방지 장갑 프로그램'은 사업장에서 칼날 자동 접이식 안전 칼(autoretracting knives)을 사용할 때 손의 베임 및 열상 재해를 근원적으로 차단하기 위한 현장 구축 가이드라인을 제공하는 것을 목적으로 한다.
 
@@ -195,10 +213,11 @@ JHA 관리번호: ___ | 직무 요약 기술서: 인과관계 다이어그램(Ca
 
 ---""",
 
-    "B80": """### 관찰 및 필수 실무 수칙 (Observation)
+    'B80': """### 관찰 및 필수 실무 수칙 (Observation)
 
 > **[주의] 현장에 보급되는 대부분의 안전장갑은 '절단 저항(cut resistant)' 성능을 지닌 것이지, 결코 그 어떤 칼날도 뚫지 못하는 '절단 무적(cut proof)'이 아니다.**  
 > *(Geng, 2016)*
 
 **책임, 권한 및 상호 연계성 (Responsibilities/authorities/interrelationships)**: 자신이 관할하는 현장 구역에서 본 표준 안전 절차가 한 치의 오차도 없이 100% 준수되고 있는지를 지속적으로 감독하고 점검하는 것은 리더십 팀의 모든 구성원과 전 임직원의 양보할 수 없는 법적·조직적 책무이다. 일체의 위반 사항이나 불일치가 발견될 경우 즉각적인 현장 시정 조치가 단행되어야 한다. 사업장 전담 안전 전문가는 현장 근로자 및 리더십 팀과 긴밀히 협력하여 작업별 최적의 안전 칼 선정, 대체 절단 공법 발굴 등 필요한 기술적 지원을 전폭적으로 제공해야 한다. 모든 구성원은 칼 안전 사용 및 절단 방지 장갑 절차를 준수함에 있어 항상 건전한 안전 판단력과 경각심을 견지해야 한다."""
+
 }
