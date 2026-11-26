@@ -224,12 +224,15 @@ export default function Home() {
               onSessionUpdate={setSession}
               onComplete={handleAssessmentComplete}
               onOpenOnboarding={() => setIsOnboardingOpen(true)}
+              onNavigate={setCurrentTab}
             />
           )}
           {currentTab === "company_report" && (
             <CompanyReportView
               session={session}
               onRestartAssessment={() => setCurrentTab("assessment")}
+              onNavigate={setCurrentTab}
+              completedChecklistModules={completedChecklistModules}
             />
           )}
           {(currentTab === "checklists" || currentTab.startsWith("chk_")) && (
@@ -251,7 +254,13 @@ export default function Home() {
           {currentTab === "sms_mirror" && <SMSMirrorAssessmentView />}
           {currentTab === "ona" && <ONAView />}
           {currentTab === "kpi" && <KPIView />}
-          {currentTab === "consulting" && <ConsultingView />}
+          {currentTab === "consulting" && (
+            <ConsultingView
+              session={session}
+              completedChecklistModules={completedChecklistModules}
+              onNavigate={setCurrentTab}
+            />
+          )}
         </main>
 
         <footer className="border-t border-slate-200 bg-white py-5 mt-auto">

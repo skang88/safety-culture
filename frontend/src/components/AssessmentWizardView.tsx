@@ -2,31 +2,45 @@
 
 import React, { useEffect, useState } from "react";
 import {
-  ShieldAlert,
   Save,
   Check,
   ChevronLeft,
   ChevronRight,
   Sparkles,
   BookOpen,
-  Info,
   Building2,
-  RotateCcw
+  Compass,
+  Layers,
+  AlertTriangle,
+  ClipboardCheck,
+  ArrowRight
 } from "lucide-react";
-import { fetchAssessmentItems, saveSessionProgress, fetchSession } from "@/lib/api";
+import { fetchAssessmentItems, saveSessionProgress } from "@/lib/api";
+import TextbookSourceBadge from "./TextbookSourceBadge";
 
 interface AssessmentWizardViewProps {
   session: any;
   onSessionUpdate: (updatedSession: any) => void;
   onComplete: () => void;
   onOpenOnboarding: () => void;
+  onNavigate?: (tab: string) => void;
 }
+
+const WIZARD_PILLARS = [
+  { id: "D1_CULTURE_BASE", short: "1.문화기반", chapters: "Ch 1·2·3" },
+  { id: "D2_LEADERSHIP_RAA", short: "2.리더십·RAA", chapters: "Ch 4·7" },
+  { id: "D3_INVOLVEMENT", short: "3.직원참여", chapters: "Ch 8" },
+  { id: "D4_RISK_PROCESS", short: "4.위험관리", chapters: "Ch 9·10·11" },
+  { id: "D5_CONTROL_TRAINING", short: "5.통제·교육", chapters: "Ch 5·6·12·13" },
+  { id: "D6_EVAL_SUSTAIN", short: "6.평가·지속성", chapters: "Ch 14·15·16" },
+];
 
 export default function AssessmentWizardView({
   session,
   onSessionUpdate,
   onComplete,
   onOpenOnboarding,
+  onNavigate,
 }: AssessmentWizardViewProps) {
   const [items, setItems] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,18 +68,25 @@ export default function AssessmentWizardView({
 
   if (!session || items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-6 bg-white rounded-3xl border border-slate-200">
-        <Building2 className="w-12 h-12 text-blue-600 mb-3" />
-        <h3 className="text-lg font-bold text-slate-900">시작된 회사 진단 세션이 없습니다.</h3>
-        <p className="text-xs text-slate-500 mt-1 max-w-sm">
-          회사 정보와 산업 분야를 등록하여 우리 회사 맞춤형 안전문화 진단을 시작하세요.
-        </p>
-        <button
-          onClick={onOpenOnboarding}
-          className="mt-4 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow"
-        >
-          우리 회사 진단 시작하기
-        </button>
+      <div className="space-y-6">
+        <TextbookSourceBadge
+          chapter="Ch 1~16 전 영역 통합 진단 (6대 안전문화 축)"
+          title="회사 맞춤 빠른 진단 (26문항) → 교재 가이드 심층 진단 연계"
+          law="산안법 제14·24·29·36조 / 중처법 제4조"
+        />
+        <div className="flex flex-col items-center justify-center min-h-[380px] text-center p-6 bg-white rounded-3xl border border-slate-200">
+          <Building2 className="w-12 h-12 text-blue-600 mb-3" />
+          <h3 className="text-lg font-bold text-slate-900">시작된 회사 진단 세션이 없습니다.</h3>
+          <p className="text-xs text-slate-500 mt-1 max-w-md leading-relaxed">
+            회사 정보와 산업 분야를 등록하면 Ch 1~16 전 영역(6대 안전문화 축 · 26문항) 빠른 진단을 진행하고, 취약 영역은 교재 기반 심층 가이드로 바로 처방받을 수 있습니다.
+          </p>
+          <button
+            onClick={onOpenOnboarding}
+            className="mt-4 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow"
+          >
+            우리 회사 진단 시작하기
+          </button>
+        </div>
       </div>
     );
   }
@@ -112,6 +133,13 @@ export default function AssessmentWizardView({
     }
   };
 
+  const handleJumpToPillar = (pillarId: string) => {
+    const firstIdx = items.findIndex((it) => it.pillar_id === pillarId);
+    if (firstIdx >= 0) {
+      setCurrentIndex(firstIdx);
+    }
+  };
+
   const handleFinalSubmit = async () => {
     setSaving(true);
     const updatedSession = await saveSessionProgress(
@@ -134,9 +162,15 @@ export default function AssessmentWizardView({
   ];
 
   return (
-    <div className="max-w-3xl mx-auto pb-20 space-y-6">
-      {/* 1. 상단 Sticky 진행 바 & 회사 정보 헤더 */}
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm sticky top-16 z-40 space-y-3">
+    <div className="max-w-4xl mx-auto pb-20 space-y-6">
+      <TextbookSourceBadge
+        chapter="Ch 1~16 전 영역 통합 진단 (6대 안전문화 축)"
+        title="회사 맞춤 빠른 진단 (26문항) → 교재 가이드 심층 진단 연계"
+        law="산안법 제14·24·29·36조 / 중처법 제4조"
+      />
+
+      {/* 1. 상단 Sticky 진행 바 & 6대 영역 스텝 네비게이션 */}
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm sticky top-16 z-40 space-y-3.5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           {/* 회사 뱃지 */}
           <div className="flex items-center gap-2">
@@ -166,6 +200,49 @@ export default function AssessmentWizardView({
           </div>
         </div>
 
+        {/* 6대 영역 스텝 네비게이션 */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5">
+          {WIZARD_PILLARS.map((pillar) => {
+            const pillarItems = items.filter((it) => it.pillar_id === pillar.id);
+            const pillarAnswered = pillarItems.filter((it) => answers[it.id] !== undefined).length;
+            const isActive = currentItem.pillar_id === pillar.id;
+            const isDone = pillarItems.length > 0 && pillarAnswered === pillarItems.length;
+
+            return (
+              <button
+                key={pillar.id}
+                type="button"
+                onClick={() => handleJumpToPillar(pillar.id)}
+                className={`text-left px-2.5 py-2 rounded-xl border transition-all ${
+                  isActive
+                    ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                    : isDone
+                    ? "bg-emerald-50 text-emerald-900 border-emerald-200 hover:bg-emerald-100"
+                    : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                }`}
+              >
+                <div className="flex items-center justify-between gap-1">
+                  <span className="text-[11px] font-extrabold truncate">{pillar.short}</span>
+                  <span
+                    className={`text-[10px] font-bold ${
+                      isActive ? "text-blue-100" : isDone ? "text-emerald-700" : "text-slate-400"
+                    }`}
+                  >
+                    {pillarAnswered}/{pillarItems.length}
+                  </span>
+                </div>
+                <span
+                  className={`text-[9px] font-semibold block truncate mt-0.5 ${
+                    isActive ? "text-blue-100" : "text-slate-400"
+                  }`}
+                >
+                  {pillar.chapters}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* 진행률 바 */}
         <div className="space-y-1">
           <div className="flex justify-between text-[11px] font-semibold text-slate-500">
@@ -191,11 +268,18 @@ export default function AssessmentWizardView({
 
       {/* 2. 대형 질문 집중 카드 (Mobile-first Card) */}
       <div className="bg-white rounded-3xl p-6 sm:p-9 border border-slate-200 shadow-md space-y-6">
-        {/* 질문 카테고리 태그 */}
+        {/* 질문 카테고리 & 교재 장 태그 */}
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
-            {currentItem.category}
-          </span>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
+              {currentItem.pillar_name || currentItem.category}
+            </span>
+            {currentItem.chapter_ref && (
+              <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-extrabold">
+                교재 {currentItem.chapter_ref}
+              </span>
+            )}
+          </div>
           <span className="text-xs font-mono font-semibold text-slate-400">
             ID: {currentItem.id}
           </span>
@@ -289,7 +373,7 @@ export default function AssessmentWizardView({
             }`}
           >
             <Sparkles className="w-4 h-4" />
-            <span>{saving ? "진단 분석 중..." : "진단 완료 및 종합 리포트 보기"}</span>
+            <span>{saving ? "진단 분석 중..." : "진단 완료 및 6대 영역 리포트 보기"}</span>
           </button>
         ) : (
           <button
@@ -301,6 +385,78 @@ export default function AssessmentWizardView({
           </button>
         )}
       </div>
+
+      {/* 4. 2단계 심층 진단 가이드 바로가기 */}
+      {onNavigate && (
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Compass className="w-4 h-4 text-indigo-600" />
+              <span className="text-xs font-extrabold text-slate-800">
+                교재 가이드 심층 진단 바로가기 (빠른 진단 외 개별 정밀 워크플로우)
+              </span>
+            </div>
+            <span className="text-[11px] text-slate-500 hidden sm:inline">
+              2-Tier 컨설팅 연계
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <button
+              type="button"
+              onClick={() => onNavigate("checklists")}
+              className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-blue-400 text-left transition-all"
+            >
+              <div>
+                <span className="text-[11px] font-bold text-slate-900 block">부록 8대 정밀진단</span>
+                <span className="text-[10px] text-slate-500">Ch 2·7·8·9</span>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            </button>
+            <button
+              type="button"
+              onClick={() => onNavigate("risk_workflow")}
+              className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-amber-400 text-left transition-all"
+            >
+              <div className="flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                <div>
+                  <span className="text-[11px] font-bold text-slate-900 block">위험관리 8단계</span>
+                  <span className="text-[10px] text-slate-500">Ch 9·10 루프</span>
+                </div>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            </button>
+            <button
+              type="button"
+              onClick={() => onNavigate("mager_tree")}
+              className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 text-left transition-all"
+            >
+              <div className="flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                <div>
+                  <span className="text-[11px] font-bold text-slate-900 block">Mager 교육 트리</span>
+                  <span className="text-[10px] text-slate-500">Ch 13 원인분리</span>
+                </div>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            </button>
+            <button
+              type="button"
+              onClick={() => onNavigate("sms_mirror")}
+              className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl bg-white border border-slate-200 hover:border-sky-400 text-left transition-all"
+            >
+              <div className="flex items-center gap-1.5">
+                <ClipboardCheck className="w-3.5 h-3.5 text-sky-500 shrink-0" />
+                <div>
+                  <span className="text-[11px] font-bold text-slate-900 block">SMS Mirror 0~3</span>
+                  <span className="text-[10px] text-slate-500">Ch 14 자체평가</span>
+                </div>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

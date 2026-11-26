@@ -2,11 +2,27 @@
 
 export interface AssessmentItem {
   id: string;
+  pillar_id?: string;
+  pillar_name?: string;
+  chapter_ref?: string;
   dimension: string;
   category: string;
   question: string;
   description?: string;
   target_role?: string;
+}
+
+export interface PillarScore {
+  id: string;
+  name: string;
+  short_name: string;
+  chapters: string;
+  score: number;
+  score_100: number;
+  status: "우수" | "보통" | "취약";
+  recommended_tab: string;
+  recommended_label: string;
+  consulting_guide: string;
 }
 
 export interface AssessmentAnswer {
@@ -46,6 +62,8 @@ export interface DimensionScores {
 
 export interface AssessmentResult {
   respondent_count: number;
+  overall_index?: number;
+  pillar_scores?: PillarScore[];
   raa_scores: RAAScores;
   leadership_scores: LeadershipScores;
   dimension_scores: DimensionScores;
