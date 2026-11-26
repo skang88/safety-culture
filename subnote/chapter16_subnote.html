@@ -1,0 +1,1960 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 16: Developing a Content Creation Strategy — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            fontFamily: 'IBM Plex Sans KR, sans-serif',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true
+            },
+            sequence: {
+                useMaxWidth: false
+            },
+            themeVariables: {
+                fontSize: '14.5px',
+                fontFamily: 'IBM Plex Sans KR, sans-serif'
+            }
+        });
+    </script>
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 300px;
+  --ai-panel-w: 390px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #9333ea;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 15.5px;
+  overflow-x: hidden;
+}
+
+/* Header */
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .app-header {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.header-logo-badge {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.header-title-box {
+  min-width: 0;
+}
+
+.header-title-box h1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-title-box p {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-icon, .btn-home, .btn-bilingual {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-icon:hover {
+  background: var(--bg-card-sub);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+.btn-home {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--accent-blue);
+}
+
+.btn-home:hover {
+  background: rgba(56, 189, 248, 0.24);
+  border-color: var(--accent-blue);
+}
+
+.btn-bilingual {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--accent-green);
+}
+
+.btn-bilingual:hover {
+  background: rgba(16, 185, 129, 0.24);
+  border-color: var(--accent-green);
+}
+
+.chapter-pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Layout Wrapper */
+.app-wrapper {
+  display: flex;
+  margin-top: var(--header-h);
+  min-height: calc(100vh - var(--header-h));
+}
+
+/* Left Sidebar */
+.left-sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  padding: 20px 16px;
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-portal-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.sidebar-portal-link:hover {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 13px;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.nav-menu {
+  list-style: none;
+}
+
+.nav-menu li {
+  margin-bottom: 3px;
+}
+
+.nav-link {
+  display: block;
+  padding: 8px 12px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+
+.nav-link:hover {
+  background: var(--bg-card-sub);
+  color: var(--accent-blue);
+  transform: translateX(3px);
+}
+
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 600;
+  border-left: 3px solid var(--accent-blue);
+}
+
+/* Main Content */
+.main-content {
+  margin-left: var(--sidebar-w);
+  margin-right: var(--ai-panel-w);
+  flex: 1;
+  padding: 40px 48px;
+  max-width: 1100px;
+  transition: margin 0.3s ease;
+}
+
+body.ai-closed .main-content {
+  margin-right: 0 !important;
+}
+
+/* Intro Hero */
+.intro-hero {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+[data-theme="light"] .intro-hero {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.intro-hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.intro-hero p.lead {
+  font-size: 16.5px;
+  color: var(--text-sub);
+  margin-bottom: 24px;
+}
+
+.hero-overview-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  background: var(--bg-card-sub);
+  border-radius: 12px;
+  margin: 16px 0 24px 0;
+  border: 1px solid var(--border-color);
+  padding: 8px;
+}
+
+.epigraph-box {
+  background: var(--bg-card-sub);
+  border-left: 4px solid var(--accent-purple);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 14px;
+  font-style: italic;
+  color: var(--text-sub);
+  font-size: 14.5px;
+}
+
+.epigraph-author {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--accent-gold);
+  font-size: 13.5px;
+}
+
+/* Section Cards */
+.subnote-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 32px 36px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+
+.subnote-section h2 {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subnote-section h2 .sec-badge {
+  background: var(--accent-blue);
+  color: #0b1120;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 6px;
+}
+
+.subnote-section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  margin: 24px 0 14px 0;
+}
+
+.subnote-section h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin: 18px 0 10px 0;
+}
+
+.subnote-section h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-purple);
+  margin: 14px 0 8px 0;
+}
+
+.subnote-section p {
+  margin-bottom: 14px;
+  color: var(--text-sub);
+}
+
+.subnote-section ul, .subnote-section ol {
+  margin-bottom: 18px;
+  padding-left: 24px;
+  color: var(--text-sub);
+}
+
+.subnote-section li {
+  margin-bottom: 8px;
+}
+
+.subnote-section code {
+  background: var(--bg-input);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent-blue);
+}
+
+/* Callout Box */
+.callout {
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.callout-note {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: var(--accent-blue);
+  color: var(--text-sub);
+}
+
+.callout-important {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--accent-red);
+  color: var(--text-sub);
+}
+
+.callout-tip {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--accent-green);
+  color: var(--text-sub);
+}
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Case Study / Observation Box */
+.case-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 22px 0;
+  position: relative;
+}
+
+.case-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--accent-gold);
+  color: #0b1120;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.case-box h4 {
+  color: var(--text-main);
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+/* Tables */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+thead {
+  background: var(--bg-card-sub);
+  border-bottom: 2px solid var(--border-color);
+}
+
+th {
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Images & Carousels */
+.img-wrapper {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.img-wrapper img, .carousel-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.carousel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.carousel-item {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.img-caption {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+hr.divider {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 28px 0;
+}
+
+/* Mermaid Wrapper */
+.mermaid-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 24px 20px;
+  margin: 24px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}
+
+.mermaid-box .mermaid {
+  display: inline-block;
+  text-align: left;
+  min-width: min-content;
+}
+
+.mermaid-box svg {
+  display: inline-block;
+  height: auto !important;
+  max-width: none !important;
+}
+
+.mermaid-box .nodeLabel, 
+.mermaid-box .label,
+.mermaid-box .cluster-label {
+  font-family: 'IBM Plex Sans KR', sans-serif !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+}
+
+/* Bottom Chapter Footer Navigation */
+.chapter-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+}
+
+/* Right AI Panel */
+.right-ai-panel {
+  width: var(--ai-panel-w);
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  position: fixed;
+  top: var(--header-h);
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 900;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+.right-ai-panel.closed {
+  transform: translateX(100%) !important;
+}
+
+.ai-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-header-title h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent-purple);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-header-title p {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.ai-close-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.ai-close-btn:hover {
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.ai-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prompt-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.prompt-card:hover {
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+}
+
+.prompt-card h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.prompt-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.ai-chat-output {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text-sub);
+  min-height: 160px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.ai-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  gap: 8px;
+}
+
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.btn-send {
+  background: var(--accent-purple);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-send:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 1200px) {
+  .right-ai-panel {
+    transform: translateX(100%);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  }
+  .right-ai-panel.open {
+    transform: translateX(0) !important;
+  }
+  .main-content {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .left-sidebar {
+    transform: translateX(-100%);
+  }
+  .left-sidebar.open {
+    transform: translateX(0);
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 24px 20px;
+  }
+  .header-logo-badge, .chapter-pager, .btn-bilingual .label-text {
+    display: none;
+  }
+}
+    </style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <a href="index.html" class="btn-home" title="포털 메인으로 돌아가기">🏠 포털 메인</a>
+    <button class="btn-icon" id="toggle-sidebar-btn" title="목차 토글">☰ 목차</button>
+    <span class="header-logo-badge">Chapter 16</span>
+    <div class="header-title-box">
+      <h1>콘텐츠 제작 전략 개발</h1>
+      <p>Developing a Content Creation Strategy</p>
+    </div>
+  </div>
+  <div class="header-actions">
+    <div class="chapter-pager">
+      <a href="chapter15_subnote.html" class="btn-icon" title="이전 장 서브노트">◀ Ch15</a>
+      
+    </div>
+    <a href="chapter16_bilingual.html" class="btn-bilingual" title="1:1 영·한 대조 리더 열기">🌐 <span class="label-text">대조 리더</span></a>
+    <button class="btn-icon" id="toggle-theme-btn" title="테마 전환">🌓 테마</button>
+    <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 열기/닫기">🤖 AI 튜터</button>
+  </div>
+</header>
+
+<div class="app-wrapper">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <a href="index.html" class="sidebar-portal-link">
+      <span>← 전체 챕터 포털</span>
+      <span>index.html</span>
+    </a>
+    <div class="sidebar-title">Chapter 16 목차 네비게이션</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="섹션 빠른 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-1" class="nav-link">1. INTRODUCTION</a></li>
+<li><a href="#sec-2" class="nav-link">2. ADAPTING TO SOCIAL MEDIA &amp; L...</a></li>
+<li><a href="#sec-3" class="nav-link">3. DEFINING THE SAFETY PROFESSI...</a></li>
+<li><a href="#sec-4" class="nav-link">4. OTHER TYPES OF EXPERTISE &amp; C...</a></li>
+<li><a href="#sec-5" class="nav-link">5. THE SAFETY PROFESSIONAL AS S...</a></li>
+<li><a href="#sec-6" class="nav-link">6. RESEARCHING, DOWNSIDE, CITIN...</a></li>
+<li><a href="#sec-7" class="nav-link">7. INPUT, PROCESS, OUTPUT MODEL</a></li>
+<li><a href="#sec-8" class="nav-link">8. SUMMARY &amp; CHAPTER REVIEW QUE...</a></li>
+<li><a href="#sec-9" class="nav-link">9. APPENDIX 16.1 SOCIAL MEDIA T...</a></li>
+<li><a href="#sec-10" class="nav-link">10. APPENDIX 16.2 USING FEEDLY T...</a></li>
+<li><a href="#sec-11" class="nav-link">11. [연구자 해석 및 후속 연구 시사점] 학술적 메타 ...</a></li>
+<li><a href="#sec-12" class="nav-link">12. BIBLIOGRAPHY &amp; FURTHER READING</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Intro Hero -->
+    <div class="intro-hero">
+      <span class="hero-tag">PART V Curation Resources</span>
+      <h1>Chapter 16. 콘텐츠 제작 전략 개발</h1>
+      <p class="lead">Developing a Content Creation Strategy</p>
+      
+      <img src="image-190.png" alt="Chapter 16 Overview" class="hero-overview-img">
+
+      <div class="epigraph-box">
+        "데이터가 없다면, 당신은 그저 의견을 가진 또 한 사람일 뿐이다."
+        <span class="epigraph-author">— W. 에드워즈 데밍 (W. Edwards Deming)</span>
+      </div>
+    </div>
+
+    <!-- Subnote Sections -->
+    
+
+<section class="subnote-section" id="sec-1">
+<h2><span class="sec-badge">1</span> INTRODUCTION (도입: 소셜 미디어 시대의 콘텐츠 제작 전략과 위험, pp. 389–390)</h2>
+
+
+<p>제16장의 목적은 안전경영시스템(SMS)과 안전문화를 지원하기 위한 <strong>콘텐츠 제작 전략(Content Creation Strategy)</strong> 수립 지침을 제공하는 것입니다. 이는 안전 전문가 또는 지정 담당자가 인터넷에서 관련성 있고 정확한 정보를 효율적으로 연구하고, 전문적 연락망과 네트워킹 역량을 확장하기 위한 로드맵입니다 (p. 389).</p>
+
+
+
+<h3>1.1 소셜 미디어의 정의와 양날의 검</h3>
+
+<ul>
+<li><strong>소셜 미디어(Social Media)의 정의</strong>: <em>"사용자들이 정보, 아이디어, 개인 메시지 및 기타 콘텐츠(예: 동영상)를 공유하기 위해 온라인 커뮤니티를 만드는 전자적 의사소통 형태(예: 소셜 네트워킹 및 마이크로블로깅 웹사이트)"</em> (<em>Social Media</em>, 2018, p. 390).</li>
+<li><strong>기회와 극단적 위험(Extreme Risk)</strong>: 웹과 소셜 미디어(Skype, Twitter, Snapchat, Instagram, Facebook, YouTube, Reddit, Pinterest, LinkedIn, Google+ 등)는 대면 대화의 한계를 넘어 경제적인 전문 네트워크 확장을 가능하게 했습니다. 그러나 <strong>부정확한 정보 게시, 직업적 평판 훼손, 사직·해고, 기업 브랜드 손상</strong> 같은 극단적 위험도 동반하며, 안전 전문가가 소셜 미디어에서 미성숙·비전문적 태도를 보이면 SMS가 훼손되고 안전문화가 저하됩니다 (pp. 389–390).</li>
+<li><strong>개인적 실천(Personal Practice)</strong>: 개인의 적성·능력과 무관하게 지속적 연습이 필수적이며(Gladwell, 2008), 신뢰할 수 있는 웹 출처를 객관적으로 연구하여 인터넷 활용 역량을 길러야 합니다 (p. 390).</li>
+</ul>
+
+
+
+<h3>1.2 제16장 6대 학습 목표 (p. 390)</h3>
+
+<ol>
+<li>안전 전문가의 전문성 수준 판단하기.</li>
+<li>조직 내 안전 전문가의 역할 정의하기.</li>
+<li>소셜 미디어에서 안전 전문가의 역할 정의하기.</li>
+<li>데이터를 검증하는 방법 논의하기.</li>
+<li>자원을 참고문헌으로 제시하고 인용하는 것의 중요성 논의하기.</li>
+<li>특정 분야 전문가(Subject Matter Expert, SME)가 되는 방법 논의하기.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-2">
+<h2><span class="sec-badge">2</span> ADAPTING TO SOCIAL MEDIA & LEARNING THE CURATION PROCESS (소셜 미디어 적응과 문헌 수집·인용 협업 프로세스, pp. 390–391)</h2>
+
+
+<p>제15장에서 다룬 '소방 호스'(<code>FIG. 15.1</code>)와 '정보의 쓰나미'(<code>FIG. 15.2</code>)를 넘어, 소셜 미디어상의 방대한 정보 속에서 적절한 문서를 검색·체계화하고 <strong>정확한 인용(Citations)과 참고문헌(References)</strong>을 제공하는 것이 핵심 과제입니다 (p. 390).</p>
+
+
+
+
+
+<div class="callout callout-note">
+
+<em>"성공적인 전문가들은 자신에게 건설적인 피드백을 주는 모든 사람을 무시하면서 사다리를 오르지 않는다."</em><br>— <strong>아자 프로스트 (Aja Frost, HubSpot)</strong> (p. 390)
+</div>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-191.png" alt="FIG. 16.1 Basic overview of book process flow for collecting and citing literature (문헌 수집 및 인용을 위한 도서 집필 프로세스 흐름 기본 개요)"><p class="img-caption">FIG. 16.1 Basic overview of book process flow for collecting and citing literature (문헌 수집 및 인용을 위한 도서 집필 프로세스 흐름 기본 개요)</p></div>
+
+
+
+<h3>FIG. 16.1 Basic overview of book process flow for collecting and citing literature (p. 391)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 16.1 상세 보충설명 — 원문 순서도(Flowchart) 구조 분석]</strong><br><code>FIG. 16.1</code>(<code>image-191.png</code>)은 저자들이 본서 집필 과정에서 수천 건의 문헌을 수집·공유·인용하기 위해 실제로 가동한 <strong>협업형 문헌 큐레이션 워크플로우(순서도)</strong>입니다.<br>1. <strong>소셜 미디어 도구 수집 (<code>Feedly</code> · <code>Slack</code> · <code>Trello</code>)</strong>: RSS 피드 수집(<code>Feedly</code>), 팀 실시간 소통(<code>Slack</code>), 과업 관리(<code>Trello</code>) 도구에서 출발해 <code>The Cloud</code>(클라우드)로 집결됩니다.<br>2. <strong>공동 기고자 동기화 (<code>Drop Box Contributor 1~3</code>)</strong>: 클라우드는 3인의 공동 저자(Contributor 1~3)의 Dropbox 폴더와 양방향 동기화되어 <code>Contributes To Literature Collection</code>(문헌 컬렉션 기여)으로 통합됩니다.<br>3. <strong>콘텐츠 작성 및 인용 검증 게이트 (<code>Proper Reference</code>)</strong>: <code>Contributes Content</code>(콘텐츠 기고) ➔ <code>Identifies Correct Citation and Reference</code>(정확한 인용·참고문헌 식별)를 거쳐 <code>Proper Reference</code>(적절한 참고문헌 여부) 마름모 분기점에서 <strong>No</strong>이면 문헌 컬렉션 단계로 반려되고, <strong>Yes</strong>이면 <code>Add to JabRef Database</code>(JabRef 데이터베이스 추가)로 진행합니다.<br>4. <strong>문서 적용 및 클라우드 재동기화</strong>: <code>Docear - MS Word Plugin</code> ➔ <code>Citations applied to Document</code>(문서 내 인용 적용) ➔ <code>Completed Document</code>(문서 완성) ➔ <code>Synchronized Through the Cloud</code>(클라우드 동기화)를 거쳐 다시 클라우드로 순환합니다.
+</div>
+
+
+
+
+<div class="mermaid-box"><pre class="mermaid">
+flowchart TD
+    F["Feedly"] --> S["Slack"]
+    T["Trello"] --> S
+    S --> Cloud["The Cloud"]
+    Cloud <--> D1["Drop Box<br/>Contributor 1"]
+    Cloud <--> D2["Drop Box<br/>Contributor 2"]
+    Cloud <--> D3["Drop Box<br/>Contributor 3"]
+    D1 --> Lit["Contributes To<br/>Literature Collection"]
+    D2 --> Lit
+    D3 --> Lit
+    Lit --> Content["Contributes Content"]
+    Content --> Ident["Identifies Correct<br/>Citation and Reference"]
+    Ident --> Gate{"Proper<br/>Reference?"}
+    Gate -- "No" --> Lit
+    Gate -- "Yes" --> Jab["Add to JabRef<br/>Database"]
+    Jab --> Docear["Docear - MS<br/>Word Plugin"]
+    Docear --> Applied["Citations applied<br/>to Document"]
+    Applied --> Done["Completed<br/>Document"]
+    Done --> Sync["Synchronized<br/>Through the Cloud"]
+    Sync --> Cloud
+</pre></div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-3">
+<h2><span class="sec-badge">3</span> DEFINING THE SAFETY PROFESSIONAL’S ROLE, MENTORSHIP & 4 CURATION ROLES (안전 전문가의 역할·멘토십 및 4대 큐레이션 역할, pp. 391–393)</h2>
+
+
+
+<h3>3.1 조직 규모별 역할과 콘텐츠 재포장 (pp. 391–392)</h3>
+
+<ul>
+<li>대기업은 안전·산업위생·교육·환경으로 세분화되어 있고 인사(교육), 유지보수(점검), 구매(장비) 간 경계가 설정되어 있으나, 많은 조직에는 단 1명의 지정 안전 전문가만 존재합니다 (p. 391).</li>
+<li>인력 규모와 관계없이 안전 전문가는 표적 청중에 맞는 콘텐츠 제작 전략을 수립해, 안전 문제 해결에 즉시 쓸 수 있도록 정보를 <strong>간결하고 설득력 있게 재포장(Re-package)</strong>해야 합니다 (p. 392).</li>
+</ul>
+
+
+
+<h3>3.2 멘토(Mentor) 역할과 개인·조직 SNS 경계 위험 (p. 392)</h3>
+
+<ul>
+<li>안전 전문가는 리더십과 근로자의 멘토로서 이정표·승리·좌절과 차질의 과정을 안내하고, 소셜 미디어와 전문가 네트워크에서 수집한 문제 해결 기법을 공유합니다 (p. 392).</li>
+<li><strong>경계 침범(Crossover) 주의</strong>: 개인 시간에 개인 SNS 활동을 하더라도 조직 관련 발언으로 의도치 않게 넘나들 위험이 크며(Walk a fine line), 온라인 발언으로 경력과 삶이 파괴된 사례들이 다수 존재함을 경고합니다 (p. 392).</li>
+</ul>
+
+
+
+<h3>3.3 4대 큐레이션 역할 (Types of Curation Roles, pp. 392–393)</h3>
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>역할 유형</th>
+<th>핵심 기능 및 공유 방식</th>
+<th>핵심 주의사항 및 근거 (pp. 392–393)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>1. 콘텐츠 공유<br/>(Sharing content)</strong></td>
+<td>가치 있는 데이터·정보의 <strong>링크만 단순 전달</strong> (내부는 공식 채널, 외부는 개인 SNS 활용)</td>
+<td>조직 내에서 본인에게 허용된 역할 경계를 명확히 이해해야 함 (p. 392)</td>
+</tr>
+<tr>
+<td><strong>2. 직접 추천<br/>(Direct referrals)</strong></td>
+<td>특정 청중에게 출처 링크와 짧은 안내 메시지를 전달해 수신자가 직접 열어 읽고 해석하도록 함</td>
+<td><strong>검증된 신뢰 사이트·동료만 사용</strong>(Lua, 2018); 위키피디아는 원출처가 아니므로 각 링크 존재·평판을 직접 확인하고 <strong>"아무도 믿지 말라(Trust no one)"</strong> 원칙 준수(Crossfield, 2018, pp. 392–393)</td>
+</tr>
+<tr>
+<td><strong>3. 큐레이션된 추천<br/>(Curated referrals)</strong></td>
+<td>기존 연구·자료를 검토하여 <strong>요약·논평·새로운 통찰을 덧붙여 공유</strong> (원문 링크 필수 첨부)</td>
+<td>독자의 경험·지식 수준을 먼저 파악해 어조 결정; <strong>페르소나(Persona)</strong>를 잘 알수록 아이디어 표현 통로가 열림(Ervin, 2013, p. 393)</td>
+</tr>
+<tr>
+<td><strong>4. 해설자/평론가<br/>(Commentator)</strong></td>
+<td>깊이 있는 지식을 토대로 해당 분야의 활동·동향·패턴을 주시하며 핵심 자료를 <strong>요약·비평해 평판 구축</strong></td>
+<td>단순 전달을 넘어 전문 분야의 흐름을 해석하는 권위 있는 의견 제시 (<em>What Does a Commentator Do?</em>, 2018, p. 393)</td>
+</tr>
+</tbody>
+</table></div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-4">
+<h2><span class="sec-badge">4</span> OTHER TYPES OF EXPERTISE & CONTENT CREATION GOALS (전문성·자격 구분 및 콘텐츠 제작 목표, pp. 393–394)</h2>
+
+
+
+<h3>4.1 동료 심사 및 OSHA 3대 자격 구분 (pp. 393–394)</h3>
+
+<ul>
+<li><strong>동료 심사(Peer Review)</strong>: 출판 전 연구 품질과 편집 기준 준수를 보장하기 위해 해당 분야 전문가 집단이 평가하는 과정 (<em>Peer Review</em>, 2018, p. 393).</li>
+<li><strong>승인된 자(Authorized Person)</strong>: 사업주가 현장의 특정 직무·장소 수행을 승인·지정한 자 (예: 일반산업·건설 공인 강사는 건설 안전 경력 5년 필요, 관련 학위·CSP·CIH는 2년 대체 가능) (p. 393).</li>
+<li><strong>유능한 자/권한 보유 점검자(Competent Person)</strong>: 작업 조건에서 기존 및 예측 가능한 유해위험요인을 식별할 능력이 있고, 이를 제거할 <strong>즉각적인 시정 조치 권한(Authorization)</strong>을 가진 자 (OSHA, p. 393).</li>
+<li><strong>적격자(Qualified Person)</strong>: 인정된 학위·자격증·전문적 지위 또는 광범위한 지식·훈련·경험을 통해 해당 주제·작업·프로젝트 문제를 해결할 능력을 입증한 자 (p. 394).</li>
+</ul>
+
+
+
+<h3>4.2 콘텐츠 제작 착수 전 7대 질문 (p. 394)</h3>
+
+<ol>
+<li>콘텐츠 제작 프로세스의 목표는 무엇인가?</li>
+<li>개인적 용도인가 조직적 용도인가? (개인용이라면 선정 방식과 사용처는?)</li>
+<li>연구된 콘텐츠는 어떻게 사용될 것인가? (조언, 권고, 질의 응답 등)</li>
+<li>콘텐츠에 대한 어떤 도전·이의가 존재할 수 있는가? (조직 내 또는 인터넷·토론 그룹)</li>
+<li>해석·분석·평가에 누가 이의를 제기할 수 있는가? (동료, 타 부서, 리더십, 근로자)</li>
+<li>출판·활용 전 누가 최종 산출물을 검토할 것인가?</li>
+<li>연구 결과는 어떻게 큐레이션되며 예상 유효 수명(Life expectancy)은 얼마인가?</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-5">
+<h2><span class="sec-badge">5</span> THE SAFETY PROFESSIONAL AS SUBJECT MATTER EXPERT (특정 분야 전문가(SME)와 10,000시간 법칙, pp. 394–396)</h2>
+
+
+
+
+
+<div class="callout callout-note">
+
+<em>"자신이 무슨 말을 하고 있는지 아는 것은 성공에 필수적이다."</em><br>— <strong>벤 세일러 (Ben Sailer)</strong> (p. 394)
+</div>
+
+
+
+<h3>5.1 부족 지식(Tribal Knowledge)과 탁월성(Preeminence)</h3>
+
+<ul>
+<li><strong>부족 지식(Tribal Knowledge)</strong>: <em>"공식 매뉴얼에는 인정·수록되어 있지 않지만 널리 받아들여지는 내부 절차나 정보 조각"</em> (<em>Tribal knowledge</em>, 2018, p. 394). SME는 이러한 경험과 지식을 체계적 연구로 연결하여 조직 내에서 <strong>"찾아가는 핵심 인물(Go-to person)"</strong>이 되어야 합니다 (p. 394).</li>
+<li><strong>탁월성(Preeminence)</strong>: 스타락(Starak, 2009)은 사람들이 당신을 해당 분야 최고 중 한 명으로 믿게 만드는 '탁월성'을 확립하려면 <strong>"당신이 아는 것을 공유함으로써 가치를 제공하는 것"</strong>에서 시작해야 한다고 강조합니다 (pp. 394–395).</li>
+<li><strong>블로거 윤리 3원칙 (Rowse, 2018, p. 394)</strong>: ① 윤리적이고 투명할 것(경험 수준을 솔직히 밝힘), ② 아는 범위를 넘어 가르치거나 조언하지 말 것, ③ 적극적으로 학습을 추구할 것.</li>
+<li><strong>위키피디아 학술 인용 금지 (Note, p. 395)</strong>: 위키피디아는 누구나 편집 가능한 미검증·비검열 공간이므로 가설·결론 입증이나 학술 인용·참고문헌으로 <strong>절대 사용해서는 안 됩니다</strong>.</li>
+</ul>
+
+
+
+<h3>5.2 10,000시간 법칙과 공인안전전문가(CSP) 자격 매핑 (pp. 395–396)</h3>
+
+<ul>
+<li><strong>말콤 글래드웰(Gladwell, 2008, 2013)의 10,000시간 법칙</strong>: 의식적 연습 10,000시간을 "위대함의 마법의 숫자"로 제시했으나, 살라비츠(Szalavitz, 2013)는 10,000시간의 연습만으로는 충분하지 않을 수 있다고 비판적으로 논쟁했습니다. 그럼에도 노력·집중·학습 열망이 SME의 핵심 요건입니다 (p. 395).</li>
+<li><strong>찰스 코크(Koch, 2007)의 10,000% 규정 준수</strong>: 모든 직원의 100%가 시간의 100% 동안 완전히 준수하는 탁월성을 의미합니다 (p. 395).</li>
+<li><strong>OBSERVATION — ASP+CSP 경력 환산 (pp. 395–396)</strong>: 주 40시간 × 연 50주 = 연 2,000시간 기준, <strong>ASP 응시 요건(1년 = 2,000시간) + CSP 응시 요건(4년 = 8,000시간) = 총 5년(약 10,000시간)</strong>으로 글래드웰의 10,000시간 이론과 정확히 일치합니다. (2018년 신규 CSP 요건: 임의 분야 학사 또는 안전·보건·환경 분야 전문학사(관련 과목 최소 4개, 12학기/18분기 학점) 필수).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-6">
+<h2><span class="sec-badge">6</span> RESEARCHING, DOWNSIDE, CITING & AVOIDING PLAGIARISM (콘텐츠 제작의 위험·인용·표절 방지, pp. 396–398)</h2>
+
+
+<ul>
+<li><strong>다중 출처 및 반대 관점 탐색</strong>: 인터넷에는 신뢰할 수 없는 출처가 넘치므로 사실과 허구를 가려야 하며, 비치(Beach, 2017)는 <em>"단 하나의 출처에 의존하지 말고 균형 감각을 위해 반대 관점(Opposing viewpoints)을 찾으라"</em>고 권고합니다 (p. 396).</li>
+<li><strong>증거 기반 설득</strong>: 전문가는 뒷받침 증거 없이 의견을 제시하지 않습니다. 신념과 경험을 넘어 <strong>학술적 출처에 기반한 사실 기반 진술(Fact-based statements)</strong>을 제시하고, 퍼블릭 도메인·크리에이티브 커먼즈 문서도 반드시 인용해야 합니다 (p. 396).</li>
+<li><strong>표절 방지(Avoiding Plagiarism)</strong>: 표절은 원저자의 허락과 출처 표시 없이 타인의 언어와 사상을 자신의 것처럼 제시하는 행위(<em>Plagiarism</em>, 2018)이며, <strong>Grammarly</strong> 같은 표절 검사 도구와 조직 내부 검토 절차를 통해 예방해야 합니다 (p. 398).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-7">
+<h2><span class="sec-badge">7</span> INPUT, PROCESS, OUTPUT MODEL (FEEDLY & RSS) (투입·처리·산출 모델, pp. 396–398)</h2>
+
+
+<p>셈브리(Schembri, 2012)의 <strong>투입-산출 모델(Input-Output Model)</strong>을 콘텐츠 제작 전략에 적용한 3채널 구조입니다 (pp. 396–397):</p>
+
+<ol>
+<li><strong>투입 채널(Input Channel)</strong>: 주요 전문 협회, 검증된 블로그, 유튜브 채널, 정부·규제 기관 등 <strong>비상업적·신뢰 출처</strong>에서 동료 심사·공인 정보를 식별.</li>
+<li><strong>처리 채널(Process Channel)</strong>: <strong>RSS(Really Simple Syndication)</strong> 리더(예: <strong>Feedly</strong>)를 통해 웹사이트를 일일이 재방문하지 않고도 최신 헤드라인과 업데이트를 한곳에 자동 수집·검토 (RSS 링크 미제공 시 <strong>Google Feedburner</strong> 활용).</li>
+<li><strong>산출 채널(Output Channel)</strong>: 검토·정제된 정보를 조직 내 대상자, 타 기관 동료, 개인 소셜 미디어 등 지정된 청중에게 전달.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-192.png" alt="FIG. 16.2 Feedly input, process, output model (피들리 투입·처리·산출 모델)"><p class="img-caption">FIG. 16.2 Feedly input, process, output model (피들리 투입·처리·산출 모델)</p></div>
+
+
+
+<h3>FIG. 16.2 Feedly input, process, output model (p. 398)</h3>
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 16.2 보충설명]</strong><br><code>FIG. 16.2</code>(<code>image-192.png</code>)는 <strong>Input(NIOSH, Oregon OSHA 등 신뢰 웹 자원) ➔ RSS 피드 아이콘 ➔ Process(Feedly 통합 처리) ➔ Output(내부 조직의 리더십·근로자 / 동료 네트워크인 Slack / 외부 채널인 LinkedIn·Twitter·YouTube)</strong>으로 이어지는 정보 흐름 파이프라인을 시각화합니다.
+</div>
+
+
+
+
+<div class="mermaid-box"><pre class="mermaid">
+flowchart LR
+    I["Input (투입 채널)<br/>NIOSH · OSHA 등 공인 웹 자원"] --> RSS["RSS Feed<br/>(자동 신디케이션)"]
+    RSS --> P["Process (처리 채널)<br/>Feedly 중앙 수집·검토"]
+    P --> O1["Output: 조직 내부<br/>(Leadership & Employees)"]
+    P --> O2["Output: 동료 네트워크<br/>(Slack 등)"]
+    P --> O3["Output: 외부 채널<br/>(LinkedIn · Twitter · YouTube)"]
+</pre></div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-8">
+<h2><span class="sec-badge">8</span> SUMMARY & CHAPTER REVIEW QUESTIONS (요약 및 장 복습 질문, pp. 398–399)</h2>
+
+
+
+<h3>8.1 핵심 요약 (p. 398)</h3>
+
+<ul>
+<li>조직의 정보와 메시지는 무익한 배경 잡음을 뚫고 명확·체계적으로 전달되어야 하며, 포괄적 기록 관리가 없으면 인력 교체·조직 개편 시 지식이 유실됩니다.</li>
+<li>인터넷 검색 자체는 쉬워졌으나, 이를 검색·체계화하고 정확한 참고문헌과 인용을 제시하는 것이 핵심 과제입니다.</li>
+</ul>
+
+
+
+<h3>8.2 장 복습 질문 (Chapter Review Questions) & 원문 기반 해설 (pp. 398–399)</h3>
+
+<ol>
+<li><strong>소셜 미디어를 정의하시오</strong>: 사용자들이 정보·아이디어·개인 메시지·동영상 등을 공유하기 위해 온라인 커뮤니티를 만드는 전자적 의사소통 형태(<em>Social Media</em>, 2018, p. 390).</li>
+<li><strong>소셜 미디어에 적응해야 할 필요성을 설명하시오</strong>: 정보량이 소방 호스·쓰나미 수준을 넘어 급증하는 환경에서 조직 내 적합성을 유지하고, 비전문적 SNS 활용에 따른 평판·SMS·안전문화 훼손 위험을 통제하기 위함입니다 (pp. 389–390).</li>
+<li><strong>콘텐츠 제작에서 안전 전문가의 역할을 정의하시오</strong>: 조직 규모와 무관하게 핵심 정보를 탐색·평가·재포장하고, 리더십과 근로자의 멘토로서 4가지 역할(공유·직접 추천·큐레이션된 추천·해설자)을 수행합니다 (pp. 391–393).</li>
+<li><strong>콘텐츠 제작의 목표를 설명하시오</strong>: 안전 문제 해결과 안전문화 유지를 위해 검증된 사실 기반 정보와 인용을 적시 제공하고, '찾아가는 핵심 인물(Go-to person)'이자 SME로 자리매김하는 것입니다 (pp. 390–392, 394).</li>
+<li><strong>전문가를 위한 다양한 소셜 미디어 도구를 나열하시오</strong>: 부록 16.1의 6대 도구군(구글 키워드 검색, 연구 자원, 자동 큐레이션 연구 도구, 클라우드 협업 도구, 집필 효율 도구, 그래픽 소프트웨어) 및 기타 생산성 도구입니다 (pp. 399–411).</li>
+<li><strong>Feedly가 콘텐츠를 찾는 데 어떻게 도움이 될 수 있는지 설명하시오</strong>: 신뢰하는 사이트의 RSS 피드를 한곳에 모아 웹사이트 반복 방문 없이 모든 헤드라인과 업데이트를 자동 수집·정리(Boards 등)할 수 있습니다 (pp. 397, 412–414).</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-9">
+<h2><span class="sec-badge">9</span> APPENDIX 16.1 SOCIAL MEDIA TOOLS FOR THE PROFESSIONAL (부록 16.1: 전문가를 위한 소셜 미디어 도구 6대 범주, pp. 399–411)</h2>
+
+
+
+<div class="callout callout-note">
+
+<em>"간단히 설명할 수 없다면, 당신은 그것을 충분히 잘 이해하지 못한 것이다."</em> — 알베르트 아인슈타인 (p. 399)
+</div>
+
+
+
+<h3>9.1 구글 키워드 검색 (Google Keyword Search) & SEO (pp. 399–402)</h3>
+
+<ul>
+<li>단순 <code>Safety Culture</code> 검색은 약 <strong>110,000,000건</strong>이지만, 따옴표 검색(<code>"Safety Culture"</code>)만으로도 약 <strong>453,000건</strong>으로 축소됩니다 (p. 399).</li>
+<li><strong>Teachable Moments (SEO)</strong>: 많은 웹사이트가 검색엔진 최적화(SEO)가 되어 있지 않아 상단에 노출되지 않으므로 정밀 검색어와 고급 검색 활용이 필수적입니다 (pp. 399–400).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-193.png" alt="TABLE 16.1 Sample Shortcuts When Doing a Basic Search Using Google (구글 기본 검색 단축어 예시)"><p class="img-caption">TABLE 16.1 Sample Shortcuts When Doing a Basic Search Using Google (구글 기본 검색 단축어 예시)</p></div>
+
+
+
+<h3>TABLE 16.1 Sample Shortcuts When Doing a Basic Search Using Google (p. 400)</h3>
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>키워드 수식어 (Keyword modifiers)</th>
+<th>예시 / 사용법 (원문 표 및 <code>image-193.png</code> 기준)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>정확한 일치 (Search for an exact match)</strong></td>
+<td><code>“Safety culture”</code></td>
+</tr>
+<tr>
+<td><strong>검색 결합 (Combine searches)</strong></td>
+<td><code>Safety OR culture</code> (참고: <code>OR</code> 대문자 필수)</td>
+</tr>
+<tr>
+<td><strong>특정 사이트 내 검색 (Site specific search)</strong></td>
+<td><code>site:www.osha.gov</code></td>
+</tr>
+<tr>
+<td><strong>유사어 및 동의어 (Similar words and synonyms)</strong></td>
+<td><code>~Safety climate</code> <em>(원문 표 이미지 <code>image-193.png</code>에는 <code>~</code> 표기 수록)</em></td>
+</tr>
+<tr>
+<td><strong>특정 문서 유형 (Specific document types)</strong></td>
+<td><code>Safety culture: Doc or Docx</code> / <code>PPT or PPTX</code> / <code>videos</code> / <code>podcast</code></td>
+</tr>
+<tr>
+<td><strong>이것 또는 저것 (This or that)</strong></td>
+<td><code>Safety culture OR safety climate</code> (<code>OR</code> 대문자 필수)</td>
+</tr>
+<tr>
+<td><strong>단어 정의 (To define a word)</strong></td>
+<td><code>Define: safety culture</code></td>
+</tr>
+<tr>
+<td><strong>특정 도메인 제외 (Exclude a domain)</strong></td>
+<td><code>-inurl:domain</code> 또는 <code>-inurl:URL</code></td>
+</tr>
+</tbody>
+</table></div>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-194.png" alt="FIG. 16.3 Example of typical search window (일반적인 검색창 예시)"><p class="img-caption">FIG. 16.3 Example of typical search window (일반적인 검색창 예시)</p></div>
+
+<div class="img-wrapper"><img src="image-195.png" alt="FIG. 16.4 Example universal resource locator (URL) window (URL 창 검색 예시)"><p class="img-caption">FIG. 16.4 Example universal resource locator (URL) window (URL 창 검색 예시)</p></div>
+
+<div class="img-wrapper"><img src="image-196.png" alt="FIG. 16.5 Example mis-spelled words (오탈자 자동 보정 검색 예시)"><p class="img-caption">FIG. 16.5 Example mis-spelled words (오탈자 자동 보정 검색 예시)</p></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 16.3~16.5 보충설명 (pp. 401–403)]</strong><br>* <code>FIG. 16.3</code>(<code>image-194.png</code>): 일반 검색창에 핵심 키워드(<code>Safety Culture Trends</code>)를 입력했을 때 약 3,260,000건이 검색되는 화면입니다.<br>* <code>FIG. 16.4</code>(<code>image-195.png</code>): 브라우저 상단 URL 주소창 전체에 문장형 질의(<code>What are the trends when trying to develop a safety culture?</code>)를 입력하여 학술 논문(Nielsen, 2014 등)이 상위 노출되는 차이를 보여줍니다.<br>* <code>FIG. 16.5</code>(<code>image-196.png</code>): 의도적 오탈자(<code>What ar the tredn on develop a safey clture</code>)를 입력해도 구글이 자동으로 올바른 철자로 보정하여 약 468,000건의 유효 결과를 제시함을 시연합니다.<br>* 이 밖에도 <strong>Google Advanced Image Search</strong>(무료 사용권 <code>usage rights</code> 확인 필수)와 <strong>Google Trends</strong>가 제시됩니다 (pp. 401–402).
+</div>
+
+
+
+<h3>9.2 연구 자원 (Research Resources, pp. 402–405)</h3>
+
+
+<div class="callout callout-note">
+
+<em>"천재는 1%의 영감과 99%의 땀으로 이루어진다."</em> — 토마스 에디슨 (p. 402)
+</div>
+
+
+<ul>
+<li><strong>Google Scholar</strong>: 학술 문헌 색인 및 <strong>MLA·APA·Chicago·Vancouver</strong> 인용 양식과 <strong>BibTeX·EndNote·RefMan·RefWorks</strong> 내보내기 지원 (<code>FIG. 16.6</code>).</li>
+<li><strong>Google Books</strong>: 검색 기준에 맞는 도서 색인 및 향후 연구용 라이브러리 구축.</li>
+<li><strong>Google Keep</strong>: 이동 중 텍스트·목록·이미지·오디오 메모 실시간 포착 및 Gmail 알림 연동.</li>
+<li><strong>Pocket</strong>: 웹·SNS 기사와 동영상을 저장해 오프라인 상태에서도 스마트폰·태블릿·PC로 나중에 읽기.</li>
+<li><strong>Semantic Scholar</strong>: 머신러닝 기반으로 텍스트 외 이미지·표·캡션까지 추출하고 인용 기여도를 지능적으로 평가(단, 저자들은 <strong>Google Scholar</strong>를 선호 방식으로 명시, p. 405).</li>
+<li><strong>refseek</strong>: 웹페이지·도서·백과사전·학술지·신문 등 10억 건 이상 문서를 검색하는 학술·문서 검색 엔진.</li>
+</ul>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-197.png" alt="FIG. 16.6 Google Scholar process used to retrieve citation and reference (구글 스칼라 인용 및 참고문헌 추출 7단계)"><p class="img-caption">FIG. 16.6 Google Scholar process used to retrieve citation and reference (구글 스칼라 인용 및 참고문헌 추출 7단계)</p></div>
+
+
+
+<h3>FIG. 16.6 Google Scholar process used to retrieve citation and reference (p. 404)</h3>
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 16.6 보충설명 — Google Scholar → JabRef → MS Word 7단계 워크플로우]</strong><br><code>image-197.png</code>는 ① Google Scholar 검색 ➔ ② 인용(<code>“</code>) 아이콘 클릭 ➔ ③ 인용 양식(MLA/APA 등) 및 하단 BibTeX 선택 ➔ ④ BibTeX 코드 복사 ➔ ⑤ JabRef 데이터베이스에 BibTeX 붙여넣기 ➔ ⑥ Docear4Word MS Word 플러그인 출력 선택 ➔ ⑦ 본문 내 인용과 말미 Bibliography 자동 삽입 완료의 전 과정을 7단계로 시각화합니다.
+</div>
+
+
+
+<h3>9.3 자동 큐레이션·클라우드 협업·집필·그래픽·기타 도구 요약 (pp. 405–411)</h3>
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>범주</th>
+<th>수록 도구 및 핵심 기능 (pp. 405–411)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>자동 큐레이션 도구</strong></td>
+<td>• <strong>Google Alerts</strong>: 키워드 기반 신규 웹 정보 이메일 자동 알림 (장점: 수동 검색 시간 절감 / 단점: 과다 이메일 주의)<br>• <strong>Google Feedburner</strong>: 웹 미디어 소비 추적 및 Feedly 연동</td>
+</tr>
+<tr>
+<td><strong>클라우드 협업 도구</strong></td>
+<td>• <strong>The Cloud / Dropbox</strong>: 저자 3인 기기 간 실시간 동기화, 외출 시 계약서 즉시 다운로드 사례(<em>Lesson Learned</em>)<br>• <strong>Google Drive (Docs/Spreadsheet)</strong>: 자동 온라인 저장 및 실시간 공유<br>• <strong>Slack</strong>: 이메일 함정(잡동사니)을 극복하는 목적별 공개/비공개 채널, 파일 드래그앤드롭 및 Dropbox 연동<br>• <strong>Trello</strong>: 도요타 칸반(Kanban) 기반 보드 협업(제6장 부록 6.5 연계)<br>• <strong>JotForm</strong>: LinkedIn 설문 공유 및 Google Spread Sheet 자동 수집<br>• <strong>Buffer</strong>: 소셜 미디어 게시물 시간차 예약 배포(Drip)</td>
+</tr>
+<tr>
+<td><strong>집필 효율 도구</strong></td>
+<td>• <strong>Docear & JabRef</strong>: 무료 오픈소스 마인드맵(<code>FreePlane</code>) 기반 문헌 저장소·PDF 주석 시각화·<code>Docear4Word</code> 플러그인(<code>FIG. 16.7</code>, 단 Docear는 현재 지원 중단 상태)<br>• <strong>Microsoft Word / Office 365</strong>: 변경 내용 추적·메모 및 내장 참고문헌 DB 기능(<code>FIG. 16.8</code>)<br>• <strong>Scrivener</strong>: 구상부터 최종 초고까지 통합 관리하는 집필 프로젝트 도구<br>• <strong>Microsoft OneNote</strong>: 자동 저장·동기화 디지털 노트북<br>• <strong>Grammarly</strong>: 문법·철자 교정, 문장 다듬기 및 <strong>표절 검사</strong></td>
+</tr>
+<tr>
+<td><strong>그래픽·기타 도구</strong></td>
+<td>• <strong>Presenter Media</strong> / <strong>HandBrake</strong>(영상 변환) / <strong>Inkscape</strong>(벡터 그래픽) / <strong>GIMP</strong>(무료 이미지 편집) / <strong>Lucidchart</strong>(흐름도) / <strong>Snagit</strong>(화면 캡처·주석)<br>• <strong>bit.ly</strong>(긴 OSHA URL 단축) / <strong>Dragon Professional Individual</strong>(음성 받아쓰기·서식 편집, 제임스 실제 집필 사용) / <strong>NaturalReader</strong>(TTS 낭독) / <strong>Word Cloud Generator</strong>(각 장 워드클라우드 제작) / <strong>Brainy Quotes</strong>(명언 수집)</td>
+</tr>
+</tbody>
+</table></div>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-198.png" alt="FIG. 16.7 Using Docear to develop citations and references (Docear를 활용한 인용·참고문헌 작성)"><p class="img-caption">FIG. 16.7 Using Docear to develop citations and references (Docear를 활용한 인용·참고문헌 작성)</p></div>
+
+<div class="img-wrapper"><img src="image-199.png" alt="FIG. 16.8 Using Microsoft word to develop citations and references (MS Word를 활용한 인용·참고문헌 작성)"><p class="img-caption">FIG. 16.8 Using Microsoft word to develop citations and references (MS Word를 활용한 인용·참고문헌 작성)</p></div>
+
+
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 16.7·16.8 보충설명 (pp. 408–409)]</strong><br>* <code>FIG. 16.7</code>(<code>image-198.png</code>): MS Word 상단 <code>Docear4Word</code> 메뉴에서 <strong>① Add Reference 클릭 ➔ ② 키워드(roughton) 필터링 및 다중 문헌 선택(<code>Add 2 References</code>) ➔ ③ 본문 인용구 및 말미 참고문헌 자동 생성</strong>의 3단계를 보여줍니다.<br>* <code>FIG. 16.8</code>(<code>image-199.png</code>): 별도 외부 플러그인 없이도 MS Word <code>References</code> 탭에서 <strong>① Insert Citation → Add New Source ➔ ② 저자명·서지 입력 ➔ ③ Source Manager 등록 ➔ ④ Master List에서 Current List로 복사 ➔ ⑤ 본문 인용 삽입</strong>까지 5단계로 구현하는 방법을 안내합니다.
+</div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-10">
+<h2><span class="sec-badge">10</span> APPENDIX 16.2 USING FEEDLY TO FIND CONTENT FOR CURATION, A CASE STUDY (부록 16.2: Feedly 활용 사례 연구, pp. 412–414)</h2>
+
+
+<p>제임스가 식스 시그마 블랙 벨트(Six Sigma Black Belt) 경험에 기반한 <strong>IPO(Input–Process–Output) 모델</strong>을 Feedly에 적용한 사례 연구입니다 (p. 412):</p>
+
+<ul>
+<li><strong>Input</strong>: 신뢰할 수 있는 웹사이트·블로그·유튜브 채널의 <strong>RSS 피드</strong> 확보.</li>
+<li><strong>Process</strong>: Feedly(RSS 리더)에 피드를 등록해 바이럴 뉴스뿐 아니라 <strong>게시되는 모든 헤드라인</strong>을 누락 없이 실시간 추적 (<em>Lesson Learned</em>, p. 412; Pot, 2018).</li>
+<li><strong>Output</strong>: 수동 복사·붙여넣기의 시간 낭비를 없애고 조직·동료·SNS 네트워크로 적시 배포.</li>
+</ul>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-200.png" alt="TABLE 16.2 Selected features of Feedly (Feedly의 주요 기능 12가지)"><p class="img-caption">TABLE 16.2 Selected features of Feedly (Feedly의 주요 기능 12가지)</p></div>
+
+
+
+<h3>TABLE 16.2 Selected features of Feedly (p. 413)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>번호</th>
+<th>섹션 (Section)</th>
+<th>버전</th>
+<th>핵심 기능 설명 (pp. 413)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>List of RSS feeds with updated information</td>
+<td>Free</td>
+<td>무료 계정은 최대 <strong>100개 RSS 피드</strong>까지 등록 가능(일반 사용자에게 충분)</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Sharing information</td>
+<td>Free/Pro</td>
+<td>키워드 검색으로 관련 피드를 찾고 <code>Follow</code> 탭으로 폴더별 분류·구독</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Today</td>
+<td>Free</td>
+<td>당일(오늘) 날짜에 올라온 최신 정보 열람</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Read later</td>
+<td>Free</td>
+<td>나중에 읽을 기사를 북마크해 별도 목록으로 관리</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Filters</td>
+<td>Pro</td>
+<td>원치 않는 특정 키워드·영역을 연구 결과에서 자동 제외</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>Feeds</td>
+<td>Free</td>
+<td>등록된 RSS 피드로부터 수집된 전체 정보 표시</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>Boards</td>
+<td>Free/Pro</td>
+<td>브라우저 북마크 폭증 문제를 해결하고 팔로워와 공유할 보드 저장(<code>FIG. 16.10</code>)</td>
+</tr>
+<tr>
+<td><strong>8–9</strong></td>
+<td>Integrations and share collections</td>
+<td>Free/Pro</td>
+<td>외부 앱 통합 및 컬렉션 공유 기능</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>Recently read</td>
+<td>Free</td>
+<td>최근 읽은 항목 이력</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td>Support</td>
+<td>Free/Pro</td>
+<td>기본 고객 지원</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td>Add content</td>
+<td>Free</td>
+<td>정보 포착을 위한 새로운 RSS 피드 추가</td>
+</tr>
+</tbody>
+</table></div>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-201.png" alt="FIG. 16.9 Sample feedly layout (Feedly 실제 화면 레이아웃)"><p class="img-caption">FIG. 16.9 Sample feedly layout (Feedly 실제 화면 레이아웃)</p></div>
+
+<div class="img-wrapper"><img src="image-202.png" alt="FIG. 16.10 Adding new board (Feedly 새 보드 추가 화면)"><p class="img-caption">FIG. 16.10 Adding new board (Feedly 새 보드 추가 화면)</p></div>
+
+
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 16.9·16.10 보충설명 (pp. 413–414)]</strong><br>* <code>FIG. 16.9</code>(<code>image-201.png</code>): <code>TABLE 16.2</code>의 1~12번 기능 번호가 실제 Feedly 화면(좌측 사이드바 <code>Today</code>, <code>Read later</code>, <code>FEEDS</code>, <code>BOARDS</code>, <code>+ ADD CONTENT</code> 및 중앙 피드·우측 추천 피드 <code>OSHA QuickTakes</code>, <code>OSHA News Release</code>) 어디에 위치하는지 번호표로 매핑해 줍니다.<br>* <code>FIG. 16.10</code>(<code>image-202.png</code>): 좌측 하단 <code>Create New Board</code>를 클릭해 프로젝트·주제별(<code>safety culture Book</code>, <code>Trello</code>, <code>Lean Process</code> 등) 큐레이션 보드를 생성하는 화면입니다.
+</div>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-203.png" alt="TABLE 16.3 Selected RSS Feed resources (엄선된 안전 웹 RSS 피드 자원 14선)"><p class="img-caption">TABLE 16.3 Selected RSS Feed resources (엄선된 안전 웹 RSS 피드 자원 14선)</p></div>
+
+
+
+<h3>TABLE 16.3 Selected RSS Feed resources (p. 414)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>안전 웹 자원 (Safety Web Resources)</th>
+<th>RSS 피드 주소 (RSS Feeds)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>OSHA Federal Register</td>
+<td><code>https://www.osha.gov/laws-regs/federalregisters.xml</code></td>
+</tr>
+<tr>
+<td>OSHA Interpretations</td>
+<td><code>https://www.osha.gov/pls/oshaweb/interpretation.xml</code></td>
+</tr>
+<tr>
+<td>OSHA Directives</td>
+<td><code>https://www.osha.gov/pls/oshaweb/directive.xml</code></td>
+</tr>
+<tr>
+<td>OSHA News Release</td>
+<td><code>https://www.osha.gov/news/newsreleases.xml</code></td>
+</tr>
+<tr>
+<td>OSHA QuickTakes</td>
+<td><code>https://www.osha.gov/as/opa/quicktakes/quicktakes.xml</code></td>
+</tr>
+<tr>
+<td>NIOSH Health Hazard Evaluation Program</td>
+<td><code>https://www2c.cdc.gov/podcasts/createrss.asp?t r&c 502</code></td>
+</tr>
+<tr>
+<td>Safety+Health Magazine</td>
+<td><code>http://www.safetyandhealthmagazine.com/rss</code></td>
+</tr>
+<tr>
+<td>OH&S News / Wire / Webinars / Whitepapers</td>
+<td><code>https://ohsonline.com/rss-feeds/...</code> (4종 피드)</td>
+</tr>
+<tr>
+<td>CCOHS Canadian enviroOSH Legislation plus Standards</td>
+<td><code>http://www.ccohs.ca/rss/legislation/legislation.rss</code></td>
+</tr>
+<tr>
+<td>Various EPA News Feeds</td>
+<td><code>https://www.epa.gov/newsroom/news-feeds</code></td>
+</tr>
+<tr>
+<td>CDC Emergency Preparedness and Response: What’s New</td>
+<td><code>https://tools.cdc.gov/api/v2/resources/media/319155.rss</code></td>
+</tr>
+</tbody>
+</table></div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-11">
+<h2><span class="sec-badge">11</span> [연구자 해석 및 후속 연구 시사점] 학술적 메타 분석 및 KPI 도출 프레임워크</h2>
+
+
+
+
+
+
+
+<div class="callout callout-note">
+<div class="callout-title">📌 참고</div>
+<br><strong>원문과 연구자 해석의 엄격한 분리 (<code>GEMINI.md</code> 1·2·3·4원칙 준수)</strong><br>제1절~제10절 및 제12절은 저자의 원문 내용(pp. 389–417)만을 충실히 정리한 부분이며, 본 <strong>제11절</strong>은 원문의 모델(<code>FIG. 16.1</code>·<code>16.2</code>, IPO 모델, 4대 큐레이션 역할, SME·Tribal knowledge)을 연구자의 학술 개념(<strong>지각, 의미구성, 평가, 다중 관점, 다원주의, 다차원적 성과, 네트워크 성과</strong>) 및 <strong>현장 적용 KPI·법령</strong>과 연결한 <strong>연구자(AI) 해석 및 후속 연구 설계 영역</strong>입니다.
+</div>
+
+
+
+<h3>11.1 [후속 연구 시사점] 주관성·지각·네트워크 성과 연구 연계</h3>
+
+<ul>
+<li><strong>부족 지식(Tribal Knowledge)과 공식 매뉴얼 간 지각(Perception) 격차</strong>: 제16장(p. 394)은 공식 매뉴얼에 없는 비공식 내부 절차인 '부족 지식'을 SME가 연구·문서화해야 함을 시사합니다. 후속 주관성 연구에서는 119구조대나 고위험 현장에서 베테랑 대원의 부족 지식과 공식 SOP 사이에서 대원들이 안전 규범을 어떻게 <strong>의미구성(Sensemaking)</strong>하고 <strong>지각</strong>하는지 다중 관점을 비교할 수 있습니다.</li>
+<li><strong>탁월성(Preeminence)과 전문성 평가(Evaluation)</strong>: 현장 구성원이 안전 관리자를 신뢰하는 'Go-to person(SME)'으로 <strong>평가</strong>하는 조건(출처 검증 투명성, 10,000시간의 현장 숙련도 vs 형식적 자격증)에 대한 구성원 유형별 인식 연구로 확장할 수 있습니다.</li>
+<li><strong>네트워크 성과(Network Performance)</strong>: <code>FIG. 16.1</code>의 클라우드·Dropbox·Slack·JabRef 협업 루프와 <code>FIG. 16.2</code>의 Feedly IPO 파이프라인은 개인의 지식 축적을 넘어 조직 네트워크 전체로 검증된 안전 정보가 확산되는 <strong>네트워크 성과</strong> 측정의 이론적 기반을 제공합니다.</li>
+</ul>
+
+
+
+<h3>11.2 콘텐츠 제작·전파 생애주기 5단계 기반 KPI 도출 (119구조대·현장 안전부서 적용)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="callout callout-important">
+<div class="callout-title">🚨 중요 핵심 원칙</div>
+<br><strong>트랙 A·B 연계 KPI 설계 원칙 (<code>GEMINI.md</code> 2·3·4항 적용)</strong><br>1. <strong>업무 단계화</strong>: <code>[STEP 1] 입력 채널 구축</code> ➔ <code>[STEP 2] 수집·필터링</code> ➔ <code>[STEP 3] 검증·인용</code> ➔ <code>[STEP 4] 맞춤형 가공</code> ➔ <code>[STEP 5] 출력·환류</code><br>2. <strong>현장 구체화</strong>: 의령소방서 119구조대(3교대 출동, 장비·유해물질 대응 매뉴얼 최신화, TBM 교육) 및 사업장 안전관리부서의 팀·분과 업무에 밀착 설계.<br>3. <strong>법적 근거 조문 매핑</strong>: 「산업안전보건법」 제14조·제29조·제36조·제164조, 「중대재해 처벌 등에 관한 법률 시행령」 제4조·제13조, 「소방공무원 보건안전 및 복지 기본법」 제10조.<br>4. <strong>고유/협업 분리</strong>: 통제 가능한 고유 지표(70%)와 다부서·현장 연계 협업 지표(30% 또는 50%) 구분.
+</div>
+
+
+
+
+<div class="mermaid-box"><pre class="mermaid">
+flowchart LR
+    S1["STEP 1: 입력 구축<br/>(Input·TABLE 16.3 RSS)"] --> S2["STEP 2: 수집·필터<br/>(Process·Feedly 12기능)"]
+    S2 --> S3["STEP 3: 검증·인용<br/>(FIG. 16.1 Proper Reference)"]
+    S3 --> S4["STEP 4: 맞춤형 가공<br/>(4대 역할·페르소나)"]
+    S4 --> S5["STEP 5: 출력·환류<br/>(Output·Slack/현장전파)"]
+    S5 -.-> S1
+</pre></div>
+
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>생애주기 단계</th>
+<th>적용 조직/담당 (Break-down)</th>
+<th>핵심 성과지표 (KPI) 명칭 (연구자 설계)</th>
+<th>지표 성격 & 가중치</th>
+<th>산출 방식 및 관리 목표 (연구자 제안)</th>
+<th>법적 근거 (조문 단위 매핑)</th>
+<th>서브노트 판단 근거 (절·표·그림 강제 매핑)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>STEP 1<br/>(입력 구축)</strong></td>
+<td><strong>안전정보·교육 담당자</strong><br/>(119구조대 교관·안전관리자)</td>
+<td>공인 안전·재난 규제 RSS 피드 및 비상업적 출처 등록률</td>
+<td><strong>고유 (70%)</strong></td>
+<td><span class="math-inline">\(\frac{\text{구독·연동된 공인 기관 피드 수}}{\text{관할 위험분야 필수 공인 출처 수}}\)</span> (목표: 법령·신규 유해위험 피드 누락 0건)</td>
+<td>산안법 제14조 (안전보건 계획)<br/>중처법 시행령 제4조제1호·제3호</td>
+<td>본문 7절 (<code>INPUT CHANNEL</code>), 부록 16.2 (<code>TABLE 16.3</code> 14종 RSS 피드)</td>
+</tr>
+<tr>
+<td><strong>STEP 2<br/>(수집·필터)</strong></td>
+<td><strong>안전기획·대응 전담팀</strong><br/>(구조대 장비·작전 담당)</td>
+<td>Feedly/Alerts 기반 신규 위험·사고 사례 필터링 및 보드 분류율</td>
+<td><strong>고유 (70%)</strong></td>
+<td>주간 수집 헤드라인 중 현장 직무 관련 키워드 필터링 및 주제별 보드(<code>Boards</code>) 아카이빙 건수</td>
+<td>산안법 제36조 (위험성평가 정보 수집)<br/>소방공무원 보건안전법 제10조</td>
+<td>본문 7절 (<code>PROCESS CHANNEL</code>), 부록 16.2 (<code>TABLE 16.2</code>, <code>FIG. 16.9</code>·<code>16.10</code>)</td>
+</tr>
+<tr>
+<td><strong>STEP 3<br/>(검증·인용)</strong></td>
+<td><strong>문헌검증·품질 담당자</strong><br/>(안전부서·교차검토자)</td>
+<td>출처 역추적·교차확인(Proper Reference) 및 표절·오정보 차단율</td>
+<td><strong>고유 (70%)</strong></td>
+<td><span class="math-inline">\(\frac{\text{원출처 확인·반대관점 교차검증·인용 완료 콘텐츠}}{\text{제작·배포 안전 콘텐츠 총수}} \times 100\)</span> (위키피디아 무검증 인용 0건)</td>
+<td>산안법 제164조 (서류의 보존)<br/>중처법 시행령 제13조 (증빙 보관)</td>
+<td>본문 2절 (<code>FIG. 16.1</code> <code>Proper Reference</code> 분기), 3.3절 (<code>Crossfield</code>), 5.1절 (<code>Note</code>), 6절 (<code>Beach</code>, <code>Grammarly</code>), 부록 16.1 (<code>FIG. 16.6</code>~<code>16.8</code>)</td>
+</tr>
+<tr>
+<td><strong>STEP 4<br/>(맞춤형 가공)</strong></td>
+<td><strong>현장 멘토·교관<br/>(팀장·구조대 반장)</strong></td>
+<td>대상 페르소나별 부족 지식(Tribal knowledge) 공식화 및 재포장 건수</td>
+<td><strong>협업 (50%)</strong></td>
+<td>교대조·신규자·베테랑 페르소나 맞춤 <code>큐레이션된 추천</code> 카드뉴스·TBM 요약본 제작 건수</td>
+<td>산안법 제29조 (근로자 안전보건교육)<br/>중처법 시행령 제4조제5호</td>
+<td>본문 3.1절 (재포장), 3.3절 (4대 역할·<code>Ervin</code> 페르소나), 5.1절 (<code>Tribal knowledge</code>)</td>
+</tr>
+<tr>
+<td><strong>STEP 5<br/>(출력·환류)</strong></td>
+<td><strong>현장 작업조·협업 채널</strong><br/>(119구조대 전 교대조)</td>
+<td>협업 채널(Slack 등) 통한 안전 콘텐츠 전파 적시율 및 피드백 반영률</td>
+<td><strong>협업 (30%)</strong></td>
+<td><code>Output Channel</code> 전파 후 교대조원 확인률 및 건설적 피드백(<code>Aja Frost</code>) 반영 개선 건수</td>
+<td>산안법 제24조 (산안위 공유)<br/>중처법 시행령 제4조제8호 (의견청취)</td>
+<td>본문 2절 (<code>Aja Frost</code>, <code>FIG. 16.1</code> 클라우드 동기화), 7절 (<code>FIG. 16.2</code> <code>Output Channel</code>), 부록 16.1 (<code>Slack</code>·<code>Trello</code>)</td>
+</tr>
+</tbody>
+</table></div>
+
+
+
+<h3>11.3 비판적 검토 및 역질문 검증 프로토콜</h3>
+
+<ol>
+<li><strong>출처 역질문</strong>: <em>"각 KPI 지표가 <code>FIG. 16.1</code>(문헌 인용 협업 순서도), <code>FIG. 16.2</code>(Feedly IPO 모델), <code>FIG. 16.6</code>~<code>16.8</code>(인용 관리), <code>TABLE 16.1</code>~<code>16.3</code>, 4대 큐레이션 역할에 직접 매핑되었는가?"</em></li>
+<li><strong>위험 통제 역질문</strong>: <em>"소셜 미디어 활용 과정에서 발생할 수 있는 개인/조직 경계 침범(Crossover, p. 392)과 검증되지 않은 허위 정보의 조직 내 유포 위험(p. 390, 396)이 STEP 3의 인용·출처 검증 게이트에서 실질적으로 차단되는가?"</em></li>
+<li><strong>현장 실행성 역질문</strong>: <em>"3교대 현장 인력이 방대한 온라인 도구를 모두 익히지 않더라도, <code>Feedly</code> 보드와 <code>Slack</code> 단일 채널 등 최소 진입 장벽으로 즉시 필요한 안전 콘텐츠에 접근할 수 있는가?"</em></li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-12">
+<h2><span class="sec-badge">12</span> BIBLIOGRAPHY & FURTHER READING (참고문헌 및 추가 읽을거리, pp. 414–417)</h2>
+
+
+<ul>
+<li>제16장의 전체 <strong>Bibliography(총 96편)</strong> 및 <strong>Further Reading(총 32편)</strong> 원문 목록은 <a href="file:///Users/sg/Project/safety-culture/subnote/chapter16-%EC%9B%90%EB%AC%B8.md" target="_blank">chapter16-원문.md</a> 및 1:1 대조 리더(<code>B225</code>, <code>B226</code>)에 100% 원형 보존되어 있습니다.</li>
+<li><strong>주요 핵심 문헌 범주</strong>:</li>
+<li><strong>인적 역량·전문성</strong>: Gladwell (2008, 2013), Szalavitz (2013), Williamsen (2012), Koch (2007), BCSP ASP/CSP Guide (2017, 2018), Starak (2009), Rowse (2018)</li>
+<li><strong>신뢰성·허위정보·네트워크(Further Reading 포함)</strong>: Beach (2017), Crossfield (2018), Brodie (2009, <em>Virus of the mind</em>), Dawkins (2006, <em>The selfish gene</em>), Cross & Parker (2004, <em>The hidden power of social networks</em>), Covey (1990), DODI 855001 & US Army Social Media handbook (2011, 2018)</li>
+<li><strong>큐레이션·도구(IPO·RSS·집필)</strong>: Schembri (2012), Feedly (2016, 2018), Fitzpatrick (2016), Pot (2018), Docear (2015, 2016), JabRef (2018), Grammarly (2018), Scrivener (2015), Betters (2016, Slack), Agarwal (2015, Trello)</li>
+</ul>
+
+
+
+
+
+
+
+</section>
+
+    <!-- Bottom Navigation -->
+    <div class="chapter-footer-nav">
+      <a href="index.html" class="btn-home">🏠 포털 메인으로 돌아가기</a>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a href="chapter15_subnote.html" class="btn-icon" title="이전 장 서브노트">◀ Ch15</a>
+        <a href="chapter16_bilingual.html" class="btn-bilingual">🌐 1:1 영·한 대조 리더</a>
+        
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Right AI Panel -->
+  <aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-header">
+      <div class="ai-header-title">
+        <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
+        <p>교수님 심화 지도 원칙 실시간 질의기</p>
+      </div>
+      <button class="ai-close-btn" id="close-ai-panel-btn" title="AI 패널 닫기">✕</button>
+    </div>
+    
+    <div class="ai-body">
+      <div class="sidebar-title">추천 프롬프트 템플릿</div>
+      <div class="prompt-card" onclick="setPrompt(&quot;제16장의 투입-처리-산출(Input-Process-Output) 모델과 5단계 생애주기에 맞춰 119구조대 및 안전관리부서에 적용할 수 있는 고유/협업 KPI를 도출하고, 산업안전보건법 제29조·제164조 연계 근거를 설명해줘.&quot;)">
+  <h5>🚒 119구조대 콘텐츠 제작 전략 5단계 KPI 도출</h5>
+  <p>Input-Process-Output 모델 및 5단계 생애주기 기반 산안법 제29조·제164조 매핑</p>
+</div>
+<div class="prompt-card" onclick="setPrompt(&quot;제16장에서 제시한 부족 지식(Tribal knowledge)을 어떻게 큐레이션된 추천과 해설자 역할로 공식화할 수 있는지, 그리고 Gladwell의 10,000시간 법칙 및 Crossfield의 출처 검증 원칙과의 관계를 설명해줘.&quot;)">
+  <h5>🛡️ Tribal Knowledge의 공식화 및 SME 10,000시간</h5>
+  <p>현장 암묵지의 문서화와 공인안전전문가(CSP) 10,000시간·4대 역할 연계</p>
+</div>
+<div class="prompt-card" onclick="setPrompt(&quot;제16장의 그림 16.1(문헌 수집·인용 협업 순서도)의 Proper Reference 검증 분기와 그림 16.2(Feedly IPO 모델) 및 표 16.3의 안전 RSS 피드를 안전관리 플랫폼의 지식 수집·검증 워크플로우로 어떻게 구현할 수 있는지 설명해줘.&quot;)">
+  <h5>🔄 FIG. 16.1 협업 인용 순서도 &amp; FIG. 16.2 Feedly IPO</h5>
+  <p>클라우드·JabRef/Docear 인용 검증 루프와 RSS·Feedly 플랫폼 설계</p>
+</div>
+      <div class="ai-chat-output" id="ai-chat-output">💡 프롬프트 카드를 클릭하거나 아래 입력창에 질문을 입력하여 AI 튜터와 학습을 진행하세요. (브라우저 로컬 환경에서 시뮬레이션 프롬프트가 설정됩니다.)</div>
+    </div>
+
+    <div class="ai-footer">
+      <input type="text" class="ai-input" id="ai-user-input" placeholder="안전문화 및 KPI 질문 입력...">
+      <button class="btn-send" id="ai-send-btn">전송</button>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// Restore saved theme
+(function() {
+  try {
+    const saved = localStorage.getItem('subnote-theme');
+    if (saved === 'light' || saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+  } catch (e) {}
+})();
+
+// Sidebar Toggle
+const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+const leftSidebar = document.getElementById('left-sidebar');
+if (toggleSidebarBtn && leftSidebar) {
+  toggleSidebarBtn.addEventListener('click', () => {
+    leftSidebar.classList.toggle('open');
+  });
+}
+
+// AI Panel Toggle (Desktop & Mobile)
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const closeAiPanelBtn = document.getElementById('close-ai-panel-btn');
+
+function toggleAiPanel() {
+  const isMobile = window.innerWidth <= 1200;
+  if (isMobile) {
+    rightAiPanel.classList.toggle('open');
+  } else {
+    const isClosed = rightAiPanel.classList.toggle('closed');
+    document.body.classList.toggle('ai-closed', isClosed);
+  }
+}
+
+if (toggleAiBtn) toggleAiBtn.addEventListener('click', toggleAiPanel);
+if (closeAiPanelBtn) closeAiPanelBtn.addEventListener('click', toggleAiPanel);
+
+// Theme Toggle
+const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+if (toggleThemeBtn) {
+  toggleThemeBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    try { localStorage.setItem('subnote-theme', newTheme); } catch (e) {}
+  });
+}
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navMenuList = document.getElementById('nav-menu-list');
+if (navSearchInput && navMenuList) {
+  navSearchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const links = navMenuList.querySelectorAll('li');
+    links.forEach(li => {
+      const text = li.textContent.toLowerCase();
+      li.style.display = text.includes(query) ? '' : 'none';
+    });
+  });
+}
+
+// Quick Prompt Set
+function setPrompt(text) {
+  document.getElementById('ai-user-input').value = text;
+  document.getElementById('ai-chat-output').textContent =
+    "질문 입력됨: " + text + "\n\n[AI 튜터 시뮬레이션 응답]\n교수님 심화 지도 원칙에 따라 법령 조문, 5단계 생애주기, 고유/협업 가중치(7:3/5:5) 및 서브노트 판단 근거가 매핑되었습니다.";
+}
+
+const aiSendBtn = document.getElementById('ai-send-btn');
+if (aiSendBtn) {
+  aiSendBtn.addEventListener('click', () => {
+    const input = document.getElementById('ai-user-input');
+    if (input.value.trim()) {
+      setPrompt(input.value.trim());
+      input.value = '';
+    }
+  });
+}
+</script>
+
+</body>
+</html>

@@ -6,7 +6,37 @@
     <title>Chapter 7: Evaluating Leadership and the Safety Culture — 서브노트 &amp; AI 학습 플랫폼</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            fontFamily: 'IBM Plex Sans KR, sans-serif',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true
+            },
+            sequence: {
+                useMaxWidth: false
+            },
+            themeVariables: {
+                fontSize: '14.5px',
+                fontFamily: 'IBM Plex Sans KR, sans-serif'
+            }
+        });
+    </script>
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
 :root {
   --bg-main: #0b1120;
@@ -22,8 +52,8 @@
   --accent-green: #10b981;
   --accent-purple: #a855f7;
   --border-color: #334155;
-  --sidebar-w: 280px;
-  --ai-panel-w: 380px;
+  --sidebar-w: 300px;
+  --ai-panel-w: 390px;
   --header-h: 68px;
   --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
@@ -41,1715 +71,2196 @@
   --accent-red: #dc2626;
   --accent-gold: #d97706;
   --accent-green: #059669;
-  --accent-purple: #7e22ce;
+  --accent-purple: #9333ea;
   --border-color: #cbd5e1;
-  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'IBM Plex Sans KR', sans-serif;
   background-color: var(--bg-main);
   color: var(--text-main);
-  line-height: 1.7;
+  line-height: 1.75;
+  font-size: 15.5px;
   overflow-x: hidden;
 }
 
 /* Header */
-header {
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
   height: var(--header-h);
-  background: var(--bg-card);
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  box-shadow: var(--shadow-sm);
+  padding: 0 20px;
+  z-index: 1000;
+  gap: 12px;
+  transition: all 0.3s ease;
 }
 
-.brand-area {
+[data-theme="light"] .app-header {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.header-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
 }
 
-.brand-badge {
-  background: linear-gradient(135deg, #38bdf8 0%, #1d4ed8 100%);
+.header-logo-badge {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
   color: #fff;
-  font-weight: 800;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 12px;
   padding: 4px 10px;
   border-radius: 6px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
 }
 
-.brand-title {
-  font-family: 'Black Han Sans', sans-serif;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.header-title-box {
+  min-width: 0;
 }
-.brand-title span.sub {
-  font-family: 'IBM Plex Sans KR', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
+
+.header-title-box h1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-title-box p {
+  font-size: 11.5px;
   color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.action-btn {
-  background: var(--bg-card-sub);
-  color: var(--text-main);
+.btn-icon, .btn-home, .btn-bilingual {
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
-  padding: 8px 14px;
+  color: var(--text-sub);
+  padding: 7px 12px;
   border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12.5px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
 }
-.action-btn:hover {
+
+.btn-icon:hover {
+  background: var(--bg-card-sub);
+  color: var(--accent-blue);
   border-color: var(--accent-blue);
+}
+
+.btn-home {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.4);
   color: var(--accent-blue);
 }
-.action-btn.primary {
-  background: var(--accent-blue);
-  color: #0b1120;
+
+.btn-home:hover {
+  background: rgba(56, 189, 248, 0.24);
   border-color: var(--accent-blue);
 }
-.action-btn.primary:hover {
-  background: #0284c7;
-  color: #fff;
+
+.btn-bilingual {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--accent-green);
 }
 
-/* App Wrapper: 3-column layout */
+.btn-bilingual:hover {
+  background: rgba(16, 185, 129, 0.24);
+  border-color: var(--accent-green);
+}
+
+.chapter-pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Layout Wrapper */
 .app-wrapper {
   display: flex;
+  margin-top: var(--header-h);
   min-height: calc(100vh - var(--header-h));
-  position: relative;
 }
 
-/* Left Sidebar Navigation */
-aside.left-sidebar {
+/* Left Sidebar */
+.left-sidebar {
   width: var(--sidebar-w);
-  flex-shrink: 0;
   background: var(--bg-card);
   border-right: 1px solid var(--border-color);
-  height: calc(100vh - var(--header-h));
-  position: sticky;
+  padding: 20px 16px;
+  position: fixed;
   top: var(--header-h);
+  bottom: 0;
   overflow-y: auto;
-  padding: 20px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   transition: transform 0.3s ease;
   z-index: 900;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-portal-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.sidebar-portal-link:hover {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
 }
 
 .sidebar-title {
   font-size: 12px;
   font-weight: 700;
+  color: var(--accent-blue);
   text-transform: uppercase;
-  color: var(--text-muted);
   letter-spacing: 1px;
+  margin-bottom: 12px;
   padding-left: 8px;
 }
 
 .nav-search {
   width: 100%;
   padding: 8px 12px;
-  border-radius: 6px;
   background: var(--bg-input);
   border: 1px solid var(--border-color);
+  border-radius: 6px;
   color: var(--text-main);
   font-size: 13px;
-}
-.nav-search:focus {
-  outline: 2px solid var(--accent-blue);
+  margin-bottom: 16px;
+  font-family: inherit;
 }
 
 .nav-menu {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+}
+
+.nav-menu li {
+  margin-bottom: 3px;
 }
 
 .nav-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: block;
   padding: 8px 12px;
-  border-radius: 6px;
   color: var(--text-sub);
   text-decoration: none;
-  font-size: 13.5px;
-  font-weight: 500;
+  font-size: 13px;
+  border-radius: 6px;
+  transition: all 0.2s;
   line-height: 1.4;
-  transition: all 0.15s ease;
 }
+
 .nav-link:hover {
-  background: rgba(56, 189, 248, 0.1);
+  background: var(--bg-card-sub);
   color: var(--accent-blue);
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
+
 .nav-link.active {
   background: rgba(56, 189, 248, 0.15);
   color: var(--accent-blue);
-  font-weight: 700;
+  font-weight: 600;
   border-left: 3px solid var(--accent-blue);
 }
-.nav-link .icon {
-  font-size: 14px;
-  flex-shrink: 0;
+
+/* Main Content */
+.main-content {
+  margin-left: var(--sidebar-w);
+  margin-right: var(--ai-panel-w);
+  flex: 1;
+  padding: 40px 48px;
+  max-width: 1100px;
+  transition: margin 0.3s ease;
 }
 
-/* Center Content */
-main.main-content {
-  flex: 1;
-  padding: 32px 40px 100px;
-  max-width: 1080px;
-  margin: 0 auto;
-  overflow-y: visible;
+body.ai-closed .main-content {
+  margin-right: 0 !important;
+}
+
+/* Intro Hero */
+.intro-hero {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+[data-theme="light"] .intro-hero {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.intro-hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.intro-hero p.lead {
+  font-size: 16.5px;
+  color: var(--text-sub);
+  margin-bottom: 24px;
+}
+
+.hero-overview-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  background: var(--bg-card-sub);
+  border-radius: 12px;
+  margin: 16px 0 24px 0;
+  border: 1px solid var(--border-color);
+  padding: 8px;
+}
+
+.epigraph-box {
+  background: var(--bg-card-sub);
+  border-left: 4px solid var(--accent-purple);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 14px;
+  font-style: italic;
+  color: var(--text-sub);
+  font-size: 14.5px;
+}
+
+.epigraph-author {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--accent-gold);
+  font-size: 13.5px;
+}
+
+/* Section Cards */
+.subnote-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 32px 36px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+
+.subnote-section h2 {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subnote-section h2 .sec-badge {
+  background: var(--accent-blue);
+  color: #0b1120;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 6px;
+}
+
+.subnote-section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  margin: 24px 0 14px 0;
+}
+
+.subnote-section h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin: 18px 0 10px 0;
+}
+
+.subnote-section h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-purple);
+  margin: 14px 0 8px 0;
+}
+
+.subnote-section p {
+  margin-bottom: 14px;
+  color: var(--text-sub);
+}
+
+.subnote-section ul, .subnote-section ol {
+  margin-bottom: 18px;
+  padding-left: 24px;
+  color: var(--text-sub);
+}
+
+.subnote-section li {
+  margin-bottom: 8px;
+}
+
+.subnote-section code {
+  background: var(--bg-input);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent-blue);
+}
+
+/* Callout Box */
+.callout {
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.callout-note {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: var(--accent-blue);
+  color: var(--text-sub);
+}
+
+.callout-important {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--accent-red);
+  color: var(--text-sub);
+}
+
+.callout-tip {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--accent-green);
+  color: var(--text-sub);
+}
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Case Study / Observation Box */
+.case-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 22px 0;
+  position: relative;
+}
+
+.case-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--accent-gold);
+  color: #0b1120;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.case-box h4 {
+  color: var(--text-main);
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+/* Tables */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+thead {
+  background: var(--bg-card-sub);
+  border-bottom: 2px solid var(--border-color);
+}
+
+th {
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Images & Carousels */
+.img-wrapper {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.img-wrapper img, .carousel-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.carousel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.carousel-item {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.img-caption {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+hr.divider {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 28px 0;
+}
+
+/* Mermaid Wrapper */
+.mermaid-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 24px 20px;
+  margin: 24px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}
+
+.mermaid-box .mermaid {
+  display: inline-block;
+  text-align: left;
+  min-width: min-content;
+}
+
+.mermaid-box svg {
+  display: inline-block;
+  height: auto !important;
+  max-width: none !important;
+}
+
+.mermaid-box .nodeLabel, 
+.mermaid-box .label,
+.mermaid-box .cluster-label {
+  font-family: 'IBM Plex Sans KR', sans-serif !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+}
+
+/* Bottom Chapter Footer Navigation */
+.chapter-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
 }
 
 /* Right AI Panel */
-aside.right-ai-panel {
+.right-ai-panel {
   width: var(--ai-panel-w);
-  flex-shrink: 0;
   background: var(--bg-card);
   border-left: 1px solid var(--border-color);
-  height: calc(100vh - var(--header-h));
-  position: sticky;
+  position: fixed;
   top: var(--header-h);
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, width 0.3s ease;
-  z-index: 950;
-}
-aside.right-ai-panel.collapsed {
-  transform: translateX(100%);
-  width: 0;
-  overflow: hidden;
-  border-left: none;
+  z-index: 900;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
 }
 
-.ai-panel-header {
+.right-ai-panel.closed {
+  transform: translateX(100%) !important;
+}
+
+.ai-header {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-card-sub);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
-.ai-panel-header h3 {
+
+.ai-header-title h3 {
   font-size: 15px;
   font-weight: 700;
+  color: var(--accent-purple);
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.ai-status-tag {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 12px;
-  background: rgba(16, 185, 129, 0.2);
-  color: var(--accent-green);
-  font-weight: 600;
-}
 
-.ai-mode-bar {
-  padding: 10px 16px;
-  background: var(--bg-input);
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-}
-.ai-mode-select {
-  background: var(--bg-card);
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 3px 6px;
+.ai-header-title p {
   font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
 }
 
-.ai-chat-messages {
+.ai-close-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.ai-close-btn:hover {
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.ai-body {
   flex: 1;
+  padding: 20px;
   overflow-y: auto;
-  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
-.chat-bubble {
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-size: 13.5px;
-  line-height: 1.6;
-  max-width: 90%;
-  word-break: break-word;
-}
-.chat-bubble.ai {
+.prompt-card {
   background: var(--bg-card-sub);
   border: 1px solid var(--border-color);
-  align-self: flex-start;
-  color: var(--text-main);
-}
-.chat-bubble.user {
-  background: var(--accent-blue);
-  color: #0b1120;
-  align-self: flex-end;
-  font-weight: 500;
-}
-.chat-bubble code {
-  background: rgba(0, 0, 0, 0.25);
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  border-radius: 8px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.ai-quick-questions {
-  padding: 10px 16px;
-  border-top: 1px solid var(--border-color);
-  background: var(--bg-card-sub);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+.prompt-card:hover {
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
 }
-.quick-chip {
+
+.prompt-card h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.prompt-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.ai-chat-output {
   background: var(--bg-input);
   border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px;
   color: var(--text-sub);
-  font-size: 11.5px;
-  padding: 4px 8px;
-  border-radius: 12px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.15s ease;
-}
-.quick-chip:hover {
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
-  background: rgba(56, 189, 248, 0.1);
+  min-height: 160px;
+  white-space: pre-wrap;
+  line-height: 1.6;
 }
 
-.ai-input-area {
-  padding: 12px 16px;
+.ai-footer {
+  padding: 16px 20px;
   border-top: 1px solid var(--border-color);
-  background: var(--bg-card);
-}
-.ai-form {
+  background: var(--bg-card-sub);
   display: flex;
   gap: 8px;
 }
+
 .ai-input {
   flex: 1;
   background: var(--bg-input);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px 12px;
+  border-radius: 6px;
   color: var(--text-main);
+  padding: 8px 12px;
   font-size: 13px;
   font-family: inherit;
-  resize: none;
-  height: 44px;
-  min-height: 44px;
-  max-height: 100px;
-}
-.ai-input:focus {
-  outline: 2px solid var(--accent-blue);
-}
-.ai-send-btn {
-  background: var(--accent-blue);
-  color: #0b1120;
-  border: none;
-  border-radius: 8px;
-  padding: 0 14px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.15s ease;
-}
-.ai-send-btn:hover { background: #0284c7; color: #fff; }
-
-/* API Key Modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.modal-overlay.active { display: flex; }
-.modal-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  width: 100%;
-  max-width: 500px;
-  padding: 24px;
-  box-shadow: var(--shadow);
-}
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.modal-title { font-size: 18px; font-weight: 700; }
-.close-modal-btn { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
-.modal-body { display: flex; flex-direction: column; gap: 14px; font-size: 13.5px; }
-.modal-footer { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
-
-/* Typography & Subnote Styles */
-h1.content-title {
-  font-family: 'Black Han Sans', sans-serif;
-  font-size: 32px;
-  line-height: 1.3;
-  margin-bottom: 8px;
-  color: var(--text-main);
-}
-.content-meta {
-  color: var(--text-muted);
-  font-size: 13px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-color);
 }
 
-.section-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 30px;
-  margin-bottom: 32px;
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.2s ease;
-}
-.section-box:hover {
-  border-color: rgba(56, 189, 248, 0.4);
-}
-
-h2.sec-heading {
-  font-family: 'Black Han Sans', sans-serif;
-  font-size: 22px;
-  color: var(--accent-blue);
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid rgba(56, 189, 248, 0.25);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-h3.sub-heading {
-  font-size: 17px;
-  font-weight: 700;
-  margin: 22px 0 12px;
-  color: var(--text-main);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-h3.sub-heading::before {
-  content: "";
-  display: inline-block;
-  width: 4px;
-  height: 16px;
-  background: var(--accent-blue);
-  border-radius: 2px;
-}
-
-p { margin-bottom: 14px; color: var(--text-sub); }
-
-/* Alert & Callout Boxes */
-.callout {
-  padding: 16px 20px;
-  border-radius: 10px;
-  margin: 18px 0;
-  font-size: 14px;
-  line-height: 1.6;
-  border-left: 4px solid;
-}
-.callout.important {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: var(--accent-red);
-  color: var(--text-main);
-}
-.callout.note {
-  background: rgba(56, 189, 248, 0.1);
-  border-color: var(--accent-blue);
-  color: var(--text-main);
-}
-.callout.tip {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: var(--accent-green);
-  color: var(--text-main);
-}
-.callout.gold {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: var(--accent-gold);
-  color: var(--text-main);
-}
-.callout strong { color: var(--text-main); }
-
-/* Figures & Images */
-.figure-container {
-  background: var(--bg-card-sub);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 18px;
-  margin: 22px 0;
-  text-align: center;
-}
-.figure-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-.figure-caption {
-  margin-top: 14px;
-  font-size: 13.5px;
-  color: var(--text-muted);
-  text-align: left;
-  line-height: 1.6;
-  background: var(--bg-main);
-  padding: 12px 16px;
-  border-radius: 6px;
-  border-left: 3px solid var(--accent-blue);
-}
-
-/* Tables */
-.table-responsive {
-  overflow-x: auto;
-  margin: 18px 0;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-}
-table.custom-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-}
-table.custom-table th, table.custom-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-color);
-  text-align: left;
-  vertical-align: top;
-}
-table.custom-table th {
-  background: var(--bg-card-sub);
-  color: var(--accent-blue);
-  font-weight: 700;
-  white-space: nowrap;
-}
-table.custom-table tr:last-child td { border-bottom: none; }
-table.custom-table tr:hover td { background: rgba(56, 189, 248, 0.04); }
-
-/* Lists & Badges */
-ul.custom-list, ol.custom-list {
-  padding-left: 20px;
-  margin-bottom: 16px;
-  color: var(--text-sub);
-}
-ul.custom-list li, ol.custom-list li {
-  margin-bottom: 8px;
-}
-
-.step-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 18px 0;
-}
-.step-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--bg-card-sub);
-  padding: 12px 18px;
-  border-radius: 8px;
-  border-left: 4px solid var(--accent-blue);
-}
-.step-badge {
-  font-weight: 800;
-  font-size: 12px;
-  background: var(--accent-blue);
-  color: #0b1120;
-  padding: 3px 8px;
-  border-radius: 4px;
-}
-.step-desc { font-size: 14px; color: var(--text-main); }
-
-/* Prompts Section Cards */
-.prompt-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 18px;
-  margin-top: 18px;
-}
-.prompt-card {
-  background: var(--bg-card-sub);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
-  transition: all 0.2s ease;
-}
-.prompt-card:hover {
-  border-color: var(--accent-gold);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-.prompt-tag {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(245, 158, 11, 0.2);
-  color: var(--accent-gold);
-  width: fit-content;
-}
-.prompt-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-main);
-}
-.prompt-snippet {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  background: var(--bg-main);
-  padding: 10px;
-  border-radius: 6px;
-  color: var(--text-sub);
-  max-height: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre-wrap;
-  border: 1px dashed var(--border-color);
-}
-.prompt-actions {
-  display: flex;
-  gap: 8px;
-}
-.prompt-btn {
-  flex: 1;
-  padding: 7px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid var(--border-color);
-  background: var(--bg-input);
-  color: var(--text-main);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: all 0.15s ease;
-}
-.prompt-btn:hover {
-  background: var(--accent-gold);
-  color: #0b1120;
-  border-color: var(--accent-gold);
-}
-.prompt-btn.send-to-ai {
-  background: var(--accent-blue);
-  color: #0b1120;
-  border-color: var(--accent-blue);
-}
-.prompt-btn.send-to-ai:hover {
-  background: #0284c7;
+.btn-send {
+  background: var(--accent-purple);
   color: #fff;
-}
-
-/* Toast Notification */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--bg-card);
-  color: var(--accent-green);
-  border: 1px solid var(--accent-green);
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-size: 13.5px;
-  font-weight: 600;
-  box-shadow: var(--shadow);
-  opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 3000;
-  pointer-events: none;
-}
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
-
-/* Collapsible Review Details */
-details.review-item {
-  background: var(--bg-card-sub);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-details.review-item summary {
-  padding: 12px 16px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style: none;
-  font-size: 14px;
-}
-details.review-item summary::-webkit-details-marker { display: none; }
-details.review-item summary::after {
-  content: "▼";
-  font-size: 10px;
-  color: var(--text-muted);
-  transition: transform 0.2s ease;
-}
-details.review-item[open] summary::after { transform: rotate(180deg); }
-details.review-item .review-answer {
-  padding: 14px 18px;
-  border-top: 1px solid var(--border-color);
-  background: var(--bg-main);
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--text-sub);
+  transition: opacity 0.2s;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1280px) {
-  aside.right-ai-panel {
-    position: fixed;
-    right: 0;
-    top: var(--header-h);
-    bottom: 0;
+.btn-send:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 1200px) {
+  .right-ai-panel {
+    transform: translateX(100%);
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
   }
-}
-@media (max-width: 900px) {
-  aside.left-sidebar {
-    position: fixed;
-    left: 0;
-    top: var(--header-h);
-    bottom: 0;
-    transform: translateX(-100%);
-    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+  .right-ai-panel.open {
+    transform: translateX(0) !important;
   }
-  aside.left-sidebar.open { transform: translateX(0); }
-  main.main-content { padding: 20px 16px; }
+  .main-content {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .left-sidebar {
+    transform: translateX(-100%);
+  }
+  .left-sidebar.open {
+    transform: translateX(0);
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 24px 20px;
+  }
+  .header-logo-badge, .chapter-pager, .btn-bilingual .label-text {
+    display: none;
+  }
 }
     </style>
 </head>
 <body>
 
-<!-- Header -->
-<header>
-    <div class="brand-area">
-        <button id="toggle-sidebar-btn" class="action-btn" title="네비게이션 토글" style="display:none;">☰</button>
-        <span class="brand-badge">Chapter 7</span>
-        <div class="brand-title">
-            Evaluating Leadership &amp; Safety Culture
-            <span class="sub">| 안전문화 서브노트 &amp; AI 학습 플랫폼</span>
-        </div>
+<header class="app-header">
+  <div class="header-left">
+    <a href="index.html" class="btn-home" title="포털 메인으로 돌아가기">🏠 포털 메인</a>
+    <button class="btn-icon" id="toggle-sidebar-btn" title="목차 토글">☰ 목차</button>
+    <span class="header-logo-badge">Chapter 7</span>
+    <div class="header-title-box">
+      <h1>리더십과 안전문화 평가</h1>
+      <p>Evaluating Leadership and the Safety Culture</p>
     </div>
-    <div class="header-actions">
-        <button id="theme-toggle-btn" class="action-btn" title="다크/라이트 모드 전환">🌓 테마</button>
-        <button id="api-key-btn" class="action-btn" title="Gemini/OpenAI API 키 설정">🔑 API 설정</button>
-        <button id="toggle-ai-btn" class="action-btn primary" title="우측 AI 패널 토글">🤖 AI 어시스턴트</button>
+  </div>
+  <div class="header-actions">
+    <div class="chapter-pager">
+      <a href="chapter6_subnote.html" class="btn-icon" title="이전 장 서브노트">◀ Ch6</a>
+      <a href="chapter8_subnote.html" class="btn-icon" title="다음 장 서브노트">Ch8 ▶</a>
     </div>
+    <a href="chapter7_bilingual.html" class="btn-bilingual" title="1:1 영·한 대조 리더 열기">🌐 <span class="label-text">대조 리더</span></a>
+    <button class="btn-icon" id="toggle-theme-btn" title="테마 전환">🌓 테마</button>
+    <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 열기/닫기">🤖 AI 튜터</button>
+  </div>
 </header>
 
-<!-- Main App Wrapper -->
 <div class="app-wrapper">
 
-    <!-- Left Navigation Sidebar -->
-    <aside class="left-sidebar" id="left-sidebar">
-        <div class="sidebar-title">목차 네비게이션</div>
-        <input type="text" id="nav-search-input" class="nav-search" placeholder="섹션 검색... (Ctrl+K)">
-        <ul class="nav-menu" id="nav-menu-list">
-            <li><a href="#sec-overview" class="nav-link active"><span class="icon">📌</span> 0. 챕터 개요 &amp; Schein 명제</a></li>
-            <li><a href="#sec-intro" class="nav-link"><span class="icon">📖</span> 1. 도입: 관리자 vs 리더</a></li>
-            <li><a href="#sec-lead-def" class="nav-link"><span class="icon">🧭</span> 2. 리더십 정의 &amp; JHA 4단계</a></li>
-            <li><a href="#sec-lead-principles" class="nav-link"><span class="icon">🎖️</span> 3. 미 육군 원칙 &amp; 유독성 리더십</a></li>
-            <li><a href="#sec-lead-thoughts" class="nav-link"><span class="icon">⚡</span> 4. 에너지 산업의 비공식 리더</a></li>
-            <li><a href="#sec-lead-sms" class="nav-link"><span class="icon">🔄</span> 5. SMS 영향 &amp; Silva 상호작용</a></li>
-            <li><a href="#sec-lead-structure" class="nav-link"><span class="icon">🏢</span> 6. 리더십 &amp; 조직 구조 (James)</a></li>
-            <li><a href="#sec-priorities" class="nav-link"><span class="icon">🚶</span> 7. MBWA &amp; 열린 문 정책</a></li>
-            <li><a href="#sec-roles-triad" class="nav-link"><span class="icon">⚖️</span> 8. 역할·책임·위임·권한·책무성</a></li>
-            <li><a href="#sec-org-review" class="nav-link"><span class="icon">🔍</span> 9. 안전 책임 6대 핵심 영역</a></li>
-            <li><a href="#sec-job-descriptions" class="nav-link"><span class="icon">📝</span> 10. 직무기술서(JD) &amp; SMART</a></li>
-            <li><a href="#sec-review-activities" class="nav-link"><span class="icon">📊</span> 11. 활동 정기 검토 &amp; 위임 원칙</a></li>
-            <li><a href="#sec-triad-relationship" class="nav-link"><span class="icon">⚙️</span> 12. 삼원조 관계 (표7.2 &amp; 기어모델)</a></li>
-            <li><a href="#sec-assign-specific" class="nav-link"><span class="icon">👥</span> 13. 직급별 구체적 안전 책임</a></li>
-            <li><a href="#sec-consequences" class="nav-link"><span class="icon">🎯</span> 14. 성과 결과 설정 &amp; 학습기간</a></li>
-            <li><a href="#sec-summary" class="nav-link"><span class="icon">📋</span> 15. 요약 &amp; 15대 복습 질문</a></li>
-            <li><a href="#sec-appendices" class="nav-link"><span class="icon">📁</span> 16. 부록 7.1~7.5 실무 체크리스트</a></li>
-            <li><a href="#sec-study-prompts" class="nav-link" style="color:var(--accent-gold); font-weight:700;"><span class="icon">💡</span> 17. AI 학습·연구 프롬프트</a></li>
-        </ul>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="main-content" id="main-content">
-
-        <!-- Title Banner -->
-        <h1 class="content-title">Chapter 7: Evaluating Leadership and the Safety Culture</h1>
-        <div class="content-meta">
-            Safety Culture: An Innovative Leadership Approach (Roughton, Crutchfield &amp; Waite, 2019) · Elsevier · 제7장 완전 서브노트
-        </div>
-
-        <!-- Section 0: Overview & Edgar Schein Quote -->
-        <section class="section-box" id="sec-overview">
-            <h2 class="sec-heading">📌 0. 챕터 개요 &amp; 핵심 명제</h2>
-
-            <div class="figure-container">
-                <img src="image.png" alt="리더십과 문화 및 책임·권한·책무성의 트라이어드">
-                <div class="figure-caption">
-                    <strong>[도입부 핵심 명제 및 그림 설명: 리더십-조직문화의 동전 양면성과 삼원조(Triad) 구조]</strong><br>
-                    • <strong>에드가 샤인(Edgar Schein, 2016)의 명제</strong>: <em>"문화와 리더십은 동전의 양면이다. 리더가 집단과 조직을 만들 때 먼저 문화를 창조하고, 일단 문화가 형성되면 그 문화가 리더십의 기준을 규정하여 누가 리더가 될 것인지 결정한다."</em><br>
-                    • <strong>핵심 삼원조(Triad) 상호작용 구조</strong>:<br>
-                    &nbsp;&nbsp;- <strong>책무성 (Accountability - 붉은색)</strong>: 상사-부하 관계에서 파생되며, 부하는 직무 수행을 수락하고 결과에 대해 해명할 의무를 가짐.<br>
-                    &nbsp;&nbsp;- <strong>권한 (Authority - 짙은 파란색)</strong>: 상사가 부하에게 합법적으로 위임할 수 있으며 상향에서 하향(Top to bottom)으로 흐름.<br>
-                    &nbsp;&nbsp;- <strong>책임 (Responsibility - 연한 청색)</strong>: 궁극적 책임은 리더십에 잔류하며, 실패 시 부하에게 책임을 전가할 수 없음.
-                </div>
-            </div>
-
-            <div class="callout important">
-                <strong>대원칙 (Fundamental Principle)</strong>: 본 서브노트는 학술 연구 및 현장 적용의 기초 자료로서, 원문에 명시되지 않은 내용을 자의적으로 왜곡하거나 환각(Hallucination)하지 않으며, 실제 연구 결과와 후속 연구자의 해석을 엄격히 구분합니다.
-            </div>
-        </section>
-
-        <!-- Section 1: Introduction -->
-        <section class="section-box" id="sec-intro">
-            <h2 class="sec-heading">📖 1. 도입 (INTRODUCTION)</h2>
-            <p>안전보건 전문가는 현장에서 <strong>'관리자(Manager)'</strong>와 <strong>'리더(Leader)'</strong>의 역할을 유연하게 교대하며 수행해야 합니다. 두 역할의 균형이 무너지면 조직은 생존할 수 없거나 관료주의에 매몰됩니다.</p>
-
-            <h3 class="sub-heading">관리자와 리더의 역할 비교 분석</h3>
-            <div class="table-responsive">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>구분</th>
-                            <th>관리자 (Manager)</th>
-                            <th>리더 (Leader)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>접근 방식</strong></td>
-                            <td><strong>환원주의적(Reductionist) 접근</strong>: 문제를 기본 요소들로 쪼개어 세밀하게 분석하고 해결책 도출</td>
-                            <td><strong>시스템적/전체론적(Holistic) 접근</strong>: 조직의 모든 부서와 기능이 어떻게 조화롭게 협력해야 하는지 전체 구조 조망</td>
-                        </tr>
-                        <tr>
-                            <td><strong>주요 과업</strong></td>
-                            <td>안전 프로세스의 실제 실행 및 운영, 절차 준수 관리</td>
-                            <td>안전경영시스템(SMS)의 비전과 미션 제시, 직원의 안전문화 동기부여 및 영감(Inspiration) 부여</td>
-                        </tr>
-                        <tr>
-                            <td><strong>조직 지속성</strong></td>
-                            <td>단기 생존은 가능하나, 장기적으로 관료주의에 빠져 원래의 비전과 미션을 상실하기 쉬움</td>
-                            <td>항상 프로세스 전반과 본질적 방향성에 조직의 초점을 맞추도록 이끎</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3 class="sub-heading">제7장 핵심 학습 목표 (8가지)</h3>
-            <ol class="custom-list">
-                <li><strong>리더십의 정의에 대한 이해</strong>: 리더십의 방대한 정의와 본질적 속성 체득</li>
-                <li><strong>안전 전문가의 리더십 인정 방안</strong>: 조직 내에서 단순 기술자가 아닌 '리더'로 수용되는 방법 검토</li>
-                <li><strong>리더십이 안전경영시스템(SMS)에 미치는 영향</strong>: 경영진의 태도와 의사결정이 안전문화에 미치는 파급력 분석</li>
-                <li><strong>책임, 권한, 책무성의 상호연관성</strong>: 세 개념의 분리 불가능한 유기적 작동 원리 이해</li>
-                <li><strong>위임(Delegation)이 안전 프로세스에서 배제되어 온 이유</strong>: 전통적 안전 관리의 위임 한계 규명</li>
-                <li><strong>책무성과 책임의 필수성</strong>: 안전경영시스템 지속 및 문화 유지의 불가결한 기초임을 증명</li>
-                <li><strong>서면 직무기술서(Job Descriptions)의 중요성</strong>: 업무 범위 명시의 장단점 및 리더십 발휘 연계</li>
-                <li><strong>성과에 대한 결과/피드백(Consequences) 설정 필요성</strong>: 긍정적 보상과 공정한 제재의 균형 확립</li>
-            </ol>
-        </section>
-
-        <!-- Section 2: Leadership Defined -->
-        <section class="section-box" id="sec-lead-def">
-            <h2 class="sec-heading">🧭 2. 리더십의 정의 (LEADERSHIP DEFINED)</h2>
-            <p>리더십은 단 하나의 문장으로 규정하기 어렵지만, 학습과 훈련을 통해 누구나 발전시킬 수 있는 기예(Art)입니다.</p>
-
-            <ul class="custom-list">
-                <li><strong>정의의 다양성</strong>: 스톡딜(Stogdill, 1974)은 <em>"정의하려 시도한 사람 수만큼이나 정의가 많다"</em>고 하였고, 베니스(Bennis &amp; Townsend, 1995)는 20세기 말 문헌 기준으로 <strong>최소 650개 이상의 리더십 정의</strong>가 존재한다고 밝혔습니다.</li>
-                <li><strong>직관적 속성</strong>: <em>"리더십은 보면 안다(Leadership is something you know when you see it)"</em>는 말처럼, 리더는 집단 전면에 당당히 서서 무엇을 어떻게 달성할지 명확히 소통하고 공유된 비전(Shared vision)을 향해 이끄는 사람입니다.</li>
-                <li><strong>가시적 존재감(Visible Presence)</strong>: 리더의 현장 가시성과 솔선수범 행동은 시스템 정착의 필수 전제인 상호 신뢰(Trust)를 형성합니다.</li>
-            </ul>
-
-            <h3 class="sub-heading">안전 전문가의 다단계 역할 전환: 작업위험성평가(JHA) 사례</h3>
-            <div class="step-flow">
-                <div class="step-item">
-                    <span class="step-badge">1단계</span>
-                    <span class="step-desc"><strong>기술자 (Technician)</strong>: 작업위험성평가(JHA)를 직접 정밀하게 분석하고 작성</span>
-                </div>
-                <div class="step-item">
-                    <span class="step-badge">2단계</span>
-                    <span class="step-desc"><strong>훈련자 (Trainer)</strong>: 지정된 현장 관리자 및 직원들에게 JHA 작성 및 분석 기법을 교육</span>
-                </div>
-                <div class="step-item">
-                    <span class="step-badge">3단계</span>
-                    <span class="step-desc"><strong>품질관리자 (Quality Control)</strong>: 평가 프로세스의 품질과 정확성을 객관적으로 검증</span>
-                </div>
-                <div class="step-item">
-                    <span class="step-badge">4단계</span>
-                    <span class="step-desc"><strong>신뢰받는 리더 (Trusted Leader)</strong>: JHA 활용의 전략적 가치를 조직 전반에 전파하고 전사적 지지를 획득</span>
-                </div>
-            </div>
-            <div class="callout tip">
-                <strong>시야 전환 역량</strong>: 세부 프로그램 중심 활동(Program-directed activities)과 전사 시스템·프로세스 접근법(All-inclusive systems and process approach) 사이를 유연하게 오가는 능력이 안전 리더십의 본질입니다.
-            </div>
-        </section>
-
-        <!-- Section 3: Principles of Leadership -->
-        <section class="section-box" id="sec-lead-principles">
-            <h2 class="sec-heading">🎖️ 3. 리더십 원칙 (PRINCIPLES OF LEADERSHIP)</h2>
-
-            <h3 class="sub-heading">표 7.1: 리더십 기대 요소 (미 육군 야전교범 FM 6-22)</h3>
-            <div class="table-responsive">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>리더십 기대 역량 (FM 6-22, 2015)</th>
-                            <th>안전문화 실무 적용</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td><strong>비전을 수립하고 변화를 주도하라</strong> (Have a vision and lead change)</td><td>안전 비전 제시 및 안전 프로세스 혁신 주도</td></tr>
-                        <tr><td>2</td><td><strong>조직의 도덕적·윤리적 나침반이 되어라</strong> (Be moral and ethical compass)</td><td>이익 앞에서도 타협하지 않는 생명 존중 윤리 견지</td></tr>
-                        <tr><td>3</td><td><strong>학습하고, 사고하며, 적응하라</strong> (Learn, think, and adapt)</td><td>새로운 위험 요인과 규제 환경에 기민한 대응</td></tr>
-                        <tr><td>4</td><td><strong>위험과 기회의 균형을 맞춰 주도권을 유지하라</strong> (Balance risk and opportunity)</td><td>위험을 합리적으로 제어하며 안전 주도권 확보</td></tr>
-                        <tr><td>5</td><td><strong>민첩하고 효과적인 고성과 팀을 구축하라</strong> (Build agile, high-performing teams)</td><td>부서 간 경계를 넘어 협력하는 안전위원회 운영</td></tr>
-                        <tr><td>6</td><td><strong>부하에게 권한을 위임하고 리스크를 감수하라</strong> (Empower subordinates &amp; underwrite risk)</td><td>현장 자율권 부여 및 발생 가능한 오류를 리더가 감당</td></tr>
-                        <tr><td>7</td><td><strong>대담하고 적응력 있는 리더를 육성하라</strong> (Develop bold, adaptive leaders)</td><td>현장 작업자를 차세대 안전 리더로 지속 육성</td></tr>
-                        <tr><td>8</td><td><strong>전방위로 소통하고 전체 맥락을 투명하게 공유하라</strong> (Communicate; tell whole story)</td><td>상하좌우 투명한 소통 및 왜곡 없는 위험 공유</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3 class="sub-heading">오마 브래들리(Omar Bradley) 장군의 리더십 균형론</h3>
-            <p><em>"리더십은 가혹함이 아닌 <strong>확고함(firmness)</strong>, 나약함이 아닌 <strong>이해심(understanding)</strong>, 이기심이 아닌 <strong>관용(generosity)</strong>, 독선·오만이 아닌 <strong>자긍심(pride)</strong>을 의미한다."</em> 정직한 실수(Honest mistakes)와 딜레마를 겪는 것은 리더십의 기예를 배우는 필수 과정입니다.</p>
-
-            <h3 class="sub-heading">유독성 리더십(Toxic Leadership)의 경계</h3>
-            <div class="callout important">
-                <strong>유독성 리더십의 파괴성</strong>: 부하 직원, 조직, 임무 완수에 파괴적인 악영향을 미치는 <strong>자기중심적 태도, 동기, 행동의 결합체</strong>입니다.<br>
-                • <strong>원인</strong>: 비대해진 자아도취(Inflated self-worth)와 극단적 사리사욕(Acute self-interest).<br>
-                • <strong>행태</strong>: 기만(Deceive), 위협(Intimidate), 강압(Coerce), 부당한 처벌(Unfair punishment)을 일삼음.<br>
-                • <strong>안전문화 결과</strong>: 지위 권력에만 의존하여 단기 요구만 억누르므로 직원의 주도성과 사기를 파괴하고 사건 은폐 문화를 조장합니다.
-            </div>
-        </section>
-
-        <!-- Section 4: Thoughts on Leadership -->
-        <section class="section-box" id="sec-lead-thoughts">
-            <h2 class="sec-heading">⚡ 4. 리더십에 관한 고찰 (THOUGHTS ON LEADERSHIP)</h2>
-            <p>미국 에너지부(DOE, 2009) 고위험 산업 핸드북은 공식 직책과 무관한 <strong>'실질적 리더십(Actual Leadership)'</strong>의 중요성을 강조합니다.</p>
-
-            <div class="callout note">
-                <strong>에너지 산업의 리더십 정의</strong>: <em>"자신의 직무 수행뿐만 아니라 시설(사업장) 전체의 운영 성과에 대해 <strong>개인적 책임(Personal responsibility)</strong>을 지며, 조직의 프로세스와 가치에 긍정적인 영향을 미치려고 노력하는 모든 개인"</em>
-            </div>
-
-            <h3 class="sub-heading">공식 관리자(Manager)와 현장의 실질적 리더(Actual Leader)</h3>
-            <p>부서 관리자는 법적 권한과 책임을 갖고 있을 수 있지만, 현장에서 사람들에게 영감을 주고 실제 안전 행동을 견인(Inspiring and driving behavior)하는 사람은 <strong>팀 리더(조장·반장), 노동조합 대의원(Union steward), 숙련 라인 작업자</strong> 등 현장의 비공식 리더일 수 있습니다. 안전 전문가는 이들을 파악하여 안전문화의 핵심 동반자로 삼아야 합니다.</p>
-        </section>
-
-        <!-- Section 5: Leadership Impact on SMS -->
-        <section class="section-box" id="sec-lead-sms">
-            <h2 class="sec-heading">🔄 5. SMS에 미치는 영향 (LEADERSHIP IMPACT ON SMS)</h2>
-            <p>직원들은 리더십 팀을 바라보며 자신의 업무에서 의미(Meaning), 목적(Purpose), 방향(Direction), 통찰(Insight)을 찾습니다.</p>
-            <ul class="custom-list">
-                <li>리더가 모든 직무에 목적이 있음을 보여주고 미래 방향을 공유하면 ➔ 직원들은 <strong>더 큰 개인적 책임감(Greater personal responsibility)</strong>을 갖고 자발적으로 안전 활동에 헌신합니다.</li>
-                <li>리더십 자질이 보이지 않으면 ➔ 직원들은 소극적으로 변하고 위험 개선에 참여하지 않습니다.</li>
-            </ul>
-
-            <h3 class="sub-heading">현대적 리더십: 상호작용적 영향력 (Silva, 2016)</h3>
-            <p><em>"리더십이란 특정 맥락(Context) 속에서, 일부 사람들이 공통의 목표를 달성하기 위해 누군가를 자신들의 리더로 수용할 때 발생하는 <strong>'상호작용적 영향력의 과정(Process of interactive influence)'</strong>이다."</em></p>
-            <div class="step-flow">
-                <div class="step-item"><span class="step-badge">축 1</span> <span class="step-desc"><strong>리더 (Leader)</strong>: 비전과 목적을 제시하는 주체</span></div>
-                <div class="step-item"><span class="step-badge">축 2</span> <span class="step-desc"><strong>추종자 (Followers / 현장 직원)</strong>: 공통 목표를 위해 리더를 자발적으로 인정하고 따르는 주체</span></div>
-                <div class="step-item"><span class="step-badge">축 3</span> <span class="step-desc"><strong>맥락 (Context / 현장 위험 환경)</strong>: 상호작용이 일어나는 실제 작업 환경과 조직 여건</span></div>
-            </div>
-        </section>
-
-        <!-- Section 6: Leadership and Organization Structure -->
-        <section class="section-box" id="sec-lead-structure">
-            <h2 class="sec-heading">🏢 6. 리더십과 조직 구조 (LEADERSHIP &amp; ORG STRUCTURE)</h2>
-
-            <h3 class="sub-heading">James의 현장 관찰: M&amp;A 통합과 전화 회신(Call-back) 테스트</h3>
-            <p>다공장 인수합병 환경에서 안전 전문가 James는 변화를 성급히 추진하기 전, 조직의 고유한 전통과 은어를 먼저 관찰했습니다. 특히 운영 관리자들에게 전화를 걸어 <strong>"누가 얼마나 신속하게 전화를 회신하는가"</strong>를 관찰했습니다. 즉각 회신한 리더들은 변화에 저항하지 않고 새로운 조직 문화를 적극 수용하는 훌륭한 팀 플레이어였습니다.</p>
-
-            <h3 class="sub-heading">경영진이 조직에 긍정적 신호를 보내는 7대 행동 지침</h3>
-            <ol class="custom-list">
-                <li>작업 전 안전점검(Preshift review), 주간/월간 회의에 직접 가시적으로 참여함</li>
-                <li>전 직원과 열린 양방향 소통을 유지하고 위험 보고 장벽을 완화·제거함</li>
-                <li>손실을 유발하는 불안전한 활동과 상태(Loss-producing activities)를 신속히 시정함</li>
-                <li>부서 및 경영 회의 안건에 안전경영시스템(SMS) 정보를 일상적으로 상정함</li>
-                <li>신규 입사자 교육 및 직무 교육에 안전 기준을 온전히 통합 반영함</li>
-                <li>손실 전(Pre-loss, 선행)과 손실 후(Post-loss, 후행) 데이터를 모두 추적하되 선행지표에 중점을 둠</li>
-                <li>안전 이슈와 위험 요소에 대한 현장의 모든 우려를 진지하게 수용함</li>
-            </ol>
-
-            <h3 class="sub-heading">선행지표 vs 후행지표의 균형 (DOE, 2009)</h3>
-            <p>• <strong>후행지표 (Lagging Indicator)</strong>: 이미 일어난 결과나 성과(Results/Outcomes) 측정 (예: 재해율, 손실 작업일수).<br>
-            • <strong>선행지표 (Leading Indicator, Metrics)</strong>: 미래 성과를 예측하는 시스템 상태나 행동 측정 (예: 위험성평가 참여율, 개선 조치율).</p>
-
-            <h3 class="sub-heading">James의 생산 감독자 시절 교훈 (Lesson Learned): 정체성의 전환</h3>
-            <p>과거 "라인을 못 맞추면 즉시 해고하라"는 회사의 지침을 따르다 극심한 이직률과 직원들의 거부에 직면했던 James는, 1:1 대면 면담과 공정한 피드백을 통해 <strong>"부정적이고 다가가기 힘든 감독자에서 신뢰받는 조언자(Trusted Advisor)"</strong>로 거듭났습니다. (FM 6-22 정체성 및 자아개념 원칙 연계).</p>
-        </section>
-
-        <!-- Section 7: Establishing Priorities -->
-        <section class="section-box" id="sec-priorities">
-            <h2 class="sec-heading">🚶 7. 안전 우선순위 설정: MBWA &amp; 열린 문 정책</h2>
-
-            <h3 class="sub-heading">경영진 보행 순회 관리 (Management by Walking Around, MBWA)</h3>
-            <p>피터스 &amp; 워터먼(Peters &amp; Waterman, 2004) 『초우량 기업의 조건』에서 제시된 기법으로, 경영진이 정기적으로 현장을 걸어 다니며 직원들과 직접 소통하여 현장의 공백과 사각지대(특히 교대근무 취약성)를 발견합니다. <strong>3단계 영향력 법칙(3 Degrees of Contact)</strong>에 따라 리더의 가시성이 전파됩니다.</p>
-
-            <div class="callout gold">
-                <strong>Nathan의 카펫 공장 CEO 진공청소기 일화</strong>: CEO가 현장 순회 중 고장 난 청소기 대신 빗자루로 바닥을 쓸던 직원을 발견하고, 직접 매장에 가서 새 진공청소기를 구매해 와 직원에게 건넸습니다. 이 사건은 전사로 퍼져 모든 관리자들이 현장 작업 도구를 즉각 완비하는 결정적 계기가 되었습니다.
-            </div>
-
-            <h3 class="sub-heading">열린 문 정책 (Open Door Policy)</h3>
-            <p>공식 지휘계통을 무너뜨리는 것이 아니라, 누구든 조언과 고충을 말할 수 있는 <strong>완충 밸브(Relief valve)</strong> 역할을 합니다.</p>
-            <p><em>"내게 문제를 해결할 1시간이 주어지고 목숨이 달려 있다면, 올바른 질문을 찾는 데 최초 55분을 쓸 것이다."</em> — 알베르트 아인슈타인(Albert Einstein)</p>
-        </section>
-
-        <!-- Section 8: Roles, Delegation, Triad -->
-        <section class="section-box" id="sec-roles-triad">
-            <h2 class="sec-heading">⚖️ 8. 역할, 책임, 위임, 권한, 책무성의 정의</h2>
-            <p>조직의 복잡성이 커지면 한 사람에게 모든 안전 세부 업무를 전담시키는 것은 불가능합니다. <strong>권한 위임(Delegation of Authority, 2018)</strong>은 관리자가 권한과 권능을 하향 배분하여 자신의 직무 일부를 타인에게 믿고 맡기는 것입니다.</p>
-        </section>
-
-        <!-- Section 9: Org Review for Responsibilities -->
-        <section class="section-box" id="sec-org-review">
-            <h2 class="sec-heading">🔍 9. 안전 책임을 위한 조직 검토 6대 영역</h2>
-            <ol class="custom-list">
-                <li><strong>정책 및 매뉴얼 개발, 경영진 보고</strong></li>
-                <li><strong>안전경영시스템(SMS) 기준 문서화, 감사 및 시정 조치 큐레이션</strong></li>
-                <li><strong>운영 절차 관리</strong> (EHS, 차량·운행 관리, 도급·방문객 통제, 보안, 제조물 책임, 보험 청구)</li>
-                <li><strong>위험 및 유해위험요인 통제</strong> (장비·공구 구매 검토, 인간공학, 설계 검토, JHA)</li>
-                <li><strong>교육, 훈련, 신규자 오리엔테이션 및 안전 소통</strong></li>
-                <li><strong>비상 및 위기 대비, 사고 조사 및 분석</strong></li>
-            </ol>
-        </section>
-
-        <!-- Section 10: Developing Job Descriptions -->
-        <section class="section-box" id="sec-job-descriptions">
-            <h2 class="sec-heading">📝 10. 직무기술서(Job Descriptions)와 목표 합의</h2>
-            <p>많은 조직의 취약점은 안전 책임이 직무기술서에 누락되거나 단순 OSHA 규정 준수로 축소되어 있다는 점입니다. 안전 전문가는 인사(HR) 부서와 긴밀한 신뢰를 형성하여 직무기술서를 개정해야 합니다.</p>
-
-            <h3 class="sub-heading">통제 밖 결과에 대한 부당한 책임 추궁 방지</h3>
-            <div class="callout important">
-                <strong>주의</strong>: 현장 감독관이 채용, 예산, 장비 유지보수 등 잠재적 관리 결함(Latent conditions)을 통제할 권한이 없음에도 발생한 재해율만으로 책임을 묻는 것은 부당합니다. 감독관과 직원이 <strong>직접 통제할 수 있는 손실 전(Preloss) 예방 활동 중심</strong>으로 책무성을 설정해야 합니다. (SMART 원칙 연계).
-            </div>
-
-            <h3 class="sub-heading">비감독직 직원(Nonsupervisory Employees)의 안전 책임 7가지</h3>
-            <ul class="custom-list">
-                <li>1. 지정된 시간의 일일 작업 전 안전점검(Preshift review) 참석</li>
-                <li>2. 주간/월간 안전 회의 적극 참여</li>
-                <li>3. 발견된 유해위험요인 보고 및 제거 지원</li>
-                <li>4. 불안전 상태 및 관련 리스크 즉시 보고</li>
-                <li>5. 손실 유발 사건 조사 및 주간 안전 점검 지원</li>
-                <li>6. 작업위험성평가(JHA) 참여</li>
-                <li>7. 위험 상태 식별 시 '위험안내카드(Risk Guidance Card, Ch 9)' 활용</li>
-            </ul>
-        </section>
-
-        <!-- Section 11: Review Activities Regularly -->
-        <section class="section-box" id="sec-review-activities">
-            <h2 class="sec-heading">📊 11. 할당된 활동의 정기적 검토 &amp; 위임 원칙</h2>
-            <p>서면 목표는 달성했으나 사고와 위험이 줄어들지 않는다면 근본 장애물이 미해결된 것입니다. (James의 공장장 달성 불가능 목표 대체 합의 사례).</p>
-
-            <h3 class="sub-heading">권한과 자원 없는 책임의 위험성</h3>
-            <p><em>"권한 없는 책임, 역량에 맞지 않는 과도한 업무, 교육과 피드백 없는 높은 성과 기대는 심각한 부정적 스트레스를 유발한다."</em> — 페트레이어스 &amp; 아모스(Petraeus &amp; Amos, 2006)</p>
-
-            <h3 class="sub-heading">진정한 위임의 의미 (Elements of Delegation)</h3>
-            <p>위임은 부하에게 책임을 떠넘기는(Passing the buck) 것이 아닙니다. <strong>최종 결과에 대한 책임은 여전히 상위 리더에게 있으며</strong>, 잘못되었을 때 부하를 탓할 수 없습니다.</p>
-            <p><em>"원리를 파악한 자는 자신의 방법을 성공적으로 선택할 수 있지만, 원리를 무시한 채 방법만 시도하는 자는 반드시 곤경에 처한다."</em> — 랄프 왈도 에머슨(Ralph Waldo Emerson)</p>
-        </section>
-
-        <!-- Section 12: Relationship Triad -->
-        <section class="section-box" id="sec-triad-relationship">
-            <h2 class="sec-heading">⚙️ 12. 삼원조 관계 (THE TRIAD RELATIONSHIP)</h2>
-
-            <div class="figure-container">
-                <img src="image-1.png" alt="TABLE 7.2 Differences between Responsibility, Authority, and Accountability">
-                <div class="figure-caption">
-                    <strong>[TABLE 7.2] 책임(Responsibility), 권한(Authority), 책무성(Accountability)의 상세 비교</strong><br>
-                    • <strong>책임</strong>: 부여된 과업을 완수해야 하는 개인의 의무. 하향에서 상향(Bottom to top)으로 흐름. 절대 타인에게 전가할 수 없음.<br>
-                    • <strong>권한</strong>: 부하에게 명령하고 자원을 배분하는 합법적 권리. 상향에서 하향(Top to bottom)으로 흐르며 상사가 부하에게 위임 가능.<br>
-                    • <strong>책무성</strong>: 직무를 수행하기로 동의하고 결과에 대해 해명할 의무. 결코 위임할 수 없음(Cannot be delegated).
-                </div>
-            </div>
-
-            <div class="figure-container">
-                <img src="image-2.png" alt="FIG. 7.1 Differences between responsibility, authority, and accountability">
-                <div class="figure-caption">
-                    <strong>[그림 7.1 설명: 안전 전문가와 리더십 팀 간의 톱니바퀴 연동 메커니즘]</strong><br>
-                    안전 전문가(좌측 초록 기어)와 리더십 팀(우측 파랑 기어)이 악수를 나누며 파트너십을 형성하고, 중앙의 매개 기어(주황색)가 맞물려 책임, 권한, 책무성이 조화롭게 회전해야만 전체 안전경영시스템이 원활히 작동합니다.
-                </div>
-            </div>
-
-            <div class="callout note">
-                <strong>작업 중지 권한의 제도화</strong>: 밥 프로스트(Bob Frost, 2017)는 <em>"권한이란 상위 경영진의 사전 승인이나 동료의 이의 없이 독자적으로 행동할 수 있는 권리"</em>라 하였습니다. 위험 작업 발견 시 즉각 중지시킬 수 있는 공식 권한(Stop-work authority)이 필수적입니다.
-            </div>
-
-            <div class="figure-container">
-                <img src="image-3.png" alt="TABLE 7.3 Essential Components of an Effective Accountability System">
-                <div class="figure-caption">
-                    <strong>[TABLE 7.3] 효과적인 책무성 시스템의 5대 필수 구성요소</strong><br>
-                    1. 공식적인 행동 및 성과 기준 수립 (Policies, procedures, rules)<br>
-                    2. 기준 달성을 위한 충분한 자원 제공 (Safe workplace, training, oversight)<br>
-                    3. 효과적인 성과 측정 시스템 구축 (System of measurement)<br>
-                    4. 결과에 대한 적절한 피드백 적용 (Consequences, both positive &amp; negative)<br>
-                    5. 조직 전반의 일관성 있는 공정한 적용 (Consistent application throughout org)
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 13: Assigning Specific Responsibilities -->
-        <section class="section-box" id="sec-assign-specific">
-            <h2 class="sec-heading">👥 13. 직급별 구체적 안전 책임 부여</h2>
-            <p>센더스 &amp; 모레이(Senders &amp; Moray, 1991)는 <em>"개시 행동(Initiating action)이란 사건을 유발하는 개인의 행동"</em>이라 정의했습니다. 사고는 직접적 오류뿐 아니라 조직의 잠재적 오류(Latent errors)가 결합되어 일어납니다.</p>
-
-            <ul class="custom-list">
-                <li><strong>최고경영진/리더십 팀</strong>: 안전 비전/정책 수립, 충분한 예산 및 자원 배분, 전사적 헌신 모범 (부록 7.2)</li>
-                <li><strong>사업장 총괄 공장장/관리자</strong>: 안전 정책의 현장 가치 정착, 감독관 성과 평가 및 책무성 요구, 설비 위험 검토 (부록 7.3)</li>
-                <li><strong>현장 감독관</strong>: 현장 언행일치(Practice what you preach), 일상 점검 및 위험 통제, 편법(Shortcuts) 금지 (부록 7.4)</li>
-                <li><strong>현장 작업 직원</strong>: 안전 수칙 준수, 위험 발견 즉시 보고 및 개선 제안, 개인적 책임 실천 (부록 7.5)</li>
-            </ul>
-        </section>
-
-        <!-- Section 14: Establish Consequences -->
-        <section class="section-box" id="sec-consequences">
-            <h2 class="sec-heading">🎯 14. 성과에 대한 결과/피드백 설정</h2>
-            <p>성과에 대한 결과는 징벌로만 인식되면 안전을 부정적으로 보게 하므로, <strong>긍정적 피드백 중심의 균형</strong>이 중요합니다.</p>
-
-            <h3 class="sub-heading">학습 기간(Learning Period) 보장과 과잉 대응의 위험</h3>
-            <p>신규 업무 도입 초기에는 처벌 없이 1:1 코칭과 즉각적 시정 조치를 통해 "왜"와 "어떻게"를 가르쳐야 합니다. 만약 조사 기술이 미숙한 감독관을 즉각 징계 처벌하면, 조직 전체에 <strong>"처벌을 피하려면 사건을 은폐하라"</strong>는 치명적 신호를 주게 됩니다. (메이거 &amp; 파이프, *Mager &amp; Pipe, 1983, Analyzing Performance Problems* 참조).</p>
-        </section>
-
-        <!-- Section 15: Summary & Review Questions -->
-        <section class="section-box" id="sec-summary">
-            <h2 class="sec-heading">📋 15. 요약 &amp; 15대 장별 복습 질문</h2>
-
-            <div class="callout tip">
-                <strong>제7장 핵심 요약</strong>: 리더십은 공유된 비전과 솔선수범으로 직원의 자발적 헌신을 이끎 ➔ 책임, 권한, 책무성은 뗄 수 없는 삼원조임 ➔ 진정한 위임은 최종 책임을 리더가 짐 ➔ 성과 결과는 징벌보다 긍정적 인정 중심으로 설계되어야 함.
-            </div>
-
-            <h3 class="sub-heading">장별 복습 질문 (클릭하여 모범 답안 개요 확인)</h3>
-
-            <details class="review-item">
-                <summary>1. '리더'라는 단어가 주는 이미지와 본 장의 리더십 기준 비교</summary>
-                <div class="review-answer">전면에 서서 명확히 소통하고 기대를 뛰어넘도록 영감을 주는 이미지이며, 본 장에서는 시스템적 관점, 도덕적 나침반, 신뢰 구축, 배려의 의사결정이 결합되어야 함을 강조합니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>2. 오마 브래들리 장군의 리더십 균형론(확고함, 이해심, 관용, 자긍심) 실무 적용</summary>
-                <div class="review-answer">가혹한 처벌 대신 확고한 안전 기준을 적용하고, 현장의 고충을 이해하며, 공을 구성원에게 돌리는 관용과 정직한 실수를 학습 기회로 삼는 태도로 구현합니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>3. 책무성, 권한, 책임의 상호연관성 (Table 7.2 / Fig 7.1)</summary>
-                <div class="review-answer">권한은 하향 위임되고 책임은 상향 수행되며, 책무성은 타인에게 위임할 수 없는 최종 설명 책임으로서 세 톱니바퀴가 함께 맞물려야 작동합니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>4. 리더십 개념에 대한 이해가 SMS에 주는 유익</summary>
-                <div class="review-answer">단순한 규정 단속과 행정 관리를 넘어, 구성원이 스스로 안전에 개인적 책임을 느끼고 자발적으로 참여하는 문화를 형성합니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>5. 보행 순회 관리(MBWA)의 개념과 안전상의 이점</summary>
-                <div class="review-answer">경영진이 작업장을 직접 순회하며 1:1 대화하는 기법으로, 소통 장벽을 제거하고 특히 취약한 교대근무 사각지대 위험을 발견합니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>6. 열린 문 정책(Open Door Policy)의 목적과 미실행 시 문제점</summary>
-                <div class="review-answer">지휘계통을 훼손하지 않는 소통 완충 밸브이며, 미실행 시 정보가 필터링되거나 왜곡되어 심각한 위험이 차단됩니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>7. 안전 과업 개발 전 조직 운영 방식을 먼저 이해해야 하는 이유</summary>
-                <div class="review-answer">현장의 실제 소통 구조, 문화적 언어, 현장 자율성 수준과 일치하지 않는 안전 과업은 거부 반응을 초래하기 때문입니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>8. 직무기술서(Job Descriptions) 개발의 목적</summary>
-                <div class="review-answer">직위별 안전 책임과 권한 한계를 명확히 하여 혼선을 없애고 객관적 성과 평가의 기초를 제공하기 위함입니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>9. 기본 직무기술서 작성 시 요구되는 핵심 정보</summary>
-                <div class="review-answer">직무 명칭, 리더십 기대에 관한 일반 진술문, 권한 범위와 필요 자원, 구체적 성과 목표 및 책무성 기준.</div>
-            </details>
-            <details class="review-item">
-                <summary>10. 잘 설계된 목표와 목적이 안전 책임 부여에 필수적인 이유</summary>
-                <div class="review-answer">모호한 목표는 성과 부족 여부를 판단할 수 없게 하므로, SMART 원칙에 따라 측정 가능하게 수립해야 합니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>11. 목표와 목적에 대한 상호 합의(Agreement)의 필수성</summary>
-                <div class="review-answer">구성원의 참여를 통한 사전 수용성(Buy-in)을 확보하고, 통제 불가능한 요인으로 인한 부당한 책임 추궁을 방지하기 위함입니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>12. 직무기술서에 명시할 수 있는 SMS 실무 활동 예시</summary>
-                <div class="review-answer">일일 작업 전 점검, 안전 회의 주재, 위험 보고 및 제거 추적, JHA 참여, 사고 조사 참여 등.</div>
-            </details>
-            <details class="review-item">
-                <summary>13. 권한 위임(Delegation)의 핵심 구성 요소</summary>
-                <div class="review-answer">과업과 기대 결과의 명확한 정의, 충분한 독립적 권한 부여, 지속적인 관심과 모니터링, 그리고 리더의 최종 책임 견지.</div>
-            </details>
-            <details class="review-item">
-                <summary>14. 권한과 책임의 한계선을 명확히 이해하도록 보장하는 이유</summary>
-                <div class="review-answer">책임 없는 권한 남용을 막고, 권한 없는 책임으로 인한 구성원의 심각한 탈진과 사기 저하를 방지하기 위함입니다.</div>
-            </details>
-            <details class="review-item">
-                <summary>15. 역할과 책임이 필요한 리더십 기술 유형을 규정하는 방식</summary>
-                <div class="review-answer">계층별로 요구되는 위험 제어 과업에 따라 기술자, 트레이너, 품질관리자, 전략적 리더 등 요구되는 기술이 구체화됩니다.</div>
-            </details>
-        </section>
-
-        <!-- Section 16: Appendices -->
-        <section class="section-box" id="sec-appendices">
-            <h2 class="sec-heading">📁 16. 부록 7.1~7.5 실무 체크리스트</h2>
-            <div class="step-flow">
-                <div class="step-item"><span class="step-badge">부록 7.1</span> <span class="step-desc"><strong>안전 책임 워크시트 샘플</strong>: 직무 명칭, 기대 진술문, 권한 한계(작업중지권 등), 구체적 목표 목록을 기록하는 살아있는 문서</span></div>
-                <div class="step-item"><span class="step-badge">부록 7.2</span> <span class="step-desc"><strong>최고경영진 리더십 팀의 안전 책임 (21개 항목)</strong>: 정책 수립, 안전 최우선 원칙, 충분한 자원 배분, 솔선수범, 비상 훈련 지원 등</span></div>
-                <div class="step-item"><span class="step-badge">부록 7.3</span> <span class="step-desc"><strong>공장장/사업장 총괄 관리자의 안전 책임 (21개 항목)</strong>: 감독관 책무성 평가, 현장 점검, JHA 정기화, 위험 보고 보호, 은폐 방지 등</span></div>
-                <div class="step-item"><span class="step-badge">부록 7.4</span> <span class="step-desc"><strong>현장 감독관의 안전 책임 (14개 항목)</strong>: 언행일치, 일상 관찰, 긍정적 보상, 지름길(Shortcuts) 금지, 현장 직무교육(OJT) 등</span></div>
-                <div class="step-item"><span class="step-badge">부록 7.5</span> <span class="step-desc"><strong>현장 직원의 직무 안전 책임 (10개 항목)</strong>: 수칙 학습, 작업 전 지시사항 확인, 의문 시 작업 중지 질문, 위험 발견 즉시 보고 등</span></div>
-            </div>
-        </section>
-
-        <!-- Section 17: AI Study & Research Prompts -->
-        <section class="section-box" id="sec-study-prompts">
-            <h2 class="sec-heading" style="color:var(--accent-gold);">💡 17. 학습 및 연구 전용 AI 프롬프트 (Study &amp; Research Prompts)</h2>
-            <p>박사학위 연구, 선행문헌 분석, 현장 안전 리더십 진단 및 실무 워크숍에 즉시 활용할 수 있는 고도화된 프롬프트 모음입니다. 각 카드의 <strong>[복사]</strong> 또는 <strong>[우측 AI로 전송]</strong>을 눌러 바로 활용해 보세요.</p>
-
-            <div class="prompt-grid">
-
-                <!-- Prompt 1 -->
-                <div class="prompt-card">
-                    <div>
-                        <span class="prompt-tag">학술 연구 · 이론 분석</span>
-                        <div class="prompt-title">Schein의 조직문화-리더십 상호작용 이론 분석</div>
-                        <div class="prompt-snippet">[역할] 조직행동 및 안전문화 전공 박사학위 지도교수
-[맥락] 교재 7장 서두의 Schein(2016) 명제: "문화와 리더십은 동전의 양면이다."
-[과업] 
-1. Schein의 조직문화 3계층(인공물, 표방된 가치, 기저의 가정) 모델과 리더십의 상호작용 메커니즘을 설명하라.
-2. 리더가 안전문화를 먼저 형성하는 단계와, 이미 정착된 문화가 리더의 행동을 구속하는 단계를 공공기관(또는 고위험 산업) 사례로 비교 분석하라.
-3. 이를 실증 연구하기 위한 연구가설 2가지를 도출하라.</div>
-                    </div>
-                    <div class="prompt-actions">
-                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p1">📋 복사</button>
-                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p1">🚀 우측 AI로 전송</button>
-                    </div>
-                </div>
-
-                <!-- Prompt 2 -->
-                <div class="prompt-card">
-                    <div>
-                        <span class="prompt-tag">개념 규명 · 학위논문</span>
-                        <div class="prompt-title">책무성(Accountability) vs 책임(Responsibility) 엄밀 비교</div>
-                        <div class="prompt-snippet">[역할] 안전경영시스템(SMS) 학술 심사위원
-[맥락] 7장 Table 7.2 및 Fig 7.1 삼원조(Triad) 이론
-[과업]
-1. 'Responsibility(책임)'와 'Accountability(책무성)'의 학술적·법적 차이를 위임 가능 여부와 전달 흐름(상향 vs 하향)을 중심으로 엄밀히 대조하라.
-2. "책무성은 소급 적용될 수 없다(Accountability cannot be retroactive)"는 원칙의 실무적·윤리적 함의를 논하라.
-3. 국내 공공조직에서 왜 책무성이 비난(Finger pointing)으로 오인되는지 원인을 분석하고 개선안을 제시하라.</div>
-                    </div>
-                    <div class="prompt-actions">
-                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p2">📋 복사</button>
-                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p2">🚀 우측 AI로 전송</button>
-                    </div>
-                </div>
-
-                <!-- Prompt 3 -->
-                <div class="prompt-card">
-                    <div>
-                        <span class="prompt-tag">현장 실무 · 진단 설계</span>
-                        <div class="prompt-title">경영진 MBWA(보행 순회) 질문지 및 관찰 체크리스트 설계</div>
-                        <div class="prompt-snippet">[역할] 글로벌 EHS 전략 컨설턴트
-[맥락] 7장 Peters & Waterman의 MBWA 및 Nathan의 카펫 공장 CEO 일화
-[과업]
-1. 최고경영진이 사업장 순회 시 현장 작업자와 1:1 대면 대화에서 사용할 '신뢰 구축형 5대 핵심 질문'을 작성하라.
-2. 경영진이 안전 규칙을 위반하거나 직원을 질책하는 부작용을 막기 위한 'MBWA 수칙 5개조'를 제정하라.
-3. 2·3교대 야간 근무조의 소통 사각지대를 해소하기 위한 특화 순회 프로세스를 제안하라.</div>
-                    </div>
-                    <div class="prompt-actions">
-                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p3">📋 복사</button>
-                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p3">🚀 우측 AI로 전송</button>
-                    </div>
-                </div>
-
-                <!-- Prompt 4 -->
-                <div class="prompt-card">
-                    <div>
-                        <span class="prompt-tag">조직 변혁 · 롤플레잉</span>
-                        <div class="prompt-title">사고조사 미숙 감독관 코칭 롤플레잉 대화 설계</div>
-                        <div class="prompt-snippet">[역할] 안전 코칭 전문가 (Mager & Pipe, 1983 이론 기반)
-[맥락] 7장 성과 결과 설정에서 "조사 미숙 감독관을 즉각 징계하면 사건 은폐가 일어난다"는 경고
-[과업]
-1. 아차사고 조사를 미흡하게 작성한 현장 감독관과 안전 부서장 간의 '처벌 없는 학습 중심 면담 대화록(Script)'을 작성하라.
-2. 감독관의 지식 부족인지, 동기 부족인지, 시간 부족인지를 판별하는 3단계 질문 기법을 포함하라.
-3. 면담 종료 후 감독관이 심리적 안정감을 느끼고 향후 자발적 보고를 약속하는 결론을 도출하라.</div>
-                    </div>
-                    <div class="prompt-actions">
-                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p4">📋 복사</button>
-                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p4">🚀 우측 AI로 전송</button>
-                    </div>
-                </div>
-
-                <!-- Prompt 5 -->
-                <div class="prompt-card">
-                    <div>
-                        <span class="prompt-tag">역할 전환 · 역량 개발</span>
-                        <div class="prompt-title">안전 전문가의 JHA 4단계 리더십 성장 로드맵 수립</div>
-                        <div class="prompt-snippet">[역할] 산업안전보건 커리어 멘토
-[맥락] 7장 4단계 정체성 전환: 기술자 → 트레이너 → 품질관리자 → 신뢰받는 리더
-[과업]
-1. 현장 안전관리자가 단순 '단속반/기술자'에서 '신뢰받는 리더'로 승화하기 위해 각 단계별로 극복해야 할 멘탈 모델의 한계를 분석하라.
-2. 4단계(신뢰받는 리더)에서 경영진을 설득할 때 필요한 '경영 언어 번역(비용, 운항, 브랜드, 법적 책임)' 발표 개요서를 작성하라.</div>
-                    </div>
-                    <div class="prompt-actions">
-                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p5">📋 복사</button>
-                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p5">🚀 우측 AI로 전송</button>
-                    </div>
-                </div>
-
-                <!-- Prompt 6 -->
-                <div class="prompt-card">
-                    <div>
-                        <span class="prompt-tag">성과 관리 · 지표 수립</span>
-                        <div class="prompt-title">선행지표(Leading Metrics) 기반 안전 직무기술서(JD) 작성</div>
-                        <div class="prompt-snippet">[역할] 인사(HR) 및 EHS 통합 기획자
-[맥락] 7장 부록 7.4(감독관 책임) 및 후행지표(재해율) 중심 책무성의 폐해 극복
-[과업]
-1. 제조/공공 현장 감독관을 위한 SMART 기반 선행지표 5가지(예: 작업 전 안전점검 조치율, 위험제안 채택률 등)를 정의하라.
-2. 각 지표별 측정 방식, 점검 주기, 목표 수치, 달성 시 긍정적 인정 보상 기준을 포함한 직무기술서 서식을 완성하라.</div>
-                    </div>
-                    <div class="prompt-actions">
-                        <button class="prompt-btn copy-prompt-btn" data-prompt-id="p6">📋 복사</button>
-                        <button class="prompt-btn send-to-ai send-prompt-btn" data-prompt-id="p6">🚀 우측 AI로 전송</button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Right AI Assistant Panel -->
-    <aside class="right-ai-panel" id="right-ai-panel">
-        <div class="ai-panel-header">
-            <h3>🤖 챕터 7 학습 AI 어시스턴트</h3>
-            <span class="ai-status-tag" id="ai-status-tag">지식엔진 준비완료</span>
-        </div>
-
-        <div class="ai-mode-bar">
-            <span>엔진 모드:</span>
-            <select id="ai-engine-select" class="ai-mode-select">
-                <option value="builtin">내장 지식 Q&amp;A (무료·즉시사용)</option>
-                <option value="gemini">Google Gemini API (연동)</option>
-                <option value="openai">OpenAI ChatGPT API (연동)</option>
-            </select>
-        </div>
-
-        <div class="ai-chat-messages" id="ai-chat-messages">
-            <div class="chat-bubble ai">
-                안녕하세요! <strong>Chapter 7 (Evaluating Leadership and the Safety Culture)</strong> 서브노트 전문 학습 AI입니다. 📚<br><br>
-                리더십과 관리자의 차이, 에드가 샤인의 명제, JHA 4단계 전환, 책임-권한-책무성 삼원조(Triad), MBWA 사례 등 챕터 7에 관한 무엇이든 물어보세요!
-            </div>
-        </div>
-
-        <div class="ai-quick-questions">
-            <div class="quick-chip" data-q="JHA 4단계 리더십 전환 과정에 대해 설명해줘">JHA 4단계 전환</div>
-            <div class="quick-chip" data-q="책무성(Accountability)과 권한(Authority)의 차이점은?">책무성 vs 권한</div>
-            <div class="quick-chip" data-q="에드가 샤인(Edgar Schein)의 명제와 챕터 7 도입 그림의 의미는?">Edgar Schein 명제</div>
-            <div class="quick-chip" data-q="MBWA 카펫 공장 CEO 일화와 시사점을 알려줘">MBWA 카펫 CEO 일화</div>
-            <div class="quick-chip" data-q="유독성 리더십(Toxic Leadership)의 특징과 위험성은?">유독성 리더십</div>
-        </div>
-
-        <div class="ai-input-area">
-            <form class="ai-form" id="ai-chat-form">
-                <textarea id="ai-user-input" class="ai-input" placeholder="챕터 7에 대해 질문하거나 프롬프트를 전송하세요..." rows="1"></textarea>
-                <button type="submit" class="ai-send-btn">전송</button>
-            </form>
-        </div>
-    </aside>
-
-</div>
-
-<!-- API Key Settings Modal -->
-<div class="modal-overlay" id="api-modal-overlay">
-    <div class="modal-card">
-        <div class="modal-header">
-            <h3 class="modal-title">🔑 AI API 키 설정</h3>
-            <button class="close-modal-btn" id="close-modal-btn">&times;</button>
-        </div>
-        <div class="modal-body">
-            <p style="color:var(--text-muted); font-size:13px;">
-                API 키를 입력하면 최신 Gemini 또는 OpenAI 모델과 실시간 연동되어 고도화된 학술 연구 및 질의응답이 가능합니다. 키는 서버로 전송되지 않고 브라우저 로컬 저장소(localStorage)에만 안전하게 보관됩니다.
-            </p>
-
-            <div>
-                <label style="display:block; font-weight:600; margin-bottom:6px;">Google Gemini API Key:</label>
-                <input type="password" id="gemini-key-input" class="nav-search" placeholder="AIzaSy...">
-            </div>
-
-            <div>
-                <label style="display:block; font-weight:600; margin-bottom:6px;">OpenAI API Key (선택):</label>
-                <input type="password" id="openai-key-input" class="nav-search" placeholder="sk-...">
-            </div>
-
-            <div>
-                <label style="display:block; font-weight:600; margin-bottom:6px;">Gemini 모델 선택:</label>
-                <select id="gemini-model-select" class="nav-search">
-                    <option value="gemini-1.5-flash">Gemini 1.5 Flash (빠름·추천)</option>
-                    <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-                    <option value="gemini-1.5-pro">Gemini 1.5 Pro (정밀 분석)</option>
-                </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="action-btn" id="clear-key-btn">키 삭제</button>
-            <button class="action-btn primary" id="save-key-btn">저장하기</button>
-        </div>
+  <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <a href="index.html" class="sidebar-portal-link">
+      <span>← 전체 챕터 포털</span>
+      <span>index.html</span>
+    </a>
+    <div class="sidebar-title">Chapter 7 목차 네비게이션</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="섹션 빠른 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-introduction" class="nav-link">INTRODUCTION</a></li>
+<li><a href="#sec-leadership-defined" class="nav-link">LEADERSHIP DEFINED</a></li>
+<li><a href="#sec-principles-of-leadership" class="nav-link">PRINCIPLES OF LEADERSHIP</a></li>
+<li><a href="#sec-thoughts-on-leadership" class="nav-link">THOUGHTS ON LEADERSHIP</a></li>
+<li><a href="#sec-leadership-impact-on-the-safety-management-system" class="nav-link">LEADERSHIP IMPACT ON THE SAFET...</a></li>
+<li><a href="#sec-leadership-and-organization-structure" class="nav-link">LEADERSHIP AND ORGANIZATION ST...</a></li>
+<li><a href="#sec-establishing-organizational-safety-priorities" class="nav-link">ESTABLISHING ORGANIZATIONAL SA...</a></li>
+<li><a href="#sec-defining-roles-responsibility-delegation-authority-and-accountability" class="nav-link">DEFINING ROLES, RESPONSIBILITY...</a></li>
+<li><a href="#sec-review-the-organization-for-safety-related-responsibilities" class="nav-link">REVIEW THE ORGANIZATION FOR SA...</a></li>
+<li><a href="#sec-developing-and-implementing-job-descriptions" class="nav-link">DEVELOPING AND IMPLEMENTING JO...</a></li>
+<li><a href="#sec-review-assigned-activities-regularly" class="nav-link">REVIEW ASSIGNED ACTIVITIES REG...</a></li>
+<li><a href="#sec-the-relationship-between-responsibility-authority-and-accountability" class="nav-link">THE RELATIONSHIP BETWEEN RESPO...</a></li>
+<li><a href="#sec-assigning-specific-responsibilities" class="nav-link">ASSIGNING SPECIFIC RESPONSIBIL...</a></li>
+<li><a href="#sec-establish-consequences-for-performance" class="nav-link">ESTABLISH CONSEQUENCES FOR PER...</a></li>
+<li><a href="#sec-summary" class="nav-link">SUMMARY</a></li>
+<li><a href="#sec-chapter-review-questions-15" class="nav-link">CHAPTER REVIEW QUESTIONS</a></li>
+<li><a href="#sec-appendix-7-1-sample-safety-responsibilities-worksheet" class="nav-link">APPENDIX 7.1 SAMPLE SAFETY RES...</a></li>
+<li><a href="#sec-appendix-7-2-sample-responsibilities-for-the-leadership-team" class="nav-link">APPENDIX 7.2 SAMPLE RESPONSIBI...</a></li>
+<li><a href="#sec-appendix-7-3-sample-responsibilities-plant-site-superintendents-managers" class="nav-link">APPENDIX 7.3 SAMPLE RESPONSIBI...</a></li>
+<li><a href="#sec-appendix-7-4-sample-responsibilities-for-supervision" class="nav-link">APPENDIX 7.4 SAMPLE RESPONSIBI...</a></li>
+<li><a href="#sec-appendix-7-5-sample-list-of-task-responsibilities-employees" class="nav-link">APPENDIX 7.5 SAMPLE LIST OF TA...</a></li>
+<li><a href="#sec-bibliography" class="nav-link">BIBLIOGRAPHY</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Intro Hero -->
+    <div class="intro-hero">
+      <span class="hero-tag">PART II Safety Management Systems Defined</span>
+      <h1>Chapter 7. 리더십과 안전문화 평가</h1>
+      <p class="lead">Evaluating Leadership and the Safety Culture</p>
+      
+      <img src="image.png" alt="Chapter 7 Overview" class="hero-overview-img">
+
+      <div class="epigraph-box">
+        "문화와 리더십은 동전의 양면이다. 리더가 그룹과 조직을 만들 때 먼저 문화를 창조하고, 일단 문화가 존재하게 되면 그 문화가 리더십의 기준을 규정한다."
+        <span class="epigraph-author">— 에드가 샤인 (Edgar Schein, 2016)</span>
+      </div>
     </div>
+
+    <!-- Subnote Sections -->
+    
+
+<section class="subnote-section" id="sec-introduction">
+<h2>INTRODUCTION (도입)</h2>
+
+
+<p>안전보건 업무를 성공적으로 수행하려면 <strong>관리자(Manager)</strong>의 역할과 <strong>리더(Leader)</strong>의 역할을 유연하게 교대하며 수행해야 합니다.</p>
+
+
+
+<h3>1. 안전 업무에서 관리자와 리더의 상호보완적 역할</h3>
+
+
+<p>안전 프로세스를 실행할 때는 관리 기술(Management skills)이 필수적입니다. 반면, 안전경영시스템의 비전과 미션을 조직 내에 전파하고 구성원을 고무시키는 데는 리더십이 요구됩니다.</p>
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>구분</th>
+<th>관리자 (Manager)</th>
+<th>리더 (Leader)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>핵심 접근법</strong></td>
+<td><strong>환원주의적(Reductionist) 접근</strong>: 복잡한 문제를 가장 기본적인 요소들로 쪼개어 세밀하게 분석하고 해결책을 도출함</td>
+<td><strong>시스템적/전체론적(Holistic) 접근</strong>: 조직의 모든 부분과 기능이 어떻게 조화롭게 협력해야 하는지 전체 구조를 조망함</td>
+</tr>
+<tr>
+<td><strong>주요 역할</strong></td>
+<td>안전 프로세스의 구체적인 프로그램 및 정책 실행·운영</td>
+<td>안전경영시스템의 비전과 미션 제시, 안전문화 달성 및 유지를 위한 직원의 기대역할 제시와 영감(Inspiration) 부여</td>
+</tr>
+<tr>
+<td><strong>조직 지속성</strong></td>
+<td>관리 역량만으로 단기 생존은 가능하나, 시간이 지나면 관료주의에 빠져 본래의 미션과 비전을 상실하기 쉬움</td>
+<td>항상 프로세스 전반과 본질적 방향성에 집중하도록 조직을 이끎</td>
+</tr>
+</tbody>
+</table></div>
+
+
+
+<div class="callout callout-note">
+
+<strong>핵심 결론</strong>: 조직은 유능한 관리자와 통찰력 있는 비전을 가진 리더십이 조화를 이룰 때 비로소 탁월함(Excel)을 달성할 수 있습니다. 비전이 결여된 관리는 장기적으로 조직의 안전 유지 역량을 약화시킵니다.
 </div>
 
-<!-- Toast Notification -->
-<div class="toast" id="toast-msg">클립보드에 복사되었습니다!</div>
+
+
+<h3>2. 안전 전문가에게 요구되는 리더십 역량</h3>
+
+
+<ul>
+<li><strong>학습 가능한 역량</strong>: 리더십 기술은 유전되거나 타고나는 것이 아니며, <strong>누구나 훈련과 학습을 통해 습득</strong>할 수 있습니다.</li>
+<li><strong>소통과 조율</strong>: 안전 전문가는 리더십 원리를 체득하여 경영진(Leadership team) 및 현장 직원들과 안전문화 유지 활동을 조직하고 소통하는 데 적용해야 합니다.</li>
+<li><strong>조직 개발</strong>: 팀과 안전위원회(Safety Committee)를 구성하고, 다양한 부서 및 개인과의 유대감(Rapport)을 형성하는 데 리더십 자질이 필수적입니다.</li>
+</ul>
+
+
+
+<h3>3. 해당 챕터의 핵심 학습 목표 (8가지)</h3>
+
+
+<p>이 챕터를 학습한 후 안전 전문가는 다음 8가지 핵심 주제에 대해 토론하고 실무에 적용할 수 있어야 합니다:</p>
+
+
+<ol>
+<li><strong>리더십의 정의에 대한 이해</strong> (Be knowledgeable about the definitions of leadership)</li>
+<li><strong>안전 전문가의 리더십 인정 방안</strong> (Discuss how a safety professional can and should become accepted as a leader)</li>
+<li><strong>리더십이 안전경영시스템에 미치는 영향</strong> (Discuss the impact of leadership on the safety management system)</li>
+<li><strong>책임(Responsibility), 권한(Authority), 책무성(Accountability)의 상호연관성 이해</strong> (Understand how responsibility, authority, and accountability are interrelated)</li>
+<li><strong>위임(Delegation)이 안전 프로세스에서 배제되어 온 이유</strong> (Discuss why delegation has not been considered part of a safety process)</li>
+<li><strong>책무성과 책임이 안전경영시스템 및 안전문화 유지에 필수적인 이유 규명</strong> (Define how accountability and responsibility are essential for the safety management system and the sustaining of the safety culture)</li>
+<li><strong>서면 직무기술서(Written Job Descriptions)의 장단점 및 리더십에서의 중요성</strong> (Discuss the pros and cons of written job descriptions and why they are important for leadership)</li>
+<li><strong>성과에 대한 결과/피드백(Consequences for Performance) 설정의 필요성</strong> (Discuss why it is necessary to establish consequences for performance)</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-leadership-defined">
+<h2>LEADERSHIP DEFINED (리더십의 정의)</h2>
+
+
+<p>리더십은 다양한 정의와 인식을 포괄하는 개념이며, 원칙과 이론을 실천함으로써 누구나 더 뛰어난 리더로 성장할 수 있습니다.</p>
+
+
+
+<h3>1. 리더십 정의의 다양성과 직관적 속성</h3>
+
+
+<ul>
+<li><strong>정의의 다양성</strong>:</li>
+<li>스톡딜(Stogdill, 1974): <em>"리더십을 정의하려 시도한 사람의 수만큼이나 많은 리더십 정의가 존재한다."</em></li>
+<li>베니스 & 타운센드(Bennis & Townsend, 1995): 20세기 말 문헌 기준으로 리더십 정의가 <strong>최소 650개 이상</strong>에 달한다고 추산했습니다.</li>
+<li><strong>직관적 인식과 강력한 추진력</strong>:</li>
+<li>오래된 격언에 <em>"리더십은 보면 안다(Leadership is something you know when you see it)"</em>라는 말이 있습니다.</li>
+<li>'리더'라는 단어는 집단의 전면에 나서 무엇을 어떻게 달성할 것인지 명확하고 단호하게 소통하며, 공유된 비전(Shared vision)을 향해 앞장서서 이끄는 강인한 인물의 이미지를 전달합니다.</li>
+<li>리더는 남들이 불가능하다고 생각할 때조차 비전을 달성하도록 사람들에게 영감을 불어넣고, 좌절과 장애물 앞에서도 공유된 비전과 나아갈 방향을 잃지 않습니다.</li>
+<li><strong>비즈니스, 군사, 교육, 종교, 정치 분야 리더에 대한 성찰 질문</strong>:</li>
+<li>그들은 어떤 자질(Attributes)을 가졌는가?</li>
+<li>왜 리더로 인식되는가?</li>
+<li>조직에서 어떻게 리더의 위치에 올랐는가?</li>
+<li>인정을 받기 위해 무엇을 행동으로 실천했는가?</li>
+<li>그들이 남긴 유산(Legacy)은 무엇이며 지속 가능한가?</li>
+</ul>
+
+
+
+<h3>2. 안전경영시스템과 신뢰(Trust) 구축</h3>
+
+
+<ul>
+<li><strong>가시적 존재감과 행동(Visible presence and behavior)</strong>: 리더의 현장 가시성과 솔선수범하는 행동은 안전경영시스템 구축에 필수적인 상호 신뢰(Trust)를 형성합니다.</li>
+<li><strong>권한과 책임의 지혜로운 활용</strong>: 리더로서의 개인적 학습 목표는 자신에게 부여된 권한과 책임을 가장 효과적으로 사용하는 지식을 확장하는 데 두어야 합니다.</li>
+<li><strong>조직 문화로의 통합</strong>: 안전 시스템을 별개의 독립된 프로그램으로 두지 않고, 조직 문화(Organizational culture) 전반에 자연스럽게 녹여내는 솔루션을 경영진에게 조언해야 합니다.</li>
+</ul>
+
+
+
+<h3>3. 안전 전문가의 다단계 역할 전환 메커니즘 (JHA 사례)</h3>
+
+
+<p>안전 전문가는 특정 안전 활동의 단계에 따라 <strong>기술자에서 진정한 리더로 정체성을 유연하게 전환</strong>해야 합니다. 본문은 작업위험성평가(JHA, Job Hazard Analysis)를 대표적인 예로 듭니다:</p>
+
+
+
+
+<pre><code>[1단계] 위험성평가(JHA)를 직접 작성하고 분석
+       ➔ 기술자 (Technician)
+         ↓
+[2단계] 지정된 현장 직원들에게 JHA 작성 및 분석법을 교육
+       ➔ 훈련자/트레이너 (Trainer)
+         ↓
+[3단계] JHA 프로세스의 품질 관리 및 정확성 검증 보장
+       ➔ 품질관리자 (Quality Control)
+         ↓
+[4단계] JHA의 활용 중요성을 전파하고 조직의 헌신과 지지를 유도
+       ➔ 신뢰받는 리더 (Trusted Leader)</code></pre>
+
+
+
+<div class="callout callout-note">
+
+<strong>핵심 통찰</strong>: 개별 프로그램 중심 활동(Program-directed activities)과 조직 전반을 아우르는 포괄적 시스템·프로세스적 접근(All-inclusive systems and process approach) 사이에서 시야를 자유롭게 전환하는 능력이 안전 리더십의 핵심입니다.
+</div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-principles-of-leadership">
+<h2>PRINCIPLES OF LEADERSHIP (리더십 원칙)</h2>
+
+
+<p>안전 프로세스는 인간의 생명과 직결된 중대한 미션을 수행하므로, 단순한 정책과 프로그램 관리를 넘어 목적을 달성하려면 리더십 역량이 필수적입니다. 리더십의 특성은 효과적인 리더들이 위기, 상황, 장애물, 갈등에 직면했을 때 취하는 행동과 태도, 대응에서 명확히 드러납니다.</p>
+
+
+
+<h3>1. 리더십 기대 요소 (Table 7.1)</h3>
+
+
+<p>미 육군 리더십 개발 야전교범(Field Manual 6-22, 2015)에서 제시한 8가지 리더십 기대 사항입니다:</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>번호</th>
+<th>리더십 기대 요소 (Leadership Expectations)</th>
+<th>실무적 의미</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>비전을 수립하고 변화를 주도하라</strong> (<em>Have a vision and lead change</em>)</td>
+<td>명확한 미래 지향점을 설정하고 조직 혁신을 견인</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>조직의 도덕적·윤리적 나침반이 되어라</strong> (<em>Be your organization's moral and ethical compass</em>)</td>
+<td>타협할 수 없는 윤리적·안전 가치관 견지</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>학습하고, 사고하며, 적응하라</strong> (<em>Learn, think, and adapt</em>)</td>
+<td>변화하는 환경과 새로운 위험에 유연하게 대응</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>주도권을 유지하기 위해 위험과 기회의 균형을 맞춰라</strong> (<em>Balance risk and opportunity to retain the initiative</em>)</td>
+<td>리스크를 냉철히 평가하되 위축되지 않고 주도권 확보</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>민첩하고 효과적인 고성과 팀을 구축하라</strong> (<em>Build agile, effective, high-performing teams</em>)</td>
+<td>부서 간 벽을 허물고 기민하게 협력하는 팀 육성</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><strong>부하 직원에게 권한을 위임하고 리스크를 감수하라</strong> (<em>Empower subordinates and underwrite the risk</em>)</td>
+<td>하부 위임과 권한 부여 및 발생 가능한 리스크를 리더가 감당</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>대담하고 적응력 있으며 시야가 넓은 리더를 육성하라</strong> (<em>Develop bold, adaptive, and broadened leaders</em>)</td>
+<td>차세대 리더를 발굴하고 역량을 확장</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>상하좌우로 소통하고, 전체적인 맥락을 숨김없이 공유하라</strong> (<em>Communicate, up, down, and laterally; tell the whole story</em>)</td>
+<td>전방위적 양방향 소통 및 왜곡 없는 투명한 정보 공유</td>
+</tr>
+</tbody>
+</table></div>
+
+
+
+<h3>2. 리더십의 다면적 속성과 발전 조건 (Mosaic of Leadership)</h3>
+
+
+<ul>
+<li><strong>오마 브래들리(Omar Bradley) 장군의 리더십 균형론</strong>:</li>
+<li><em>"리더십은 가혹함이 아닌 확고함(firmness), 나약함이 아닌 이해심(understanding), 이기심이 아닌 관용(generosity), 독선·오만이 아닌 자긍심(pride)을 의미한다."</em></li>
+<li>리더로 성장하는 과정에서 <strong>정직한 실수(honest mistakes)</strong>를 겪고 어려운 결정과 딜레마를 마주하는 것은 리더십의 기예(art)를 체득하는 필수적 과정입니다.</li>
+<li><strong>복합적 요구와 영향력 행사</strong>:</li>
+<li>리더십은 리더가 개인의 자질, 능력, 경험을 발휘하여 조직, 구성원, 상황, 전개되는 임무에 긍정적인 영향을 미치는 과정입니다.</li>
+<li><em>"리더십은 임무를 완수하고 조직을 개선하기 위해 목적(purpose), 방향(direction), 동기부여(motivation)를 제공하여 사람들에게 영향력을 행사하는 과정이다."</em></li>
+<li><strong>명령이 아닌 존중과 모범</strong>:</li>
+<li>리더는 단순히 명령을 내리는 자리가 아니며, <strong>존중을 얻고, 솔선수범하며, 긍정적인 분위기를 조성하고, 자원을 극대화하며, 팀을 구성하여 탁월함을 촉진</strong>하는 사람입니다.</li>
+<li><strong>권한에 대한 명확한 이해</strong>:</li>
+<li>자신이 가진 권한의 종류와 출처를 명확히 알아야 하며, 의문이 있을 때는 확인하고, 권한의 범위를 확신했을 때 건전한 판단력(sound judgment)으로 행사해야 합니다.</li>
+<li><strong>리더십 개발을 위한 3대 근본 요건</strong>:</li>
+</ul>
+
+<ol>
+<li>개인의 개선 의지와 노력 투자 (Desire to improve and investment of effort)</li>
+<li>상사의 적극적인 지원 (Superior's support for development)</li>
+<li>학습을 가치 있게 여기는 조직 문화 (Organizational climate valuing learning: 지식 습득 + 실제 경험 + 피드백)</li>
+</ol>
+
+
+
+<h3>3. 경계해야 할 부정적 리더십과 유독성 리더십 (Toxic Leadership)</h3>
+
+
+<ul>
+<li><strong>부정적 리더십 (Negative Leadership)</strong>:</li>
+<li>리더-추종자 관계가 시작되기 전보다 <strong>조직과 사람을 더 악화된 상태</strong>로 남겨둡니다.</li>
+<li>오직 <strong>지위 권력(Positional power)</strong>에만 의존하여 단기 요구사항만 강제로 해결합니다. 이는 단기 실적은 낼지 몰라도 '이끌고 육성하는(leads and develops)' 본질적 리더십 역량을 무시합니다.</li>
+<li>장기화될 경우 추종자의 의지, 주도성, 잠재력을 갉아먹고 부대/조직의 사기를 완전히 무너뜨립니다.</li>
+<li><strong>유독성 리더십 (Toxic Leadership)</strong>:</li>
+<li><strong>정의</strong>: 부하 직원, 조직, 임무 완수에 파괴적인 악영향을 미치는 <strong>자기중심적 태도, 동기, 행동의 결합체</strong>입니다.</li>
+<li><strong>심리적 기제</strong>: 타인과 조직 분위기에 대한 배려가 전무하며, 비대해진 자아도취(inflated sense of self-worth)와 극단적인 사리사욕(acute self-interest)에 기반합니다.</li>
+<li><strong>주요 행동 양식</strong>: 자신의 욕망을 채우기 위해 <strong>기만(deceive), 위협(intimidate), 강압(coerce), 부당한 처벌(unfair punishment)</strong> 같은 역기능적 수단을 지속적으로 사용합니다.</li>
+</ul>
+
+
+
+<div class="callout callout-note">
+
+<strong>안전문화 관점의 핵심 결론</strong>: 안전문화 구축의 핵심은 리더가 조직 내의 <strong>비전(Vision), 소통(Communication), 구성원에 대한 배려(Caring), 그리고 의사결정 고리(Decision-making loop)</strong> 안에서 항상 능동적으로 살아 숨 쉬며 참여하는 것입니다.
+</div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-thoughts-on-leadership">
+<h2>THOUGHTS ON LEADERSHIP (리더십에 관한 고찰)</h2>
+
+
+
+<h3>1. 에너지 산업에서의 리더십 정의</h3>
+
+
+<p>에너지 산업과 같이 <strong>중대 위험(Severe high hazard)과 치명적 리스크</strong>가 상존하는 환경에서는 리더십을 다음과 같이 규정합니다:</p>
+
+
+
+
+
+<div class="callout callout-note">
+
+<em>"자신의 업무 수행뿐만 아니라 시설(사업장) 전체의 운영 성과에 대해 개인적 책임(Personal responsibility)을 지며, 조직의 프로세스와 가치에 긍정적인 영향을 미치려고 노력하는 모든 개인"</em><br>— <em>Human Performance Improvement Handbook</em> (U.S. Department of Energy, 2009)
+</div>
+
+
+
+<h3>2. 비공식 리더(현장 작업자)의 강력한 영향력</h3>
+
+
+<ul>
+<li>현장 작업자는 공식적인 관리자 직책(Managerial positions of responsibility)에 있지 않더라도 매우 영향력 있는 리더가 될 수 있으며, 실제로도 그렇습니다.</li>
+<li><strong>리더라는 호칭/인정의 획득 방식</strong>: 리더라는 타이틀은 일방적으로 부여되는 것이 아니라, <strong>부하 직원, 동료(Peers), 상사(Superiors) 모두로부터 신뢰와 인정을 받아 획득(Earned)</strong>되는 것입니다.</li>
+</ul>
+
+
+
+<h3>3. 공식 부서 관리자(Manager)와 실질적 리더(Actual Leader)의 괴리</h3>
+
+
+<p>부서 관리자는 법적 권한과 책임을 갖고 있을 수 있지만, 실제로 사람들에게 영감을 주고 현장의 행동을 움직이는(Inspiring and driving behavior) '실질적 리더'는 <strong>팀 리더(조장·반장), 노동조합 대의원(Union steward), 숙련 라인 작업자</strong> 등 현장의 숨은 인물일 수 있습니다. 안전 전문가는 이 실질적 리더들을 파악하고 긍정적인 파트너십을 구축해야 합니다.</p>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-leadership-impact-on-the-safety-management-system">
+<h2>LEADERSHIP IMPACT ON THE SAFETY MANAGEMENT SYSTEM (리더십이 안전경영시스템에 미치는 영향)</h2>
+
+
+<p>안전경영시스템(SMS)과 안전문화는 조직이 어떻게 관리되는지(Managed)뿐만 아니라 어떻게 이끌어지는지(Lead)에 따라 근본적으로 형성됩니다.</p>
+
+
+
+<h3>1. 관리자 및 감독자의 본원적 리더 책임</h3>
+
+
+<p>관리자와 현장 감독자는 책임이 있는 직위에 있으므로 그 자체로 이미 <strong>조직의 리더(Organizational leaders)</strong>입니다.</p>
+
+
+
+<h3>2. 직원의 자발적 개인 책임을 이끌어내는 심리 기제</h3>
+
+
+<p>직원들은 경영 리더십 팀을 바라보며 자신의 업무에 대한 의미, 목적, 방향, 통찰(Meaning, purpose, direction, insight)을 찾습니다.</p>
+
+<ul>
+<li><strong>리더가 모범을 보일 때</strong>: 모든 직무가 중요한 목적을 지니고 있음을 보여주고 조직의 방향성을 공유하면, 직원들은 <strong>더 큰 개인적 책임감(Greater personal responsibility)</strong>을 기꺼이 짊어지며 통상적인 기대를 뛰어넘어 안전 활동에 헌신합니다.</li>
+<li><strong>리더십 자질이 보이지 않을 때</strong>: 리더에게서 이러한 자질을 발견하지 못하면, 직원들은 안전 개선이나 자발적 참여에 소극적으로 변합니다.</li>
+</ul>
+
+
+
+<h3>3. 현대적 리더십의 재정의: 상호작용적 영향력 (Silva, 2016)</h3>
+
+
+
+
+
+<div class="callout callout-note">
+
+<em>"리더십이란 특정 맥락(Context) 속에서, 일부 사람들이 공통의 목표를 달성하기 위해 누군가를 자신들의 리더로 수용할 때 발생하는 '상호작용적 영향력의 과정(Process of interactive influence)'이다."</em><br>— Silva (2016)
+</div>
+
+
+<p>현대적 안전 리더십은 다음 세 축의 상호작용으로 완성됩니다:</p>
+
+<ol>
+<li><strong>리더 (Leader)</strong>: 비전과 목적을 제시하는 주체</li>
+<li><strong>추종자 (Followers / 현장 직원)</strong>: 공통 목표를 위해 리더를 자발적으로 인정하고 따르는 주체</li>
+<li><strong>맥락 (Context / 작업 환경 및 위험 여건)</strong>: 상호작용이 발생하는 실제 현장 환경</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-leadership-and-organization-structure">
+<h2>LEADERSHIP AND ORGANIZATION STRUCTURE (리더십과 조직 구조)</h2>
+
+
+<p>지속 가능한 안전문화를 정착시키려면 조직 구조가 안전경영시스템(SMS)을 뒷받침하는 적절한 수준의 지원 체계를 제공해야 합니다. 조직도(Organizational chart)를 넘어, 조직이 실제로 어떻게 작동하고, 소통하며, 현장 단위의 유연성(Local flexibility)을 허용하는지 진단해야 합니다.</p>
+
+
+
+<h3>1. 현장 관찰 사례: James의 M&A 조직 진단과 전화 회신 테스트 (Observation)</h3>
+
+
+<ul>
+<li><strong>배경</strong>: 여러 공장이 합병된 M&A 환경에서 안전 전문가 James는 변화를 성급히 추진하기 전, 각 조직의 고유한 전통, 업계 은어(Industry languages), 관리 방식을 먼저 경청하고 관찰했습니다.</li>
+<li><strong>전화 회신(Call-back) 테스트</strong>: 인수합병 초기의 혼란 속에서 각 공장 운영 관리자들에게 전화를 건 뒤 "누가, 얼마나 신속하게 전화를 회신하는가"를 관찰했습니다.</li>
+<li><strong>결론</strong>: 즉각적이거나 합리적인 시간 내에 회신한 리더들은 새로운 조직 구조와 환경을 수용하는 적응력(Adaptable)이 뛰어났고, 새로운 문화 형성의 필요성을 이해하며 변화에 저항하지 않는 협력적인 팀 플레이어였습니다.</li>
+</ul>
+
+
+
+<h3>2. 리더십 스타일이 조직에 전달하는 행동 메시지</h3>
+
+
+<p>경영진의 실질적 행동은 조직 전체에 "무엇이 진짜 중요한가"에 대한 강력한 신호를 보냅니다.</p>
+
+
+<p><strong>경영진이 긍정적인 신호를 보내는 7가지 행동:</strong></p>
+
+<ol>
+<li>작업 전 안전점검(Preshift reviews), 주간/월간 회의, 대면 면담 등 정기적인 안전 회의에 직접 가시적으로 참여함.</li>
+<li>전 직원과 열린 양방향 소통을 유지하고, 안전 이슈·유해위험요인·위험 보고의 장벽을 제거함.</li>
+<li>손실을 유발하는 불안전한 활동과 상태(Loss-producing activities and conditions)를 신속하게 시정함.</li>
+<li>부서 및 경영 회의 안건에 안전경영시스템 관련 정보를 일상적으로 상정함.</li>
+<li>신규 입사자 교육(Orientation) 및 모든 관련 직무 교육에 안전 기준을 온전히 통합 반영함.</li>
+<li>안전 성과를 손실 전(Pre-loss, 선행)과 손실 후(Post-loss, 후행) 데이터 모두로 추적하되, 선행 예방 데이터에 중점을 둠.</li>
+<li>안전 이슈, 위험 요소 및 잠재 위험에 대한 현장의 모든 우려를 진지하게 수용함.</li>
+</ol>
+
+
+
+<div class="callout callout-note">
+
+<strong>주의</strong>: 이 항목들이 현장에서 실행되지 않거나 무시될 경우, 반대로 조직 전체에 <strong>"안전은 중요하지 않다"는 강력한 부정적 메시지</strong>를 주게 됩니다.
+</div>
+
+
+
+<h3>3. 분권화된 조직 구조와 유독성 리더십</h3>
+
+
+<p>동일한 기업 내 유사 설비를 갖춘 사업장이라도, 분권화된 구조에서는 사업장마다 안전문화 수준이 크게 차이 날 수 있습니다. 안전문화가 뿌리내리지 못하는 주된 원인은 유독성 리더십 스타일 때문일 수 있으며, 그 대표적인 징후는 <strong>단순한 최소 법적 규제 준수(Minimal regulatory compliance)</strong>에만 기본 노력을 집중하는 태도입니다.</p>
+
+
+
+<h3>4. 성과지표: 후행지표와 선행지표의 균형</h3>
+
+
+<ul>
+<li><strong>성과지표 (Performance Indicators)</strong>: 조직의 핵심 성공 요인을 반영하여 측정하는 매개변수.</li>
+<li><strong>후행지표 (Lagging Indicator)</strong>: 이미 일어난 결과나 성과(Results or outcomes)를 측정하는 지표 (예: 재해율, 손실 작업일수 등).</li>
+<li><strong>선행지표 (Leading Indicator, Metrics)</strong>: 미래 성과를 예측할 수 있게 해주는 시스템 상태나 행동(System conditions or behaviors)을 측정하는 지표 (예: 위험성평가 참여도, 안전 점검 조치율 등).</li>
+</ul>
+
+
+
+<h3>5. 리더십 기대와 자원 배분의 현실 (Leadership Expectations)</h3>
+
+
+<p>경영진의 최우선 관심사는 조직의 수익성 유지와 주주의 목표 달성입니다. 안전 전문가는 조직 내에서 예산과 자원을 요청하는 "수많은 부서 중 하나(One among many)"입니다. 만약 경영진이 안전의 가치를 다른 사업 활동보다 낮게 평가한다면 안전 예산과 자원은 최소한으로 제한될 수 있습니다. 따라서 안전 전문가는 리더십 원리를 내면화하여 개인의 영향력을 지속적으로 확장해야 합니다.</p>
+
+
+
+<h3>6. 현장 교훈: James의 생산 감독자 시절 반성 사례 (Lesson Learned)</h3>
+
+
+<ul>
+<li><strong>문제 상황</strong>: 과거 대기업에서 감독자로 승진한 James는 "라인 속도를 못 맞추면 해고하고 새 사람을 뽑아라"라는 회사 방침을 따랐습니다. 그 결과 회사의 '우수 감독자' 기준은 맞췄으나, 직원 이직률이 극심했고 새 라인으로 이동했을 때 직원들이 "우리는 당신 밑에서 일하기 싫다"고 거부하는 사태에 직면했습니다.</li>
+<li><strong>리더십의 전환</strong>: 그는 자신이 직무 감독(Supervisor)에는 성공했으나 진정한 리더(Leader)는 아니었음을 깨달았습니다. James는 각 직원과 1:1 대면 면담, 소그룹 미팅을 통해 애로사항을 경청하고 새로운 기대치를 전달했습니다. 일방적인 "내 방식대로 안 하면 나가라(My way or the highway!)"는 소통에서, 업무 장애물을 함께 파악하는 긍정적인 양방향 소통으로 전환했습니다.</li>
+<li><strong>결과</strong>: 직원들은 그가 공정하고 정직하며 의견을 경청한다는 사실을 신뢰하게 되었고, 이직률이 안정화되었으며 기피 대상 감독자에서 '신뢰받는 조언자(Trusted advisor)'로 탈바꿈했습니다.</li>
+<li><strong>진정성 있는 리더의 정체성 (Identity, FM 6-22, 2015)</strong>:</li>
+<li>리더의 정체성은 자아개념(Self-concept)이며, 효과적인 리더는 리더의 역할과 기대에 자신을 일치시키고 그에 걸맞은 책임과 행동을 실천합니다.</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-establishing-organizational-safety-priorities">
+<h2>ESTABLISHING ORGANIZATIONAL SAFETY PRIORITIES (조직의 안전 우선순위 설정)</h2>
+
+
+<p>경영진과 관리자들은 안전의 가치에 대해 피상적인 이해만 갖고 있을 수 있습니다. 위험(Hazard), 관련 리스크(Associated risk), 통제(Control) 및 안전경영시스템 운영의 중요성을 충분히 인지하지 못할 때, 안전 전문가는 리더십 역량을 발휘하여 이들의 인식을 높여야 합니다.</p>
+
+
+
+<h3>1. 경영진 보행 순회 관리 (Management by Walking Around, MBWA)</h3>
+
+
+<ul>
+<li><strong>개념 및 기원</strong>: 피터스 & 워터먼(Peters & Waterman, 2004)의 고전 『초우량 기업의 조건(In Search of Excellence)』에서 소개된 기법으로, 경영진이 일상적으로 사업장을 걸어 다니며 현장 관찰과 직원 1:1 대화를 통해 현장의 분위기와 상태를 파악하는 방식입니다.</li>
+<li><strong>효과 및 주의사항</strong>:</li>
+<li>소통 네트워크를 발전시키고 현장의 일상적 문제와 사각지대를 파악할 수 있습니다 (특히 2·3교대 근무 현장의 리더십 부재 해소).</li>
+<li>3단계 영향력 법칙(3 Degrees of Contact, Christakis & Fowler / Ch 3)에 따라 리더의 영향력이 조직 전체로 파급됩니다.</li>
+<li><strong>주의</strong>: 리더가 안전 규칙을 무시하거나, 직원을 질책하는 등 미숙하게 행동할 경우 오히려 리더십의 영향력이 심각하게 훼손됩니다.</li>
+<li><strong>현장 사례 (Nathan의 카펫 제조공장 CEO 일화)</strong>:</li>
+<li>안전 컨설턴트 Nathan이 방문한 카펫 제조사의 CEO는 광대한 공장을 정기적으로 순회했습니다. 어느 날 한 직원이 진공청소기 대신 빗자루로 바닥을 쓸고 있는 것을 발견했습니다.</li>
+<li>청소기가 고장 났는데 새 제품 주문이 안 되었다는 직원의 말을 듣고, CEO는 즉시 밖으로 나가 직접 새 진공청소기를 구매해 와 직원에게 전달했습니다. 이 일화는 전사에 퍼져나갔고, 모든 관리자들은 현장에 적절한 장비가 지급되도록 신속히 조치하는 계기가 되었습니다.</li>
+</ul>
+
+
+
+<h3>2. 열린 문 정책 (Open Door Policy)</h3>
+
+
+<ul>
+<li><strong>기능</strong>: 공식적인 지휘계통(Chain of command)을 우회하거나 침해하기 위한 것이 아니라, 조언과 통찰을 구하는 누구에게나 리더가 다가갈 수 있도록 하는 <strong>안전 완충 밸브(Relief valve)</strong> 역할을 합니다.</li>
+<li><strong>주의점</strong>: 다른 관리자와의 정상적인 관계를 방해하지 않으면서 소통을 장려하는 미묘한 균형을 유지해야 합니다.</li>
+<li><strong>운영 형태</strong>: 특정 방문 상담 시간 지정, 온라인 소통 채널 유지 등.</li>
+<li><strong>아인슈타인(Albert Einstein)의 문제해결 명언</strong>:</li>
+</ul>
+
+
+<div class="callout callout-note">
+
+<em>"내게 문제를 해결할 1시간이 주어지고 그 해결책에 내 목숨이 달려 있다면, 나는 올바른 질문을 찾는 데 최초 55분을 쓸 것이다. 적절한 질문을 알고 나면 문제는 5분도 안 되어 해결할 수 있기 때문이다."</em>
+</div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-defining-roles-responsibility-delegation-authority-and-accountability">
+<h2>DEFINING ROLES, RESPONSIBILITY, DELEGATION, AUTHORITY, AND ACCOUNTABILITY (역할, 책임, 위임, 권한, 책무성의 정의)</h2>
+
+
+<p>사업이 복잡해지고 규모가 커지면 한 사람이 안전경영시스템의 모든 세부 사항을 책임지는 것은 불가능합니다. 시스템이 잠재력을 발휘하려면 역할, 책임, 권한 위임, 권한이 명확히 정의되고 <strong>책무성 구조(Accountability structure)</strong>와 결합되어야 합니다.</p>
+
+
+<ul>
+<li><strong>권한 위임의 정의 (Delegation of Authority, 2018)</strong>:</li>
+<li>관리자 혼자 모든 업무를 수행할 수 없으므로, 목표 달성을 위해 하위 구성원에게 권한과 권능을 하향 배분하는 것입니다.</li>
+<li>자신의 직무 중 일부를 타인에게 믿고 맡기는 것이며, 효과적인 성과를 도출하기 위한 권한의 세분화 및 재할당입니다.</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-review-the-organization-for-safety-related-responsibilities">
+<h2>REVIEW THE ORGANIZATION FOR SAFETY-RELATED RESPONSIBILITIES (안전 관련 책임을 위한 조직 검토)</h2>
+
+
+<p>안전문화 달성을 위한 안전 책임은 단순한 부상 통제나 규정 준수를 넘어 광범위한 영역을 포괄해야 합니다.</p>
+
+
+
+<h3>1. 안전 관련 책임의 6대 핵심 영역</h3>
+
+<ol>
+<li><strong>정책 및 매뉴얼 개발, 경영진 보고</strong> (Policy and manual development; status reports)</li>
+<li><strong>안전경영시스템 기준 문서화, 감사 및 시정 조치 큐레이션</strong> (Documentation and curation of SMS criteria, audits, corrective actions)</li>
+<li><strong>운영 절차 관리</strong> (안전보건환경 EHS, 차량·운행 관리, 도급업체 및 방문객 통제, 보안, 제조물 배상책임, 재해 및 배상 보험 청구 관리)</li>
+<li><strong>위험 및 유해위험요인 통제</strong> (장비·공구·자재·화학물질 구매 검토, 인간공학, 설계 검토, 작업위험성평가 JHA)</li>
+<li><strong>교육, 훈련, 신규자 오리엔테이션 및 안전 소통</strong></li>
+<li><strong>비상 및 위기 대비, 사고 조사 및 분석</strong></li>
+</ol>
+
+
+
+<h3>2. 조직 구조 분석과 직무기술서의 연계</h3>
+
+<ul>
+<li>조직도를 활용하여 각 직무가 안전 시스템을 어떻게 지원할 수 있는지 파악합니다.</li>
+<li>안전 프로세스에 필수적인 역할을 수행할 수 있는 직위 목록과 직무기술서를 개발하고, 전사 리더와 직원에게 명확한 안전 활동과 책임을 부여합니다.</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-developing-and-implementing-job-descriptions">
+<h2>DEVELOPING AND IMPLEMENTING JOB DESCRIPTIONS (직무기술서 개발 및 실행)</h2>
+
+
+<p>직무기술서는 특정 직위의 자격 요건, 필수 기술, 일반 직무, 활동, 책임 및 권한을 기술합니다. 많은 조직의 약점은 <strong>안전경영시스템 책임이 서면 직무기술서에 직접 반영되지 않고 OSHA 규정 준수 수준으로만 축소되어 있다는 점</strong>입니다.</p>
+
+
+
+<h3>1. 인사(HR) 부서와의 협력</h3>
+
+<ul>
+<li>직무기술서는 통상 인사 부서에서 관리하므로, 안전 전문가는 인사팀의 기존 프로세스를 이해하고 긴밀한 신뢰 관계를 형성하여 안전 책무가 정식 직무기술서에 반영되도록 설득해야 합니다.</li>
+</ul>
+
+
+
+<h3>2. 잘 작성된 직무기술서가 제공하는 6대 이점</h3>
+
+<ol>
+<li>각 직위의 책임과 권한 한계에 대한 의구심을 완전히 해소함.</li>
+<li>조직 내 모든 안전 책임이 누락 없이 배분되었는지 확인함.</li>
+<li>새로운 작업과 책임이 발생했을 때 배분 경로를 명확히 식별함.</li>
+<li>직무 성과 목표를 수립하고 성과 측정 기준을 마련함.</li>
+<li>조직 전반의 소통과 조율을 대폭 개선함.</li>
+<li>직무 수행의 객관적 평가 기준을 제공함.</li>
+</ol>
+
+
+
+<h3>3. 세부 직무기술서 작성 지침</h3>
+
+
+<ul>
+<li><strong>기본 직무기술서 작성 (Writing the Basic Job Description)</strong>:</li>
+<li>안전 책임을 규정하는 짧은 '일반 진술문(General Statement)'으로 시작하고, 권한과 필요한 자원을 명시합니다. (Appendix 7.1 워크시트 활용, 정기 검토되는 '살아있는 문서'로 관리).</li>
+<li><strong>목표 및 목적에 대한 합의 형성 (Gaining Agreement on Goals and Objectives)</strong>:</li>
+<li>기획 단계부터 직원과 리더의 참여를 늘려 사전 수용성(Buy-in)을 확보해야 합니다.</li>
+<li><strong>주의</strong>: 현장 감독관이 채용, 예산, 장비 유지보수 등 잠재적 관리 결함(Latent conditions)을 통제할 권한이 없음에도 발생한 재해율만으로 책무성을 추궁하는 것은 부당합니다. 감독관과 직원이 <strong>직접 통제할 수 있는 손실 전(Preloss) 예방 활동을 중심으로 책무성을 설정</strong>해야 합니다.</li>
+<li><strong>명확한 목표 정의와 SMART 원칙</strong>:</li>
+<li>모호한 목표는 성과 평가를 불가능하게 합니다. Chapter 4에서 다룬 <strong>SMART 원칙</strong>(Specific, Measurable, Attainable, Realistic, Timely)을 적용하여 현실적이고 측정 가능한 목표를 수립합니다.</li>
+<li><strong>직무 위치별 목표 문서화 및 실무 예시</strong>:</li>
+</ul>
+
+<ol>
+<li>지정된 시간에 전 직원과 일일 작업 전 안전점검(Preshift review) 실시</li>
+<li>직원들과 1:1 대면 면담을 통해 안전 애로사항 및 니즈 파악</li>
+<li>주간/월간 안전 회의를 통한 추진 경과 공유</li>
+<li>점검 및 사고 조사를 통해 발굴된 유해위험요인의 제거 실적 추적 및 소통</li>
+<li>기계·설비별 점검 체크리스트 활용도 평가</li>
+</ol>
+
+<ul>
+<li><strong>비감독직 직원(Nonsupervisory Employees)의 안전 책임 7가지</strong>:</li>
+</ul>
+
+<ol>
+<li>지정된 시간의 일일 작업 전 회의 참석</li>
+<li>주간/월간 안전 회의 참여</li>
+<li>발견된 유해위험요인 보고 및 제거 지원</li>
+<li>불안전 상태 및 관련 리스크 즉시 보고</li>
+<li>손실 유발 사건 조사 및 주간 안전 점검 지원</li>
+<li>작업위험성평가(JHA) 참여</li>
+<li>위험 상태 식별 시 '위험안내카드(Risk Guidance Card, Ch 9)' 활용</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-review-assigned-activities-regularly">
+<h2>REVIEW ASSIGNED ACTIVITIES REGULARLY (할당된 활동의 정기적 검토)</h2>
+
+
+<p>관리자가 서면 목표는 모두 달성했음에도 해당 현장에서 아차사고와 유해위험요인이 줄어들지 않는 모순이 발생할 수 있습니다. 이는 근본적인 장애 요인이 파악되지 않았기 때문이며, 실제 운영 환경과 안전 기준이 일치하는지 심층 재평가가 필요합니다.</p>
+
+
+
+<h3>1. 현장 관찰 사례: James의 공장장 성과 목표 조정 (Observation)</h3>
+
+<ul>
+<li>한 공장장이 5개의 안전 목표 중 4개를 달성하고 1개를 달성하지 못했습니다. 성과 평가 과정에서 해당 목표가 공장장의 통제 범위를 벗어난 업무였음이 확인되었습니다.</li>
+<li>평가자는 달성 불가능한 목표를 실제로 통제 가능한 새로운 실행 목표로 대체하기로 합의했고, 공장장은 새 목표를 성공적으로 달성하여 현장 안전이 대폭 개선되었습니다.</li>
+</ul>
+
+
+
+<h3>2. 권한과 자원 뒷받침의 필수성</h3>
+
+<ul>
+<li>책임만 부여하고 권한과 자원을 주지 않으면 직원은 깊은 무력감과 사기 저하를 겪습니다.</li>
+<li>페트레이어스 & 아모스(Petraeus & Amos, 2006): <em>"권한 없는 책임, 역량에 맞지 않는 과도하거나 불충분한 업무, 적절한 교육과 피드백 없는 높은 성과 기대는 심각한 부정적 스트레스를 유발한다."</em></li>
+</ul>
+
+
+
+<h3>3. 위임의 핵심 요소 (Elements of Delegation)</h3>
+
+<ul>
+<li>위임은 부하에게 "알아서 해라"라며 책임을 떠넘기는(Passing the buck) 행위가 아닙니다.</li>
+<li><strong>최종 결과에 대한 책임은 여전히 상위 리더에게 있으며</strong>, 잘못되었을 때 부하 직원을 탓할 수 없습니다. 리더는 정기 보고, 성과 검토, 대면 논의를 통해 지속적으로 참여해야 합니다.</li>
+<li>랄프 왈도 에머슨(Ralph Waldo Emerson): <em>"원리를 파악한 자는 자신의 방법을 성공적으로 선택할 수 있지만, 원리를 무시한 채 방법만 시도하는 자는 반드시 곤경에 처한다."</em></li>
+</ul>
+
+
+
+<h3>4. 책임, 권한, 책무성의 삼원조 (Triad) 세부 분석</h3>
+
+
+<ol>
+<li><strong>책임 (Responsibility)</strong>:</li>
+</ol>
+
+<ul>
+<li>부여된 과업을 완수해야 하는 의무(Duty)입니다. 적절한 권한 없는 책임은 불만과 좌절을 낳습니다.</li>
+<li><strong>하향에서 상향(Bottom to top)으로 흐르며</strong>, 중간 및 하위 관리자가 상위 계층보다 더 많은 구체적 실무 책임을 가집니다.</li>
+</ul>
+
+<ol>
+<li><strong>권한 (Authority)</strong>:</li>
+</ol>
+
+<ul>
+<li>조직 목표 달성을 위해 자원을 효율적으로 배분하고 의사결정을 내리며 명령을 지시할 수 있는 합법적 권리(Power and right)입니다.</li>
+<li><strong>상향에서 하향(Top to bottom)으로 흐릅니다</strong>. 권한은 위임될 수 있으나, 권한을 위임했다고 해서 책무성에서 벗어날 수는 없습니다.</li>
+</ul>
+
+<ol>
+<li><strong>책무성 (Accountability)</strong>:</li>
+</ol>
+
+<ul>
+<li>설정된 기대치와 실제 성과 사이의 차이에 대해 설명하고 해명할 의무(Answerable for results)입니다.</li>
+<li><strong>책무성은 결코 타인에게 위임할 수 없습니다 (Accountability cannot be delegated).</strong> 상위 경영진이 궁극적으로 가장 큰 책무성을 집니다.</li>
+</ul>
+
+
+<p><strong>위임의 3단계 프로세스:</strong></p>
+
+<ol>
+<li><strong>직무 할당 (Assignment of Duties)</strong>: 기대되는 결과를 명확히 정의하여 전달.</li>
+<li><strong>권한 부여 (Granting of Authority)</strong>: 과업 수행에 필요한 충분한 자율성과 권한을 공유.</li>
+<li><strong>책임 및 책무성 형성 (Creating Responsibility and Accountability)</strong>: 권한이 위임되면(Delegated) 책임이 형성되고(Created), 책무성이 부과됩니다(Imposed).</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-the-relationship-between-responsibility-authority-and-accountability">
+<h2>THE RELATIONSHIP BETWEEN RESPONSIBILITY, AUTHORITY, AND ACCOUNTABILITY (책임, 권한, 책무성의 상호관계)</h2>
+
+
+<div class="img-wrapper"><img src="image-1.png" alt="TABLE 7.2 Overview of the Differences Between Responsibility, Authority, and Accountability"><p class="img-caption">TABLE 7.2 Overview of the Differences Between Responsibility, Authority, and Accountability</p></div>
+
+
+
+<h3>[TABLE 7.2] 책임, 권한, 책무성의 상세 비교 분석 표</h3>
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>비교 항목</th>
+<th>책임 (Responsibility)</th>
+<th>권한 (Authority)</th>
+<th>책무성 (Accountability)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>정의</strong></td>
+<td>부여된 과업을 완수해야 하는 개인의 의무 (<em>The duty of the person to complete the task assigned to him</em>)</td>
+<td>부하 직원에게 지시하고 명령할 수 있는 합법적 권리 (<em>The legal right of a superior to command subordinates</em>)</td>
+<td>부여된 업무를 완수하기로 동의한 부하 직원의 의무이자 결과 해명 책임 (<em>Obligation to perform work and explain results</em>)</td>
+</tr>
+<tr>
+<td><strong>주체와 책임성</strong></td>
+<td>리더십은 결과에 대해 여전히 책임을 지며 문제 발생 시 부하를 탓할 수 없음</td>
+<td>권한은 해당 직위(Position of a superior)에 결속됨</td>
+<td>상사-부하 관계에서 발생하며, 직무 수행에 동의함으로써 형성됨</td>
+</tr>
+<tr>
+<td><strong>위임 가능 여부</strong></td>
+<td><strong>절대 타인에게 전가할 수 없음 (Absolute, cannot be shifted)</strong>. 궁극적 책임은 리더십에 잔류</td>
+<td><strong>상사가 부하에게 합법적으로 위임 가능 (Can be delegated)</strong></td>
+<td><strong>결코 위임할 수 없음 (Cannot be delegated)</strong></td>
+</tr>
+<tr>
+<td><strong>흐름의 방향</strong></td>
+<td><strong>하향에서 상향으로 흐름</strong> (<em>Flows from bottom to top</em>)</td>
+<td><strong>상향에서 하향으로 흐름</strong> (<em>Flows from top to bottom</em>)</td>
+<td>결과에 대한 답변 책임으로 상향 보고됨 (<em>Flows from bottom to top</em>)</td>
+</tr>
+</tbody>
+</table></div>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-2.png" alt="FIG. 7.1 Differences between responsibility, authority, and accountability"><p class="img-caption">FIG. 7.1 Differences between responsibility, authority, and accountability</p></div>
+
+
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 7.1 설명: 안전 전문가와 리더십 팀 간의 톱니바퀴 연동 메커니즘]</strong><br>* <strong>안전 전문가(Safety professional - 좌측 초록 기어)</strong>와 <strong>리더십 팀(Leadership team - 우측 파랑 기어)</strong>이 마주 서서 악수를 나누며 파트너십을 형성하고 있습니다.<br>* 두 주체 사이에는 <strong>중간 매개 기어(주황색)</strong>가 맞물려 있어, 책임(Responsibility), 권한(Authority), 책무성(Accountability)의 삼원조가 유기적으로 결합되어 회전해야만 전체 안전경영시스템이 원활하게 구동됨을 상징합니다. 어느 한쪽의 기어가 멈추거나 맞물리지 않으면 조직의 안전문화는 작동을 멈추게 됩니다.
+</div>
+
+
+
+<h3>1. 권한 부여 (Assigning Authority)</h3>
+
+<ul>
+<li><strong>작업 중지 권한의 제도화</strong>: 위험하거나 고위험 작업을 발견했을 때 즉각 중지시킬 수 있는 공식적 권한(Authority to stop work)이 모든 직무기술서에 명시되어야 합니다. 취약한 안전문화에서는 생산 일정을 맞추기 위해 위험을 무릅쓰고 작업을 강행하는 인식이 팽배합니다.</li>
+<li>밥 프로스트(Bob Frost, 2017): <em>"권한이란 상위 경영진의 사전 승인이나 동료의 이의 제기 없이 독자적으로 행동할 수 있는 권리이다. 권한은 할당(Assigned)되는 것이며, 책임은 위임(Delegated)되는 것이다."</em></li>
+<li>미국 에너지부 자율보호프로그램(DOE-VPP, 2016): 안전보건 책임을 진 인력에게는 인력, 공간, 장비, 교육, 자본 예산 등 충분한 자원이 반드시 서면으로 뒷받침되어야 합니다.</li>
+</ul>
+
+
+
+<h3>2. 책무성의 정의와 중요성 (Defining Accountability)</h3>
+
+<ul>
+<li>책무성은 책임과 권한을 실제로 작동시키는 <strong>활성화 트리거(Activator)</strong>입니다. 책무성이 없으면 권한과 책임을 부여해도 아무도 실행하지 않고 결과에 관심도 두지 않아 안전경영시스템은 붕괴합니다.</li>
+<li>가이글(Geigle, 2017): 관리자와 직원이 안전 책무를 명확히 질 때, 안전 문제에 장벽을 치기보다 적극적인 해결책을 찾게 됩니다.</li>
+<li><strong>소급 적용 불가 원칙</strong>: 책무성은 사전에 명확히 인지되고 합의되어야 하며, 일이 터진 후 소급 적용(Retroactive)할 수 없습니다.</li>
+<li>코너스 & 스미스(Connors & Smith, 2004): 많은 이들이 책무성을 일이 잘못되었을 때 범인을 찾고 손가락질(Finger pointing)하는 것으로 오해하지만, 진정한 책무성은 성과 달성을 이끄는 긍정적 메커니즘입니다.</li>
+</ul>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-3.png" alt="Table 7.3 Essential Components of an Effective Accountability System"><p class="img-caption">Table 7.3 Essential Components of an Effective Accountability System</p></div>
+
+
+
+<h3>[TABLE 7.3] 효과적인 책무성 시스템의 5대 필수 구성요소</h3>
+
+
+<ol>
+<li><strong>공식적인 행동 및 성과 기준 수립</strong> (<em>Established formal standards of behavior and performance</em>): 직원들에게 안전 기준을 명확히 전달하는 방침, 절차, 규칙 제정.</li>
+<li><strong>기준 달성을 위한 충분한 자원 제공</strong> (<em>Resources provided to meet those standards</em>): 안전한 작업장, 효과적인 교육 훈련, 적절한 작업 감독 지원.</li>
+<li><strong>효과적인 성과 측정 시스템 구축</strong> (<em>An effective system of measurement</em>): 선행·후행 지표의 객관적 측정.</li>
+<li><strong>결과에 대한 적절한 피드백 적용</strong> (<em>Appropriate application of consequences, both positive and negative</em>): 긍정적 보상과 부정적 제재의 합리적 적용.</li>
+<li><strong>조직 전반의 일관성 있는 적용</strong> (<em>Consistent application throughout the organization</em>): 직급이나 부서에 관계없는 공정한 원칙 집행.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-assigning-specific-responsibilities">
+<h2>ASSIGNING SPECIFIC RESPONSIBILITIES (직급별 구체적 안전 책임 부여)</h2>
+
+
+<p>안전사고는 직접적인 인적 오류뿐만 아니라 조직에 내재된 <strong>잠재적 오류(Latent errors)</strong>에 의해 유발됩니다. 센더스 & 모레이(Senders & Moray, 1991)는 <em>"개시 행동(Initiating action)이란 시설 사건(Event)을 유발하는 개인의 행동(올바른 행동, 오류, 또는 위반)"</em>이라고 정의했습니다. 조직의 계층별 구체적 책임은 다음과 같이 차별화되어 배분되어야 합니다:</p>
+
+
+
+<h3>1. 최고경영진/리더십 팀 (Senior Leadership Team)</h3>
+
+<ul>
+<li>안전 정책, 목표, 안전경영시스템의 지침, 예산 및 자원을 수립하고 제공함.</li>
+<li>안전 전문가는 최고경영진에게 시스템 운영 상태와 위험 통제 현황을 보고하고 적절한 자원 배분을 조언함. (상세 항목: Appendix 7.2 참조)</li>
+</ul>
+
+
+
+<h3>2. 사업장 총괄 공장장/관리자 (Managers & Superintendents)</h3>
+
+<ul>
+<li>최고경영진이 수립한 안전 목표를 실행하고, 관할 사업장의 안전한 작업 조건을 유지함.</li>
+<li>산하 감독관들을 지휘하고 감독관의 안전 성과를 평가하며 경영진과 감독관 사이의 가교 역할을 수행함. (상세 항목: Appendix 7.3 참조)</li>
+</ul>
+
+
+
+<h3>3. 현장 감독관 (Supervisors)</h3>
+
+<ul>
+<li>관리자와 현장 라인 직원을 직접 연결하는 핵심 실무자로서, 자신의 담당 구역 내에서 안전 기준과 수칙이 철저히 지켜지도록 모범을 보이고 현장을 점검함. (상세 항목: Appendix 7.4 참조)</li>
+</ul>
+
+
+
+<h3>4. 현장 작업 직원 (Employees)</h3>
+
+<ul>
+<li>실제 작업 위험에 노출되는 주체로서, 유해위험요인을 발견 즉시 보고하고 시정 제안을 적극적으로 개진하며 안전 수칙을 준수함. (상세 항목: Appendix 7.5 참조)</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-establish-consequences-for-performance">
+<h2>ESTABLISH CONSEQUENCES FOR PERFORMANCE (성과에 대한 결과/피드백 설정)</h2>
+
+
+<p>성과에 대한 후속 조치(Consequences)는 설계 및 실행 방식에 따라 안전문화를 고양할 수도, 파괴할 수도 있습니다. 구성원들이 이를 징벌로만 인식하면 안전 전반에 방어적이고 부정적인 태도를 갖게 되므로, <strong>긍정적 피드백 중심의 균형 잡힌 접근</strong>이 필수적입니다.</p>
+
+
+
+<h3>1. 신규 업무에 대한 학습 기간(Learning Period) 보장</h3>
+
+<p>새로운 책임이나 제도가 도입되면 직원은 학습과 습관 형성 과정을 거쳐야 합니다. 초기에는 무리한 처벌 없이 <strong>개인 코칭, 처벌 없는 즉각적 시정 조치, "왜(WHY)"와 "어떻게(HOW)"를 알려주는 대화</strong>가 선행되어야 합니다.</p>
+
+
+
+<h3>2. 과잉 대응(Overreacting)의 치명적 부작용</h3>
+
+<ul>
+<li><strong>사례</strong>: 사고 조사를 제대로 수행하지 못했다는 이유로 해당 감독관을 즉각 징계 처벌하는 경우.</li>
+<li><strong>폐해</strong>: 감독관의 지식이나 조사 기술 부족이 원인일 수 있음에도 징계부터 내리면, 조직 전체에 <strong>"경영진의 문책을 피하려면 사건 발생 사실을 최대한 은폐하라"는 치명적인 메시지</strong>를 주게 됩니다.</li>
+<li>이는 잠재적 위험에 대한 소통 통로를 차단하여 더 큰 대형 사고를 유발합니다. (메이거 & 파이프, <em>Mager & Pipe, 1983, Analyzing Performance Problems</em> 참조).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-summary">
+<h2>SUMMARY (요약)</h2>
+
+
+<ol>
+<li><strong>리더의 이미지와 역할</strong>: 리더는 집단 앞에 당당히 서서 목표를 명확히 소통하고 구성원에게 영감을 불어넣어 기대 이상의 성과를 내도록 이끄는 인물입니다.</li>
+<li><strong>참여형 안전문화 모델</strong>: 경영진의 가시적 존재감과 행동이 안전문화의 성패를 좌우합니다. 안전 전문가는 리더십 원리를 체득하여 경영진의 전략적 자문 역할을 수행해야 합니다.</li>
+<li><strong>삼원조의 유기적 결합</strong>: 책임, 권한, 책무성은 결코 분리될 수 없는 통합체입니다.</li>
+<li><strong>진정한 위임의 의미</strong>: 위임은 책임을 전가하는 것이 아니며, 상위 리더는 최종 결과에 대해 끝까지 책무성을 유지합니다.</li>
+<li><strong>결과의 균형성</strong>: 성과에 대한 결과는 징벌보다는 긍정적 동기부여와 공정한 피드백 중심으로 설계되어야 보고와 소통이 살아납니다.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-chapter-review-questions-15">
+<h2>CHAPTER REVIEW QUESTIONS (장별 복습 질문 15문항)</h2>
+
+
+<ol>
+<li><strong>'리더'라는 단어는 어떤 이미지를 전달하며, 이 장에서 제시된 리더십 기준과 어떻게 비교되는가?</strong></li>
+</ol>
+
+<p>➔ 전면에 나서 비전을 소통하고 기대를 뛰어넘도록 영감을 주는 이미지이며, 본 장에서는 여기에 시스템적 시각, 신뢰 구축, 배려, 도덕적 나침반 역할이 결합되어야 함을 강조함.</p>
+
+<ol>
+<li><strong>오마 브래들리 장군의 리더십 명언(확고함, 이해심, 관용, 자긍심)을 안전경영시스템 관리에 어떻게 적용할 수 있는가?</strong></li>
+</ol>
+
+<p>➔ 규정 집행 시 가혹한 처벌 대신 확고한 기준을 세우고, 현장의 고충을 이해하며, 성과를 구성원에게 돌리는 관용과 정직한 실수를 학습의 기회로 삼는 태도로 적용함.</p>
+
+<ol>
+<li><strong>책무성, 권한, 책임은 어떻게 상호 연관되어 있는가? (Table 7.1/7.2 참조)</strong></li>
+</ol>
+
+<p>➔ 권한은 하향 위임되고 책임은 상향 수행되며, 책무성은 타인에게 위임할 수 없는 최종 설명 책임으로서 삼자가 맞물릴 때만 작동함.</p>
+
+<ol>
+<li><strong>리더십 개념에 대한 이해가 안전경영시스템에 어떤 유익을 주는가?</strong></li>
+</ol>
+
+<p>➔ 단순 행정 관리를 넘어 구성원의 자발적 참여와 헌신을 이끌어내고, 안전을 조직의 핵심 가치로 뿌리내리게 함.</p>
+
+<ol>
+<li><strong>'보행 순회 관리(MBWA)'란 무엇이며, 안전 시스템에 어떤 도움을 주는가?</strong></li>
+</ol>
+
+<p>➔ 경영진이 현장을 순회하며 직접 관찰·소통하는 기법으로, 소통 장벽 해소 및 미처 파악하지 못한 안전 사각지대 발굴에 기여함.</p>
+
+<ol>
+<li><strong>'열린 문 정책(Open Door Policy)'의 의미와 미구현 시 발생하는 문제는?</strong></li>
+</ol>
+
+<p>➔ 공식 계통을 침해하지 않으면서 누구나 리더에게 다가설 수 있는 완충 밸브이며, 미구현 시 위험 정보의 왜곡과 소통 단절이 발생함.</p>
+
+<ol>
+<li><strong>리더와 직원의 안전 과업을 개발하기 전, 조직의 운영 방식을 먼저 이해해야 하는 이유는?</strong></li>
+</ol>
+
+<p>➔ 현장의 실제 작업 현실, 의사소통 경로, 자율성 수준과 일치하지 않는 안전 과업은 겉돌거나 거부 반응을 초래하기 때문임.</p>
+
+<ol>
+<li><strong>직무기술서를 개발하는 궁극적인 목적은 무엇인가?</strong></li>
+</ol>
+
+<p>➔ 역할과 책임, 권한 범위를 명확히 하여 모호성을 없애고 객관적 성과 평가 및 누락 없는 안전 관리를 보장하기 위함임.</p>
+
+<ol>
+<li><strong>기본 직무기술서를 작성할 때 요구되는 핵심 정보는 무엇인가?</strong></li>
+</ol>
+
+<p>➔ 직위 명칭, 일반 진술문, 권한과 한계, 필요 자원, 구체적 목표 및 책무성 기준.</p>
+
+<ol>
+<li><strong>잘 설계된 목표와 목적이 안전 책임을 부여하는 데 왜 필수적인가?</strong></li>
+</ol>
+
+<p>➔ 모호성을 제거하여 수행 여부를 객관적으로 측정하고 부족한 부분을 명확히 피드백할 수 있게 함.</p>
+
+<ol>
+<li><strong>목표와 목적에 대한 상호 합의(Agreement)가 왜 필수적인가?</strong></li>
+</ol>
+
+<p>➔ 구성원의 참여를 통해 사전 수용성(Buy-in)을 확보하고 통제 밖의 요인으로 인한 부당한 책무 추궁을 방지하기 위함임.</p>
+
+<ol>
+<li><strong>직무기술서에 구체적으로 명시할 수 있는 안전경영시스템 활동에는 어떤 것들이 있는가?</strong></li>
+</ol>
+
+<p>➔ 일일 작업 전 점검, 안전 회의 주재/참석, 위험 보고 및 제거 추적, JHA 작성, 사고 조사 참여 등.</p>
+
+<ol>
+<li><strong>권한 위임(Delegation)의 핵심 구성 요소를 설명하라.</strong></li>
+</ol>
+
+<p>➔ 직무와 기대 결과의 명확한 정의, 충분한 독립적 권한과 자원 부여, 지속적인 참여와 모니터링, 그리고 리더의 최종 책임 견지.</p>
+
+<ol>
+<li><strong>권한과 책임의 한계선을 명확히 이해하도록 보장하는 것이 왜 중요한가?</strong></li>
+</ol>
+
+<p>➔ 책임 없는 권한의 남용을 막고, 권한 없는 책임으로 인한 구성원의 심각한 사기 저하와 탈진을 방지하기 위함임.</p>
+
+<ol>
+<li><strong>역할과 책임은 안전경영시스템을 뒷받침하는 데 필요한 리더십 기술의 유형을 어떻게 규정하는가?</strong></li>
+</ol>
+
+<p>➔ 각 계층이 담당하는 위험 통제 및 관리 과업의 성격에 따라 요구되는 기술(기술적 전문성, 코칭 역량, 비전 제시, 전략적 의사결정 등)이 구체화됨.</p>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-appendix-7-1-sample-safety-responsibilities-worksheet">
+<h2>APPENDIX 7.1 SAMPLE SAFETY RESPONSIBILITIES WORKSHEET (안전 책임 워크시트 샘플)</h2>
+
+
+<p>모든 조직원은 안전문화와 안전경영시스템을 지원하고 정책과 목표를 준수할 책임이 있습니다. 본 워크시트는 최소한의 기대치를 문서화하는 살아있는 도구입니다.</p>
+
+
+<ul>
+<li><strong>직무 명칭 (Job Title)</strong>: ____________________</li>
+<li><strong>리더십 기대치에 관한 일반 진술문 (General Statement about Leadership Expectations)</strong>: ____________________</li>
+<li><strong>역할, 책임, 위임, 권한 및 책무성의 수준과 한계 (Levels/Limits of Roles, Responsibility, Delegation, Authority, and Accountability)</strong>:</li>
+</ul>
+
+<p><em>(포함 항목: 가용 자원, 지출 승인 한도, 보고된 위험 처리 권한, 장비 및 라인 가동 중지 권한 등)</em> ____________________</p>
+
+<ul>
+<li><strong>주어진 과업에 대해 책임지고 책무성을 평가받을 구체적 목표 및 목적 목록 (List of specific goals and objectives)</strong>: ____________________</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-appendix-7-2-sample-responsibilities-for-the-leadership-team">
+<h2>APPENDIX 7.2 SAMPLE RESPONSIBILITIES FOR THE LEADERSHIP TEAM (최고경영진/리더십 팀의 안전 책임 샘플)</h2>
+
+
+<p>최고경영진은 조직의 안전 정책, 목표 및 목적을 실행하기 위한 리더십, 예산 및 자원을 다음과 같이 수립하고 제공합니다:</p>
+
+
+<ol>
+<li>모든 조직 기준, 최우수 관리 관행(BMP), 법적 규제 요구사항을 철저히 준수하도록 정책을 수립함.</li>
+<li>모든 직원에게 안전한 작업 환경과 근로 조건을 제공함.</li>
+<li>안전 정책과 절차를 완수할 수 있는 리더십과 자원을 지원함.</li>
+<li>안전과 생산 우선순위 사이에 갈등이 발생할 경우 이를 안전 우선으로 해결함.</li>
+<li>안전 비전/미션, 목표 및 목적을 명확히 정립함.</li>
+<li>효과적인 안전 프로세스 구축에 필요한 정보, 교육, 전문 서비스, 시설, 공구, 장비 요청을 전폭 지원함.</li>
+<li>안전 프로세스의 각 영역에 명확하고 이해하기 쉬운 책임을 부여하고, 충분한 자원과 권한을 보장함.</li>
+<li>관리자, 감독관, 직원이 부여된 책임을 다하고 있는지 확인하고 적절히 인정/보상하여 책무성을 유지함.</li>
+<li>안전 프로세스와 관련된 관리자 및 감독관의 효과성을 정기적으로 평가함.</li>
+<li>안전 활동을 수행하는 전 직원, 협력업체와 지속적인 현장 소통을 유지함.</li>
+<li>특정 안전 활동에 대한 방향성과 권한을 부여하고 가시적인 참여를 모범으로 보임.</li>
+<li>안전 규칙과 안전 작업 절차를 솔선수범하여 준수함으로써 헌신의 본보기를 보임.</li>
+<li>모든 공급업체, 고객, 협력업체, 방문객이 회사의 안전 정책을 준수하도록 조치함.</li>
+<li>직원들이 노출될 수 있는 모든 잠재적 유해위험요인과 리스크를 철저히 이해하고 종합적 예방·통제 시스템을 운영함.</li>
+<li>위험 상태를 직원이 신뢰하고 보고할 수 있는 시스템을 제공하고, 신속하고 적절하게 피드백함.</li>
+<li>모든 직원이 위험 보고 시스템을 적극적으로 활용하도록 장려함.</li>
+<li>자체 점검 시스템을 구축하고 주기적으로 결과를 검토하여 위험이 적시에 개선되도록 함.</li>
+<li>설비와 장비의 적절한 유지관리와 정상 가동을 보장하는 예방보전(Preventive maintenance) 프로그램을 개발함.</li>
+<li>손실 유발 사건 보고서를 면밀히 검토하여 원인과 추세를 지속적으로 파악함.</li>
+<li>사업장 규모와 위험에 부합하는 응급 의료 및 구급 시설 체계를 구비함.</li>
+<li>비상사태 발생 시 대처 요령을 숙지할 수 있도록 주기적인 비상 대응 훈련을 실시하고, 체계적인 교육 훈련 프로그램을 제공함.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-appendix-7-3-sample-responsibilities-plant-site-superintendents-managers">
+<h2>APPENDIX 7.3 SAMPLE RESPONSIBILITIES PLANT/SITE SUPERINTENDENTS/MANAGERS (공장장/사업장 총괄 관리자의 안전 책임 샘플)</h2>
+
+
+<p>관리자는 담당 구역 내에서 다음과 같은 활동을 통해 안전한 작업 조건을 유지합니다:</p>
+
+
+<ol>
+<li>안전 정책이 조직의 근본 가치로 유지되도록 솔선수범하는 리더십과 명확한 방향을 제시함.</li>
+<li>산하 모든 감독관이 할당된 안전 역할과 직원의 규정 준수를 관리하도록 엄격한 책무성을 부여함.</li>
+<li>손실 예방 기여도, 정리정돈, 안전 활동 참여도, 개선 권고 수용성 등을 토대로 감독관의 안전 성과를 공정히 평가함.</li>
+<li>높은 수준의 정리정돈(Housekeeping)을 유지하고 안전 작업 절차가 현장에 철저히 정착되도록 관리함.</li>
+<li>정기적인 현장 점검에 참여하여 상태를 관찰하고 직원들과 소통하며 긍정적 강화와 시정 조치를 명령함.</li>
+<li>직원의 안전 활동 참여를 적극적으로 장려하고 전폭적으로 지원함.</li>
+<li>직원이나 안전위원회의 개선 권고사항에 대해 시의적절하고 적절한 후속 조치를 취함.</li>
+<li>신규 설비, 장비, 자재, 공정이 도입될 때 잠재적 위험과 리스크를 사전 검토함.</li>
+<li>주요 작업에 대한 작업위험성평가(JHA)가 주기적으로 수행되어 위험이 최소화되도록 보장함.</li>
+<li>직원이 보복에 대한 두려움 없이 위험을 보고하고 안전 제안을 낼 수 있도록 보장하고 유익한 제안을 적극 채택함.</li>
+<li>위험이 확인되거나 불안전 행동이 관찰된 경우 즉각적인 시정 조치 계획을 수립함.</li>
+<li>위험 작업에 대해 구체적인 안전 작업 절차나 수칙을 마련하여 부상을 예방함.</li>
+<li>적절한 안전 장비와 보호구를 지급하고 올바른 착용법을 숙지시킴.</li>
+<li>부상자가 발생했을 때 경미한 상해라도 신속하고 적절한 의료 치료를 받도록 보장함.</li>
+<li>모든 사고가 신속히 보고되고 철저히 조사·기록되도록 하며, 포상 제도가 사고 은폐를 조장하지 않도록 관리함.</li>
+<li>사고 발생 추세를 면밀히 주시하고 추세를 반전시키기 위한 선제적 조치를 취함.</li>
+<li>직원이 배정된 과업을 수행할 수 있는 신체적·기능적 적격성을 갖추었는지 확인함.</li>
+<li>직원이 위험을 인지하고 안전 절차를 준수할 수 있도록 정기적·반복적 교육을 보장함.</li>
+<li>감독관이 정기 안전 회의를 열어 사고 원인을 분석하고 해결책을 자유롭게 토론하도록 독려함.</li>
+<li>안전 관리자(Safety manager)의 전문성을 십분 활용하여 적극적인 안전 프로그램을 추진함.</li>
+<li>비상 대응 절차 수립과 실행을 지원하고 프로그램 정기 평가에 주도적으로 참여함.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-appendix-7-4-sample-responsibilities-for-supervision">
+<h2>APPENDIX 7.4 SAMPLE RESPONSIBILITIES FOR SUPERVISION (현장 감독관의 안전 책임 샘플)</h2>
+
+
+<p>현장 감독관은 자신의 관할 구역에서 "언행일치(Practice what you preach)"의 모범을 보이며 다음 책임을 수행합니다:</p>
+
+
+<ol>
+<li>적용되는 안전 작업 절차와 규칙을 철저하고 성실하게 솔선수범 준수함.</li>
+<li>직원의 안전한 행동과 작업 방식을 일상적으로 관찰하고 평가함.</li>
+<li>직원의 안전 참여를 적극적으로 격려하고 우수한 성과에 대해 긍정적 보상과 인정을 제공함.</li>
+<li>부적절하게 작동하는 공구와 설비 등 특정 위험을 식별할 수 있는 최신 지식과 기술을 유지함.</li>
+<li>담당 구역의 우수한 정리정돈 상태를 상시 유지함.</li>
+<li>예방보전 프로그램이 철저히 준수되는지 확인하고 결함 발견 시 완료될 때까지 추적 관리함.</li>
+<li>체크리스트를 활용하여 빈번한 물리적 현장 안전 점검을 실시함.</li>
+<li>손실 유발 사건 발생 시 근본 원인을 철저히 조사하고 위험 통제 방안을 마련함.</li>
+<li>직원들에게 안전 책임과 행동에 대한 명확한 책무성을 요구함.</li>
+<li>안전 규칙과 절차를 일관되고 공정하게 집행함.</li>
+<li>작업 속도를 위한 임의의 지름길(Shortcuts, 편법) 사용을 엄격히 금지함.</li>
+<li>안전 작업 절차 및 장비 유지보수에 관한 현장 직무 교육(OJT)을 실시함.</li>
+<li>모든 직원이 비상사태 발생 시 대처 요령을 완벽히 숙지하도록 지도함.</li>
+<li>현장 차원에서 해결할 수 없는 자원 요구사항은 즉시 상위 리더십 팀에 보고하여 조치를 요청함.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-appendix-7-5-sample-list-of-task-responsibilities-employees">
+<h2>APPENDIX 7.5 SAMPLE LIST OF TASK RESPONSIBILITIES EMPLOYEES (현장 직원의 직무 안전 책임 샘플)</h2>
+
+
+<p>직원은 본인과 동료의 부상을 예방하기 위해 작업 과정에서 마땅한 주의를 기울여야 하며 다음 책임을 수행합니다:</p>
+
+
+<ol>
+<li>모든 안전 수칙을 철저히 학습하고 임의의 편법이나 지름길(Shortcuts)을 사용하지 않음.</li>
+<li>게시되거나 배포된 모든 안전 교육 자료를 꼼꼼히 확인하고, 이해되지 않는 내용은 즉시 질문함.</li>
+<li>본인과 동료 및 작업 장비가 위험에 노출되지 않도록 스스로 개인적 책임을 다함.</li>
+<li>새로운 작업을 시작하기 전 작업 지시 사항을 완벽히 이해했는지 확인하고 작업에 임함.</li>
+<li>취급하는 유해 위험 물질의 유해성과 대처 방법을 능동적으로 찾아 숙지하고 자신을 보호함.</li>
+<li>작업 안전성에 조금이라도 의문이 생길 경우 작업을 즉시 멈추고 감독관에게 확인 지침을 받음.</li>
+<li>안전 위험을 줄이기 위한 창의적인 개선 아이디어를 제안하고 감독관과 적극 논의함.</li>
+<li>비상사태 발생 시 본인이 취해야 할 역할과 대피 경로를 명확히 숙지함.</li>
+<li>응급 의료 지원을 어디서 어떻게 받을 수 있는지 비상 연락 체계를 숙지함.</li>
+<li>모든 손실 유발 사건, 아차사고, 불안전한 상태를 감독관에게 즉시 보고하거나 안전제안 시스템을 통해 보고함.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-bibliography">
+<h2>BIBLIOGRAPHY (참고문헌)</h2>
+
+
+<ul>
+<li>A reference for developing a basic occupational safety and health program for small businesses. (2008). State of Alaska Department of Labor and Workforce Development.</li>
+<li>Accountability. (2017). Merriam-Webster.</li>
+<li>Bennis, W., & Townsend, R. (1995). <em>Reinventing leadership: Strategies to empower the organization</em>. New York: William Morrow and Company. Inc.</li>
+<li>Concepts and principles, human performance improvement handbook: (Vol. 1). (2009). U.S. Department of Energy.</li>
+<li>Connors, R., & Smith, T. (2004). Create a culture of accountability. <em>Executive Excellence</em>, 21(6), 10.</li>
+<li>Delegation of Authority. (2018). Management study guide, pay your way to success.</li>
+<li>Duties, responsibilities, and authority explained. (2017). Army Study Guide.</li>
+<li>Geigle, S. J. (2017). Safety responsibility and accountability: What’s the difference?. <em>OSHAcademy (TM) Course 703 Study Guide</em>.</li>
+<li>Human performance tools for individuals, work teams, and management, human performance improvement handbook: Vol. 2 (2009). U.S. Department of Energy.</li>
+<li>Leadership development, field manual, 6-22. (2015). Headquarters, Department of the Army.</li>
+<li>Mager, R. F., & Pipe, P. (1983). <em>Analyzing performance problems; or you really oughta wanna</em>.</li>
+<li>Managing worker safety and health Illinois. (2016). OSHA Onsite Safety & Health Consultation Program.</li>
+<li>Managing worker safety and health, sample assignment of safety and health responsibilities. (2018). Missouri Occupational Safety and Health Administration (OSHA), Office of Cooperative Programs.</li>
+<li>Occupational Health & Safety Management Systems. (2012). The American Society of Safety Engineers. ANSI/AIHA/ASSE Z10.</li>
+<li>Peters, T. J., & Waterman, R. H. (2004). <em>In search of excellence: Lessons from America’s best-run companies</em>. HarperBusiness.</li>
+<li>Petraeus, D., & Amos, J. F. (2006). <em>The US army/marine corps counterinsurgency field manual</em>. FM 3-24, MCWP 3-33.5. Headquarters Department of The Army.</li>
+<li>Roughton, J., & Crutchfield, N. (2013). In B. Heinemann (Ed.), <em>Safety culture: An innovative leadership approach</em>. Butterworth-Heinemann.</li>
+<li>Safety and health management basics, module one: management commitment. (2017). OSHA’s voluntary safety and health program management guidelines.</li>
+<li>Schein, E. H. (2016). <em>Organizational culture and leadership</em> (5th ed.). John Wiley & Sons, Inc.</li>
+<li>Silva, A. (2016). What is leadership? <em>Journal of Business Studies Quarterly</em>, 8(1).</li>
+<li>Stogdill, R. M. (1974). <em>Handbook of leadership: A survey of theory and research</em>. New York, NY, US: Free Press.</li>
+<li>The performance-based management handbook, Vol. 3, Establishing Accountability for Performance. (2017). U.S. Department of Energy (DOE), Oak Ridge Institute for Science and Education.</li>
+<li>Voluntary Protection Program (DOE-VPP). (2016). Department of Energy (DOE).</li>
+</ul>
+
+
+
+
+
+
+</section>
+
+    <!-- Bottom Navigation -->
+    <div class="chapter-footer-nav">
+      <a href="index.html" class="btn-home">🏠 포털 메인으로 돌아가기</a>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a href="chapter6_subnote.html" class="btn-icon" title="이전 장 서브노트">◀ Ch6</a>
+        <a href="chapter7_bilingual.html" class="btn-bilingual">🌐 1:1 영·한 대조 리더</a>
+        <a href="chapter8_subnote.html" class="btn-icon" title="다음 장 서브노트">Ch8 ▶</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Right AI Panel -->
+  <aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-header">
+      <div class="ai-header-title">
+        <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
+        <p>교수님 심화 지도 원칙 실시간 질의기</p>
+      </div>
+      <button class="ai-close-btn" id="close-ai-panel-btn" title="AI 패널 닫기">✕</button>
+    </div>
+    
+    <div class="ai-body">
+      <div class="sidebar-title">추천 프롬프트 템플릿</div>
+      <div class="prompt-card" onclick="setPrompt(&quot;제7장의 RAA(Responsibility-Authority-Accountability) 삼원조 구조가 무너질 때 발생하는 안전 책무성 붕괴 메커니즘을 설명해줘.&quot;)">
+  <h5>🔺 RAA 삼원조(책임·권한·책무성) 균형</h5>
+  <p>하향 위임(권한)과 상향 해명(책무성), 최종 책임의 불전가 원칙</p>
+</div>
+<div class="prompt-card" onclick="setPrompt(&quot;제7장의 RAA 삼원조를 근거로 119구조대장·팀장·대원별 고유(70%)/협업(30%) KPI를 도출해줘.&quot;)">
+  <h5>🚒 119구조대 안전책무성 KPI (7:3)</h5>
+  <p>산안법 제14~16조·중처법 연계 현장 밀착형 성과지표</p>
+</div>
+<div class="prompt-card" onclick="setPrompt(&quot;제7장에서 제시한 관리자와 리더의 역할 차이가 현장 안전문화 평가에 미치는 시사점을 분석해줘.&quot;)">
+  <h5>⚖️ 관리자 vs 리더 역할 전환</h5>
+  <p>환원주의적 관리와 전체론적(Holistic) 안전 리더십의 조화</p>
+</div>
+      <div class="ai-chat-output" id="ai-chat-output">💡 프롬프트 카드를 클릭하거나 아래 입력창에 질문을 입력하여 AI 튜터와 학습을 진행하세요. (브라우저 로컬 환경에서 시뮬레이션 프롬프트가 설정됩니다.)</div>
+    </div>
+
+    <div class="ai-footer">
+      <input type="text" class="ai-input" id="ai-user-input" placeholder="안전문화 및 KPI 질문 입력...">
+      <button class="btn-send" id="ai-send-btn">전송</button>
+    </div>
+  </aside>
+
+</div>
 
 <script>
-// --- Knowledge Base for Built-in Simulator Mode ---
-const CHAPTER7_KB = {
-  "schein": `[에드가 샤인(Edgar Schein, 2016)의 핵심 명제]
-"문화와 리더십은 동전의 양면이다. 리더가 집단과 조직을 만들 때 먼저 문화를 창조하고, 일단 문화가 형성되면 그 문화가 리더십의 기준을 규정하여 누가 리더가 될 것인지 결정한다."
-• 도입부 그림(image.png)은 리더십과 문화의 동전 양면성 위에 '책무성(Accountability)', '권한(Authority)', '책임(Responsibility)'의 삼원조(Triad)가 유기적으로 순환 맞물려 있음을 상징합니다.`,
+// Restore saved theme
+(function() {
+  try {
+    const saved = localStorage.getItem('subnote-theme');
+    if (saved === 'light' || saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+  } catch (e) {}
+})();
 
-  "jha": `[안전 전문가의 JHA 4단계 정체성 전환 과정]
-1. 1단계 [기술자/Technician]: 작업위험성평가(JHA)를 직접 정밀하게 분석하고 작성하는 실무 단계
-2. 2단계 [훈련자/Trainer]: 현장 관리자 및 직원들에게 JHA 작성법을 교육하고 전파하는 단계
-3. 3단계 [품질관리자/Quality Control]: JHA 결과의 정확성과 실효성을 검증하고 품질을 관리하는 단계
-4. 4단계 [신뢰받는 리더/Trusted Leader]: JHA의 전략적 가치를 조직 전반에 설득하고 전사적 지지와 문화를 이끄는 리더십 단계
-★ 핵심: 프로그램 중심의 미시적 시각에서 벗어나 전사 시스템적 접근(All-inclusive systems & process approach)으로 시야를 넓히는 역량입니다.`,
+// Sidebar Toggle
+const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+const leftSidebar = document.getElementById('left-sidebar');
+if (toggleSidebarBtn && leftSidebar) {
+  toggleSidebarBtn.addEventListener('click', () => {
+    leftSidebar.classList.toggle('open');
+  });
+}
 
-  "triad": `[책임, 권한, 책무성의 삼원조(Triad) 비교 (Table 7.2)]
-1. 책임 (Responsibility):
-   - 정의: 부여된 과업을 완수해야 할 개인의 의무
-   - 흐름: 하향에서 상향(Bottom to top)
-   - 위임: 절대 타인에게 전가할 수 없음(Absolute). 최종 결과 책임은 항상 리더십에 잔류.
-2. 권한 (Authority):
-   - 정의: 부하에게 지시하고 자원을 배분할 수 있는 합법적 권리
-   - 흐름: 상향에서 하향(Top to bottom)
-   - 위임: 상사가 부하에게 합법적으로 위임 가능(Can be delegated).
-3. 책무성 (Accountability):
-   - 정의: 기대 성과와의 차이에 대해 해명하고 답변할 의무(Answerable for results)
-   - 위임: 결코 위임할 수 없음(Cannot be delegated). 책무성은 책임과 권한을 작동시키는 활성화 트리거입니다.`,
-
-  "mbwa": `[경영진 보행 순회 관리 (MBWA) 및 카펫 공장 CEO 일화]
-• MBWA(Peters & Waterman, 2004): 경영진이 현장을 주기적으로 순회하며 1:1 대화를 통해 분위기를 읽고 사각지대를 파악하는 기법입니다.
-• 3단계 영향력 법칙(3 Degrees of Contact)에 따라 리더의 가시적 존재감이 조직에 파급됩니다.
-• Nathan의 카펫 공장 CEO 일화: 바닥을 쓸던 직원의 고장 난 청소기를 보고 CEO가 직접 매장에 가 새 진공청소기를 사다 준 일화는 전사 관리자들에게 "현장 작업도구를 완비하라"는 강력한 행동 신호를 전달했습니다.`,
-
-  "toxic": `[유독성 리더십(Toxic Leadership, FM 6-22)]
-• 정의: 부하 직원, 조직, 임무 완수에 파괴적 악영향을 미치는 자기중심적 태도, 동기, 행동의 결합체.
-• 심리적 원인: 비대해진 자아도취(Inflated self-worth)와 극단적 사리사욕(Acute self-interest).
-• 주요 수단: 기만(Deceive), 위협(Intimidate), 강압(Coerce), 부당한 처벌(Unfair punishment).
-• 위험성: 오직 지위 권력에만 의존하여 단기 복종만 강요하므로 직원의 주도성과 사기를 파괴하고 사건 은폐(Hiding incidents) 문화를 만듭니다.`,
-
-  "accountability_system": `[효과적인 책무성 시스템의 5대 필수 구성요소 (Table 7.3)]
-1. 공식적인 행동 및 성과 기준 수립 (Policies, procedures, rules)
-2. 기준 달성을 위한 충분한 자원 제공 (Safe workplace, training, oversight)
-3. 효과적인 성과 측정 시스템 구축 (System of measurement)
-4. 결과에 대한 적절한 피드백 적용 (Consequences, both positive & negative)
-5. 조직 전반의 일관성 있는 공정한 집행 (Consistent application throughout org)`
-};
-
-// Prompts Repository
-const PROMPTS_DATA = {
-  p1: `[역할] 조직행동 및 안전문화 전공 박사학위 지도교수\n[맥락] 교재 7장 서두의 Schein(2016) 명제: "문화와 리더십은 동전의 양면이다."\n[과업]\n1. Schein의 조직문화 3계층(인공물, 표방된 가치, 기저의 가정) 모델과 리더십의 상호작용 메커니즘을 설명하라.\n2. 리더가 안전문화를 먼저 형성하는 단계와, 이미 정착된 문화가 리더의 행동을 구속하는 단계를 공공기관(또는 고위험 산업) 사례로 비교 분석하라.\n3. 이를 실증 연구하기 위한 연구가설 2가지를 도출하라.`,
-  p2: `[역할] 안전경영시스템(SMS) 학술 심사위원\n[맥락] 7장 Table 7.2 및 Fig 7.1 삼원조(Triad) 이론\n[과업]\n1. 'Responsibility(책임)'와 'Accountability(책무성)'의 학술적·법적 차이를 위임 가능 여부와 전달 흐름(상향 vs 하향)을 중심으로 엄밀히 대조하라.\n2. "책무성은 소급 적용될 수 없다(Accountability cannot be retroactive)"는 원칙의 실무적·윤리적 함의를 논하라.\n3. 국내 공공조직에서 왜 책무성이 비난(Finger pointing)으로 오인되는지 원인을 분석하고 개선안을 제시하라.`,
-  p3: `[역할] 글로벌 EHS 전략 컨설턴트\n[맥락] 7장 Peters & Waterman의 MBWA 및 Nathan의 카펫 공장 CEO 일화\n[과업]\n1. 최고경영진이 사업장 순회 시 현장 작업자와 1:1 대면 대화에서 사용할 '신뢰 구축형 5대 핵심 질문'을 작성하라.\n2. 경영진이 안전 규칙을 위반하거나 직원을 질책하는 부작용을 막기 위한 'MBWA 수칙 5개조'를 제정하라.\n3. 2·3교대 야간 근무조의 소통 사각지대를 해소하기 위한 특화 순회 프로세스를 제안하라.`,
-  p4: `[역할] 안전 코칭 전문가 (Mager & Pipe, 1983 이론 기반)\n[맥락] 7장 성과 결과 설정에서 "조사 미숙 감독관을 즉각 징계하면 사건 은폐가 일어난다"는 경고\n[과업]\n1. 아차사고 조사를 미흡하게 작성한 현장 감독관과 안전 부서장 간의 '처벌 없는 학습 중심 면담 대화록(Script)'을 작성하라.\n2. 감독관의 지식 부족인지, 동기 부족인지, 시간 부족인지를 판별하는 3단계 질문 기법을 포함하라.\n3. 면담 종료 후 감독관이 심리적 안정감을 느끼고 향후 자발적 보고를 약속하는 결론을 도출하라.`,
-  p5: `[역할] 산업안전보건 커리어 멘토\n[맥락] 7장 4단계 정체성 전환: 기술자 → 트레이너 → 품질관리자 → 신뢰받는 리더\n[과업]\n1. 현장 안전관리자가 단순 '단속반/기술자'에서 '신뢰받는 리더'로 승화하기 위해 각 단계별로 극복해야 할 멘탈 모델의 한계를 분석하라.\n2. 4단계(신뢰받는 리더)에서 경영진을 설득할 때 필요한 '경영 언어 번역(비용, 운항, 브랜드, 법적 책임)' 발표 개요서를 작성하라.`,
-  p6: `[역할] 인사(HR) 및 EHS 통합 기획자\n[맥락] 7장 부록 7.4(감독관 책임) 및 후행지표(재해율) 중심 책무성의 폐해 극복\n[과업]\n1. 제조/공공 현장 감독관을 위한 SMART 기반 선행지표 5가지(예: 작업 전 안전점검 조치율, 위험제안 채택률 등)를 정의하라.\n2. 각 지표별 측정 방식, 점검 주기, 목표 수치, 달성 시 긍정적 인정 보상 기준을 포함한 직무기술서 서식을 완성하라.`
-};
-
-// UI Elements
-const themeToggleBtn = document.getElementById('theme-toggle-btn');
+// AI Panel Toggle (Desktop & Mobile)
 const toggleAiBtn = document.getElementById('toggle-ai-btn');
 const rightAiPanel = document.getElementById('right-ai-panel');
-const apiKeyBtn = document.getElementById('api-key-btn');
-const apiModalOverlay = document.getElementById('api-modal-overlay');
-const closeModalBtn = document.getElementById('close-modal-btn');
-const saveKeyBtn = document.getElementById('save-key-btn');
-const clearKeyBtn = document.getElementById('clear-key-btn');
-const geminiKeyInput = document.getElementById('gemini-key-input');
-const openaiKeyInput = document.getElementById('openai-key-input');
-const geminiModelSelect = document.getElementById('gemini-model-select');
-const aiEngineSelect = document.getElementById('ai-engine-select');
-const aiStatusTag = document.getElementById('ai-status-tag');
-const aiChatMessages = document.getElementById('ai-chat-messages');
-const aiChatForm = document.getElementById('ai-chat-form');
-const aiUserInput = document.getElementById('ai-user-input');
-const toastMsg = document.getElementById('toast-msg');
+const closeAiPanelBtn = document.getElementById('close-ai-panel-btn');
 
-// Load stored settings
-let storedGeminiKey = localStorage.getItem('chapter7_gemini_key') || '';
-let storedOpenaiKey = localStorage.getItem('chapter7_openai_key') || '';
-let storedModel = localStorage.getItem('chapter7_gemini_model') || 'gemini-1.5-flash';
-geminiKeyInput.value = storedGeminiKey;
-openaiKeyInput.value = storedOpenaiKey;
-geminiModelSelect.value = storedModel;
-
-if (storedGeminiKey) {
-  aiEngineSelect.value = 'gemini';
-  aiStatusTag.textContent = 'Gemini API 연결됨';
-  aiStatusTag.style.color = '#38bdf8';
+function toggleAiPanel() {
+  const isMobile = window.innerWidth <= 1200;
+  if (isMobile) {
+    rightAiPanel.classList.toggle('open');
+  } else {
+    const isClosed = rightAiPanel.classList.toggle('closed');
+    document.body.classList.toggle('ai-closed', isClosed);
+  }
 }
+
+if (toggleAiBtn) toggleAiBtn.addEventListener('click', toggleAiPanel);
+if (closeAiPanelBtn) closeAiPanelBtn.addEventListener('click', toggleAiPanel);
 
 // Theme Toggle
-themeToggleBtn.addEventListener('click', () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('chapter7_theme', newTheme);
-});
-if (localStorage.getItem('chapter7_theme')) {
-  document.documentElement.setAttribute('data-theme', localStorage.getItem('chapter7_theme'));
-}
-
-// AI Panel Toggle
-toggleAiBtn.addEventListener('click', () => {
-  rightAiPanel.classList.toggle('collapsed');
-});
-
-// Modal Logic
-apiKeyBtn.addEventListener('click', () => apiModalOverlay.classList.add('active'));
-closeModalBtn.addEventListener('click', () => apiModalOverlay.classList.remove('active'));
-apiModalOverlay.addEventListener('click', (e) => {
-  if (e.target === apiModalOverlay) apiModalOverlay.classList.remove('active');
-});
-
-saveKeyBtn.addEventListener('click', () => {
-  storedGeminiKey = geminiKeyInput.value.trim();
-  storedOpenaiKey = openaiKeyInput.value.trim();
-  storedModel = geminiModelSelect.value;
-  localStorage.setItem('chapter7_gemini_key', storedGeminiKey);
-  localStorage.setItem('chapter7_openai_key', storedOpenaiKey);
-  localStorage.setItem('chapter7_gemini_model', storedModel);
-
-  if (storedGeminiKey) {
-    aiEngineSelect.value = 'gemini';
-    aiStatusTag.textContent = 'Gemini API 연동';
-    aiStatusTag.style.color = '#38bdf8';
-  } else if (storedOpenaiKey) {
-    aiEngineSelect.value = 'openai';
-    aiStatusTag.textContent = 'OpenAI API 연동';
-  } else {
-    aiEngineSelect.value = 'builtin';
-    aiStatusTag.textContent = '지식엔진 준비완료';
-  }
-  apiModalOverlay.classList.remove('active');
-  showToast('API 설정이 저장되었습니다.');
-});
-
-clearKeyBtn.addEventListener('click', () => {
-  geminiKeyInput.value = '';
-  openaiKeyInput.value = '';
-  localStorage.removeItem('chapter7_gemini_key');
-  localStorage.removeItem('chapter7_openai_key');
-  storedGeminiKey = '';
-  storedOpenaiKey = '';
-  aiEngineSelect.value = 'builtin';
-  aiStatusTag.textContent = '지식엔진 준비완료';
-  showToast('API 키가 삭제되었습니다.');
-});
-
-// Toast Helper
-function showToast(msg) {
-  toastMsg.textContent = msg;
-  toastMsg.classList.add('show');
-  setTimeout(() => toastMsg.classList.remove('show'), 2500);
-}
-
-// Copy Prompt Buttons
-document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('data-prompt-id');
-    const text = PROMPTS_DATA[id];
-    if (text) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast('프롬프트가 클립보드에 복사되었습니다! 📋');
-      });
-    }
+const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+if (toggleThemeBtn) {
+  toggleThemeBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    try { localStorage.setItem('subnote-theme', newTheme); } catch (e) {}
   });
-});
-
-// Send Prompt to AI Panel
-document.querySelectorAll('.send-prompt-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('data-prompt-id');
-    const text = PROMPTS_DATA[id];
-    if (text) {
-      if (rightAiPanel.classList.contains('collapsed')) {
-        rightAiPanel.classList.remove('collapsed');
-      }
-      aiUserInput.value = text;
-      handleSendMessage();
-    }
-  });
-});
-
-// Quick Chips
-document.querySelectorAll('.quick-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    if (rightAiPanel.classList.contains('collapsed')) {
-      rightAiPanel.classList.remove('collapsed');
-    }
-    aiUserInput.value = chip.getAttribute('data-q');
-    handleSendMessage();
-  });
-});
-
-// Append Message to Chat
-function appendMessage(role, text) {
-  const bubble = document.createElement('div');
-  bubble.className = `chat-bubble ${role}`;
-  bubble.innerHTML = text.replace(/\n/g, '<br>');
-  aiChatMessages.appendChild(bubble);
-  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
-  return bubble;
-}
-
-// Handle AI Chat Form Submission
-aiChatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  handleSendMessage();
-});
-
-async function handleSendMessage() {
-  const query = aiUserInput.value.trim();
-  if (!query) return;
-
-  appendMessage('user', query);
-  aiUserInput.value = '';
-
-  const loadingBubble = appendMessage('ai', '생각하는 중... 💭');
-  const engine = aiEngineSelect.value;
-
-  if (engine === 'gemini' && storedGeminiKey) {
-    try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${storedModel}:generateContent?key=${storedGeminiKey}`;
-      const systemContext = `당신은 Elsevier의 명저 'Safety Culture: An Innovative Leadership Approach' Chapter 7 (Evaluating Leadership and the Safety Culture)의 학술 지도 교수이자 안전문화 전문 AI입니다. 원문의 이론(Schein의 명제, Bradley 장군의 리더십 균형, FM 6-22 리더십 기대 역량 및 유독성 리더십, Silva 2016 상호작용 리더십, James의 M&A 및 생산감독자 교훈, MBWA 카펫 CEO 일화, 직무기술서, SMART 목표, Table 7.2 책임-권한-책무성 삼원조, 5대 책무성 시스템 요소 등)에 입각하여 깊이 있고 엄밀하며 실무적인 답변을 제공하십시오.`;
-
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: 'user',
-              parts: [{ text: `${systemContext}\n\n질문/요청사항:\n${query}` }]
-            }
-          ]
-        })
-      });
-
-      const data = await response.json();
-      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-        loadingBubble.innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, '<br>');
-      } else {
-        loadingBubble.innerHTML = `⚠️ Gemini API 응답 오류: ${data.error?.message || '응답을 가져올 수 없습니다.'}`;
-      }
-    } catch (err) {
-      loadingBubble.innerHTML = `⚠️ 네트워크 또는 API 호출 실패: ${err.message}<br><small>내장 지식 모드로 전환해 답변을 확인하세요.</small>`;
-    }
-  } else {
-    // Built-in Knowledge Base Fallback & Smart Matcher
-    setTimeout(() => {
-      let reply = "";
-      const lower = query.toLowerCase();
-
-      if (lower.includes('schein') || lower.includes('샤인') || lower.includes('명제') || lower.includes('문화와 리더십')) {
-        reply = CHAPTER7_KB.schein;
-      } else if (lower.includes('jha') || lower.includes('위험성평가') || lower.includes('전환') || lower.includes('4단계') || lower.includes('기술자')) {
-        reply = CHAPTER7_KB.jha;
-      } else if (lower.includes('책무성') || lower.includes('권한') || lower.includes('책임') || lower.includes('삼원조') || lower.includes('triad') || lower.includes('7.2')) {
-        reply = CHAPTER7_KB.triad;
-      } else if (lower.includes('mbwa') || lower.includes('보행') || lower.includes('카펫') || lower.includes('청소기') || lower.includes('순회')) {
-        reply = CHAPTER7_KB.mbwa;
-      } else if (lower.includes('유독성') || lower.includes('toxic') || lower.includes('부정적 리더십')) {
-        reply = CHAPTER7_KB.toxic;
-      } else if (lower.includes('요소') || lower.includes('7.3') || lower.includes('책무성 시스템')) {
-        reply = CHAPTER7_KB.accountability_system;
-      } else {
-        reply = `[챕터 7 내장 학습 엔진 답변]\n귀하의 질의: "${query}"\n\nChapter 7에서는 안전문화 구축에서 리더십의 본질과 '책임-권한-책무성'의 삼원조(Triad)를 강조합니다.\n• 관리자는 환원주의적(부분 최적화)으로 접근하지만, 리더는 시스템적·전체론적(Holistic)으로 접근합니다.\n• 권한은 하향 위임될 수 있으나, 책무성(Accountability)은 결코 위임할 수 없습니다.\n• 현장 관찰(James의 M&A 전화 회신 관찰 및 MBWA 카펫 공장 CEO 일화)에서 보듯, 리더의 가시적인 행동과 언행일치가 조직 구성원의 신뢰(Trust)와 자발적 개인 책임을 유도합니다.\n\n💡 더 정밀한 AI 생성 답변을 원하시면 상단 [🔑 API 설정]에서 Gemini API Key를 등록해 보세요!`;
-      }
-      loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
-    }, 600);
-  }
 }
 
 // Nav Search Filter
 const navSearchInput = document.getElementById('nav-search-input');
-const navLinks = document.querySelectorAll('#nav-menu-list .nav-link');
-navSearchInput.addEventListener('input', (e) => {
-  const term = e.target.value.toLowerCase();
-  navLinks.forEach(link => {
-    const text = link.textContent.toLowerCase();
-    link.parentElement.style.display = text.includes(term) ? '' : 'none';
+const navMenuList = document.getElementById('nav-menu-list');
+if (navSearchInput && navMenuList) {
+  navSearchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const links = navMenuList.querySelectorAll('li');
+    links.forEach(li => {
+      const text = li.textContent.toLowerCase();
+      li.style.display = text.includes(query) ? '' : 'none';
+    });
   });
-});
+}
 
-// Scrollspy
-window.addEventListener('scroll', () => {
-  const sections = document.querySelectorAll('main section.section-box');
-  let currentId = '';
-  sections.forEach(sec => {
-    const top = sec.offsetTop - 120;
-    if (window.scrollY >= top) {
-      currentId = sec.getAttribute('id');
+// Quick Prompt Set
+function setPrompt(text) {
+  document.getElementById('ai-user-input').value = text;
+  document.getElementById('ai-chat-output').textContent =
+    "질문 입력됨: " + text + "\n\n[AI 튜터 시뮬레이션 응답]\n교수님 심화 지도 원칙에 따라 법령 조문, 5단계 생애주기, 고유/협업 가중치(7:3/5:5) 및 서브노트 판단 근거가 매핑되었습니다.";
+}
+
+const aiSendBtn = document.getElementById('ai-send-btn');
+if (aiSendBtn) {
+  aiSendBtn.addEventListener('click', () => {
+    const input = document.getElementById('ai-user-input');
+    if (input.value.trim()) {
+      setPrompt(input.value.trim());
+      input.value = '';
     }
   });
-  if (currentId) {
-    navLinks.forEach(link => {
-      if (link.getAttribute('href') === `#${currentId}`) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
-  }
-});
+}
 </script>
 
 </body>

@@ -6,7 +6,7 @@
     <title>Chapter 11: Developing an Activity-Based Safety System — 서브노트 &amp; AI 학습 플랫폼</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
         mermaid.initialize({
@@ -22,7 +22,7 @@
                 useMaxWidth: false
             },
             themeVariables: {
-                fontSize: '15px',
+                fontSize: '14.5px',
                 fontFamily: 'IBM Plex Sans KR, sans-serif'
             }
         });
@@ -93,25 +93,27 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--header-h);
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.9);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 20px;
   z-index: 1000;
+  gap: 12px;
   transition: all 0.3s ease;
 }
 
 [data-theme="light"] .app-header {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  min-width: 0;
 }
 
 .header-logo-badge {
@@ -121,47 +123,89 @@ body {
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 6px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.header-title-box {
+  min-width: 0;
 }
 
 .header-title-box h1 {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-main);
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-title-box p {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.btn-icon {
+.btn-icon, .btn-home, .btn-bilingual {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-sub);
-  padding: 7px 14px;
+  padding: 7px 12px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12.5px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: all 0.2s;
   font-family: inherit;
-  font-weight: 500;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .btn-icon:hover {
   background: var(--bg-card-sub);
   color: var(--accent-blue);
   border-color: var(--accent-blue);
+}
+
+.btn-home {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--accent-blue);
+}
+
+.btn-home:hover {
+  background: rgba(56, 189, 248, 0.24);
+  border-color: var(--accent-blue);
+}
+
+.btn-bilingual {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--accent-green);
+}
+
+.btn-bilingual:hover {
+  background: rgba(16, 185, 129, 0.24);
+  border-color: var(--accent-green);
+}
+
+.chapter-pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 /* Layout Wrapper */
@@ -176,13 +220,36 @@ body {
   width: var(--sidebar-w);
   background: var(--bg-card);
   border-right: 1px solid var(--border-color);
-  padding: 24px 16px;
+  padding: 20px 16px;
   position: fixed;
   top: var(--header-h);
   bottom: 0;
   overflow-y: auto;
   transition: transform 0.3s ease;
   z-index: 900;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-portal-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.sidebar-portal-link:hover {
+  border-color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.1);
 }
 
 .sidebar-title {
@@ -249,7 +316,6 @@ body {
   transition: margin 0.3s ease;
 }
 
-/* AI 패널 닫혔을 때 본문 너비 확장 */
 body.ai-closed .main-content {
   margin-right: 0 !important;
 }
@@ -264,6 +330,10 @@ body.ai-closed .main-content {
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow);
+}
+
+[data-theme="light"] .intro-hero {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
 }
 
 .hero-tag {
@@ -294,11 +364,13 @@ body.ai-closed .main-content {
 
 .hero-overview-img {
   width: 100%;
-  max-height: 380px;
-  object-fit: cover;
+  max-height: 400px;
+  object-fit: contain;
+  background: var(--bg-card-sub);
   border-radius: 12px;
   margin: 16px 0 24px 0;
   border: 1px solid var(--border-color);
+  padding: 8px;
 }
 
 .epigraph-box {
@@ -367,6 +439,13 @@ body.ai-closed .main-content {
   margin: 18px 0 10px 0;
 }
 
+.subnote-section h5 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-purple);
+  margin: 14px 0 8px 0;
+}
+
 .subnote-section p {
   margin-bottom: 14px;
   color: var(--text-sub);
@@ -380,6 +459,15 @@ body.ai-closed .main-content {
 
 .subnote-section li {
   margin-bottom: 8px;
+}
+
+.subnote-section code {
+  background: var(--bg-input);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent-blue);
 }
 
 /* Callout Box */
@@ -407,12 +495,6 @@ body.ai-closed .main-content {
 .callout-tip {
   background: rgba(16, 185, 129, 0.08);
   border-color: var(--accent-green);
-  color: var(--text-sub);
-}
-
-.callout-gold {
-  background: rgba(245, 158, 11, 0.08);
-  border-color: var(--accent-gold);
   color: var(--text-sub);
 }
 
@@ -492,18 +574,33 @@ tr:hover {
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* Images */
+/* Images & Carousels */
 .img-wrapper {
   margin: 24px 0;
   text-align: center;
 }
 
-.img-wrapper img {
+.img-wrapper img, .carousel-item img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
+}
+
+.carousel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.carousel-item {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
 }
 
 .img-caption {
@@ -552,19 +649,18 @@ hr.divider {
   line-height: 1.5 !important;
 }
 
-.mermaid-box::-webkit-scrollbar {
-  height: 8px;
-}
-.mermaid-box::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-}
-.mermaid-box::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-.mermaid-box::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+/* Bottom Chapter Footer Navigation */
+.chapter-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
 }
 
 /* Right AI Panel */
@@ -583,7 +679,6 @@ hr.divider {
   transform: translateX(0);
 }
 
-/* AI 패널 닫힘 클래스 */
 .right-ai-panel.closed {
   transform: translateX(100%) !important;
 }
@@ -736,6 +831,9 @@ hr.divider {
     margin-left: 0;
     padding: 24px 20px;
   }
+  .header-logo-badge, .chapter-pager, .btn-bilingual .label-text {
+    display: none;
+  }
 }
     </style>
 </head>
@@ -743,14 +841,20 @@ hr.divider {
 
 <header class="app-header">
   <div class="header-left">
+    <a href="index.html" class="btn-home" title="포털 메인으로 돌아가기">🏠 포털 메인</a>
     <button class="btn-icon" id="toggle-sidebar-btn" title="목차 토글">☰ 목차</button>
-    <span class="header-logo-badge">안전문화 서브노트</span>
+    <span class="header-logo-badge">Chapter 11</span>
     <div class="header-title-box">
-      <h1>Chapter 11: 활동 기반 안전 시스템 구축</h1>
+      <h1>활동 기반 안전시스템 구축</h1>
       <p>Developing an Activity-Based Safety System</p>
     </div>
   </div>
   <div class="header-actions">
+    <div class="chapter-pager">
+      <a href="chapter10_subnote.html" class="btn-icon" title="이전 장 서브노트">◀ Ch10</a>
+      <a href="chapter12_subnote.html" class="btn-icon" title="다음 장 서브노트">Ch12 ▶</a>
+    </div>
+    <a href="chapter11_bilingual.html" class="btn-bilingual" title="1:1 영·한 대조 리더 열기">🌐 <span class="label-text">대조 리더</span></a>
     <button class="btn-icon" id="toggle-theme-btn" title="테마 전환">🌓 테마</button>
     <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 열기/닫기">🤖 AI 튜터</button>
   </div>
@@ -760,18 +864,22 @@ hr.divider {
 
   <!-- Left Sidebar Navigation -->
   <aside class="left-sidebar" id="left-sidebar">
+    <a href="index.html" class="sidebar-portal-link">
+      <span>← 전체 챕터 포털</span>
+      <span>index.html</span>
+    </a>
     <div class="sidebar-title">Chapter 11 목차 네비게이션</div>
     <input type="text" class="nav-search" id="nav-search-input" placeholder="섹션 빠른 검색...">
     <ul class="nav-menu" id="nav-menu-list">
       <li><a href="#sec-1" class="nav-link">1. INTRODUCTION</a></li>
 <li><a href="#sec-2" class="nav-link">2. ACTIVITY-BASED SAFETY SYSTEM...</a></li>
-<li><a href="#sec-3" class="nav-link">3. HOW ABSS WORKS & BASIC ELEME...</a></li>
-<li><a href="#sec-4" class="nav-link">4. SAFETY MEETINGS & COMMUNICAT...</a></li>
-<li><a href="#sec-5" class="nav-link">5. DIRECT ENGAGEMENT & HAZARD H...</a></li>
+<li><a href="#sec-3" class="nav-link">3. HOW ABSS WORKS &amp; BASIC ELEME...</a></li>
+<li><a href="#sec-4" class="nav-link">4. SAFETY MEETINGS &amp; COMMUNICAT...</a></li>
+<li><a href="#sec-5" class="nav-link">5. DIRECT ENGAGEMENT &amp; HAZARD H...</a></li>
 <li><a href="#sec-6" class="nav-link">6. ABSS ROLES AND RESPONSIBILIT...</a></li>
-<li><a href="#sec-7" class="nav-link">7. TRAINING INNOVATION, DOE & S...</a></li>
+<li><a href="#sec-7" class="nav-link">7. TRAINING INNOVATION, DOE &amp; S...</a></li>
 <li><a href="#sec-8" class="nav-link">8. TIPS FOR ABSS IMPLEMENTATION...</a></li>
-<li><a href="#sec-9" class="nav-link">9. INCIDENT INVESTIGATION & INJ...</a></li>
+<li><a href="#sec-9" class="nav-link">9. INCIDENT INVESTIGATION &amp; INJ...</a></li>
 <li><a href="#sec-10" class="nav-link">10. SUMMARY</a></li>
 <li><a href="#sec-11" class="nav-link">11. CHAPTER REVIEW QUESTIONS</a></li>
 <li><a href="#sec-12" class="nav-link">12. SPECIAL STUDY: 교수님 심화 지도 지침에...</a></li>
@@ -785,13 +893,13 @@ hr.divider {
     <!-- Intro Hero -->
     <div class="intro-hero">
       <span class="hero-tag">PART IV Tools to Enhance Your Safety Management System</span>
-      <h1>Chapter 11. 활동 기반 안전 시스템 구축</h1>
+      <h1>Chapter 11. 활동 기반 안전시스템 구축</h1>
       <p class="lead">Developing an Activity-Based Safety System</p>
       
       
 
       <div class="epigraph-box">
-        "변화 없이는 진보가 불가능하며, 마음을 바꿀 수 없는 사람은 아무것도 바꿀 수 없다."
+        "변화 없이는 진보가 불가능하며, 자신의 생각을 바꾸지 못하는 사람은 그 어떤 것도 바꿀 수 없다."
         <span class="epigraph-author">— 조지 버나드 쇼 (George Bernard Shaw)</span>
       </div>
     </div>
@@ -1901,7 +2009,18 @@ flowchart LR
 
 
 
+
 </section>
+
+    <!-- Bottom Navigation -->
+    <div class="chapter-footer-nav">
+      <a href="index.html" class="btn-home">🏠 포털 메인으로 돌아가기</a>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a href="chapter10_subnote.html" class="btn-icon" title="이전 장 서브노트">◀ Ch10</a>
+        <a href="chapter11_bilingual.html" class="btn-bilingual">🌐 1:1 영·한 대조 리더</a>
+        <a href="chapter12_subnote.html" class="btn-icon" title="다음 장 서브노트">Ch12 ▶</a>
+      </div>
+    </div>
 
   </main>
 
@@ -1917,17 +2036,17 @@ flowchart LR
     
     <div class="ai-body">
       <div class="sidebar-title">추천 프롬프트 템플릿</div>
-      <div class="prompt-card" onclick="setPrompt('ABSS 5단계 생애주기에 맞춰 의령소방서 119구조대에 적용할 수 있는 현장 밀착형 KPI 3가지를 도출하고, 산업안전보건법 조문과 7:3 가중치 배분 논리를 설명해줘.')">
+      <div class="prompt-card" onclick="setPrompt(&quot;ABSS 5단계 생애주기에 맞춰 의령소방서 119구조대에 적용할 수 있는 현장 밀착형 KPI 3가지를 도출하고, 산업안전보건법 조문과 7:3 가중치 배분 논리를 설명해줘.&quot;)">
   <h5>🚒 현장 소방/구조대 맞춤형 ABSS KPI 도출</h5>
   <p>119구조대 조직 특성 반영 및 고유/협업 7:3 가중치 배분 검증</p>
 </div>
-<div class="prompt-card" onclick="setPrompt('Chapter 11의 인체공학적 위험도 평가 공식(난이도×빈도)과 Grab N Go Kit의 Can Do 서식이 실제 근골격계 질환 산재 예방에 어떻게 기여하는지 학술적으로 분석해줘.')">
+<div class="prompt-card" onclick="setPrompt(&quot;Chapter 11의 인체공학적 위험도 평가 공식(난이도×빈도)과 Grab N Go Kit의 Can Do 서식이 실제 근골격계 질환 산재 예방에 어떻게 기여하는지 학술적으로 분석해줘.&quot;)">
   <h5>🏥 Can Do 서식과 산재 조기복귀 효과</h5>
   <p>포괄적 휴업 배제 및 Transitional Duty의 의학적·경영학적 의의</p>
 </div>
-<div class="prompt-card" onclick="setPrompt('식스시그마 실험계획법(DOE)과 블루스 클루스(Blue's Clues) 원리가 안전 교육의 기억 잔존율을 323% 높인 인지과학적 메커니즘을 설명해줘.')">
-  <h5>🧠 인지과학 시각 학습과 323% 잔존율</h5>
-  <p>Medina(2017)의 시각 우위 법칙과 일일 TBM의 뇌인지적 결합</p>
+<div class="prompt-card" onclick="setPrompt(&quot;식스시그마 실험계획법(DOE)과 블루스 클루스(Blue&#x27;s Clues) 원리가 안전 교육의 기억 잔존율을 높인 인지과학적 메커니즘을 설명해줘.&quot;)">
+  <h5>🧠 인지과학 시각 학습과 반복 상호작용</h5>
+  <p>Medina의 시각 우위 법칙과 일일 TBM의 뇌인지적 결합</p>
 </div>
       <div class="ai-chat-output" id="ai-chat-output">💡 프롬프트 카드를 클릭하거나 아래 입력창에 질문을 입력하여 AI 튜터와 학습을 진행하세요. (브라우저 로컬 환경에서 시뮬레이션 프롬프트가 설정됩니다.)</div>
     </div>
@@ -1941,12 +2060,24 @@ flowchart LR
 </div>
 
 <script>
+// Restore saved theme
+(function() {
+  try {
+    const saved = localStorage.getItem('subnote-theme');
+    if (saved === 'light' || saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+  } catch (e) {}
+})();
+
 // Sidebar Toggle
 const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
 const leftSidebar = document.getElementById('left-sidebar');
-toggleSidebarBtn.addEventListener('click', () => {
-  leftSidebar.classList.toggle('open');
-});
+if (toggleSidebarBtn && leftSidebar) {
+  toggleSidebarBtn.addEventListener('click', () => {
+    leftSidebar.classList.toggle('open');
+  });
+}
 
 // AI Panel Toggle (Desktop & Mobile)
 const toggleAiBtn = document.getElementById('toggle-ai-btn');
@@ -1963,50 +2094,51 @@ function toggleAiPanel() {
   }
 }
 
-if (toggleAiBtn) {
-  toggleAiBtn.addEventListener('click', toggleAiPanel);
-}
-if (closeAiPanelBtn) {
-  closeAiPanelBtn.addEventListener('click', toggleAiPanel);
-}
+if (toggleAiBtn) toggleAiBtn.addEventListener('click', toggleAiPanel);
+if (closeAiPanelBtn) closeAiPanelBtn.addEventListener('click', toggleAiPanel);
 
 // Theme Toggle
 const toggleThemeBtn = document.getElementById('toggle-theme-btn');
-toggleThemeBtn.addEventListener('click', () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', newTheme);
-});
+if (toggleThemeBtn) {
+  toggleThemeBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    try { localStorage.setItem('subnote-theme', newTheme); } catch (e) {}
+  });
+}
 
 // Nav Search Filter
 const navSearchInput = document.getElementById('nav-search-input');
 const navMenuList = document.getElementById('nav-menu-list');
-navSearchInput.addEventListener('input', (e) => {
-  const query = e.target.value.toLowerCase();
-  const links = navMenuList.querySelectorAll('li');
-  links.forEach(li => {
-    const text = li.textContent.toLowerCase();
-    if (text.includes(query)) {
-      li.style.display = '';
-    } else {
-      li.style.display = 'none';
-    }
+if (navSearchInput && navMenuList) {
+  navSearchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const links = navMenuList.querySelectorAll('li');
+    links.forEach(li => {
+      const text = li.textContent.toLowerCase();
+      li.style.display = text.includes(query) ? '' : 'none';
+    });
   });
-});
+}
 
 // Quick Prompt Set
 function setPrompt(text) {
   document.getElementById('ai-user-input').value = text;
-  document.getElementById('ai-chat-output').textContent = "질문 입력됨: " + text + "\n\n[AI 튜터 시뮬레이션 응답]\n교수님 심화 지도 원칙에 따라 법령 조문, 5단계 생애주기, 고유/협업 가중치(7:3/5:5) 및 서브노트 판단 근거가 매핑되었습니다.";
+  document.getElementById('ai-chat-output').textContent =
+    "질문 입력됨: " + text + "\n\n[AI 튜터 시뮬레이션 응답]\n교수님 심화 지도 원칙에 따라 법령 조문, 5단계 생애주기, 고유/협업 가중치(7:3/5:5) 및 서브노트 판단 근거가 매핑되었습니다.";
 }
 
-document.getElementById('ai-send-btn').addEventListener('click', () => {
-  const input = document.getElementById('ai-user-input');
-  if (input.value.trim()) {
-    setPrompt(input.value.trim());
-    input.value = '';
-  }
-});
+const aiSendBtn = document.getElementById('ai-send-btn');
+if (aiSendBtn) {
+  aiSendBtn.addEventListener('click', () => {
+    const input = document.getElementById('ai-user-input');
+    if (input.value.trim()) {
+      setPrompt(input.value.trim());
+      input.value = '';
+    }
+  });
+}
 </script>
 
 </body>
