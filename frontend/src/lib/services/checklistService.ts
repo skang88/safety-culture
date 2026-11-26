@@ -16,15 +16,46 @@ function calculateGroupCompliance(items: ChecklistItem[]): number {
 export async function initChecklistsIfNeeded(): Promise<void> {
   try {
     const db = await getDb();
-    const count = await db.collection("checklists").countDocuments();
-    if (count === 0) {
-      const initialGroups = (checklistsData.checklistGroups as any[]).map((g) => ({
-        ...g,
-        compliance_rate: calculateGroupCompliance(g.items),
-        created_at: new Date(),
-        updated_at: new Date(),
-      }));
-      await db.collection("checklists").insertMany(initialGroups);
+    const collection = db.collection("checklists");
+
+    // 1. 기존 중복 group_id 문서 정리 (최신 updated_at 1건만 유지)
+    const existingDocs = await collection
+      .find({}, { projection: { _id: 1, group_id: 1, updated_at: 1 } })
+      .sort({ updated_at: -1 })
+      .toArray();
+
+    const seenGroupIds = new Set<string>();
+    const duplicateIds: any[] = [];
+    for (const doc of existingDocs) {
+      if (seenGroupIds.has(doc.group_id)) {
+        duplicateIds.push(doc._id);
+      } else {
+        seenGroupIds.add(doc.group_id);
+      }
+    }
+    if (duplicateIds.length > 0) {
+      await collection.deleteMany({ _id: { $in: duplicateIds } });
+    }
+
+    // 2. group_id 기준 멱등적 upsert로 동시 초기화 경합(race condition) 방지
+    const now = new Date();
+    const ops = (checklistsData.checklistGroups as any[]).map((g) => ({
+      updateOne: {
+        filter: { group_id: g.group_id },
+        update: {
+          $setOnInsert: {
+            ...g,
+            compliance_rate: calculateGroupCompliance(g.items),
+            created_at: now,
+            updated_at: now,
+          },
+        },
+        upsert: true,
+      },
+    }));
+
+    if (ops.length > 0) {
+      await collection.bulkWrite(ops);
     }
   } catch (err) {
     console.error("Failed to init Checklists in MongoDB:", err);
@@ -42,7 +73,8 @@ export async function getChecklistGroups(category?: string | null, targetRole?: 
     }
 
     const docs = await db.collection("checklists").find(query).toArray();
-    return docs.map((d: any) => ({
+    const uniqueDocs = Array.from(new Map(docs.map((d: any) => [d.group_id, d])).values());
+    return uniqueDocs.map((d: any) => ({
       group_id: d.group_id,
       title: d.title,
       source_reference: d.source_reference,

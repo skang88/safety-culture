@@ -67,7 +67,10 @@ export default function ChecklistHubView({
           fetchChecklistStats(),
         ]);
         if (grpData && grpData.length > 0) {
-          setGroups(grpData);
+          const uniqueGroups = Array.from(
+            new Map((grpData || []).map((g: any) => [g.group_id, g])).values()
+          );
+          setGroups(uniqueGroups);
           setStats(statData);
         }
       } finally {
