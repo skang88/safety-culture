@@ -1,0 +1,326 @@
+# Chapter 15 Curating for the Safety Management System
+
+*Safety Culture. https://doi.org/10.1016/B978-0-12-814663-7.00015-7*  
+*©2019 Elsevier Inc. All rights reserved. pp. 377–387*
+
+---
+
+<!-- [그림 삽입 위치: Chapter 15 Overview] -->
+![alt text](image-185.png)
+<!-- ![Chapter 15 Overview](image-xxx.png) -->
+
+> We’ve got to use every piece of data and piece of information, and hopefully that will help us be accurate with our player evaluation. For us, that’s our lifeblood.  
+> — (Beane, 2018), General Manager Oakland As, subject of Moneyball
+
+> Data is a precious thing and will last longer than the systems themselves.  
+> — (Berners-Lee, 2018), father of the Worldwide Web
+
+---
+
+## INTRODUCTION
+
+The desire for wanting information with urgency and immediacy is “now” the expected norm and no longer reserved for only special situations. The internet, cloud-based storage, and use of multiple types of devices have resulted in the availability of a “fire hose” level stream of information, overwhelming researchers. This abundance of information and its continued expansion requires rethinking how data is collected, managed, and stored.
+
+The scope is beyond just having a filing system. A library and curation methodology and structure should be adapted to organize all of the various media used to accomplish assigned tasks and responsibilities. Any system selected should take into consideration hard and e-copies of materials, relevant website links, documents, reports, loss data, risk assessments, books, and much more. The objective is to establish a system designed to quickly access and retrieve required or relevant information for a timely response when requested.
+
+A common theme throughout the book is the emphasis on communication and the flow of information through an organization. The safety process and safety culture are dependent on the leadership team and employees maintaining open lines of communication and the delivery of impartial and factual messages.
+
+Curation began as “The act of organizing and maintaining a collection of artworks or artifacts” (Curation, 2017). Over several centuries, as personal collections of scientists, royalty, wealthy patrons of the arts, and so on, became extensive, the art of curation began to evolve from placing items on a shelf or wall to categorizing, preserving, and organizing how they were displayed or stored.
+
+The art of curation now includes not just items for display but the gathering, organizing, and maintaining all types of information, in all forms of media. Insights from curation of art have led to examining how information is cataloged, stored, and organized for retrieval.
+
+In today’s environment, collecting and storing information is known as “curation.” This is just like an art museum, where a person is in charge of organizing art or exhibits.
+
+Safety professionals by the nature of their responsibilities are the main information resource for specialized Safety Management System (SMS) information. Safety professionals essentially become an organization’s memory, providing direct knowledge, expertise and, through the curation process, documentation of hazards, associated risk, SMS performance, regulatory compliance, etc. The safety professional should have curation systems in place for locating and validating requested or necessary information as quickly as possible to get it to the appropriate decision makers for action.
+
+The safety professionals should have a basic knowledge of curation and research techniques so that they provide quality reports, newsletter articles, safety manuals and guidelines, and training sessions. Having good research skills can be applied to many areas or professional life including when working on a professional certification or degree.
+
+When this chapter is completed, you should be able to:
+* Explain the importance of becoming an information curator.
+* Define and discuss curation.
+* Explain various concepts to organize information.
+* Identify several tools used in organizing information.
+
+---
+
+## THE IMPORTANCE OF BECOMING AN INFORMATION CURATOR
+
+Content curation is not just collecting and bookmarking web links or becoming an information pack rat. It requires establishing a process for gathering, sorting, categorizing, and annotating the appropriate information into an organized structure designed to allow for its retrieval as needed. Curators provide a customized, vetted selection of the best and most appropriate resources on a particular topic or theme for timely use in guiding leadership decisions and the administration of SMS.
+
+Organizations feed on information and data transmitted from many sources, both internal and external. As a result, communication has to be, understandable, well designed, and logically organized. Curation provides the structure which separates desired accurate information from the constant background clutter of suspect and useless items also moving through an organization’s network. The Internet and extensive use of social media, infinite apps for almost any topic. and cloud-based content, have flipped society from receiving information through limited, restricted sources into a vast ocean of information and data readily accessed by anyone with an inexpensive device. Sources and information in this “ocean” may not be correct, current, or from a trusted source. While the search for content has been made routine and easy, any curation process has to include methods to evaluate information before it is accepted for use (refer Fig. 15.1).
+
+---
+
+<!-- [그림 15.1 스크린샷 삽입 위치: Drinking from a fire hose] -->
+![alt text](image-186.png)
+<!-- ![FIG. 15.1 Drinking from a fire hose](image-xxx.png) -->
+
+### FIG. 15.1 Drinking from a fire hose.
+
+---
+
+As a safety professional becomes the knowledgeable resource who finds and provides the answers to inquiries and questions, their ability to influence the leadership team and employees increases. When the employees and leaders of an organization trust the safety professional for reliable answers to their inquiries, the likelihood for increasing the positive perception of the safety professional and the SMS should, in turn, strengthen the safety culture.
+
+> Making a decision based on incomplete, inaccurate, or wrong information can have disastrous consequences. Decision-making knowledge workers need to have access to the right information and need to have confidence in that information. Data curation can be a vital tool to ensure knowledge workers have access to accurate, high-quality, and trusted information could reliably track back to the source, to ensure its credibility.  
+> — *(Curry & O’Riáin, 2010)*
+
+Curry and O’Riáin suggest:
+The following data quality dimensions are highly relevant within the context of enterprise data and business users:
+* **Discoverability & accessibility.** Addresses if users can find the data and then access it.
+* **Completeness.** Is all the requisite information available.
+* **Interpretation.** Is the meaning of data ambiguous.
+* **Accuracy.** Is the data correct.
+* **Consistency.** Does the data contradict itself.
+* **Provenance & Reputation.** Is the data legitimate.
+* **Timeliness.** Is the information up-to-date.  
+*(Curry & O’Riáin, 2010)*
+
+---
+
+<!-- [그림 15.2 스크린샷 삽입 위치: Tsunami wave of information] -->
+![alt text](image-187.png)
+<!-- ![FIG. 15.2 Tsunami wave of information](image-xxx.png) -->
+
+### FIG. 15.2 Tsunami wave of information.
+
+---
+
+> SMS criteria as found in ANSI Z10-2012 requires a process be established to create and maintain documents and records. The document and record control process records what has been created and maintained to “Implement an effective OHSMS and demonstrate or assess conformance with the requirements of this standard.”  
+> — *(Occupational Health & Safety Management Systems, 2012)*
+
+---
+
+## CURATING INFORMATION
+
+Increasing amounts of information are available in many formats and a multitude of web-based sites, apps, and other resources. The universal use of smartphones, tablets, computers, and other devices have opened unlimited search capabilities to both leaders and employees. The shift in emphasis is from not just providing material to ensuring the information is accurate and from reliable resources. Increased information is now a serious challenge to understand, dissect, and decide the “real” data or information from the fake information a search may encounter (Pink, 2012; refer Fig. 15.2).
+
+The mandate has been for some years to become more effective curators in organizing the information collected to ensure that it is accurate and up to date.
+
+> Curating content for your expertise is a perfect way to showcase what you know and care about.  
+> — *(Randall, 2016)*
+
+### OBSERVATION 1
+
+An issue the authors have encountered within organizations is that situations exist where safety-related information is spread across many departments. Human Resources may have a form used for new hire orientation, on-boarding, and provide a level of basic training.
+
+Operations may have detailed work instructions with specific systematic procedures but are written without detailed safety-related criteria.
+
+Quality Control has its applications if the product is to meet the various standards mandated by its industry or regulatory agencies.
+
+Each of these areas may have included safety-related criteria using different or dated nomenclature, wording, and criteria which may conflict or confuse the leadership team and employees.
+
+In one case, the authors noted an entire safety manual had been produced and was unknown to the safety department which did not comply with the safety policies in place.
+
+The challenge of curation is to bring together all the various documents and ensure they are aligned, current and comprehensive in order to reduce the potential for loss-producing events.
+
+A reworked cliche, “if you cannot find it, it does not exist!” applies to the process of curation. The best of safety, health, or risk-related information may be on hand somewhere, but if it cannot be located and produced, then it is only a figment of the imagination.
+
+---
+
+## THE CURATION ROLE OF A SAFETY MANAGEMENT SYSTEM
+
+Safety has been presented as an intangible “emerging property” developing from the interaction of the many components of a complex adaptive system, i.e. an organization. By necessity, the safety professional needs to have a working knowledge or a resource providing information on just about anything and everything associated with the organization.
+
+> …Providing visibility to key decision makers to use the tools such as dashboards and analytics will ensure that decisions are made intelligently and at the right time to prevent any adverse events that can result from a catastrophic failure.  
+> — *(Ismail, 2012)*
+
+For a safety culture to be maintained, it should have the best possible process designed to preserve a set level of knowledge as required by an entity’s operations and environment. As personnel and leadership come and go, reorganizations and mergers are completed, and new endeavors began, information can quickly disappear without a comprehensive method for retaining and maintaining documents or records.
+
+To the degree possible, curation prevents resources from being expended on redoing materials or searching for information already once identified, developed or lost and unavailable due to being incorrectly categorized. Obsolete information no longer required can be taking up space, not pertinent to current situations, outdated, or be unnecessarily duplicated.
+
+---
+
+## COLLECTING AND STORING INFORMATION
+
+The human trait to collect “STUFF” from various resources has always been a major issue for organizations. From both personal or professional perspectives, the ease and simplicity of saving information and data on a computer desktop, cloud server or hard drive increases the tendency to collect and hoard information. The curation problem has expanded into the electronic filing system where hidden clutter exists, out of sight, with no tangible physical materials. Cloud-based file storage has the same problems as the traditional hardcopy filing systems. They can also be lost or destroyed as readily as paper with computer crashes, hackers, loss of servers. The security of files of all types have increased in importance and has to be considered in the curation process.
+
+Establishing an information collection and storage process is similar to quality improvement methods such as the “5S”. The principles of 5S are directly applicable to the curation process. 5S was developed to reduce clutter, waste of space, improve orderliness and standardization. The original 5S principles have been useful in designing quality work environment. The 5S condition of a work environment including the office has been found to benefit employee morale. Leadership’s mindset and outlook regarding employees can be reflected the condition of the work area.
+
+The 5S condition of a work area is critical to the morale of employees and the basis of customers’ first impressions.
+
+> "Leadership’s attitude regarding employees is reflected in the 5S condition of the work area.”
+
+The 5S program supports the workplace housekeeping saying, “A place for everything and everything has its place.” An ongoing effort is essential for organizing information in all its forms and requires a disciplined to keep ahead of the information.
+
+### OBSERVATION 2
+
+When James became a plant safety professional, he became the “owner” of multiple file cabinets full of hardcopy safety-related material accumulated over the years. Although the information was extensive, it had lost its original organization and purpose. Information may be somewhere in one of the file cabinets but was hard to find, in disarray, as well as multiple copies of many items the previous safety professional had created over the years. James’ task became an extensive effort to get the material organized, a task which took about two years of sorting, updating information as appropriate, locating new resources, and discarding outdated information.
+
+The authors have found similar cases with clients and organizations where curation took a back seat to more pressing priorities. Curation falls into Covey’s “Important but not Urgent” area of time management and does not receive the attention needed (Covey, 1990).
+
+---
+
+## CREATING CONTENT
+
+Creating high-quality content is one critical path which helps facilitate and enhance discussions to sell an idea and build a unique brand. Creating quality content helps one to position themselves as an expert in an area. Sharing and collaborating is demonstrating what one has learned through research. These methods help to show personal value to the intended audience, such as other professionals, the leadership team, employees in the organization, peers, and so on.
+
+Before beginning the curation process, questions to ask include:
+* Does the organization already have a curation process in place?
+* Does the organization have knowledgeable managers or persons with curation responsibilities who can be called on for assistance?
+* What methods can best provide for collecting and storing information believed to be useful?
+* Does the organization already provide adequate means for collecting and storing information?
+* How can these resource(s) be best used to create quality content useful for sharing with others?
+* For whose benefit is the information being shared—the sender or the receiver?
+
+> People don’t buy what you do; they buy why you do it. And what you do simply proves what you believe.  
+> — *(Sinek, 2009)*
+
+Sinek advocate asking, “Do you know your Why?”, “The purpose, cause, or belief that inspires you to do what you do?” (Sinek, 2009) When deciding on what has been learned and is to be shared with others, the process begins by asking “Why.” What does the intended audience or person need? Gathering information takes time and commitment to collect, evaluate, structure, and exchange information in a meaningful way such as:
+* Why do I want to share what I have learned?
+* Why am I interested in sharing information with others?
+* Why does this help me with building my unique brand?
+
+The answers to these questions can help to develop a strategy for potential ways to drive action and help change behaviors in specific areas.
+
+---
+
+## CURATING AND USING INFORMATION
+
+Three areas should be considered when developing a process for curating and using information:
+* Gather pertinent and verifiable information.
+* Organize the information.
+* Retrieve, select and present the information.
+
+These three areas ensure information gathered is clear and concise allowing the intended audience not just to receive reliable information but be able to use the resources.
+
+If asked to explain a standard, write a memo on a safety-related topic, complete a standard review, or write a summary report, how would you begin? How would the findings be presented? When asked to present safety management system information to others, how do you prepare and review the information to keep it informative, timely, and of value to the employees or professionals expected to use it?
+
+Content curation is not about collecting and bookmarking web links or becoming an information pack rat: it is more about putting gathered information into a context that is filed, organized, annotated, and can be readily developed for presentation. Content curators provide a customized, vetted selection of the best and most relevant resources on a particular topic or theme. According to Bhargava as cited in (Kanter, 2017) “a content curator continually seeks, makes sense of, and shares the best and most relevant content on a particular topic online. Content curators have integrated this skill into their daily routine” (Kanter, 2017).
+
+---
+
+## RESEARCHING AND CURATING INFORMATION—QUALITY CONCERNS
+
+The authors believe a direct parallel exists between writing a book and managing a safety management system. A book requires a central theme supported by expertise, reliable resources, and research. During writing this book, several thousand documents, as well as many other reference materials, had to be read, categorized, and sorted through to find safety culture-related information. Finding the appropriate documents was relatively easy but time consuming, the scope and depth of available resources. To retrieve, organize, and be able to provide references and proper citations remain the challenge. Sources must be found to support comments, conclusions, and recommendations.
+
+Quantity does not mean quality or whether the material is accurate or correct. Given the pervasive access to internet sources, leadership and employees will bring articles they have researched to be evaluated for accuracy and content. The information may have already been communicated to the organization before Review creating severe issues if inaccurate.
+
+Even when keeping track of trends in professional sources and what is advocating a skeptical approach is always required. Use of any research information should be first validated by experience, expertise, or further comments, conclusions, and recommendations.
+
+---
+
+## CURATING SAFETY MANAGEMENT SYSTEM DATA
+
+The following guidelines from the University of Edinburgh Research Data Management Guidance were adapted from a data management planning checklist. It is essentially a curation process and provides questions used when addressing and sharing data (Research Data Management Guidance, 2011).
+
+Refer Fig. 15.3, for a basic overview of planning your research. Refer Chapter 16 for a discussion regarding “Social Media Tools for the Professional” to enhance the planning process.
+
+### Step 1. Evaluate Data Needs
+
+Questions before beginning establishing a data management process:
+* What type of documents, materials, and information will be produced?
+* Will they be reproducible? (How will copies be managed?)
+* What would happen if they got lost or became unusable later?
+* Who will be the audience for your documents, materials, and information and how will they use them now, and in the long run?
+* Who controls the documents, materials, and information?
+* Will there be any sharing requirements?
+* Is any budget needed to gather and maintain the documents, materials, and information?
+* How many documents, materials, and information are generated and how often will they change?
+* How long will these items be retained? For example, five years, up to 10 years, or permanently.
+* Are there tools or software needed to create/process/visualize the documents, materials, and information?
+* What are the directory and file naming convention?
+* What are file formats used? They long lived?
+* What project and identifiers will be assigned?
+* Is there good project and data/information documentation? (How will they be inventoried or cataloged?)
+* Are there any privacy or security requirements? For example, personal data, high-security data, proprietary?
+* What will be the storage and backup strategy?
+* When and where will the documents, materials, data, and information be published?
+* Is there an organizational guideline or standard for sharing/integration?
+
+*Adapted from Research Data Management Guidance (2011).*
+
+---
+
+<!-- [그림 15.3 스크린샷 삽입 위치: Planning your research] -->
+![alt text](image-188.png)
+<!-- ![FIG. 15.3 Planning your research](image-xxx.png) -->
+
+### FIG. 15.3 Planning your research.
+
+---
+
+### Step 2—Establish a Plan
+
+A data management plan describes the creating, organizing, documenting, storing, and sharing data. The plan would cover protection and confidentiality, preservation, and curation. It provides a framework that supports the safety management system documents, materials, and information.
+* What documents, materials, and information will be created or collected by the safety management system?
+* What organizational policies and procedures will apply to the documents, materials, and information?
+* What management practices (backups, storage, access control, archiving) will be used.
+* What facilities and equipment will be required (hard disk space, backup server, and repository).
+* Who will own and have access to the documents, materials, and information?
+* Who will be responsible for each aspect of the safety management data? (Data Management: Creating the Plan, Basic Questions for your Plan, 2017)
+* How will use of documents, materials, and information be enabled, and long-term preservation ensured to maintain the history of the safety management system?
+
+*Adapted from Research Data Management Guidance (2011).*
+
+---
+
+## TECHNOLOGY AND THE SAFETY MANAGEMENT SYSTEM
+
+Technology has changed the landscape of how an organization controls the SMS. Information can be moved effortlessly and quickly well beyond the traditional boundaries of an organization. The SMS can be the firewall ensuring employees that the communications pathways are open and useful. Also, their concerns need to be addressed quickly and comprehensively through valid information and reliable data management (refer Fig. 15.4).
+
+---
+
+<!-- [그림 15.4 스크린샷 삽입 위치: Basic Overview of Planning Your Research] -->
+![alt text](image-189.png)
+<!-- ![FIG. 15.4 Basic Overview of Planning Your Research](image-xxx.png) -->
+
+### FIG. 15.4 Basic Overview of Planning Your Research.
+
+---
+
+Curation methods are dependent on personal preference, organizational protocols, and storage capability. A wide range of methods and concepts are available and beyond the scope of this book. The organization may have a “knowledgeable manager” and developed procedures for storage and retrieval of information. If not, use the system found most efficient for SMS purposes.
+
+---
+
+## HOW CAN CURATED DATA BE PROFICIENTLY COLLECTED AND MANAGED?
+
+The objective of any data collection system is adopting a library filing methodology and structure to organize all literature collected.
+
+A “Content Creation Strategy” can be developed using various methods for effectively researching and curating information. The objective of Chapter 16, "Social Media Tools for the Professional" will be to outline and discuss selected software tools which can help in developing a strategy to efficiently research relevant information to support a safety management system.
+
+Refer Chapter 16, Appendix 16.1, “Social Media Tools for the Professional,” for a brief review of social media tools that are available to aid in the curation process. Refer Chapter 16, Appendix 6.2, “Using Feedly to Find Content for Curation, a Case Study” where the art of using Feedly will be demonstrated on how to take advantage of the many features available.
+
+---
+
+## SUMMARY
+
+* The safety culture is dependent on leadership and employees receiving and understanding the necessary hazard and risk control information and data. Open lines of communication are crucial when working towards reducing barriers and resistance to the change.
+* Organizations are dependent on information and data received from internal and external sources. As a result, information and message should be understandable, well designed and written and in terms which break through the constant background clutter of useless information accessible to all members of the organization.
+* A safety culture’s existence should have the best possible information to preserve the level of knowledge required to keep risk and hazards identified. As people come and go, reorganizations occur, and new endeavors began, information can be lost without a comprehensive method for maintaining documents or records.
+* Finding the appropriate documents is relatively straightforward given the scope and depth of the internet. To retrieve, organize, and be able to provide references and proper citations is the challenge.
+* The internet has created easy access to a wealth of information, and this access to information no longer is restricted to designated individuals as the use of smartphones, tablets, and other devices expand.
+* Chapter 16 discusses how to Develop a Content Creation Strategy to support the emerging technology, “Social Media,” such as Twitter, Snapchat, Instagram, Facebook, YouTube, Reddit, Pinterest, LinkedIn, etc.
+
+---
+
+## CHAPTER REVIEW QUESTIONS
+
+1. Explain the importance of becoming an information curator.
+2. Define and discuss curation.
+3. Explain various concepts to organize information.
+4. Name several tools used in organizing information.
+
+---
+
+## BIBLIOGRAPHY
+
+* Beane, B. (2018). We’ve got to use every piece of data and piece of information, and hopefully, that will help us be accurate with our player evaluation. For us, that’s our lifeblood. In Brainy quote. Retrieved from http://bit.ly/2snmkss.
+* Berners-Lee, T. (2018). Data is a precious thing and will last longer than the systems themselves. In Brainy quote. Retrieved from http://bit.ly/2smvvcO.
+* Covey, S. R. (1990). The 7 habits of highly effective people: powerful lessons in personal change. In A fireside book (p. 151): Simon and Schuster. Retrieved from http://amzn.to/WsCA5g.
+* Curation. (2017). Cambridge Dictionary. Retrieved from http://bit.ly/2xUnGig.
+* Data Management: Creating the Plan, Basic Questions for your Plan (2017). Rutgers, The State University of New Jersey. Retrieved from http://bit.ly/2BJ4u5O.
+* Curry, E., & O’Riáin, S. (2010). In October) (Ed.), The role of community-driven data curation for enterprises. Digital Enterprise Research Institute, National University of Ireland, Galway, Ireland. PDF Version. Retrieved from http://bit.ly/2fM7JA5, http://bit.ly/2y2paq5.
+* Ismail, N. (2012). Environmental, health and safety, going beyond compliance. White Paper. Aberdeen Group, A Harte-Hanks Company. April. Retrieved from http://bit.ly/2xSRj3v.
+* Kanter, B. (2017). Content curation primer. Licensed under a Creative Commons Attribution 3.0 United States License. Retrieved from http://bit.ly/XFtmWz.
+* Occupational Health & Safety Management Systems (2012). The American Society of Safety Engineers, ANSI/AIHA/ASSE Z10. Retrieved from http://bit.ly/1MsT6MG.
+* Pink, D. H. (2012). To sell is human: The surprising truth about moving others. Riverhead Books. Retrieved from http://bit.ly/2wA6V89.
+* Randall, A. (2016). 10 ways social media can boost your career. In MakeUseOf. Retrieved from http://bit.ly/22nqIoN.
+* Research Data Management Guidance (2011). Edinburgh University Data Library. August. Retrieved from http://bit.ly/2Kpw53F.
+* Sinek, S. (2009). Start with why: How great leaders inspire everyone to take action. In Portfolio. October. Retrieved from http://bit.ly/2ugVro5.
+
+---
+
+## FURTHER READING
+
+* Clear, J. (2018). Stop overdosing on celebrity gossip, the news, and low quality information. An Elite CafeMedia Lifestyle Publisher. Retrieved from http://bit.ly/2rjg3NO.
+* Covey, S. R. (1989). The 7 habits of highly effective people, powerful lessons in personal change. New York City: Simon & Schuster.

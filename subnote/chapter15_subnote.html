@@ -1,0 +1,1665 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chapter 15: Curating for the Safety Management System — 서브노트 &amp; AI 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            fontFamily: 'IBM Plex Sans KR, sans-serif',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true
+            },
+            sequence: {
+                useMaxWidth: false
+            },
+            themeVariables: {
+                fontSize: '15px',
+                fontFamily: 'IBM Plex Sans KR, sans-serif'
+            }
+        });
+    </script>
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+:root {
+  --bg-main: #0b1120;
+  --bg-card: #151f32;
+  --bg-card-sub: #1e293b;
+  --bg-input: #26334d;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent-blue: #38bdf8;
+  --accent-red: #ef4444;
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-purple: #a855f7;
+  --border-color: #334155;
+  --sidebar-w: 300px;
+  --ai-panel-w: 390px;
+  --header-h: 68px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-blue: #0284c7;
+  --accent-red: #dc2626;
+  --accent-gold: #d97706;
+  --accent-green: #059669;
+  --accent-purple: #9333ea;
+  --border-color: #cbd5e1;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 15.5px;
+  overflow-x: hidden;
+}
+
+/* Header */
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .app-header {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo-badge {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.header-title-box h1 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.header-title-box p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.btn-icon:hover {
+  background: var(--bg-card-sub);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+/* Layout Wrapper */
+.app-wrapper {
+  display: flex;
+  margin-top: var(--header-h);
+  min-height: calc(100vh - var(--header-h));
+}
+
+/* Left Sidebar */
+.left-sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  padding: 24px 16px;
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding-left: 8px;
+}
+
+.nav-search {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 13px;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.nav-menu {
+  list-style: none;
+}
+
+.nav-menu li {
+  margin-bottom: 3px;
+}
+
+.nav-link {
+  display: block;
+  padding: 8px 12px;
+  color: var(--text-sub);
+  text-decoration: none;
+  font-size: 13px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+
+.nav-link:hover {
+  background: var(--bg-card-sub);
+  color: var(--accent-blue);
+  transform: translateX(3px);
+}
+
+.nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-weight: 600;
+  border-left: 3px solid var(--accent-blue);
+}
+
+/* Main Content */
+.main-content {
+  margin-left: var(--sidebar-w);
+  margin-right: var(--ai-panel-w);
+  flex: 1;
+  padding: 40px 48px;
+  max-width: 1100px;
+  transition: margin 0.3s ease;
+}
+
+/* AI 패널 닫혔을 때 본문 너비 확장 */
+body.ai-closed .main-content {
+  margin-right: 0 !important;
+}
+
+/* Intro Hero */
+.intro-hero {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.intro-hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.intro-hero p.lead {
+  font-size: 16.5px;
+  color: var(--text-sub);
+  margin-bottom: 24px;
+}
+
+.hero-overview-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 16px 0 24px 0;
+  border: 1px solid var(--border-color);
+}
+
+.epigraph-box {
+  background: var(--bg-card-sub);
+  border-left: 4px solid var(--accent-purple);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 14px;
+  font-style: italic;
+  color: var(--text-sub);
+  font-size: 14.5px;
+}
+
+.epigraph-author {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--accent-gold);
+  font-size: 13.5px;
+}
+
+/* Section Cards */
+.subnote-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 32px 36px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+
+.subnote-section h2 {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subnote-section h2 .sec-badge {
+  background: var(--accent-blue);
+  color: #0b1120;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 6px;
+}
+
+.subnote-section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  margin: 24px 0 14px 0;
+}
+
+.subnote-section h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  margin: 18px 0 10px 0;
+}
+
+.subnote-section p {
+  margin-bottom: 14px;
+  color: var(--text-sub);
+}
+
+.subnote-section ul, .subnote-section ol {
+  margin-bottom: 18px;
+  padding-left: 24px;
+  color: var(--text-sub);
+}
+
+.subnote-section li {
+  margin-bottom: 8px;
+}
+
+/* Callout Box */
+.callout {
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.callout-note {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: var(--accent-blue);
+  color: var(--text-sub);
+}
+
+.callout-important {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--accent-red);
+  color: var(--text-sub);
+}
+
+.callout-tip {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--accent-green);
+  color: var(--text-sub);
+}
+
+.callout-gold {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: var(--accent-gold);
+  color: var(--text-sub);
+}
+
+.callout-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Case Study / Observation Box */
+.case-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 22px 0;
+  position: relative;
+}
+
+.case-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--accent-gold);
+  color: #0b1120;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.case-box h4 {
+  color: var(--text-main);
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+/* Tables */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+thead {
+  background: var(--bg-card-sub);
+  border-bottom: 2px solid var(--border-color);
+}
+
+th {
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-sub);
+  vertical-align: top;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Images */
+.img-wrapper {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.img-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.img-caption {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+hr.divider {
+  border: 0;
+  height: 1px;
+  background: var(--border-color);
+  margin: 28px 0;
+}
+
+/* Mermaid Wrapper */
+.mermaid-box {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 24px 20px;
+  margin: 24px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+}
+
+.mermaid-box .mermaid {
+  display: inline-block;
+  text-align: left;
+  min-width: min-content;
+}
+
+.mermaid-box svg {
+  display: inline-block;
+  height: auto !important;
+  max-width: none !important;
+}
+
+.mermaid-box .nodeLabel, 
+.mermaid-box .label,
+.mermaid-box .cluster-label {
+  font-family: 'IBM Plex Sans KR', sans-serif !important;
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+}
+
+.mermaid-box::-webkit-scrollbar {
+  height: 8px;
+}
+.mermaid-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.mermaid-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+.mermaid-box::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Right AI Panel */
+.right-ai-panel {
+  width: var(--ai-panel-w);
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  position: fixed;
+  top: var(--header-h);
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 900;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+/* AI 패널 닫힘 클래스 */
+.right-ai-panel.closed {
+  transform: translateX(100%) !important;
+}
+
+.ai-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-header-title h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent-purple);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-header-title p {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.ai-close-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.ai-close-btn:hover {
+  color: var(--accent-red);
+  border-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.ai-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prompt-card {
+  background: var(--bg-card-sub);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.prompt-card:hover {
+  border-color: var(--accent-purple);
+  transform: translateY(-2px);
+}
+
+.prompt-card h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.prompt-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.ai-chat-output {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text-sub);
+  min-height: 160px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.ai-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-card-sub);
+  display: flex;
+  gap: 8px;
+}
+
+.ai-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.btn-send {
+  background: var(--accent-purple);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-send:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 1200px) {
+  .right-ai-panel {
+    transform: translateX(100%);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  }
+  .right-ai-panel.open {
+    transform: translateX(0) !important;
+  }
+  .main-content {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .left-sidebar {
+    transform: translateX(-100%);
+  }
+  .left-sidebar.open {
+    transform: translateX(0);
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 24px 20px;
+  }
+}
+    </style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-left">
+    <button class="btn-icon" id="toggle-sidebar-btn" title="목차 토글">☰ 목차</button>
+    <span class="header-logo-badge">안전문화 서브노트</span>
+    <div class="header-title-box">
+      <h1>Chapter 15: 안전경영시스템을 위한 정보 큐레이션</h1>
+      <p>Curating for the Safety Management System</p>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn-icon" id="toggle-theme-btn" title="테마 전환">🌓 테마</button>
+    <button class="btn-icon" id="toggle-ai-btn" title="AI 튜터 패널 열기/닫기">🤖 AI 튜터</button>
+  </div>
+</header>
+
+<div class="app-wrapper">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="left-sidebar" id="left-sidebar">
+    <div class="sidebar-title">Chapter 15 목차 네비게이션</div>
+    <input type="text" class="nav-search" id="nav-search-input" placeholder="섹션 빠른 검색...">
+    <ul class="nav-menu" id="nav-menu-list">
+      <li><a href="#sec-1" class="nav-link">1. INTRODUCTION</a></li>
+<li><a href="#sec-2" class="nav-link">2. THE IMPORTANCE OF BECOMING A...</a></li>
+<li><a href="#sec-3" class="nav-link">3. CURATING INFORMATION</a></li>
+<li><a href="#sec-4" class="nav-link">4. THE CURATION ROLE OF A SAFET...</a></li>
+<li><a href="#sec-5" class="nav-link">5. COLLECTING AND STORING INFOR...</a></li>
+<li><a href="#sec-6" class="nav-link">6. CREATING CONTENT</a></li>
+<li><a href="#sec-7" class="nav-link">7. CURATING AND USING INFORMATION</a></li>
+<li><a href="#sec-8" class="nav-link">8. RESEARCHING AND CURATING INF...</a></li>
+<li><a href="#sec-9" class="nav-link">9. CURATING SAFETY MANAGEMENT S...</a></li>
+<li><a href="#sec-10" class="nav-link">10. TECHNOLOGY AND THE SAFETY MA...</a></li>
+<li><a href="#sec-11" class="nav-link">11. HOW CAN CURATED DATA BE PROF...</a></li>
+<li><a href="#sec-12" class="nav-link">12. SUMMARY & CHAPTER REVIEW QUE...</a></li>
+<li><a href="#sec-13" class="nav-link">13. [연구자 해석 및 후속 연구 시사점] 학술적 메타 ...</a></li>
+<li><a href="#sec-14" class="nav-link">14. BIBLIOGRAPHY & FURTHER READING</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Intro Hero -->
+    <div class="intro-hero">
+      <span class="hero-tag">PART V Curation Resources</span>
+      <h1>Chapter 15. 안전경영시스템을 위한 정보 큐레이션</h1>
+      <p class="lead">Curating for the Safety Management System</p>
+      
+      <img src="image-185.png" alt="Chapter 15 Overview" class="hero-overview-img">
+
+      <div class="epigraph-box">
+        "데이터는 소중한 자산이며, 시스템 그 자체보다 더 오래 지속된다."
+        <span class="epigraph-author">— 팀 버너스리 (Tim Berners-Lee, 2018)</span>
+      </div>
+    </div>
+
+    <!-- Subnote Sections -->
+    
+
+<section class="subnote-section" id="sec-1">
+<h2><span class="sec-badge">1</span> INTRODUCTION (도입: 정보 과잉과 '조직의 기억'으로서의 큐레이션, pp. 378–379)</h2>
+
+
+<p>정보를 긴급하고 즉각적으로(Urgency and immediacy) 얻고자 하는 요구는 이제 특수한 상황이 아니라 일상적 규범(Expected norm)이 되었습니다. 인터넷, 클라우드 기반 저장소, 다양한 기기의 확산은 연구자와 실무자를 압도하는 <strong>'소방 호스(Fire hose)' 수준의 정보 흐름</strong>을 만들어 냈으며, 이에 따라 데이터를 수집·관리·저장하는 방식의 근본적 재고가 요구됩니다 (p. 378).</p>
+
+
+
+<h3>1.1 도서관·큐레이션 방법론의 필요성과 기원</h3>
+
+<ul>
+<li><strong>단순 파일 정리를 넘어선 범위</strong>: 인쇄물과 전자 사본, 웹사이트 링크, 문서, 보고서, 손실 데이터(Loss data), 위험성평가(Risk assessments), 도서 등 모든 매체를 체계화하여 요청 시 신속히 접근·검색할 수 있는 시스템을 구축해야 합니다 (p. 378).</li>
+<li><strong>의사소통과 안전문화</strong>: 본서 전반의 공통 주제와 마찬가지로, 안전 프로세스와 안전문화는 리더십 팀과 근로자가 열린 의사소통 경로를 유지하고 공정하며 사실에 기반한(Impartial and factual) 메시지를 전달하는 데 달려 있습니다 (p. 378).</li>
+<li><strong>큐레이션(Curation)의 기원과 진화</strong>: 원래 <em>"예술품이나 유물의 수집품을 정리하고 유지·관리하는 행위"</em>에서 시작되었으며(<em>Curation</em>, 2017, p. 378), 오늘날에는 모든 매체에 담긴 모든 유형의 정보를 수집·분류·보존·목록화·저장하여 검색 가능하게 만드는 활동으로 확장되었습니다 (p. 378).</li>
+</ul>
+
+
+
+<h3>1.2 '조직의 기억(Organization's Memory)'으로서의 안전 전문가</h3>
+
+<ul>
+<li><strong>핵심 정보원 역할</strong>: 안전 전문가는 직무 특성상 안전경영시스템(SMS)의 전문 정보를 제공하는 주된 정보원이며, 큐레이션 과정을 통해 유해위험요인, 관련 위험, SMS 성과, 법규 준수(Regulatory compliance) 등을 문서화하는 <strong>'조직의 기억(An organization's memory)'</strong> 역할을 수행합니다 (p. 378).</li>
+<li><strong>의사결정 지원 및 전문성 활용</strong>: 요청되거나 필요한 정보를 최대한 신속히 찾아 검증하고 적절한 의사결정자에게 전달해야 하며, 큐레이션 및 연구 기법은 보고서, 뉴스레터, 안전 매뉴얼, 교육 세션 작성뿐만 아니라 전문 자격증이나 학위 취득 과정에도 직접 활용됩니다 (p. 378).</li>
+</ul>
+
+
+
+<h3>1.3 제15장 4대 학습 목표 (p. 378)</h3>
+
+<ol>
+<li>정보 큐레이터(Information curator)가 되는 것의 중요성 설명하기.</li>
+<li>큐레이션(Curation)을 정의하고 논의하기.</li>
+<li>정보를 체계화하기 위한 다양한 개념 설명하기.</li>
+<li>정보를 체계화하는 데 사용되는 여러 도구 식별하기.</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-2">
+<h2><span class="sec-badge">2</span> THE IMPORTANCE OF BECOMING AN INFORMATION CURATOR (정보 큐레이터의 중요성과 데이터 품질 차원, pp. 378–380)</h2>
+
+
+<p>콘텐츠 큐레이션은 단순히 웹 링크를 북마크하거나 무분별하게 자료를 쌓아두는 정보 수집광(Information pack rat)이 되는 것이 아닙니다. 이는 필요할 때 검색할 수 있도록 설계된 체계적 구조 속으로 적절한 정보를 <strong>수집(Gathering) ➔ 선별(Sorting) ➔ 분류(Categorizing) ➔ 주석 달기(Annotating)</strong>하는 프로세스를 수립하여, 리더십 의사결정과 SMS 운영을 안내할 검증된 자원(Vetted selection)을 적시에 제공하는 활동입니다 (p. 378).</p>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-186.png" alt="FIG. 15.1 Drinking from a fire hose (소방 호스로 물 마시기: 정보 과부하와 평가의 필요성)"><p class="img-caption">FIG. 15.1 Drinking from a fire hose (소방 호스로 물 마시기: 정보 과부하와 평가의 필요성)</p></div>
+
+
+
+<h3>FIG. 15.1 Drinking from a fire hose (p. 379)</h3>
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 15.1 보충설명]</strong><br>소화전에 연결된 소방 호스에서 뿜어져 나오는 강력한 물줄기를 얼굴로 정면으로 맞는 인물의 삽화(<code>image-186.png</code>)는, 인터넷·소셜 미디어·무한한 앱·클라우드 콘텐츠로 인해 개인용 기기만으로도 감당할 수 없을 만큼 쏟아지는 정보의 홍수(정보 과부하)를 은유합니다. 원문은 이러한 정보의 바다 속에는 부정확하거나 오래되었거나 신뢰할 수 없는 출처가 섞여 있으므로, 큐레이션 프로세스는 반드시 <strong>정보를 사용 승인하기 전에 평가하는 방법</strong>을 포함해야 함을 강조합니다 (p. 378).
+</div>
+
+
+<hr class="divider">
+
+
+
+<h3>2.1 신뢰 기반의 영향력 증대와 안전문화 강화</h3>
+
+<p>안전 전문가가 문의에 대해 신뢰할 수 있는 답변을 찾아 제공하는 박식한 자원이 될수록 리더십과 근로자에 대한 영향력이 커집니다. 구성원들이 안전 전문가를 신뢰하게 되면 <strong>안전 전문가와 SMS에 대한 긍정적 지각(Positive perception)</strong>이 높아지고, 이는 곧 안전문화를 강화합니다 (p. 379).</p>
+
+
+
+<h3>2.2 데이터 큐레이션과 Curry & O'Riáin(2010)의 7대 데이터 품질 차원</h3>
+
+
+
+
+<div class="callout callout-note">
+
+<em>"불완전하거나 부정확하거나 잘못된 정보에 근거한 의사결정은 재앙적인 결과를 초래할 수 있다. 의사결정을 내리는 지식 근로자(Knowledge workers)는 올바른 정보에 접근할 수 있어야 하며 그 정보에 대한 확신을 가질 필요가 있다. 데이터 큐레이션은 출처까지 확실히 역추적(Track back to the source)하여 신뢰성을 검증할 수 있는 정확하고 고품질이며 신뢰할 수 있는 정보에 접근하도록 보장하는 핵심 도구가 될 수 있다."</em><br>— <strong>(Curry & O’Riáin, 2010, p. 379)</strong>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>번호</th>
+<th>데이터 품질 차원 (Data Quality Dimension)</th>
+<th>핵심 검증 질문 (Curry & O’Riáin, 2010, p. 379)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>발견 가능성 및 접근성 (Discoverability & accessibility)</strong></td>
+<td>사용자가 데이터를 찾아내고 접근할 수 있는가?</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>완전성 (Completeness)</strong></td>
+<td>필요한 모든 정보가 빠짐없이 이용 가능한가?</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>해석 가능성 (Interpretation)</strong></td>
+<td>데이터의 의미가 모호하지 않고 명확한가?</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>정확성 (Accuracy)</strong></td>
+<td>데이터가 사실에 부합하고 올바른가?</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>일관성 (Consistency)</strong></td>
+<td>데이터가 스스로 모순되거나 충돌하지 않는가?</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>출처 및 평판 (Provenance & Reputation)</strong></td>
+<td>데이터가 적법하고 신뢰할 수 있는 출처에서 왔는가?</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>적시성 (Timeliness)</strong></td>
+<td>정보가 최신 상태인가?</td>
+</tr>
+</tbody>
+</table></div>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-187.png" alt="FIG. 15.2 Tsunami wave of information (정보의 쓰나미 파도: 가짜 정보와 진짜 데이터의 선별)"><p class="img-caption">FIG. 15.2 Tsunami wave of information (정보의 쓰나미 파도: 가짜 정보와 진짜 데이터의 선별)</p></div>
+
+
+
+<h3>FIG. 15.2 Tsunami wave of information (p. 380)</h3>
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 15.2 보충설명]</strong><br>거대한 쓰나미 파도 앞에서 서핑보드를 타고 나아가는 두 인물의 삽화(<code>image-187.png</code>)는 스마트폰·태블릿·컴퓨터로 열린 무제한 검색 환경 속에서 밀려오는 막대한 정보의 파도를 상징합니다. 원문은 단순한 자료 제공에서 벗어나 <strong>가짜 정보로부터 '진짜(Real)' 데이터와 정보를 분별해 내는 것</strong>(Pink, 2012)이 핵심 과제임을 시각적으로 강조합니다 (p. 380).
+</div>
+
+
+<hr class="divider">
+
+
+
+<h3>2.3 ANSI Z10-2012 문서 및 기록 통제 요구사항 (p. 380)</h3>
+
+<ul>
+<li><strong>ANSI/AIHA/ASSE Z10-2012 기준</strong>: 문서와 기록을 작성하고 유지·관리하기 위한 프로세스 수립을 의무화합니다. 문서 및 기록 통제 프로세스는 <em>"효과적인 직업안전보건경영시스템(OHSMS)을 실행하고 이 표준의 요구사항에 대한 적합성을 입증하거나 평가하기 위해"</em> 무엇이 작성되고 유지·관리되었는지를 기록합니다 (<em>Occupational Health & Safety Management Systems</em>, 2012, p. 380).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-3">
+<h2><span class="sec-badge">3</span> CURATING INFORMATION (정보 큐레이션과 부서 간 사일로 문제, pp. 380–381)</h2>
+
+
+<p>무제한 검색이 가능해진 환경에서 강조점은 '단순 정보 제공'에서 <strong>'정확하고 신뢰할 수 있는 출처 보장'</strong>으로 이동했습니다(Pink, 2012, p. 380). 랜달(Randall, 2016)은 <em>"자신의 전문 분야를 위해 콘텐츠를 큐레이션하는 것은 자신이 무엇을 알고 무엇에 관심을 기울이는지 보여 주는 완벽한 방법"</em>이라고 강조합니다 (p. 380).</p>
+
+
+
+<h3>3.1 OBSERVATION 1: 부서 간 안전 정보의 분산과 충돌 사례 (pp. 380–381)</h3>
+
+<p>저자들은 조직 내에서 안전 관련 정보가 여러 부서에 흩어져 충돌을 일으키는 현실적 문제를 지적합니다:</p>
+
+<ul>
+<li><strong>인사부서(HR)</strong>: 신규 채용자 오리엔테이션 및 온보딩 양식과 기초 교육을 자체 보유.</li>
+<li><strong>운영부서(Operations)</strong>: 체계적인 작업 지침서를 보유하고 있으나 세부적인 안전 기준이 누락됨.</li>
+<li><strong>품질관리부서(Quality Control)</strong>: 산업 및 규제 기관 표준 충족을 위한 자체 기준을 적용.</li>
+<li><strong>결과적 문제</strong>: 각 부서가 서로 다르거나 구식인 명명법(Nomenclature), 표현, 기준을 사용하여 리더십과 근로자에게 혼란을 초래하며, 심지어 <strong>안전 부서가 전혀 알지 못하는 상태에서 현행 안전 정책을 준수하지 않는 별도의 안전 매뉴얼이 제작된 사례</strong>도 관찰되었습니다 (pp. 380–381).</li>
+<li><strong>핵심 명제</strong>: <em>"찾을 수 없다면 존재하지 않는 것이다!(If you cannot find it, it does not exist!)"</em> — 아무리 우수한 안전·보건·위험 정보가 어딘가에 있더라도, 찾아내어 제시할 수 없다면 상상의 산물에 불과합니다. 큐레이션의 과제는 분산된 문서를 하나로 모아 <strong>정렬(Aligned)·최신화(Current)·포괄성(Comprehensive)</strong>을 확보하여 손실 발생 사건(Loss-producing events)의 잠재력을 줄이는 것입니다 (p. 381).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-4">
+<h2><span class="sec-badge">4</span> THE CURATION ROLE OF A SAFETY MANAGEMENT SYSTEM (SMS의 큐레이션 역할과 조직 기억 보존, p. 381)</h2>
+
+
+
+<h3>4.1 복잡적응계와 창발적 특성(Emerging Property)으로서의 안전</h3>
+
+<p>안전은 복잡적응계(Complex adaptive system)인 조직의 수많은 구성 요소가 상호작용하며 발현되는 무형의 <strong>'창발적 특성(Emerging property)'</strong>으로 제시되어 왔습니다. 따라서 안전 전문가는 조직과 관련된 거의 모든 사안에 대한 실무 지식이나 정보 제공 자원을 갖추어야 합니다 (p. 381).</p>
+
+
+
+<h3>4.2 대시보드 가시성과 조직 변동에 따른 지식 유실 방지</h3>
+
+<ul>
+<li><strong>가시성 확보</strong>: 이스마일(Ismail, 2012)은 주요 의사결정자들에게 <strong>대시보드(Dashboards)와 분석 도구(Analytics)</strong>를 통한 가시성을 제공해야 파국적 실패로 이어질 수 있는 불리한 사건을 적시에 예방할 수 있다고 강조합니다 (p. 381).</li>
+<li><strong>조직 기억의 보존</strong>: 인력과 리더십이 교체되고 조직 개편이나 합병(Reorganizations and mergers)이 이루어질 때, 포괄적인 문서·기록 보유 및 유지·관리 방법이 없으면 지식은 빠르게 소실됩니다. 큐레이션은 잘못 분류되어 분실된 자료를 다시 제작·탐색하는 자원 낭비를 막고, 시대에 뒤떨어지거나 중복된 구식 정보(Obsolete information)를 정리합니다 (p. 381).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-5">
+<h2><span class="sec-badge">5</span> COLLECTING AND STORING INFORMATION (정보 수집·저장과 5S 원칙, pp. 381–382)</h2>
+
+
+
+<h3>5.1 디지털 환경의 '숨겨진 혼잡'과 정보 보안</h3>
+
+<p>인간은 본래 다양한 출처에서 "잡동사니(STUFF)"를 모으고 쌓아두는(Hoard) 성향이 있으며, 데스크톱·하드 드라이브·클라우드 서버의 간편함이 이를 심화시켰습니다. 전자 파일링 시스템에는 실물 없이 눈에 보이지 않는 <strong>숨겨진 혼잡(Hidden clutter)</strong>이 존재하며, 클라우드 저장소 역시 컴퓨터 충돌·해킹·서버 손실 등으로 종이 문서만큼 쉽게 유실·파괴될 수 있으므로 <strong>파일 보안(Security)</strong>이 큐레이션의 필수 요소가 되었습니다 (p. 381).</p>
+
+
+
+<h3>5.2 품질 개선 기법 '5S'의 큐레이션 적용</h3>
+
+<p>정보 수집 및 저장 프로세스는 혼잡과 공간 낭비를 줄이고 정돈과 표준화를 높이는 <strong>5S 원칙</strong>을 직접 적용할 수 있습니다 (pp. 381–382):</p>
+
+<ul>
+<li><strong>사기(Morale)와 리더십 태도의 반영</strong>: 사무실을 포함한 작업 공간의 5S 상태는 직원 사기에 결정적이며 고객 첫인상의 기초가 됩니다. 원문은 <em>"직원에 대한 리더십의 태도는 작업 공간의 5S 상태에 반영된다"</em>고 강조합니다 (p. 381).</li>
+<li><strong>원칙과 규율</strong>: <em>"모든 것에는 제자리가 있고, 모든 것은 제자리에 있다(A place for everything and everything has its place)"</em>는 격언처럼, 모든 형태의 정보를 체계화하려면 지속적인 노력과 규율(Discipline)이 필요합니다 (p. 381).</li>
+</ul>
+
+
+
+<h3>5.3 OBSERVATION 2: 제임스(James)의 2년 정리 사례와 코비(Covey)의 시간 관리 (p. 382)</h3>
+
+<ul>
+<li><strong>사례 내용</strong>: 공장 안전 전문가로 부임한 제임스는 전임자들이 수년간 쌓아둔 인쇄물 파일 캐비닛 여러 개를 인수했으나, 분류 체계가 붕괴되고 중복 사본이 뒤섞여 있어 분류·최신화·신규 자료 확보·구식 자료 폐기에만 <strong>약 2년</strong>이 소요되었습니다 (p. 382).</li>
+<li><strong>구조적 원인</strong>: 많은 조직에서 큐레이션이 더 시급한 업무에 밀려 후순위가 됩니다. 이는 스티븐 코비(Covey, 1990)의 시간 관리 매트릭스 중 <strong>'중요하지만 긴급하지 않은(Important but not Urgent)' 제2사분면 영역</strong>에 해당하기 때문에 충분한 관심을 받지 못합니다 (p. 382).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-6">
+<h2><span class="sec-badge">6</span> CREATING CONTENT (콘텐츠 제작과 'Why' 중심 접근, p. 382)</h2>
+
+
+<p>고품질 콘텐츠를 제작하고 공유·협업하는 것은 아이디어를 설득하고, 해당 분야의 전문가로 자리매김하며, <strong>고유한 브랜드(Unique brand)</strong>를 구축하여 리더십·근로자·동료에게 개인적 가치를 입증하는 핵심 경로입니다 (p. 382).</p>
+
+
+
+<h3>6.1 큐레이션 착수 전 6대 사전 점검 질문 (p. 382)</h3>
+
+<ol>
+<li>조직에 이미 큐레이션 프로세스가 마련되어 있는가?</li>
+<li>도움을 요청할 수 있는 큐레이션 담당 관리자나 유능한 인력이 있는가?</li>
+<li>유용한 정보를 수집·저장하기에 가장 적합한 방법은 무엇인가?</li>
+<li>조직이 정보 수집·저장을 위한 적절한 수단을 이미 제공하고 있는가?</li>
+<li>타인과 공유할 양질의 콘텐츠 제작에 이 자원을 어떻게 최선으로 활용할 수 있는가?</li>
+<li>정보는 누구의 이익을 위해 공유되고 있는가—발신자인가, 아니면 수신자인가?</li>
+</ol>
+
+
+
+<h3>6.2 사이먼 사이넥(Sinek, 2009)의 "Start with Why" 적용 (p. 382)</h3>
+
+
+
+
+<div class="callout callout-note">
+
+<em>"사람들은 당신이 무엇을 하는지를 사지 않는다; 그들은 당신이 왜 그것을 하는지를 산다. 그리고 당신이 하는 일은 단지 당신이 믿는 바를 증명할 뿐이다."</em><br>— <strong>(Sinek, 2009, p. 382)</strong>
+</div>
+
+
+<p>사이넥의 <em>"당신의 왜(Why)를 알고 있는가?"</em>에 착안하여, 큐레이터는 공유 전 다음 3가지 질문으로 전략을 수립해야 합니다:</p>
+
+<ul>
+<li>나는 왜 내가 배운 것을 공유하고자 하는가?</li>
+<li>나는 왜 다른 사람들과 정보를 공유하는 데 관심이 있는가?</li>
+<li>이것이 어떻게 나의 고유한 브랜드를 구축하는 데 도움이 되는가?</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-7">
+<h2><span class="sec-badge">7</span> CURATING AND USING INFORMATION (정보 큐레이션과 활용 3대 영역, pp. 382–383)</h2>
+
+
+<p>정보 큐레이션 및 활용 프로세스는 다음 <strong>3대 영역</strong>을 중심으로 구축되어야 청중이 신뢰할 수 있는 정보를 수령할 뿐만 아니라 실제 업무에 활용할 수 있습니다 (p. 382):</p>
+
+<ol>
+<li><strong>수집 (Gather)</strong>: 적절하고 검증 가능한(Pertinent and verifiable) 정보 수집.</li>
+<li><strong>체계화 (Organize)</strong>: 맥락을 부여해 파일링·분류·주석 달기(Annotated) 수행.</li>
+<li><strong>검색·선별·제시 (Retrieve, select and present)</strong>: 보고서·메모·표준 검토·발표용으로 명확하고 간결하게 제시.</li>
+</ol>
+
+
+
+
+
+<div class="callout callout-note">
+
+<em>"콘텐츠 큐레이터는 온라인상에서 특정 주제에 관한 가장 우수하고 관련성 높은 콘텐츠를 지속적으로 탐색하고, <strong>의미구성(Makes sense of)</strong>을 하며, 공유한다. 콘텐츠 큐레이터는 이러한 역량을 자신의 일상적 루틴에 통합해 놓았다."</em><br>— <strong>Bhargava, cited in Kanter (2017, p. 383)</strong>
+</div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-8">
+<h2><span class="sec-badge">8</span> RESEARCHING AND CURATING INFORMATION—QUALITY CONCERNS (정보 연구와 품질 우려, p. 383)</h2>
+
+
+<p>저자들은 <strong>책 집필과 안전경영시스템(SMS) 관리 사이의 직접적 평행성(Direct parallel)</strong>을 제시합니다. 본서 집필 과정에서도 수천 건의 문서를 읽고 분류·선별해야 했으며, 자료를 찾는 것보다 이를 검색·체계화하고 논평·결론·권고사항을 뒷받침할 정확한 참고문헌과 인용(Citations)을 제시하는 것이 핵심 과제였습니다 (p. 383).</p>
+
+
+<ul>
+<li><strong>양(Quantity) ≠ 질(Quality)</strong>: 인터넷 접근의 보편화로 리더십과 근로자가 직접 조사한 기사를 들고 와 평가를 요청하는 일이 잦아졌으며, 부정확한 정보가 검증(Review) 전에 조직 내로 확산되면 심각한 문제를 유발합니다 (p. 383).</li>
+<li><strong>회의적 검증 태도(Skeptical approach)</strong>: 전문 출처의 동향이라 하더라도 무조건 수용하지 말고, 사용 전 반드시 경험·전문성·추가 근거를 통해 먼저 검증해야 합니다 (p. 383).</li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-9">
+<h2><span class="sec-badge">9</span> CURATING SAFETY MANAGEMENT SYSTEM DATA (에든버러 대학 RDM 기반 SMS 데이터 큐레이션 2단계, pp. 383–384)</h2>
+
+
+<p>본 절은 <strong>에든버러 대학교 연구 데이터 관리 지침(University of Edinburgh Research Data Management Guidance, 2011)</strong>의 데이터 관리 계획 체크리스트를 SMS 맥락에 맞게 적용한 2단계 큐레이션 프레임워크를 제시합니다 (pp. 383–384).</p>
+
+
+
+<h3>9.1 Step 1. Evaluate Data Needs (데이터 요구사항 평가 — 18대 점검 질문, pp. 383–384)</h3>
+
+<p>데이터 관리 프로세스 수립에 앞서 다음 18개 질문에 답해야 합니다:</p>
+
+<ol>
+<li>어떤 유형의 문서·자료·정보가 생산될 것인가?</li>
+<li>복제·재현이 가능한가? (사본 관리는 어떻게 할 것인가?)</li>
+<li>향후 분실되거나 사용할 수 없게 되면 어떤 일이 발생하는가?</li>
+<li>대상 청중은 누구이며 현재와 장기적으로 어떻게 활용할 것인가?</li>
+<li>누가 문서·자료·정보를 통제하는가?</li>
+<li>공유 요구사항이 존재하는가?</li>
+<li>수집 및 유지·관리에 예산이 필요한가?</li>
+<li>얼마나 많은 문서·자료·정보가 생성되며 변경 주기는 어떠한가?</li>
+<li><strong>보존 기간은 얼마인가? (예: 5년, 최대 10년, 또는 영구 보존)</strong></li>
+<li>생성·처리·시각화에 필요한 도구나 소프트웨어가 있는가?</li>
+<li>디렉터리 및 파일 명명 규칙(Naming convention)은 무엇인가?</li>
+<li>사용되는 파일 형식(File formats)은 무엇이며 장기적으로 지속 가능한가?</li>
+<li>어떤 프로젝트 및 식별자(Identifiers)가 부여될 것인가?</li>
+<li>프로젝트 및 데이터 문서화(재고 조사·목록화 방식)가 잘 되어 있는가?</li>
+<li>개인정보 보호 또는 보안 요구사항(개인 데이터, 고보안 데이터, 독점 자료 등)이 있는가?</li>
+<li>저장 및 백업 전략은 무엇인가?</li>
+<li>언제, 어디에 문서·자료·데이터를 공개할 것인가?</li>
+<li>공유 및 통합에 관한 조직의 지침이나 표준이 있는가?</li>
+</ol>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-188.png" alt="FIG. 15.3 Planning your research (연구 계획 수립하기: 다중 기기·클라우드·네트워크 기반 정보 흐름)"><p class="img-caption">FIG. 15.3 Planning your research (연구 계획 수립하기: 다중 기기·클라우드·네트워크 기반 정보 흐름)</p></div>
+
+
+
+<h3>FIG. 15.3 Planning your research (p. 384)</h3>
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 15.3 보충설명]</strong><br>수도꼭지가 달린 지구본을 중심으로 스마트폰·노트북·태블릿·클라우드 폴더를 사용하는 구성원들이 양방향 화살표로 연결된 삽화(<code>image-188.png</code>)는, 제16장(소셜 미디어 도구)과 연계하여 현대 조직의 연구 및 정보 공유가 시간·공간·기기의 경계를 넘어 실시간 네트워크로 순환함을 보여줍니다 (pp. 383–384).
+</div>
+
+
+<hr class="divider">
+
+
+
+<h3>9.2 Step 2—Establish a Plan (데이터 관리 계획 수립 — 7대 핵심 질문, p. 384)</h3>
+
+<p>데이터 관리 계획(Data management plan)은 데이터의 생성·체계화·문서화·저장·공유뿐 아니라 보호·기밀 유지·보존·큐레이션을 포괄하여 SMS 문서를 지원하는 프레임워크를 제공합니다 (p. 384):</p>
+
+<ol>
+<li>SMS에 의해 어떤 문서·자료·정보가 생성되거나 수집될 것인가?</li>
+<li>어떤 조직 정책과 절차가 적용될 것인가?</li>
+<li>어떤 관리 관행(백업, 저장, 접근 통제, 아카이빙)이 사용될 것인가?</li>
+<li>어떤 시설과 장비(하드 디스크 공간, 백업 서버, 저장소)가 필요한가?</li>
+<li>누가 소유권을 갖고 접근 권한을 가질 것인가?</li>
+<li>안전경영 데이터의 각 측면에 대해 누가 책임을 질 것인가? (<em>Data Management: Creating the Plan</em>, 2017, p. 384)</li>
+<li>SMS의 이력을 유지하기 위해 문서·자료·정보의 활용 가능성과 장기 보존을 어떻게 보장할 것인가?</li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-10">
+<h2><span class="sec-badge">10</span> TECHNOLOGY AND THE SAFETY MANAGEMENT SYSTEM (기술과 SMS: 방화벽 역할 및 문헌 연구 순서도, pp. 384–386)</h2>
+
+
+<p>기술의 발전으로 정보는 조직의 전통적 경계를 넘어 손쉽고 빠르게 이동합니다. 이 환경에서 <strong>SMS는 근로자들에게 의사소통 경로가 열려 있고 유용함을 보장하는 '방화벽(Firewall)'</strong> 역할을 수행하며, 근로자의 우려사항은 타당한 정보와 신뢰할 수 있는 데이터 관리를 통해 신속·포괄적으로 처리되어야 합니다 (p. 384).</p>
+
+
+<p>조직에 "유능한 관리자(Knowledgeable manager)"와 기존 저장·검색 절차가 있다면 이를 활용하고, 그렇지 않다면 SMS 목적에 가장 효율적인 시스템을 구축해야 합니다 (p. 386).</p>
+
+
+<hr class="divider">
+
+
+<div class="img-wrapper"><img src="image-189.png" alt="FIG. 15.4 Basic Overview of Planning Your Research (연구 계획 수립의 기본 개요 순서도)"><p class="img-caption">FIG. 15.4 Basic Overview of Planning Your Research (연구 계획 수립의 기본 개요 순서도)</p></div>
+
+
+
+<h3>FIG. 15.4 Basic Overview of Planning Your Research (p. 385)</h3>
+
+
+
+
+
+
+
+
+
+
+
+<div class="callout callout-note">
+
+<strong>[그림 15.4 상세 보충설명 — 원문 순서도(Flowchart) 구조 분석]</strong><br><code>FIG. 15.4</code>(<code>image-189.png</code>)는 안전 관련 문헌 연구와 큐레이션 도구의 활용·저장·검증·재탐색 과정을 보여주는 제15장의 <strong>유일한 핵심 순서도(Flowchart)</strong>입니다.<br>1. <strong>출발점 및 3대 도구 트랙</strong>: <code>Conducting literature research</code>(문헌 연구 수행)에서 시작하여 <code>Curation tools</code>(큐레이션 도구)를 거쳐 <strong>① 일반·고급 검색(Google search resources)</strong>, <strong>② 학술·전문 검색(Research resources)</strong>, <strong>③ 자동화 수집(Automated resources)</strong>의 3개 병렬 경로로 분기됩니다.<br>2. <strong>저장 방식 결정 및 전자/인쇄 분기</strong>: 3개 경로에서 모인 자료는 <code>Determine storage method</code>(저장 방식 결정)를 거쳐 <code>Electronic</code>(전자 문서 여부) 마름모 분기점에서 <strong>No</strong>(인쇄물 구조 정의·정리, 원문 그림 표기 <code>structue</code>) 또는 <strong>Yes</strong>(전자 문헌 저장소 정의·정리)로 나뉩니다.<br>3. <strong>검증 및 순환 루프</strong>: 두 경로가 합류해 <code>Verify information collected</code>(수집 정보 검증, 원문 그림 표기 <code>Verfity</code>)를 수행한 뒤 <code>Conduct additional literature search</code>(추가 문헌 연구 수행, 원문 표기 <code>addition</code>)를 거쳐 다시 최초 단계로 되돌아가는 <strong>폐쇄형 순환 피드백 루프</strong>를 형성합니다.
+</div>
+
+
+
+
+<div class="mermaid-box"><pre class="mermaid">
+flowchart TD
+    Start(["Conducting literature research<br/>(문헌 연구 수행)"]) --> Tools["Curation tools<br/>(큐레이션 도구 선택)"]
+    Tools --> T1["Google search resources<br/>(구글 검색 자원)"]
+    Tools --> T2["Research resources<br/>(학술 연구 자원)"]
+    Tools --> T3["Automated resources<br/>(자동화 수집 자원)"]
+
+    T1 --> G1["Google general search"] --> G2["Google advance search"] --> G3["Google advance image search"] --> G4["Google trends"] --> Storage
+    T2 --> R1["Google scholar"] --> R2["Google books"] --> R3["Semantic scholar"] --> R4["refseek"] --> Storage
+    T3 --> A1["Google alerts"] --> A2["Feedly"] --> Storage
+
+    Storage["Determine storage method<br/>(저장 방식 결정)"] --> Dec{"Electronic<br/>(전자 방식 여부)"}
+    Dec -- "No" --> Hard["Define and organize<br/>hardcopy structure<br/>(인쇄물 보관 구조 정의·정리)"]
+    Dec -- "Yes" --> Repo["Define and organize<br/>literature repository<br/>(전자 문헌 저장소 정의·정리)"]
+
+    Hard --> Verify["Verify information collected<br/>(수집 정보 검증)"]
+    Repo --> Verify
+    Verify --> Add["Conduct additional literature search<br/>(추가 문헌 연구 수행)"]
+    Add --> Start
+</pre></div>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-11">
+<h2><span class="sec-badge">11</span> HOW CAN CURATED DATA BE PROFICIENTLY COLLECTED AND MANAGED? (큐레이션 데이터의 효율적 수집·관리, p. 386)</h2>
+
+
+<p>모든 데이터 수집 시스템의 목적은 수집된 모든 문헌을 체계화하기 위해 <strong>도서관 파일링 방법론과 구조(Library filing methodology and structure)</strong>를 채택하는 것입니다 (p. 386).</p>
+
+<p>이를 위한 소프트웨어 기반 <strong>"콘텐츠 제작 전략(Content Creation Strategy)"</strong>은 제16장(<em>Social Media Tools for the Professional</em>)과 부록 16.1(소셜 미디어 도구 개관), 그리고 Feedly 활용 사례 연구인 부록 16.2(원문 본문 표기 <code>Appendix 6.2</code>)로 이어집니다 (p. 386).</p>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-12">
+<h2><span class="sec-badge">12</span> SUMMARY & CHAPTER REVIEW QUESTIONS (요약 및 장 복습 질문, p. 386)</h2>
+
+
+
+<h3>12.1 핵심 요약 (p. 386)</h3>
+
+<ul>
+<li>안전문화는 리더십과 근로자가 유해위험요인 및 위험 통제 정보를 수신·이해하는 데 달려 있으며, 열린 의사소통 경로가 변화 저항을 줄이는 핵심입니다.</li>
+<li>정보와 메시지는 조직 구성원이 접근 가능한 무익한 배경 잡음(Background clutter)을 뚫고 이해 가능하게 전달되어야 합니다.</li>
+<li>인력 교체, 조직 개편, 신규 사업 착수 시 포괄적 기록 관리 체계가 없으면 조직의 핵심 안전 지식이 유실됩니다.</li>
+<li>인터넷 덕분에 문서를 찾는 것은 쉬워졌으나, 이를 검색·체계화하고 신뢰할 수 있는 참고문헌과 인용을 제시하는 능력이 진정한 과제입니다.</li>
+<li>제16장에서는 트위터·유튜브·링크드인 등 소셜 미디어 기반 콘텐츠 제작 전략을 다룹니다.</li>
+</ul>
+
+
+
+<h3>12.2 장 복습 질문 (Chapter Review Questions) & 원문 기반 해설 (p. 386)</h3>
+
+<ol>
+<li><strong>정보 큐레이터가 되는 것의 중요성을 설명하시오.</strong></li>
+</ol>
+
+<ul>
+<li><em>해설</em>: 정보 과부하 환경('소방 호스', '쓰나미') 속에서 신뢰할 수 없는 잡음을 걸러내고 검증된 안전 정보를 적시에 제공함으로써 '조직의 기억'을 보존하고, 구성원의 신뢰와 SMS에 대한 긍정적 지각을 높여 안전문화를 강화합니다 (pp. 378–381).</li>
+</ul>
+
+<ol>
+<li><strong>큐레이션(Curation)을 정의하고 논의하시오.</strong></li>
+</ol>
+
+<ul>
+<li><em>해설</em>: 미술품 전시·보존 관리에서 유래하여, 단순 링크 수집이나 정보 쌓아두기(Pack rat)가 아니라 특정 주제에 맞는 최적의 정보를 수집·선별·분류·주석 달기·검증·의미구성(Sensemaking)하여 검색 및 활용 가능하게 제공하는 체계적 프로세스입니다 (pp. 378, 383).</li>
+</ul>
+
+<ol>
+<li><strong>정보를 체계화하기 위한 다양한 개념을 설명하시오.</strong></li>
+</ol>
+
+<ul>
+<li><em>해설</em>: Curry & O'Riáin(2010)의 <strong>7대 데이터 품질 차원</strong>, 품질 개선 <strong>5S 원칙</strong>(정돈·표준화·규율), 코비(Covey, 1990)의 제2사분면 시간 관리 인식, 사이넥(Sinek, 2009)의 <strong>'Why' 중심 공유 전략</strong>, 에든버러 대학(2011)의 <strong>2단계 연구 데이터 관리(RDM) 체크리스트</strong>, 도서관 파일링 방법론이 핵심 개념입니다 (pp. 379, 381–384, 386).</li>
+</ul>
+
+<ol>
+<li><strong>정보를 체계화하는 데 사용되는 여러 도구의 이름을 대시오.</strong></li>
+</ol>
+
+<ul>
+<li><em>해설</em>: 원문 및 <code>FIG. 15.4</code>에 따르면 <strong>Google search resources</strong>(Google general/advance/advance image search, Google trends), <strong>Research resources</strong>(Google scholar, Google books, Semantic scholar, refseek), <strong>Automated resources</strong>(Google alerts, Feedly), 그리고 의사결정 지원용 <strong>대시보드 및 분석 도구(Dashboards and analytics)</strong>(Ismail, 2012) 및 저장소(Hardcopy structure / Literature repository)가 제시됩니다 (pp. 381, 385–386). <em>(기타 상용 도구의 구체적 목록은 원문에서 확인되지 않음)</em></li>
+</ul>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-13">
+<h2><span class="sec-badge">13</span> [연구자 해석 및 후속 연구 시사점] 학술적 메타 분석 및 KPI 도출 프레임워크</h2>
+
+
+
+
+
+
+
+<div class="callout callout-note">
+<div class="callout-title">📌 참고</div>
+<br><strong>원문과 연구자 해석의 엄격한 분리 (<code>GEMINI.md</code> 1·2·3·4원칙 준수)</strong><br>제1절~제12절 및 제14절은 저자의 원문 내용(pp. 377–387)만을 충실히 정리한 부분이며, 본 <strong>제13절</strong>은 원문의 이론과 순서도(<code>FIG. 15.4</code>), 데이터 품질 차원, RDM 체크리스트를 연구자의 학술 개념(<strong>지각, 의미구성, 평가, 다중 관점, 다원주의, 다차원적 성과, 네트워크 성과</strong>) 및 <strong>현장 적용 KPI·법령</strong>과 연결한 <strong>연구자(AI) 해석 및 후속 연구 설계 영역</strong>입니다.
+</div>
+
+
+
+<h3>13.1 [후속 연구 시사점] 원문 핵심 이론의 주관성·네트워크 연구 연계</h3>
+
+<ul>
+<li><strong>지각(Perception) 및 신뢰 형성</strong>: 제15장(p. 379)은 안전 전문가가 신뢰할 수 있는 정보를 제공할 때 구성원의 <strong>지각(Perception)</strong>이 긍정적으로 변하고 안전문화가 강화된다고 서술합니다. 후속 연구에서는 현장 대원·관리자·행정 부서가 동일한 안전 매뉴얼이나 지침을 어떻게 서로 다르게 <strong>지각</strong>하고 <strong>평가(Evaluation)</strong>하는지(<code>OBSERVATION 1</code>의 부서 간 명명법 충돌 문제) 다중 관점·Q방법론 연구로 확장할 수 있습니다.</li>
+<li><strong>의미구성(Sensemaking)으로서의 큐레이션</strong>: Bhargava(Kanter, 2017, p. 383)가 콘텐츠 큐레이터를 <em>"정보를 탐색하고 <strong>의미구성(Makes sense of)</strong>하여 공유하는 사람"</em>으로 규정한 점은, 정보 과잉 환경에서 조직 구성원이 위험 신호를 어떻게 해석하고 행동으로 전이시키는지 분석하는 의미구성 이론과 직접 맞닿아 있습니다.</li>
+<li><strong>네트워크 성과(Network Performance) 및 다차원적 성과</strong>: 안전을 복잡적응계의 창발적 특성으로 보고(p. 381), 부서 간 사일로를 연결해 정보 탐색 비용과 중복 노동을 줄이는 큐레이션 체계는 단일 사고 건수를 넘어 <strong>조직 기억 보존·정보 접근 속도·부서 간 정렬도</strong>라는 다차원적 성과 지표 설계의 근거가 됩니다.</li>
+</ul>
+
+
+
+<h3>13.2 안전정보 큐레이션 생애주기 5단계 기반 KPI 도출 (119구조대·현장 안전부서 적용)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="callout callout-important">
+<div class="callout-title">🚨 중요 핵심 원칙</div>
+<br><strong>트랙 A·B 연계 KPI 설계 원칙 (<code>GEMINI.md</code> 2·3·4항 적용)</strong><br>1. <strong>업무 단계화</strong>: <code>[STEP 1] 수요 진단</code> ➔ <code>[STEP 2] 수집·선별</code> ➔ <code>[STEP 3] 분류·저장</code> ➔ <code>[STEP 4] 검증·최신화</code> ➔ <code>[STEP 5] 공유·환류</code><br>2. <strong>현장 구체화</strong>: 의령소방서 119구조대(3교대 출동·장비점검·현장대응 환경) 및 사업장 안전관리팀의 과·팀·조 단위 업무에 밀착 설계.<br>3. <strong>법적 근거 조문 매핑</strong>: 「산업안전보건법」 제14조·제15조·제16조·제24조·제36조·제164조(서류의 보존), 「중대재해 처벌 등에 관한 법률 시행령」 제4조·제13조(서면의 5년 보관), 「소방공무원 보건안전 및 복지 기본법」 제10조.<br>4. <strong>고유/협업 분리</strong>: 통제 가능한 고유 지표(70%)와 타 부서·유관기관 연계 협업 지표(30% 또는 50%) 구분.
+</div>
+
+
+
+
+<div class="mermaid-box"><pre class="mermaid">
+flowchart LR
+    S1["STEP 1: 수요 진단<br/>(RDM 1단계 18문항)"] --> S2["STEP 2: 수집·선별<br/>(FIG. 15.4 3대 도구)"]
+    S2 --> S3["STEP 3: 분류·저장<br/>(5S·Electronic 분기)"]
+    S3 --> S4["STEP 4: 검증·최신화<br/>(Curry 7대 품질차원)"]
+    S4 --> S5["STEP 5: 공유·환류<br/>(Sinek Why·대시보드)"]
+    S5 -.-> S1
+</pre></div>
+
+
+
+
+
+
+
+
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>생애주기 단계</th>
+<th>적용 조직/담당 (Break-down)</th>
+<th>핵심 성과지표 (KPI) 명칭 (연구자 설계)</th>
+<th>지표 성격 & 가중치</th>
+<th>산출 방식 및 관리 목표 (연구자 제안)</th>
+<th>법적 근거 (조문 단위 매핑)</th>
+<th>서브노트 판단 근거 (절·표·그림 강제 매핑)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>STEP 1<br/>(수요 진단)</strong></td>
+<td><strong>안전기획·기록 담당자</strong><br/>(119구조대 행정·장비담당)</td>
+<td>법정·현장 안전문서 보존연한 및 데이터 관리계획 수립률</td>
+<td><strong>고유 (70%)</strong></td>
+<td><span class="math-inline">\(\frac{\text{보존연한·소유권·백업 지정 문서군 수}}{\text{관리 대상 필수 문서군 총수}} \times 100\)</span> (목표: 법정 기록 누락 0건)</td>
+<td>산안법 제164조 (서류의 보존: 원칙 3년, 회의록 2년)<br/>중처법 시행령 제13조 (이행 서면 5년 보관)</td>
+<td>본문 9.1절 & 9.2절<br/>(에든버러 RDM Step 1 18문항·Step 2 7문항)</td>
+</tr>
+<tr>
+<td><strong>STEP 2<br/>(수집·선별)</strong></td>
+<td><strong>현장대응·예방 전담자</strong><br/>(안전관리자·구조팀 교관)</td>
+<td>다중 출처(일반·학술·자동화) 위험·신기술 정보 수집 적시율</td>
+<td><strong>고유 (70%)</strong></td>
+<td><code>FIG. 15.4</code> 3대 트랙(검색·학술·Feedly/Alerts) 기반 월간 신규 위험·장비 동향 브리핑 건수</td>
+<td>산안법 제14조 (이사회 보고·계획)<br/>소방공무원 보건안전법 제10조 (교육·훈련 정보)</td>
+<td>본문 10절 & <code>FIG. 15.4</code><br/>(<code>Curation tools</code> 3대 병렬 경로)</td>
+</tr>
+<tr>
+<td><strong>STEP 3<br/>(분류·저장)</strong></td>
+<td><strong>부서 간 문서 협의체</strong><br/>(인사·운영·품질·안전/구조팀)</td>
+<td>부서 간 안전 매뉴얼·표준작업절차(SOP) 명명법 정합률 및 5S 정돈율</td>
+<td><strong>협업 (50%)</strong></td>
+<td><span class="math-inline">\(\frac{\text{안전부서와 용어·기준 정렬된 타부서 SOP 수}}{\text{부서별 안전 관련 SOP 총수}} \times 100\)</span> (교대조 공용 폴더 5S 점검 병행)</td>
+<td>산안법 제15조·제16조 (관리책임자·감독자)<br/>ANSI/AIHA Z10-2012 문서 통제</td>
+<td>본문 3.1절 (<code>OBSERVATION 1</code>), 5.2절 (<code>5S</code>), 5.3절 (<code>OBSERVATION 2</code>), <code>FIG. 15.4</code> (<code>Electronic</code> 분기)</td>
+</tr>
+<tr>
+<td><strong>STEP 4<br/>(검증·최신화)</strong></td>
+<td><strong>안전·위험성평가 팀</strong><br/>(119구조대 위험관리 담당)</td>
+<td>현장 전파 전 안전정보 7대 품질차원 사전 검증 이행률</td>
+<td><strong>고유 (70%)</strong></td>
+<td><span class="math-inline">\(\frac{\text{7대 품질차원(출처·정확·적시성 등) 검증 완료 배포건}}{\text{전사/전대원 공지 안전정보 총건수}} \times 100\)</span></td>
+<td>산안법 제36조 (위험성평가 및 기록)<br/>중처법 시행령 제4조제3호</td>
+<td>본문 2.2절 (Curry & O'Riáin 7대 차원), 8절 (품질 우려 및 회의적 검증), <code>FIG. 15.1</code>·<code>15.2</code></td>
+</tr>
+<tr>
+<td><strong>STEP 5<br/>(공유·환류)</strong></td>
+<td><strong>현장 지휘관·산안위</strong><br/>(구조대장·현장대응단장)</td>
+<td>대시보드 기반 위험정보 접근성 및 현장 활용 피드백 반영률</td>
+<td><strong>협업 (30%)</strong></td>
+<td>교대근무 대원의 필요 SOP 검색 소요 시간 및 "Why(목적)" 기반 현장 브리핑 반영 건수</td>
+<td>산안법 제24조 (산안위 심의·공유)<br/>중처법 시행령 제4조제8호 (종사자 의견청취)</td>
+<td>본문 4.2절 (Ismail 대시보드), 6.2절 (Sinek Why), 7절 (수집·체계화·제시), <code>FIG. 15.3</code></td>
+</tr>
+</tbody>
+</table></div>
+
+
+
+
+
+
+
+<div class="callout callout-tip">
+<div class="callout-title">💡 핵심 팁</div>
+<br><strong>가중치 타당성 (7:3 및 5:5 분리 근거)</strong>:<br>문서 보존연한 지정, 수집 도구 운영, 품질 검증(STEP 1·2·4)은 안전 담당자·구조대 내 자체 통제가 가능하므로 <strong>고유 지표(70%)</strong>로 설정하였습니다. 반면 <code>OBSERVATION 1</code>에서 확인된 타 부서(인사·운영·품질) 간 매뉴얼 충돌 해소(STEP 3)는 다부서 합의가 필수이므로 <strong>협업(50%)</strong>으로, 현장 지휘·의사소통 환류(STEP 5)는 대원 참여와 지휘부 연계가 필요하므로 <strong>협업(30%)</strong>으로 차등 배분하였습니다.
+</div>
+
+
+
+<h3>13.3 비판적 검토 및 역질문 검증 프로토콜</h3>
+
+<ol>
+<li><strong>출처 역질문</strong>: <em>"제시된 KPI의 각 단계가 제15장의 <code>FIG. 15.4</code>(문헌 연구 순서도), Curry & O'Riáin(2010) 7대 차원, 5S 원칙, 에든버러 대학 RDM 2단계, <code>OBSERVATION 1·2</code>에 직접 근거하고 있는가?"</em></li>
+<li><strong>법령 정합성 역질문</strong>: <em>"문서 보존 주기(Step 1 질문 9번: 5년, 10년, 영구)가 「산업안전보건법」 제164조(3년/2년) 및 「중대재해처벌법 시행령」 제13조(5년)의 최소 법정 보존 연한을 모두 충족하도록 설계되었는가?"</em></li>
+<li><strong>타 이론(레질리언스) 적용 시 우선순위 변화 검토</strong>: <em>"정규 문서 보관(STEP 1·3)에 치중할 경우, 비정형·긴급 재난 상황에서 현장 대원이 즉시 정보를 찾고 검증하여 대응하는(STEP 4·5, <code>FIG. 15.4</code> 검증·재탐색 루프 및 대시보드 가시성) 실시간 레질리언스 역량이 저하되지 않는가?"</em></li>
+</ol>
+
+
+<hr class="divider">
+
+
+
+</section>
+<section class="subnote-section" id="sec-14">
+<h2><span class="sec-badge">14</span> BIBLIOGRAPHY & FURTHER READING (참고문헌 및 추가 읽을거리, pp. 386–387)</h2>
+
+
+
+<h3>14.1 Bibliography (p. 386–387)</h3>
+
+<ul>
+<li>Beane, B. (2018). We’ve got to use every piece of data and piece of information, and hopefully, that will help us be accurate with our player evaluation. For us, that’s our lifeblood. In <em>Brainy quote</em>. Retrieved from http://bit.ly/2snmkss.</li>
+<li>Berners-Lee, T. (2018). Data is a precious thing and will last longer than the systems themselves. In <em>Brainy quote</em>. Retrieved from http://bit.ly/2smvvcO.</li>
+<li>Covey, S. R. (1990). <em>The 7 habits of highly effective people: powerful lessons in personal change</em>. In A fireside book (p. 151): Simon and Schuster. Retrieved from http://amzn.to/WsCA5g.</li>
+<li>Curation. (2017). <em>Cambridge Dictionary</em>. Retrieved from http://bit.ly/2xUnGig.</li>
+<li>Data Management: Creating the Plan, Basic Questions for your Plan (2017). Rutgers, The State University of New Jersey. Retrieved from http://bit.ly/2BJ4u5O.</li>
+<li>Curry, E., & O’Riáin, S. (2010). In October) (Ed.), <em>The role of community-driven data curation for enterprises</em>. Digital Enterprise Research Institute, National University of Ireland, Galway, Ireland. PDF Version. Retrieved from http://bit.ly/2fM7JA5, http://bit.ly/2y2paq5.</li>
+<li>Ismail, N. (2012). <em>Environmental, health and safety, going beyond compliance</em>. White Paper. Aberdeen Group, A Harte-Hanks Company. April. Retrieved from http://bit.ly/2xSRj3v.</li>
+<li>Kanter, B. (2017). <em>Content curation primer</em>. Licensed under a Creative Commons Attribution 3.0 United States License. Retrieved from http://bit.ly/XFtmWz.</li>
+<li>Occupational Health & Safety Management Systems (2012). The American Society of Safety Engineers, ANSI/AIHA/ASSE Z10. Retrieved from http://bit.ly/1MsT6MG.</li>
+<li>Pink, D. H. (2012). <em>To sell is human: The surprising truth about moving others</em>. Riverhead Books. Retrieved from http://bit.ly/2wA6V89.</li>
+<li>Randall, A. (2016). 10 ways social media can boost your career. In <em>MakeUseOf</em>. Retrieved from http://bit.ly/22nqIoN.</li>
+<li>Research Data Management Guidance (2011). Edinburgh University Data Library. August. Retrieved from http://bit.ly/2Kpw53F.</li>
+<li>Sinek, S. (2009). <em>Start with why: How great leaders inspire everyone to take action</em>. In Portfolio. October. Retrieved from http://bit.ly/2ugVro5.</li>
+</ul>
+
+
+
+<h3>14.2 Further Reading (p. 387)</h3>
+
+<ul>
+<li>Clear, J. (2018). <em>Stop overdosing on celebrity gossip, the news, and low quality information</em>. An Elite CafeMedia Lifestyle Publisher. Retrieved from http://bit.ly/2rjg3NO.</li>
+<li>Covey, S. R. (1989). <em>The 7 habits of highly effective people, powerful lessons in personal change</em>. New York City: Simon & Schuster.</li>
+</ul>
+
+
+
+
+
+
+</section>
+
+  </main>
+
+  <!-- Right AI Panel -->
+  <aside class="right-ai-panel" id="right-ai-panel">
+    <div class="ai-header">
+      <div class="ai-header-title">
+        <h3>🤖 AI 안전문화 튜터 &amp; KPI 검증기</h3>
+        <p>교수님 심화 지도 원칙 실시간 질의기</p>
+      </div>
+      <button class="ai-close-btn" id="close-ai-panel-btn" title="AI 패널 닫기">✕</button>
+    </div>
+    
+    <div class="ai-body">
+      <div class="sidebar-title">추천 프롬프트 템플릿</div>
+      <div class="prompt-card" onclick="setPrompt('제15장의 정보 큐레이션 생애주기 5단계(수요진단-수집선별-분류저장-검증최신화-공유환류)에 맞춰 119구조대 및 현장 안전부서에 적용할 수 있는 고유/협업 KPI를 도출하고, 산업안전보건법 제164조(서류의 보존) 및 중대재해처벌법 시행령 제4조와의 연계 근거를 설명해줘.')">
+  <h5>🚒 119구조대 SMS 정보 큐레이션 5단계 KPI 도출</h5>
+  <p>큐레이션 생애주기 5단계 기반 119구조대 고유/협업 지표 및 산안법 제164조·중처법 시행령 제4조 매핑</p>
+</div>
+<div class="prompt-card" onclick="setPrompt('제15장에 제시된 Curry & O'Riáin(2010)의 7대 데이터 품질 차원과 5S 정리정돈 원칙이 관찰 사례 1·2(부서별 안전 기준 충돌, 2년간의 파일 캐비닛 정리)의 문제를 어떻게 해결하여 조직의 기억(Organizational memory)을 보존하는지 설명해줘.')">
+  <h5>📚 Curry & O'Riáin 7대 품질 차원과 5S 기반 조직 기억 보존</h5>
+  <p>정보 홍수 속 가짜 정보 필터링과 부서 간 안전 문서 사일로 해소 전략 분석</p>
+</div>
+<div class="prompt-card" onclick="setPrompt('제15장의 그림 15.4(문헌 연구 계획 기본 개요 순서도)의 각 분기 구조와 에든버러 대학교 연구 데이터 관리(RDM) 2단계 체크리스트를 안전관리 플랫폼의 문서·지식 큐레이션 워크플로우로 어떻게 매핑할 수 있는지 설명해줘.')">
+  <h5>🧭 FIG. 15.4 문헌 연구 순서도와 에든버러 RDM 워크플로우 설계</h5>
+  <p>교재 순서도(FIG. 15.4)와 RDM 2단계 체크리스트를 안전관리 플랫폼 모듈로 구현하는 방법</p>
+</div>
+      <div class="ai-chat-output" id="ai-chat-output">💡 프롬프트 카드를 클릭하거나 아래 입력창에 질문을 입력하여 AI 튜터와 학습을 진행하세요. (브라우저 로컬 환경에서 시뮬레이션 프롬프트가 설정됩니다.)</div>
+    </div>
+
+    <div class="ai-footer">
+      <input type="text" class="ai-input" id="ai-user-input" placeholder="안전문화 및 KPI 질문 입력...">
+      <button class="btn-send" id="ai-send-btn">전송</button>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+// Sidebar Toggle
+const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
+const leftSidebar = document.getElementById('left-sidebar');
+toggleSidebarBtn.addEventListener('click', () => {
+  leftSidebar.classList.toggle('open');
+});
+
+// AI Panel Toggle (Desktop & Mobile)
+const toggleAiBtn = document.getElementById('toggle-ai-btn');
+const rightAiPanel = document.getElementById('right-ai-panel');
+const closeAiPanelBtn = document.getElementById('close-ai-panel-btn');
+
+function toggleAiPanel() {
+  const isMobile = window.innerWidth <= 1200;
+  if (isMobile) {
+    rightAiPanel.classList.toggle('open');
+  } else {
+    const isClosed = rightAiPanel.classList.toggle('closed');
+    document.body.classList.toggle('ai-closed', isClosed);
+  }
+}
+
+if (toggleAiBtn) {
+  toggleAiBtn.addEventListener('click', toggleAiPanel);
+}
+if (closeAiPanelBtn) {
+  closeAiPanelBtn.addEventListener('click', toggleAiPanel);
+}
+
+// Theme Toggle
+const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+toggleThemeBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+});
+
+// Nav Search Filter
+const navSearchInput = document.getElementById('nav-search-input');
+const navMenuList = document.getElementById('nav-menu-list');
+navSearchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase();
+  const links = navMenuList.querySelectorAll('li');
+  links.forEach(li => {
+    const text = li.textContent.toLowerCase();
+    if (text.includes(query)) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
+  });
+});
+
+// Quick Prompt Set
+function setPrompt(text) {
+  document.getElementById('ai-user-input').value = text;
+  document.getElementById('ai-chat-output').textContent = "질문 입력됨: " + text + "\n\n[AI 튜터 시뮬레이션 응답]\n교수님 심화 지도 원칙에 따라 법령 조문, 5단계 생애주기, 고유/협업 가중치(7:3/5:5) 및 서브노트 판단 근거가 매핑되었습니다.";
+}
+
+document.getElementById('ai-send-btn').addEventListener('click', () => {
+  const input = document.getElementById('ai-user-input');
+  if (input.value.trim()) {
+    setPrompt(input.value.trim());
+    input.value = '';
+  }
+});
+</script>
+
+</body>
+</html>
