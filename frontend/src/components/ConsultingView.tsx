@@ -30,6 +30,8 @@ interface DeepEvidenceStats {
   abssCount: number;
   jhaCount: number;
   dmaicCount: number;
+  curationCount: number;
+  ipoCount: number;
 }
 
 export default function ConsultingView({
@@ -47,6 +49,8 @@ export default function ConsultingView({
     abssCount: 0,
     jhaCount: 0,
     dmaicCount: 0,
+    curationCount: 0,
+    ipoCount: 0,
   });
 
   useEffect(() => {
@@ -57,7 +61,7 @@ export default function ConsultingView({
     }
     load();
 
-    // Phase 1 & Phase 2 심층 워크플로우 localStorage 증적 안전 집계
+    // Phase 1, 2, 3 심층 워크플로우 localStorage 증적 안전 집계
     try {
       const rawRisk = localStorage.getItem("safepulse_risk_records");
       const rawMager = localStorage.getItem("safepulse_mager_logs");
@@ -65,6 +69,8 @@ export default function ConsultingView({
       const rawAbss = localStorage.getItem("safepulse_abss_logs");
       const rawJha = localStorage.getItem("safepulse_jha_records");
       const rawDmaic = localStorage.getItem("safepulse_dmaic_items");
+      const rawCuration = localStorage.getItem("safepulse_curation_docs");
+      const rawIpo = localStorage.getItem("safepulse_ipo_hub");
 
       const riskRecords = rawRisk ? JSON.parse(rawRisk) : [];
       const magerLogs = rawMager ? JSON.parse(rawMager) : [];
@@ -72,6 +78,8 @@ export default function ConsultingView({
       const abssData = rawAbss ? JSON.parse(rawAbss) : null;
       const jhaRecords = rawJha ? JSON.parse(rawJha) : [];
       const dmaicItems = rawDmaic ? JSON.parse(rawDmaic) : [];
+      const curationDocs = rawCuration ? JSON.parse(rawCuration) : [];
+      const ipoData = rawIpo ? JSON.parse(rawIpo) : null;
 
       let mirrorAvg: string | null = null;
       let mirrorDefects = 0;
@@ -99,6 +107,8 @@ export default function ConsultingView({
         ? abssData.logs.length
         : 0;
 
+      const ipoCount = Array.isArray(ipoData?.contents) ? ipoData.contents.length : 0;
+
       setEvidence({
         riskCount: Array.isArray(riskRecords) ? riskRecords.length : 0,
         magerCount: Array.isArray(magerLogs) ? magerLogs.length : 0,
@@ -107,6 +117,8 @@ export default function ConsultingView({
         abssCount,
         jhaCount: Array.isArray(jhaRecords) ? jhaRecords.length : 0,
         dmaicCount: Array.isArray(dmaicItems) ? dmaicItems.length : 0,
+        curationCount: Array.isArray(curationDocs) ? curationDocs.length : 0,
+        ipoCount,
       });
     } catch {
       // localStorage 접근/파싱 실패 시 기본 0 유지
@@ -180,7 +192,7 @@ export default function ConsultingView({
             </button>
           )}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           <button
             type="button"
             onClick={() => onNavigate?.("company_report")}
@@ -254,7 +266,7 @@ export default function ConsultingView({
             onClick={() => onNavigate?.("jha_hpi")}
             className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-colors"
           >
-            <span className="text-[11px] font-bold text-slate-500 block">JHA & HPI 오류전조</span>
+            <span className="text-[11px] font-bold text-slate-500 block">JHA &amp; HPI 오류전조</span>
             <span className="text-lg font-black text-amber-700 mt-0.5 block">{evidence.jhaCount}건</span>
             <span className="text-[10px] text-slate-400">Ch 12 4열 워크시트</span>
           </button>
@@ -267,6 +279,26 @@ export default function ConsultingView({
             <span className="text-[11px] font-bold text-slate-500 block">PDCA / DMAIC 보드</span>
             <span className="text-lg font-black text-indigo-700 mt-0.5 block">{evidence.dmaicCount}건</span>
             <span className="text-[10px] text-slate-400">Ch 6 시정조치 과제</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate?.("knowledge_curation")}
+            className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-sky-300 transition-colors"
+          >
+            <span className="text-[11px] font-bold text-slate-500 block">안전지식 7대 품질</span>
+            <span className="text-lg font-black text-sky-700 mt-0.5 block">{evidence.curationCount}건</span>
+            <span className="text-[10px] text-slate-400">Ch 15 보존·품질검증</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate?.("content_ipo")}
+            className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-indigo-300 transition-colors"
+          >
+            <span className="text-[11px] font-bold text-slate-500 block">콘텐츠 IPO·출처</span>
+            <span className="text-lg font-black text-indigo-700 mt-0.5 block">{evidence.ipoCount}건</span>
+            <span className="text-[10px] text-slate-400">Ch 16 인용 게이트</span>
           </button>
         </div>
       </div>

@@ -20,6 +20,8 @@ import SMSMirrorAssessmentView from "@/components/SMSMirrorAssessmentView";
 import ABSSActivityTrackerView from "@/components/ABSSActivityTrackerView";
 import JHAHPIBuilderView from "@/components/JHAHPIBuilderView";
 import PDCADMAICBoardView from "@/components/PDCADMAICBoardView";
+import KnowledgeCurationView from "@/components/KnowledgeCurationView";
+import ContentIPOHubView from "@/components/ContentIPOHubView";
 import {
   fetchCurrentUser,
   clearAuthToken,
@@ -258,6 +260,8 @@ export default function Home() {
           {currentTab === "abss_tracker" && <ABSSActivityTrackerView />}
           {currentTab === "jha_hpi" && <JHAHPIBuilderView />}
           {currentTab === "pdca_dmaic" && <PDCADMAICBoardView />}
+          {currentTab === "knowledge_curation" && <KnowledgeCurationView />}
+          {currentTab === "content_ipo" && <ContentIPOHubView />}
           {currentTab === "ona" && <ONAView />}
           {currentTab === "kpi" && <KPIView />}
           {currentTab === "consulting" && (

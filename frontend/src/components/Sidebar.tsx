@@ -335,6 +335,38 @@ export default function Sidebar({
             </button>
           </div>
 
+          {/* 2-D. 지식·콘텐츠 전략 (Phase 3) */}
+          <div className="space-y-1">
+            <div className="px-3 pb-1 text-[11px] font-bold text-sky-600 uppercase tracking-wider flex items-center justify-between">
+              <span>지식·콘텐츠 전략</span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 font-bold">Phase 3</span>
+            </div>
+            <button
+              onClick={() => handleTabClick("knowledge_curation")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "knowledge_curation"
+                  ? "bg-sky-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <FileText className={`w-4 h-4 ${currentTab === "knowledge_curation" ? "text-white" : "text-sky-600"}`} />
+              <span className="text-xs font-bold flex-1">안전지식 7대 품질 검증</span>
+              <span className={`text-[10px] font-bold ${currentTab === "knowledge_curation" ? "text-sky-100" : "text-slate-400"}`}>Ch 15</span>
+            </button>
+            <button
+              onClick={() => handleTabClick("content_ipo")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "content_ipo"
+                  ? "bg-sky-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <Network className={`w-4 h-4 ${currentTab === "content_ipo" ? "text-white" : "text-indigo-500"}`} />
+              <span className="text-xs font-bold flex-1">콘텐츠 IPO·출처 게이트</span>
+              <span className={`text-[10px] font-bold ${currentTab === "content_ipo" ? "text-sky-100" : "text-slate-400"}`}>Ch 16</span>
+            </button>
+          </div>
+
           {/* 3. 성과 및 네트워크 */}
           <div className="space-y-1">
             <div className="px-3 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
