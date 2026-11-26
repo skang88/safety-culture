@@ -17,6 +17,9 @@ import SMSCoreDashboardView from "@/components/SMSCoreDashboardView";
 import RiskWorkflowView from "@/components/RiskWorkflowView";
 import MagerTrainingTreeView from "@/components/MagerTrainingTreeView";
 import SMSMirrorAssessmentView from "@/components/SMSMirrorAssessmentView";
+import ABSSActivityTrackerView from "@/components/ABSSActivityTrackerView";
+import JHAHPIBuilderView from "@/components/JHAHPIBuilderView";
+import PDCADMAICBoardView from "@/components/PDCADMAICBoardView";
 import {
   fetchCurrentUser,
   clearAuthToken,
@@ -252,6 +255,9 @@ export default function Home() {
           {currentTab === "risk_workflow" && <RiskWorkflowView />}
           {currentTab === "mager_tree" && <MagerTrainingTreeView />}
           {currentTab === "sms_mirror" && <SMSMirrorAssessmentView />}
+          {currentTab === "abss_tracker" && <ABSSActivityTrackerView />}
+          {currentTab === "jha_hpi" && <JHAHPIBuilderView />}
+          {currentTab === "pdca_dmaic" && <PDCADMAICBoardView />}
           {currentTab === "ona" && <ONAView />}
           {currentTab === "kpi" && <KPIView />}
           {currentTab === "consulting" && (

@@ -291,6 +291,50 @@ export default function Sidebar({
             </button>
           </div>
 
+          {/* 2-C. 현장 실행 워크플로우 (Phase 2) */}
+          <div className="space-y-1">
+            <div className="px-3 pb-1 text-[11px] font-bold text-emerald-600 uppercase tracking-wider flex items-center justify-between">
+              <span>현장 실행 워크플로우</span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold">Phase 2</span>
+            </div>
+            <button
+              onClick={() => handleTabClick("abss_tracker")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "abss_tracker"
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <Users className={`w-4 h-4 ${currentTab === "abss_tracker" ? "text-white" : "text-blue-500"}`} />
+              <span className="text-xs font-bold flex-1">ABSS 교대 활동 트래커</span>
+              <span className={`text-[10px] font-bold ${currentTab === "abss_tracker" ? "text-emerald-100" : "text-slate-400"}`}>Ch 11</span>
+            </button>
+            <button
+              onClick={() => handleTabClick("jha_hpi")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "jha_hpi"
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <HardHat className={`w-4 h-4 ${currentTab === "jha_hpi" ? "text-white" : "text-amber-500"}`} />
+              <span className="text-xs font-bold flex-1">JHA 4열 & HPI 오류전조</span>
+              <span className={`text-[10px] font-bold ${currentTab === "jha_hpi" ? "text-emerald-100" : "text-slate-400"}`}>Ch 12</span>
+            </button>
+            <button
+              onClick={() => handleTabClick("pdca_dmaic")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "pdca_dmaic"
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <BarChart3 className={`w-4 h-4 ${currentTab === "pdca_dmaic" ? "text-white" : "text-indigo-500"}`} />
+              <span className="text-xs font-bold flex-1">PDCA / DMAIC 개선 보드</span>
+              <span className={`text-[10px] font-bold ${currentTab === "pdca_dmaic" ? "text-emerald-100" : "text-slate-400"}`}>Ch 6</span>
+            </button>
+          </div>
+
           {/* 3. 성과 및 네트워크 */}
           <div className="space-y-1">
             <div className="px-3 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">

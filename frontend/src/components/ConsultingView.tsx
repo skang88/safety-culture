@@ -27,6 +27,9 @@ interface DeepEvidenceStats {
   magerCount: number;
   mirrorAvg: string | null;
   mirrorDefects: number;
+  abssCount: number;
+  jhaCount: number;
+  dmaicCount: number;
 }
 
 export default function ConsultingView({
@@ -41,6 +44,9 @@ export default function ConsultingView({
     magerCount: 0,
     mirrorAvg: null,
     mirrorDefects: 0,
+    abssCount: 0,
+    jhaCount: 0,
+    dmaicCount: 0,
   });
 
   useEffect(() => {
@@ -51,15 +57,21 @@ export default function ConsultingView({
     }
     load();
 
-    // Phase 1 심층 워크플로우 localStorage 증적 안전 집계
+    // Phase 1 & Phase 2 심층 워크플로우 localStorage 증적 안전 집계
     try {
       const rawRisk = localStorage.getItem("safepulse_risk_records");
       const rawMager = localStorage.getItem("safepulse_mager_logs");
       const rawMirror = localStorage.getItem("safepulse_sms_mirror");
+      const rawAbss = localStorage.getItem("safepulse_abss_logs");
+      const rawJha = localStorage.getItem("safepulse_jha_records");
+      const rawDmaic = localStorage.getItem("safepulse_dmaic_items");
 
       const riskRecords = rawRisk ? JSON.parse(rawRisk) : [];
       const magerLogs = rawMager ? JSON.parse(rawMager) : [];
       const mirrorData = rawMirror ? JSON.parse(rawMirror) : null;
+      const abssData = rawAbss ? JSON.parse(rawAbss) : null;
+      const jhaRecords = rawJha ? JSON.parse(rawJha) : [];
+      const dmaicItems = rawDmaic ? JSON.parse(rawDmaic) : [];
 
       let mirrorAvg: string | null = null;
       let mirrorDefects = 0;
@@ -81,11 +93,20 @@ export default function ConsultingView({
         }
       }
 
+      const abssCount = Array.isArray(abssData)
+        ? abssData.length
+        : Array.isArray(abssData?.logs)
+        ? abssData.logs.length
+        : 0;
+
       setEvidence({
         riskCount: Array.isArray(riskRecords) ? riskRecords.length : 0,
         magerCount: Array.isArray(magerLogs) ? magerLogs.length : 0,
         mirrorAvg,
         mirrorDefects,
+        abssCount,
+        jhaCount: Array.isArray(jhaRecords) ? jhaRecords.length : 0,
+        dmaicCount: Array.isArray(dmaicItems) ? dmaicItems.length : 0,
       });
     } catch {
       // localStorage 접근/파싱 실패 시 기본 0 유지
@@ -159,7 +180,7 @@ export default function ConsultingView({
             </button>
           )}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button
             type="button"
             onClick={() => onNavigate?.("company_report")}
@@ -207,7 +228,7 @@ export default function ConsultingView({
           <button
             type="button"
             onClick={() => onNavigate?.("sms_mirror")}
-            className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-sky-300 transition-colors col-span-2 sm:col-span-1"
+            className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-sky-300 transition-colors"
           >
             <span className="text-[11px] font-bold text-slate-500 block">SMS Mirror 평가</span>
             <span className="text-lg font-black text-sky-700 mt-0.5 block">
@@ -216,6 +237,36 @@ export default function ConsultingView({
             <span className="text-[10px] text-slate-400">
               {evidence.mirrorAvg ? `0~1점 결함 ${evidence.mirrorDefects}건` : "Ch 14 자체평가"}
             </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate?.("abss_tracker")}
+            className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-emerald-300 transition-colors"
+          >
+            <span className="text-[11px] font-bold text-slate-500 block">ABSS 교대 활동</span>
+            <span className="text-lg font-black text-emerald-700 mt-0.5 block">{evidence.abssCount}건</span>
+            <span className="text-[10px] text-slate-400">Ch 11 브리핑·1:1</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate?.("jha_hpi")}
+            className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-amber-300 transition-colors"
+          >
+            <span className="text-[11px] font-bold text-slate-500 block">JHA & HPI 오류전조</span>
+            <span className="text-lg font-black text-amber-700 mt-0.5 block">{evidence.jhaCount}건</span>
+            <span className="text-[10px] text-slate-400">Ch 12 4열 워크시트</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate?.("pdca_dmaic")}
+            className="text-left p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-indigo-300 transition-colors"
+          >
+            <span className="text-[11px] font-bold text-slate-500 block">PDCA / DMAIC 보드</span>
+            <span className="text-lg font-black text-indigo-700 mt-0.5 block">{evidence.dmaicCount}건</span>
+            <span className="text-[10px] text-slate-400">Ch 6 시정조치 과제</span>
           </button>
         </div>
       </div>
