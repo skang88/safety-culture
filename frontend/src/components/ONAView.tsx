@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { Network, Users, UserCheck, AlertTriangle, Info } from "lucide-react";
 import { fetchONAGraph } from "@/lib/api";
+import TextbookSourceBadge from "./TextbookSourceBadge";
 
 export default function ONAView() {
   const [data, setData] = useState<any>(null);
@@ -144,6 +145,12 @@ export default function ONAView() {
 
   return (
     <div className="space-y-8 pb-12">
+      <TextbookSourceBadge
+        chapter="Ch 3 (FIG. 3.2 3단계 영향력 · FIG. 3.5 소셜 네트워크)"
+        title="조직 네트워크 분석 (ONA)"
+        kpi="고립 노드 해소율 · 브릿지 중심성"
+        law="산안법 제24조"
+      />
       {/* 헤더 */}
       <div>
         <h1 className="text-2xl font-bold text-slate-900">

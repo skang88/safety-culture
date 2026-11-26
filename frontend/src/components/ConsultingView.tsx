@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { FileText, Award, Calendar, CheckSquare, Printer, Sparkles, AlertCircle } from "lucide-react";
 import { fetchConsultingReport } from "@/lib/api";
+import TextbookSourceBadge from "./TextbookSourceBadge";
 
 export default function ConsultingView() {
   const [report, setReport] = useState<any>(null);
@@ -25,6 +26,11 @@ export default function ConsultingView() {
 
   return (
     <div className="space-y-8 pb-16 max-w-5xl mx-auto">
+      <TextbookSourceBadge
+        chapter="Ch 7 (TABLE 7.1·공정 결과관리) · Ch 14 (SMART 액션플랜)"
+        title="맞춤형 안전문화 진단보고서 & 30-90-180일 처방 로드맵"
+        law="중처법 시행령 제4조"
+      />
       {/* 액션 버튼 및 헤더 */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>

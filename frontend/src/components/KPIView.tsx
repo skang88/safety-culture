@@ -44,6 +44,7 @@ import {
   deleteKPIMetric,
   resetKPIMetrics
 } from "@/lib/api";
+import TextbookSourceBadge from "./TextbookSourceBadge";
 
 export default function KPIView() {
   const [kpiData, setKpiData] = useState<any>(null);
@@ -285,6 +286,13 @@ export default function KPIView() {
 
   return (
     <div className="space-y-8 pb-20 relative">
+      <TextbookSourceBadge
+        chapter="Ch 4 (SMART) · Ch 7 (RAA) · Ch 10~16 생애주기 매핑"
+        title="생애주기(예방·대비·대응·복구) 법령 연계 KPI 관리"
+        kpi="고유(70%) · 협업(30%) 가중치 체계"
+        law="산안법 제14·29·36조 / 중처법 시행령 제4조"
+        isResearcherAdded
+      />
       {/* 토스트 알림 */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs font-semibold animate-fade-in border border-slate-700">

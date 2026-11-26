@@ -34,6 +34,7 @@ import {
 } from "recharts";
 import { fetchChecklistGroups, fetchChecklistStats } from "@/lib/api";
 import ChecklistSurveyModal from "./ChecklistSurveyModal";
+import TextbookSourceBadge from "./TextbookSourceBadge";
 
 interface ChecklistHubViewProps {
   initialGroupId?: string;
@@ -265,6 +266,11 @@ export default function ChecklistHubView({
 
   return (
     <div className="space-y-8 pb-16">
+      <TextbookSourceBadge
+        chapter="Ch 2 (App 2.2) · Ch 7 (App 7.2~7.5, Tab 7.3) · Ch 8 (App 8.1) · Ch 9 (Ch 9.12)"
+        title="부록 체크리스트 8대 정밀진단 허브"
+        law="산안법 제14~16·24·36조"
+      />
       {/* 상단 브리핑 헤더 */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
         <div>

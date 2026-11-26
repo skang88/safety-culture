@@ -235,6 +235,62 @@ export default function Sidebar({
             </div>
           </div>
 
+          {/* 2-B. 교재 차트 강화 워크플로우 (Phase 1) */}
+          <div className="space-y-1">
+            <div className="px-3 pb-1 text-[11px] font-bold text-indigo-500 uppercase tracking-wider flex items-center justify-between">
+              <span>교재 차트 워크플로우</span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-600 font-bold">Phase 1</span>
+            </div>
+            <button
+              onClick={() => handleTabClick("sms_core")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "sms_core"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <Layers className={`w-4 h-4 ${currentTab === "sms_core" ? "text-white" : "text-indigo-500"}`} />
+              <span className="text-xs font-bold flex-1">SMS 6대 요소 통합</span>
+              <span className={`text-[10px] font-bold ${currentTab === "sms_core" ? "text-indigo-100" : "text-slate-400"}`}>Ch 5·14</span>
+            </button>
+            <button
+              onClick={() => handleTabClick("risk_workflow")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "risk_workflow"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <AlertTriangle className={`w-4 h-4 ${currentTab === "risk_workflow" ? "text-white" : "text-amber-500"}`} />
+              <span className="text-xs font-bold flex-1">위험관리 8단계 루프</span>
+              <span className={`text-[10px] font-bold ${currentTab === "risk_workflow" ? "text-indigo-100" : "text-slate-400"}`}>Ch 9·10</span>
+            </button>
+            <button
+              onClick={() => handleTabClick("mager_tree")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "mager_tree"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <Sparkles className={`w-4 h-4 ${currentTab === "mager_tree" ? "text-white" : "text-emerald-500"}`} />
+              <span className="text-xs font-bold flex-1">Mager 교육 의사결정</span>
+              <span className={`text-[10px] font-bold ${currentTab === "mager_tree" ? "text-indigo-100" : "text-slate-400"}`}>Ch 13</span>
+            </button>
+            <button
+              onClick={() => handleTabClick("sms_mirror")}
+              className={`w-full text-left flex items-center gap-2.5 p-2.5 rounded-xl transition-all ${
+                currentTab === "sms_mirror"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              }`}
+            >
+              <ClipboardCheck className={`w-4 h-4 ${currentTab === "sms_mirror" ? "text-white" : "text-sky-500"}`} />
+              <span className="text-xs font-bold flex-1">SMS Mirror 평가 (0~3)</span>
+              <span className={`text-[10px] font-bold ${currentTab === "sms_mirror" ? "text-indigo-100" : "text-slate-400"}`}>Ch 14</span>
+            </button>
+          </div>
+
           {/* 3. 성과 및 네트워크 */}
           <div className="space-y-1">
             <div className="px-3 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">

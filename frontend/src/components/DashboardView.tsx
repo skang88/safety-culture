@@ -28,6 +28,7 @@ import {
   Tooltip
 } from "recharts";
 import { fetchAssessmentResults, fetchONAGraph, fetchConsultingReport } from "@/lib/api";
+import TextbookSourceBadge from "./TextbookSourceBadge";
 
 interface DashboardViewProps {
   onNavigate: (tab: string) => void;
@@ -135,6 +136,11 @@ export default function DashboardView({
 
   return (
     <div className="space-y-8 pb-16">
+      <TextbookSourceBadge
+        chapter="Ch 2 (APP 2.2) · Ch 7 (FIG. 7.1) · Ch 8 · Ch 9"
+        title="전사 안전문화 & RAA·부록 통합 대시보드"
+        law="산안법 제14·15·16·24조 / 중처법 제4조"
+      />
       {/* 1. 상단 종합 브리핑 배너 */}
       <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">

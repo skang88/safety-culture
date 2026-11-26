@@ -13,6 +13,10 @@ import ChecklistHubView from "@/components/ChecklistHubView";
 import CompanyReportView from "@/components/CompanyReportView";
 import OnboardingModal from "@/components/OnboardingModal";
 import AuthModal from "@/components/AuthModal";
+import SMSCoreDashboardView from "@/components/SMSCoreDashboardView";
+import RiskWorkflowView from "@/components/RiskWorkflowView";
+import MagerTrainingTreeView from "@/components/MagerTrainingTreeView";
+import SMSMirrorAssessmentView from "@/components/SMSMirrorAssessmentView";
 import {
   fetchCurrentUser,
   clearAuthToken,
@@ -235,6 +239,16 @@ export default function Home() {
               onModuleComplete={handleChecklistModuleComplete}
             />
           )}
+          {currentTab === "sms_core" && (
+            <SMSCoreDashboardView
+              onNavigate={setCurrentTab}
+              session={session}
+              completedChecklistModules={completedChecklistModules}
+            />
+          )}
+          {currentTab === "risk_workflow" && <RiskWorkflowView />}
+          {currentTab === "mager_tree" && <MagerTrainingTreeView />}
+          {currentTab === "sms_mirror" && <SMSMirrorAssessmentView />}
           {currentTab === "ona" && <ONAView />}
           {currentTab === "kpi" && <KPIView />}
           {currentTab === "consulting" && <ConsultingView />}
