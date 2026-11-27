@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Building2, Factory, HardHat, Flame, Truck, ShieldAlert, Sparkles, ArrowRight } from "lucide-react";
+import { Building2, Factory, HardHat, Flame, Truck, ShieldAlert, ArrowRight, X } from "lucide-react";
 import { startCompanySession } from "@/lib/api";
 
 interface OnboardingModalProps {
@@ -72,12 +72,37 @@ export default function OnboardingModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-100 my-8">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-100 my-8 relative"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="닫기"
+          className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
         <div className="text-center max-w-md mx-auto">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center mx-auto shadow-md mb-3">
-            <Sparkles className="w-6 h-6" />
+          <div className="inline-flex items-center gap-2 mb-3">
+            <img
+              src="/logos/donga-univ-logo.png"
+              alt="동아대학교 로고"
+              className="w-9 h-9 rounded-full bg-white p-0.5 border border-slate-200 object-contain shadow-xs"
+            />
+            <img
+              src="/logos/disaster-mgmt-logo.jpeg"
+              alt="동아대학교 재난관리학과 로고"
+              className="w-9 h-9 rounded-full bg-white p-0.5 border border-slate-200 object-contain shadow-xs"
+            />
           </div>
+          <p className="text-[11px] font-bold text-blue-700 mb-1">동아대학교 재난관리학과 · SafePulse 360</p>
           <h2 className="text-2xl font-black text-slate-900 tracking-tight">
             우리 회사 맞춤형 안전문화 진단
           </h2>

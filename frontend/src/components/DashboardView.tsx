@@ -33,7 +33,6 @@ import TextbookSourceBadge from "./TextbookSourceBadge";
 interface DashboardViewProps {
   onNavigate: (tab: string) => void;
   session?: any;
-  currentUser?: any;
   onOpenOnboarding?: () => void;
   completedChecklistModules?: Record<string, any>;
 }
@@ -41,7 +40,6 @@ interface DashboardViewProps {
 export default function DashboardView({
   onNavigate,
   session,
-  currentUser,
   onOpenOnboarding,
   completedChecklistModules = {},
 }: DashboardViewProps) {
@@ -81,11 +79,9 @@ export default function DashboardView({
     );
   }
 
-  // 실제 완료 여부 및 진단 결과 객체 추출 (단수/복수/유저상태 통합 검증)
-  const sessionResult = session?.result || session?.results;
-  const isSessionCompleted = Boolean(session?.is_completed || sessionResult);
-  const isUserCompleted = Boolean(currentUser?.has_completed_assessment);
-  const hasCompleted = isSessionCompleted || isUserCompleted;
+  // 실제 완료 여부 및 진단 결과 객체 추출
+  const sessionResult = session?.assessment_result || session?.result || session?.results;
+  const hasCompleted = Boolean(session?.is_completed || sessionResult);
 
   // 진단이 완료되었을 때만 실제 결과 바인딩 (미완료 시 더미데이터 노출 차단)
   const activeResult = sessionResult || (hasCompleted ? assessment : null);
@@ -94,8 +90,18 @@ export default function DashboardView({
   const dim = activeResult?.dimension_scores;
 
   const progressPct = session?.progress_percentage ?? session?.progress_pct ?? 0;
-  const companyName = session?.company?.company_name || currentUser?.company_name || "우리 회사";
-  const industryName = session?.company?.industry || "manufacturing";
+  const companyName = session?.company?.company_name || "우리 기관/회사";
+  const industryLabels: Record<string, string> = {
+    manufacturing: "제조업",
+    construction: "건설업",
+    chemical: "화학·에너지",
+    logistics: "운송·물류",
+    public_safety: "공공·소방",
+    service_other: "서비스·기타",
+  };
+  const industryName = session?.company?.industry
+    ? industryLabels[session.company.industry] || session.company.industry
+    : "업종 미설정";
 
   // 부록 8개 모듈 완료 수
   const completedChecklistCount = Object.keys(completedChecklistModules).length;
@@ -144,11 +150,32 @@ export default function DashboardView({
       {/* 1. 상단 종합 브리핑 배너 */}
       <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10 max-w-3xl">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 text-slate-900 shadow-sm">
+              <img
+                src="/logos/donga-univ-logo.png"
+                alt="동아대학교 로고"
+                className="w-6 h-6 rounded-full object-contain bg-white"
+              />
+              <img
+                src="/logos/disaster-mgmt-logo.jpeg"
+                alt="동아대학교 재난관리학과 로고"
+                className="w-6 h-6 rounded-full object-contain bg-white"
+              />
+              <span className="text-[11px] font-extrabold tracking-tight text-slate-900">
+                동아대학교 · 재난관리학과 (DADEM)
+              </span>
+            </div>
+            <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-[11px] font-bold">
+              회원가입 없이 바로 이용 가능
+            </span>
+          </div>
+
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wide uppercase">
               [{companyName}] 안전문화 진단 현황
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 text-[11px] font-bold uppercase">
+            <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 text-[11px] font-bold">
               업종: {industryName}
             </span>
             {hasCompleted ? (
@@ -194,7 +221,7 @@ export default function DashboardView({
 
           <div className="mt-6 flex flex-wrap gap-3">
             <button
-              onClick={() => onNavigate("assessment")}
+              onClick={() => (!session && onOpenOnboarding ? onOpenOnboarding() : onNavigate("assessment"))}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-lg hover:scale-105"
             >
               {hasCompleted
@@ -216,7 +243,7 @@ export default function DashboardView({
               onClick={onOpenOnboarding}
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-colors backdrop-blur-sm"
             >
-              회사/업종 변경
+              {session ? "회사/업종 변경" : "기관/업종 설정"}
             </button>
           </div>
         </div>

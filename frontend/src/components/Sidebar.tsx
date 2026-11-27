@@ -417,13 +417,27 @@ export default function Sidebar({
         </div>
 
         {/* 사이드바 하단 정보 */}
-        <div className="p-3 border-t border-slate-100 bg-slate-50 text-slate-500 text-[11px] space-y-1">
-          <div className="flex items-center gap-1.5 font-bold text-slate-700">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>학술 기반 안전문화 솔루션</span>
+        <div className="p-3 border-t border-slate-100 bg-slate-50 text-slate-500 text-[11px] space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 shrink-0">
+              <img
+                src="/logos/donga-univ-logo.png"
+                alt="동아대학교 로고"
+                className="w-7 h-7 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+              />
+              <img
+                src="/logos/disaster-mgmt-logo.jpeg"
+                alt="동아대학교 재난관리학과 로고"
+                className="w-7 h-7 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+              />
+            </div>
+            <div className="min-w-0 leading-tight">
+              <div className="font-bold text-slate-800 truncate">동아대학교 재난관리학과</div>
+              <div className="text-[9.5px] text-slate-400 truncate">Dept. of Disaster &amp; Emergency Mgmt</div>
+            </div>
           </div>
           <p className="text-[10px] text-slate-400 leading-tight">
-            Roughton, Crutchfield & Waite (2019)
+            Roughton, Crutchfield &amp; Waite (2019)
           </p>
         </div>
       </aside>

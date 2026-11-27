@@ -239,6 +239,21 @@ export default function CompanyReportView({
       {/* 1. 상단 인쇄 및 리포트 헤더 */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 mb-2">
+            <img
+              src="/logos/donga-univ-logo.png"
+              alt="동아대학교 로고"
+              className="w-5 h-5 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+            />
+            <img
+              src="/logos/disaster-mgmt-logo.jpeg"
+              alt="동아대학교 재난관리학과 로고"
+              className="w-5 h-5 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+            />
+            <span className="text-[11px] font-bold text-slate-700">
+              동아대학교 재난관리학과 · SafePulse 360 공식 진단 리포트
+            </span>
+          </div>
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wide">
               Ch 1~16 Comprehensive Report

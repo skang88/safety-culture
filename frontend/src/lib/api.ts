@@ -345,6 +345,7 @@ export async function startCompanySession(company: any) {
     if (typeof window !== "undefined") {
       localStorage.setItem("safepulse_session_id", data.session_id);
       localStorage.setItem("safepulse_company", JSON.stringify(data.company));
+      localStorage.setItem("safepulse_session_data", JSON.stringify(data));
     }
     return data;
   } catch (err) {
@@ -363,6 +364,7 @@ export async function startCompanySession(company: any) {
     if (typeof window !== "undefined") {
       localStorage.setItem("safepulse_session_id", mockSessionId);
       localStorage.setItem("safepulse_company", JSON.stringify(company));
+      localStorage.setItem("safepulse_session_data", JSON.stringify(mockData));
     }
     return mockData;
   }
@@ -372,14 +374,41 @@ export async function fetchSession(sessionId: string) {
   try {
     const res = await apiFetch(`/session/${sessionId}`);
     if (!res.ok) throw new Error("Failed to fetch session");
-    return await res.json();
+    const data = await res.json();
+    if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_data", JSON.stringify(data));
+    }
+    return data;
   } catch (err) {
     console.warn("Fallback fetch session:", err);
+    if (typeof window !== "undefined") {
+      try {
+        const raw = localStorage.getItem("safepulse_session_data");
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (!sessionId || parsed?.session_id === sessionId || parsed) {
+            return parsed;
+          }
+        }
+      } catch {
+        // ignore parse errors
+      }
+    }
     return null;
   }
 }
 
 export async function saveSessionProgress(sessionId: string, currentStep: number, answers: Record<string, number>, isCompleted: boolean = false) {
+  let storedSession: any = null;
+  if (typeof window !== "undefined") {
+    try {
+      const raw = localStorage.getItem("safepulse_session_data");
+      if (raw) storedSession = JSON.parse(raw);
+    } catch {
+      // ignore parse errors
+    }
+  }
+
   try {
     const res = await apiFetch(`/session/${sessionId}/save`, {
       method: "PUT",
@@ -391,18 +420,34 @@ export async function saveSessionProgress(sessionId: string, currentStep: number
       }),
     });
     if (!res.ok) throw new Error("Failed to save progress");
-    return await res.json();
+    const data = await res.json();
+    const merged = {
+      ...(storedSession || {}),
+      ...data,
+      company: data.company || storedSession?.company,
+    };
+    if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_data", JSON.stringify(merged));
+    }
+    return merged;
   } catch (err) {
     console.warn("Fallback save progress:", err);
-    return {
+    const totalQuestions = storedSession?.total_questions || 18;
+    const answeredCount = Object.keys(answers).length;
+    const fallbackData = {
+      ...(storedSession || {}),
       session_id: sessionId,
       current_step: currentStep,
       answers,
       is_completed: isCompleted,
-      progress_percentage: Math.round((Object.keys(answers).length / 18) * 100),
-      total_questions: 18,
-      answered_count: Object.keys(answers).length
+      progress_percentage: Math.min(100, Math.round((answeredCount / totalQuestions) * 100)),
+      total_questions: totalQuestions,
+      answered_count: answeredCount
     };
+    if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_data", JSON.stringify(fallbackData));
+    }
+    return fallbackData;
   }
 }
 

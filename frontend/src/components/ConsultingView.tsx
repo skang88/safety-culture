@@ -155,9 +155,26 @@ export default function ConsultingView({
       {/* 액션 버튼 및 헤더 */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
-            Comprehensive Consulting Report
-          </span>
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 mb-2">
+            <img
+              src="/logos/donga-univ-logo.png"
+              alt="동아대학교 로고"
+              className="w-5 h-5 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+            />
+            <img
+              src="/logos/disaster-mgmt-logo.jpeg"
+              alt="동아대학교 재난관리학과 로고"
+              className="w-5 h-5 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+            />
+            <span className="text-[11px] font-bold text-slate-700">
+              동아대학교 재난관리학과 · SafePulse 360 컨설팅 리포트
+            </span>
+          </div>
+          <div className="block">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+              Comprehensive Consulting Report
+            </span>
+          </div>
           <h1 className="text-2xl font-extrabold text-slate-900 mt-1">
             {displayOrgName} 맞춤형 안전문화 진단보고서 & 컨설팅
           </h1>

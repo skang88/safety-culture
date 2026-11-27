@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import LandingHeroView from "@/components/LandingHeroView";
 import DashboardView from "@/components/DashboardView";
 import AssessmentWizardView from "@/components/AssessmentWizardView";
 import ONAView from "@/components/ONAView";
@@ -12,7 +11,6 @@ import ConsultingView from "@/components/ConsultingView";
 import ChecklistHubView from "@/components/ChecklistHubView";
 import CompanyReportView from "@/components/CompanyReportView";
 import OnboardingModal from "@/components/OnboardingModal";
-import AuthModal from "@/components/AuthModal";
 import SMSCoreDashboardView from "@/components/SMSCoreDashboardView";
 import RiskWorkflowView from "@/components/RiskWorkflowView";
 import MagerTrainingTreeView from "@/components/MagerTrainingTreeView";
@@ -22,18 +20,10 @@ import JHAHPIBuilderView from "@/components/JHAHPIBuilderView";
 import PDCADMAICBoardView from "@/components/PDCADMAICBoardView";
 import KnowledgeCurationView from "@/components/KnowledgeCurationView";
 import ContentIPOHubView from "@/components/ContentIPOHubView";
-import {
-  fetchCurrentUser,
-  clearAuthToken,
-  fetchSession,
-  startCompanySession
-} from "@/lib/api";
+import { fetchSession } from "@/lib/api";
 
 export default function Home() {
-  const [currentUser, setCurrentUser] = useState<any>(null);
   const [currentTab, setCurrentTab] = useState("dashboard");
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<"register" | "login">("register");
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
@@ -43,18 +33,23 @@ export default function Home() {
   const [selectedChecklistGroupId, setSelectedChecklistGroupId] = useState<string>("APP_7_2_LEADERSHIP");
 
   useEffect(() => {
-    async function initAuthAndSession() {
+    async function initSession() {
       try {
-        const user = await fetchCurrentUser();
-        if (user) {
-          setCurrentUser(user);
-          const storedSessionId = localStorage.getItem("safepulse_session_id");
-          if (storedSessionId) {
-            const sess = await fetchSession(storedSessionId);
-            if (sess) {
-              setSession(sess);
-            }
+        const storedSessionId = localStorage.getItem("safepulse_session_id");
+        let restoredSession: any = null;
+        if (storedSessionId) {
+          restoredSession = await fetchSession(storedSessionId);
+        }
+        if (!restoredSession) {
+          const storedRaw = localStorage.getItem("safepulse_session_data");
+          if (storedRaw) {
+            try {
+              restoredSession = JSON.parse(storedRaw);
+            } catch (e) {}
           }
+        }
+        if (restoredSession) {
+          setSession(restoredSession);
         }
         // 부록 진단 완료 모듈 복원
         const storedChecklists = localStorage.getItem("safepulse_completed_checklists");
@@ -67,31 +62,28 @@ export default function Home() {
         setLoading(false);
       }
     }
-    initAuthAndSession();
+    initSession();
   }, []);
-
-  // 회원가입 또는 로그인 성공 시 핸들러
-  const handleAuthSuccess = (user: any) => {
-    setCurrentUser(user);
-    // 신규 회원이면 온보딩(업종 선택) 모달 오픈
-    if (!user.has_completed_assessment) {
-      setIsOnboardingOpen(true);
-    } else {
-      setCurrentTab("dashboard");
-    }
-  };
 
   // 온보딩 완료 시 세션 시작 및 진단 서베이로 이동
   const handleSessionStarted = (newSession: any) => {
     setSession(newSession);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_data", JSON.stringify(newSession));
+    }
     setCurrentTab("assessment");
+  };
+
+  // 진단 진행 상태 업데이트
+  const handleSessionUpdate = (updatedSession: any) => {
+    setSession(updatedSession);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_data", JSON.stringify(updatedSession));
+    }
   };
 
   // 진단 완료 시 종합 리포트 탭으로 이동
   const handleAssessmentComplete = () => {
-    if (currentUser) {
-      setCurrentUser({ ...currentUser, has_completed_assessment: true });
-    }
     setCurrentTab("company_report");
   };
 
@@ -104,14 +96,6 @@ export default function Home() {
     });
   };
 
-  // 로그아웃
-  const handleLogout = () => {
-    clearAuthToken();
-    setCurrentUser(null);
-    setSession(null);
-    setCurrentTab("dashboard");
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
@@ -120,80 +104,22 @@ export default function Home() {
     );
   }
 
-  // 1. 비로그인 방문자 화면: 랜딩 히어로 우선 노출
-  if (!currentUser) {
-    return (
-      <div className="min-h-screen flex flex-col bg-slate-50">
-        <header className="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-sm">
-          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16 items-center gap-2">
-              <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm sm:text-base shrink-0">
-                  S
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-base sm:text-lg text-slate-900 whitespace-nowrap">
-                    SafePulse <span className="text-blue-600">360</span>
-                  </span>
-                  <span className="hidden sm:inline-block text-[10px] bg-blue-100 text-blue-800 font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
-                    Roughton et al. Model
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <button
-                  onClick={() => { setAuthMode("login"); setIsAuthOpen(true); }}
-                  className="px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs font-bold text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-100 transition-colors whitespace-nowrap shrink-0"
-                >
-                  로그인
-                </button>
-                <button
-                  onClick={() => { setAuthMode("register"); setIsAuthOpen(true); }}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-sm transition-all whitespace-nowrap shrink-0"
-                >
-                  <span className="hidden sm:inline">무료 </span>자가진단 시작
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-          <LandingHeroView
-            onStartRegister={() => { setAuthMode("register"); setIsAuthOpen(true); }}
-            onStartLogin={() => { setAuthMode("login"); setIsAuthOpen(true); }}
-          />
-        </main>
-
-        <footer className="border-t border-slate-200 bg-white py-6">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-400">
-            © 2026 SafePulse 360. All rights reserved. Roughton, Crutchfield & Waite (2019) Safety Culture 기반 자가진단 플랫폼.
-          </div>
-        </footer>
-
-        <AuthModal
-          isOpen={isAuthOpen}
-          initialMode={authMode}
-          onClose={() => setIsAuthOpen(false)}
-          onSuccess={handleAuthSuccess}
-        />
-      </div>
-    );
-  }
-
-  // 2. 로그인된 사용자 전용 대시보드 및 진단 포털
-  const hasAssessmentResult = Boolean(session?.results || currentUser?.has_completed_assessment);
+  // 오픈 액세스: 로그인/회원가입 없이 누구나 즉시 진단 및 플랫폼 이용 가능
+  const hasCompanyConfigured = Boolean(session?.company?.company_name);
+  const activeCompanyName = session?.company?.company_name || "기관/회사 미설정 (오픈 체험)";
+  const activeIndustry = session?.company?.industry || "";
+  const hasAssessmentResult = Boolean(
+    session?.results || session?.result || session?.assessment_result || session?.is_completed
+  );
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
-      {/* 상단 고정 헤더: 핵심 사업장/계정 정보 중심 */}
+      {/* 상단 고정 헤더: 동아대학교 · 재난관리학과 브랜딩 및 사업장 정보 */}
       <Navbar
-        companyName={currentUser.company_name}
-        industry={session?.company?.industry || "manufacturing"}
-        userName={currentUser.name}
+        companyName={activeCompanyName}
+        industry={activeIndustry}
+        hasCompanyConfigured={hasCompanyConfigured}
         hasAssessmentResult={hasAssessmentResult}
-        onLogout={handleLogout}
         onOpenOnboarding={() => setIsOnboardingOpen(true)}
         onToggleSidebar={() => {
           if (typeof window !== "undefined" && window.innerWidth >= 1024) {
@@ -230,7 +156,6 @@ export default function Home() {
             <DashboardView
               onNavigate={setCurrentTab}
               session={session}
-              currentUser={currentUser}
               onOpenOnboarding={() => setIsOnboardingOpen(true)}
               completedChecklistModules={completedChecklistModules}
             />
@@ -238,7 +163,7 @@ export default function Home() {
           {currentTab === "assessment" && (
             <AssessmentWizardView
               session={session}
-              onSessionUpdate={setSession}
+              onSessionUpdate={handleSessionUpdate}
               onComplete={handleAssessmentComplete}
               onOpenOnboarding={() => setIsOnboardingOpen(true)}
               onNavigate={setCurrentTab}
@@ -285,11 +210,25 @@ export default function Home() {
           )}
         </main>
 
-        <footer className="border-t border-slate-200 bg-white py-5 mt-auto">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-slate-500">
-            <p>© 2026 SafePulse 360. [{currentUser.company_name}] 접속 중</p>
-            <p className="flex items-center gap-2">
-              <span>Roughton, Crutchfield & Waite (2019) Safety Culture 실무 진단 및 컨설팅 엔진</span>
+        <footer className="border-t border-slate-200 bg-white py-5 mt-auto print:hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-500">
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1.5 shrink-0">
+                <img
+                  src="/logos/donga-univ-logo.png"
+                  alt="동아대학교 로고"
+                  className="w-6 h-6 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+                />
+                <img
+                  src="/logos/disaster-mgmt-logo.jpeg"
+                  alt="동아대학교 재난관리학과 로고"
+                  className="w-6 h-6 rounded-full bg-white p-0.5 border border-slate-200 object-contain"
+                />
+              </div>
+              <p>© 2026 SafePulse 360 · 동아대학교 재난관리학과 (DADEM) · [{activeCompanyName}]</p>
+            </div>
+            <p className="flex items-center gap-2 text-slate-400">
+              <span>Roughton, Crutchfield &amp; Waite (2019) Safety Culture 실무 진단 및 컨설팅 엔진</span>
             </p>
           </div>
         </footer>
@@ -298,8 +237,8 @@ export default function Home() {
       {/* 온보딩 모달 */}
       <OnboardingModal
         isOpen={isOnboardingOpen}
-        defaultCompanyName={currentUser.company_name}
-        defaultEvaluatorName={currentUser.name}
+        defaultCompanyName={session?.company?.company_name || ""}
+        defaultEvaluatorName={session?.company?.evaluator_name || ""}
         onClose={() => setIsOnboardingOpen(false)}
         onSessionStarted={handleSessionStarted}
       />

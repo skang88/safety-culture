@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SafePulse 360 | 조직 안전문화 & 리더십 진단 컨설팅 플랫폼",
-  description: "Roughton, Crutchfield & Waite (2019) Safety Culture Chapters 1-9 및 RAA 트라이어드 기반 진단 및 컨설팅 솔루션",
+  title: "SafePulse 360 | 동아대학교 재난관리학과 조직 안전문화 진단 플랫폼",
+  description: "동아대학교 재난관리학과 · Roughton, Crutchfield & Waite (2019) Safety Culture Chapters 1-16 기반 조직 안전문화 자가진단 및 컨설팅 플랫폼",
 };
 
 export default function RootLayout({
