@@ -36,6 +36,7 @@ export default function Home() {
   const [authMode, setAuthMode] = useState<"register" | "login">("register");
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [completedChecklistModules, setCompletedChecklistModules] = useState<Record<string, any>>({});
@@ -194,7 +195,13 @@ export default function Home() {
         hasAssessmentResult={hasAssessmentResult}
         onLogout={handleLogout}
         onOpenOnboarding={() => setIsOnboardingOpen(true)}
-        onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+        onToggleSidebar={() => {
+          if (typeof window !== "undefined" && window.innerWidth >= 1024) {
+            setIsDesktopSidebarOpen((prev) => !prev);
+          } else {
+            setIsSidebarOpen((prev) => !prev);
+          }
+        }}
       />
 
       {/* 좌측 사이드바: 모든 기능적 메뉴 관리 */}
@@ -202,6 +209,7 @@ export default function Home() {
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
         isOpen={isSidebarOpen}
+        isDesktopOpen={isDesktopSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
         hasAssessmentResult={hasAssessmentResult}
         completedChecklistModules={completedChecklistModules}
@@ -211,8 +219,12 @@ export default function Home() {
         }}
       />
 
-      {/* 본문 콘텐츠 영역 (좌측 사이드바 여백 lg:pl-64) */}
-      <div className="flex-1 lg:pl-64 flex flex-col min-w-0 transition-all duration-200">
+      {/* 본문 콘텐츠 영역 (데스크톱 사이드바 열림 여부에 따라 여백 동적 전환) */}
+      <div
+        className={`flex-1 flex flex-col min-w-0 transition-all duration-200 ${
+          isDesktopSidebarOpen ? "lg:pl-64" : "lg:pl-0"
+        }`}
+      >
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
           {currentTab === "dashboard" && (
             <DashboardView

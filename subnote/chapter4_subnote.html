@@ -311,6 +311,7 @@ body {
   margin-left: var(--sidebar-w);
   margin-right: var(--ai-panel-w);
   flex: 1;
+  min-width: 0;
   padding: 40px 48px;
   max-width: 1100px;
   transition: margin 0.3s ease;
@@ -624,15 +625,21 @@ hr.divider {
   border-radius: 10px;
   padding: 24px 20px;
   margin: 24px 0;
+  max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   text-align: center;
 }
 
 .mermaid-box .mermaid {
-  display: inline-block;
-  text-align: left;
-  min-width: min-content;
+  display: block;
+  text-align: center;
+  max-width: 100%;
+}
+
+.mermaid-box svg {
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 .mermaid-box svg {

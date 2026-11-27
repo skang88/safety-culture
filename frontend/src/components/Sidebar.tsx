@@ -28,6 +28,7 @@ interface SidebarProps {
   currentTab: string;
   setCurrentTab: (tab: string) => void;
   isOpen: boolean;
+  isDesktopOpen?: boolean;
   onClose: () => void;
   hasAssessmentResult?: boolean;
   completedChecklistModules?: Record<string, any>;
@@ -38,6 +39,7 @@ export default function Sidebar({
   currentTab,
   setCurrentTab,
   isOpen,
+  isDesktopOpen = true,
   onClose,
   hasAssessmentResult = false,
   completedChecklistModules = {},
@@ -86,8 +88,8 @@ export default function Sidebar({
       {/* 좌측 사이드바 본체 */}
       <aside
         className={`fixed top-16 bottom-0 left-0 z-40 w-64 bg-white border-r border-slate-200 transition-transform duration-200 ease-in-out flex flex-col ${
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } ${isDesktopOpen ? "lg:translate-x-0" : "lg:-translate-x-full"}`}
       >
         {/* 모바일 닫기 버튼 */}
         <div className="lg:hidden flex items-center justify-between p-3 border-b border-slate-100 bg-slate-50">
