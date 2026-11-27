@@ -120,10 +120,16 @@ def md_to_html(md_text: str) -> str:
         # Image line
         img_match = re.match(r"^!\[(.*?)\]\(([^)]+)\)$", line)
         if img_match:
-            alt_txt, src = html.escape(img_match.group(1)), html.escape(img_match.group(2).strip())
+            alt_raw = img_match.group(1).strip()
+            alt_txt, src = html.escape(alt_raw), html.escape(img_match.group(2).strip())
             if "image-xxx" not in src:
+                cap_html = (
+                    f'<p class="text-[11px] text-slate-400 mt-1.5">{alt_txt}</p>'
+                    if alt_raw.lower() not in ("", "alt text", "image", "img")
+                    else ""
+                )
                 parts.append(
-                    f'<div class="my-4 text-center"><img src="{src}" alt="{alt_txt}" class="rounded-xl shadow-lg mx-auto max-h-96 border border-slate-700 bg-slate-900 p-2 object-contain" /><p class="text-[11px] text-slate-400 mt-1.5">{alt_txt}</p></div>'
+                    f'<div class="my-4 text-center"><img src="{src}" alt="{alt_txt}" class="rounded-xl shadow-lg mx-auto max-h-96 border border-slate-700 bg-slate-900 p-2 object-contain" />{cap_html}</div>'
                 )
             i += 1
             continue
@@ -271,6 +277,28 @@ def extract_heading_for_toc(md_text: str) -> tuple[int, str] | None:
     return None
 
 
+def align_figure_block(en_md: str, ko_md: str) -> tuple[str, str]:
+    """Ensure heading/caption and image order matches between EN and KO (heading first)."""
+    def reorder_if_img_first(md: str) -> str:
+        cleaned = re.sub(r"<!--.*?-->", "", md, flags=re.S).strip()
+        lines = [l for l in cleaned.splitlines() if l.strip()]
+        img_lines = [l for l in lines if re.match(r"^!\[.*?\]\(([^)]+)\)$", l.strip()) and "image-xxx" not in l]
+        other_lines = [l for l in lines if l not in img_lines]
+        if len(img_lines) == 1 and other_lines and lines[0].strip().startswith("!["):
+            # Only reorder compact figure/table blocks (not long multi-paragraph articles)
+            if len(other_lines) <= 4 and any(l.strip().startswith("#") for l in other_lines):
+                return "\n\n".join(other_lines + img_lines)
+        return md
+
+    en_clean = re.sub(r"<!--.*?-->", "", en_md or "", flags=re.S).strip()
+    ko_clean = re.sub(r"<!--.*?-->", "", ko_md or "", flags=re.S).strip()
+    en_first = en_clean.splitlines()[0].strip() if en_clean.splitlines() else ""
+    ko_first = ko_clean.splitlines()[0].strip() if ko_clean.splitlines() else ""
+    if en_first.startswith("![") != ko_first.startswith("!["):
+        return reorder_if_img_first(en_md), reorder_if_img_first(ko_md)
+    return en_md, ko_md
+
+
 def build_chapter_html(subnote_dir: str, n: int) -> tuple[int, int, float]:
     jp = os.path.join(subnote_dir, f"chapter{n}_bilingual.json")
     hp = os.path.join(subnote_dir, f"chapter{n}_bilingual.html")
@@ -316,8 +344,9 @@ def build_chapter_html(subnote_dir: str, n: int) -> tuple[int, int, float]:
         </a>"""
             )
 
-        en_html = md_to_html(en_md)
-        ko_html = md_to_html(ko_md)
+        aligned_en, aligned_ko = align_figure_block(en_md, ko_md)
+        en_html = md_to_html(aligned_en)
+        ko_html = md_to_html(aligned_ko)
 
         row_items.append(
             f"""        <!-- Block {idx} -->
