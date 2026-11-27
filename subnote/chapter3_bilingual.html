@@ -3916,11 +3916,7 @@ html:not(.dark) ::-webkit-scrollbar-thumb {
                 if (icon) icon.textContent = '☀️';
             }
         }
-        applyStoredTheme(); else {
-                html.classList.add('dark');
-                icon.textContent = '☀️';
-            }
-        }
+        applyStoredTheme();
 
         function handleSearch(query) {
             const q = query.trim().toLowerCase();

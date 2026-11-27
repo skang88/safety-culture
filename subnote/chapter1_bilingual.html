@@ -5648,7 +5648,6 @@ html:not(.dark) ::-webkit-scrollbar-thumb {
             sb.classList.toggle('-translate-x-full');
         }
 
-        // Theme Toggle (Dark/Light)
         // Theme Toggle (Dark/Light) with persistence
         function applyStoredTheme() {
             const saved = localStorage.getItem('safety_culture_theme');
@@ -5675,11 +5674,7 @@ html:not(.dark) ::-webkit-scrollbar-thumb {
                 if (icon) icon.textContent = '☀️';
             }
         }
-        applyStoredTheme(); else {
-                html.classList.add('dark');
-                icon.textContent = '☀️';
-            }
-        }
+        applyStoredTheme();
 
         // Real-time Search
         function handleSearch(query) {

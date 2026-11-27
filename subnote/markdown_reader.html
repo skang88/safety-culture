@@ -123,6 +123,93 @@
             text-decoration: underline;
             text-underline-offset: 4px;
         }
+/* LIGHT_MODE_OVERRIDE_START */
+        html:not(.dark) body {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+        }
+        html:not(.dark) header {
+            background-color: rgba(255, 255, 255, 0.96) !important;
+            border-color: #e2e8f0 !important;
+        }
+        html:not(.dark) [class*="bg-slate-950"] {
+            background-color: #f8fafc !important;
+        }
+        html:not(.dark) [class*="bg-slate-900"] {
+            background-color: #ffffff !important;
+        }
+        html:not(.dark) [class*="bg-slate-800"] {
+            background-color: #f1f5f9 !important;
+        }
+        html:not(.dark) [class*="border-slate-800"],
+        html:not(.dark) [class*="border-slate-900"] {
+            border-color: #e2e8f0 !important;
+        }
+        html:not(.dark) [class*="border-slate-700"] {
+            border-color: #cbd5e1 !important;
+        }
+        html:not(.dark) .text-white {
+            color: #0f172a !important;
+        }
+        html:not(.dark) .text-slate-200 {
+            color: #1e293b !important;
+        }
+        html:not(.dark) .text-slate-300 {
+            color: #334155 !important;
+        }
+        html:not(.dark) .text-slate-400,
+        html:not(.dark) .text-slate-500 {
+            color: #475569 !important;
+        }
+        html:not(.dark) .bg-sky-950 {
+            background-color: #e0f2fe !important;
+            border-color: #bae6fd !important;
+        }
+        html:not(.dark) .text-sky-400 {
+            color: #0369a1 !important;
+        }
+        html:not(.dark) .markdown-body {
+            color: #1e293b !important;
+        }
+        html:not(.dark) .markdown-body h1 {
+            color: #0369a1 !important;
+            border-bottom-color: #cbd5e1 !important;
+        }
+        html:not(.dark) .markdown-body h2 {
+            color: #b45309 !important;
+            border-bottom-color: #e2e8f0 !important;
+        }
+        html:not(.dark) .markdown-body h3 {
+            color: #0f766e !important;
+        }
+        html:not(.dark) .markdown-body blockquote {
+            background: #fffbeb !important;
+            color: #78350f !important;
+            border-left-color: #d97706 !important;
+        }
+        html:not(.dark) .markdown-body table {
+            border-color: #cbd5e1 !important;
+        }
+        html:not(.dark) .markdown-body th {
+            background-color: #f1f5f9 !important;
+            color: #0369a1 !important;
+            border-bottom-color: #cbd5e1 !important;
+        }
+        html:not(.dark) .markdown-body td {
+            border-bottom-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+        html:not(.dark) .markdown-body tr:hover td {
+            background-color: #f8fafc !important;
+        }
+        html:not(.dark) .markdown-body img {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+        }
+        html:not(.dark) .markdown-body a {
+            color: #0284c7 !important;
+        }
+/* LIGHT_MODE_OVERRIDE_END */
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
@@ -224,18 +311,34 @@
             document.getElementById('errorMsg').textContent = msg;
         }
 
+        function applyStoredTheme() {
+            const saved = localStorage.getItem('safety_culture_theme');
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (saved === 'light') {
+                html.classList.remove('dark');
+                if (icon) icon.textContent = '🌙';
+            } else {
+                html.classList.add('dark');
+                if (icon) icon.textContent = '☀️';
+            }
+        }
+
         function toggleTheme() {
             const html = document.documentElement;
             const icon = document.getElementById('themeIcon');
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
-                icon.textContent = '🌙';
+                localStorage.setItem('safety_culture_theme', 'light');
+                if (icon) icon.textContent = '🌙';
             } else {
                 html.classList.add('dark');
-                icon.textContent = '☀️';
+                localStorage.setItem('safety_culture_theme', 'dark');
+                if (icon) icon.textContent = '☀️';
             }
         }
 
+        applyStoredTheme();
         window.addEventListener('DOMContentLoaded', loadMarkdown);
     </script>
 </body>
