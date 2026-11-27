@@ -27,9 +27,9 @@ export default function OnboardingModal({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (defaultCompanyName) setCompanyName(defaultCompanyName);
-    if (defaultEvaluatorName) setEvaluatorName(defaultEvaluatorName);
-  }, [defaultCompanyName, defaultEvaluatorName]);
+    setCompanyName(defaultCompanyName || "");
+    setEvaluatorName(defaultEvaluatorName || "");
+  }, [isOpen, defaultCompanyName, defaultEvaluatorName]);
 
   if (!isOpen) return null;
 

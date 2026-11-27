@@ -13,10 +13,17 @@ function buildSessionResponse(doc: any): AssessmentSessionResponse {
   const benchmark = INDUSTRY_METADATA[industry] || INDUSTRY_METADATA.manufacturing;
 
   const currentStep = doc.current_step || 0;
-  const progressPercent = Math.min(100, Math.round(((currentStep + 1) / TOTAL_STEPS) * 100));
+  const answersObj: Record<string, number> = doc.answers || {};
+  const totalQuestions =
+    Array.isArray((seedData as any).assessmentItems) && (seedData as any).assessmentItems.length > 0
+      ? (seedData as any).assessmentItems.length
+      : 26;
+  const answeredCount = Object.keys(answersObj).length;
+  const progressPercent = doc.is_completed
+    ? 100
+    : Math.min(100, Math.round((answeredCount / totalQuestions) * 100));
 
   let assessmentResult = null;
-  const answersObj: Record<string, number> = doc.answers || {};
 
   if (doc.is_completed || Object.keys(answersObj).length >= 10) {
     const answersList = Object.entries(answersObj).map(([itemId, score]) => ({
@@ -155,5 +162,16 @@ export async function getLatestSessionForUser(userId: string): Promise<Assessmen
   } catch (err) {
     console.error("Failed to get latest session for user:", err);
     return null;
+  }
+}
+
+export async function listSessions(limit: number = 30): Promise<AssessmentSessionResponse[]> {
+  try {
+    const db = await getDb();
+    const docs = await db.collection("sessions").find({}).sort({ updated_at: -1 }).limit(limit).toArray();
+    return docs.map((doc) => buildSessionResponse(doc));
+  } catch (err) {
+    console.error("Failed to list sessions from MongoDB:", err);
+    return [];
   }
 }

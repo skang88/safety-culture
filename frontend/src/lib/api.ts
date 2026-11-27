@@ -327,6 +327,33 @@ export async function fetchChecklistStats() {
 // 회사 온보딩 & Step-by-Step 진단 세션 API
 // -------------------------------------------------------------
 
+const SESSIONS_LIST_KEY = "safepulse_sessions_list";
+
+function getLocalSessionList(): any[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(SESSIONS_LIST_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function upsertLocalSessionList(sessionData: any): any[] {
+  if (typeof window === "undefined" || !sessionData?.session_id) return [];
+  const current = getLocalSessionList();
+  const filtered = current.filter((s) => s?.session_id !== sessionData.session_id);
+  const next = [sessionData, ...filtered].slice(0, 30);
+  try {
+    localStorage.setItem(SESSIONS_LIST_KEY, JSON.stringify(next));
+  } catch {
+    // ignore storage quota errors
+  }
+  return next;
+}
+
 export async function startCompanySession(company: any) {
   try {
     const token = getAuthToken();
@@ -346,25 +373,31 @@ export async function startCompanySession(company: any) {
       localStorage.setItem("safepulse_session_id", data.session_id);
       localStorage.setItem("safepulse_company", JSON.stringify(data.company));
       localStorage.setItem("safepulse_session_data", JSON.stringify(data));
+      upsertLocalSessionList(data);
     }
     return data;
   } catch (err) {
     console.warn("Fallback start session:", err);
     const mockSessionId = `sess_local_${Date.now()}`;
+    const nowIso = new Date().toISOString();
     const mockData = {
       session_id: mockSessionId,
       company,
       current_step: 0,
       answers: {},
       is_completed: false,
+      progress_percent: 0,
       progress_percentage: 0.0,
-      total_questions: 18,
-      answered_count: 0
+      total_questions: 26,
+      answered_count: 0,
+      created_at: nowIso,
+      updated_at: nowIso,
     };
     if (typeof window !== "undefined") {
       localStorage.setItem("safepulse_session_id", mockSessionId);
       localStorage.setItem("safepulse_company", JSON.stringify(company));
       localStorage.setItem("safepulse_session_data", JSON.stringify(mockData));
+      upsertLocalSessionList(mockData);
     }
     return mockData;
   }
@@ -377,12 +410,17 @@ export async function fetchSession(sessionId: string) {
     const data = await res.json();
     if (typeof window !== "undefined") {
       localStorage.setItem("safepulse_session_data", JSON.stringify(data));
+      upsertLocalSessionList(data);
     }
     return data;
   } catch (err) {
     console.warn("Fallback fetch session:", err);
     if (typeof window !== "undefined") {
       try {
+        const list = getLocalSessionList();
+        const found = list.find((s) => s?.session_id === sessionId);
+        if (found) return found;
+
         const raw = localStorage.getItem("safepulse_session_data");
         if (raw) {
           const parsed = JSON.parse(raw);
@@ -402,8 +440,17 @@ export async function saveSessionProgress(sessionId: string, currentStep: number
   let storedSession: any = null;
   if (typeof window !== "undefined") {
     try {
-      const raw = localStorage.getItem("safepulse_session_data");
-      if (raw) storedSession = JSON.parse(raw);
+      const list = getLocalSessionList();
+      storedSession = list.find((s) => s?.session_id === sessionId) || null;
+      if (!storedSession) {
+        const raw = localStorage.getItem("safepulse_session_data");
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (!parsed?.session_id || parsed.session_id === sessionId) {
+            storedSession = parsed;
+          }
+        }
+      }
     } catch {
       // ignore parse errors
     }
@@ -428,27 +475,79 @@ export async function saveSessionProgress(sessionId: string, currentStep: number
     };
     if (typeof window !== "undefined") {
       localStorage.setItem("safepulse_session_data", JSON.stringify(merged));
+      upsertLocalSessionList(merged);
     }
     return merged;
   } catch (err) {
     console.warn("Fallback save progress:", err);
-    const totalQuestions = storedSession?.total_questions || 18;
+    const totalQuestions = storedSession?.total_questions || 26;
     const answeredCount = Object.keys(answers).length;
+    const pct = isCompleted ? 100 : Math.min(100, Math.round((answeredCount / totalQuestions) * 100));
     const fallbackData = {
       ...(storedSession || {}),
       session_id: sessionId,
       current_step: currentStep,
       answers,
       is_completed: isCompleted,
-      progress_percentage: Math.min(100, Math.round((answeredCount / totalQuestions) * 100)),
+      progress_percent: pct,
+      progress_percentage: pct,
       total_questions: totalQuestions,
-      answered_count: answeredCount
+      answered_count: answeredCount,
+      updated_at: new Date().toISOString(),
     };
     if (typeof window !== "undefined") {
       localStorage.setItem("safepulse_session_data", JSON.stringify(fallbackData));
+      upsertLocalSessionList(fallbackData);
     }
     return fallbackData;
   }
+}
+
+export async function fetchSessionList(): Promise<any[]> {
+  let remoteList: any[] = [];
+  try {
+    const res = await apiFetch("/session/list");
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) remoteList = data;
+    }
+  } catch (err) {
+    console.warn("Fallback session list:", err);
+  }
+
+  const mergedMap = new Map<string, any>();
+  const addOrPickFresher = (item: any) => {
+    if (!item?.session_id) return;
+    const prev = mergedMap.get(item.session_id);
+    if (!prev) {
+      mergedMap.set(item.session_id, item);
+      return;
+    }
+    const prevTime = prev.updated_at ? new Date(prev.updated_at).getTime() : 0;
+    const nextTime = item.updated_at ? new Date(item.updated_at).getTime() : 0;
+    const prevAns = Object.keys(prev.answers || {}).length;
+    const nextAns = Object.keys(item.answers || {}).length;
+    if (nextTime > prevTime || (item.is_completed && !prev.is_completed) || nextAns > prevAns) {
+      mergedMap.set(item.session_id, { ...prev, ...item });
+    }
+  };
+
+  remoteList.forEach(addOrPickFresher);
+  if (typeof window !== "undefined") {
+    getLocalSessionList().forEach(addOrPickFresher);
+    try {
+      const rawCurrent = localStorage.getItem("safepulse_session_data");
+      if (rawCurrent) addOrPickFresher(JSON.parse(rawCurrent));
+    } catch {
+      // ignore parse errors
+    }
+  }
+
+  return Array.from(mergedMap.values()).sort((a, b) => {
+    const ta = a?.updated_at ? new Date(a.updated_at).getTime() : 0;
+    const tb = b?.updated_at ? new Date(b.updated_at).getTime() : 0;
+    return tb - ta;
+  });
 }
 
 

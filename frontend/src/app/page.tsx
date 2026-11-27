@@ -20,22 +20,44 @@ import JHAHPIBuilderView from "@/components/JHAHPIBuilderView";
 import PDCADMAICBoardView from "@/components/PDCADMAICBoardView";
 import KnowledgeCurationView from "@/components/KnowledgeCurationView";
 import ContentIPOHubView from "@/components/ContentIPOHubView";
-import { fetchSession } from "@/lib/api";
+import { fetchSession, fetchSessionList } from "@/lib/api";
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState("dashboard");
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+  const [onboardingMode, setOnboardingMode] = useState<"new" | "edit">("new");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
   const [session, setSession] = useState<any>(null);
+  const [availableSessions, setAvailableSessions] = useState<any[]>([]);
+  const [sessionsLoading, setSessionsLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [completedChecklistModules, setCompletedChecklistModules] = useState<Record<string, any>>({});
   const [selectedChecklistGroupId, setSelectedChecklistGroupId] = useState<string>("APP_7_2_LEADERSHIP");
 
+  const upsertSessionIntoList = (target: any, list: any[]) => {
+    if (!target?.session_id) return list;
+    return [target, ...list.filter((item) => item?.session_id !== target.session_id)].slice(0, 30);
+  };
+
+  const refreshSessions = async () => {
+    setSessionsLoading(true);
+    try {
+      const list = await fetchSessionList();
+      setAvailableSessions(list);
+    } finally {
+      setSessionsLoading(false);
+    }
+  };
+
   useEffect(() => {
     async function initSession() {
       try {
-        const storedSessionId = localStorage.getItem("safepulse_session_id");
+        const [storedSessionId, list] = await Promise.all([
+          Promise.resolve(localStorage.getItem("safepulse_session_id")),
+          fetchSessionList(),
+        ]);
+
         let restoredSession: any = null;
         if (storedSessionId) {
           restoredSession = await fetchSession(storedSessionId);
@@ -50,6 +72,9 @@ export default function Home() {
         }
         if (restoredSession) {
           setSession(restoredSession);
+          setAvailableSessions(upsertSessionIntoList(restoredSession, list));
+        } else {
+          setAvailableSessions(list);
         }
         // 부록 진단 완료 모듈 복원
         const storedChecklists = localStorage.getItem("safepulse_completed_checklists");
@@ -68,7 +93,9 @@ export default function Home() {
   // 온보딩 완료 시 세션 시작 및 진단 서베이로 이동
   const handleSessionStarted = (newSession: any) => {
     setSession(newSession);
+    setAvailableSessions((prev) => upsertSessionIntoList(newSession, prev));
     if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_id", newSession.session_id);
       localStorage.setItem("safepulse_session_data", JSON.stringify(newSession));
     }
     setCurrentTab("assessment");
@@ -77,9 +104,39 @@ export default function Home() {
   // 진단 진행 상태 업데이트
   const handleSessionUpdate = (updatedSession: any) => {
     setSession(updatedSession);
+    setAvailableSessions((prev) => upsertSessionIntoList(updatedSession, prev));
     if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_id", updatedSession.session_id);
       localStorage.setItem("safepulse_session_data", JSON.stringify(updatedSession));
     }
+  };
+
+  // 메인페이지에서 기존 세션 선택/전환
+  const handleSelectSession = async (targetSession: any) => {
+    if (!targetSession?.session_id) return;
+    setSession(targetSession);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("safepulse_session_id", targetSession.session_id);
+      localStorage.setItem("safepulse_session_data", JSON.stringify(targetSession));
+      if (targetSession.company) {
+        localStorage.setItem("safepulse_company", JSON.stringify(targetSession.company));
+      }
+    }
+    const fresh = await fetchSession(targetSession.session_id);
+    if (fresh) {
+      setSession(fresh);
+      setAvailableSessions((prev) => upsertSessionIntoList(fresh, prev));
+    }
+  };
+
+  const openNewSessionModal = () => {
+    setOnboardingMode("new");
+    setIsOnboardingOpen(true);
+  };
+
+  const openEditSessionModal = () => {
+    setOnboardingMode("edit");
+    setIsOnboardingOpen(true);
   };
 
   // 진단 완료 시 종합 리포트 탭으로 이동
@@ -117,10 +174,11 @@ export default function Home() {
       {/* 상단 고정 헤더: 동아대학교 · 재난관리학과 브랜딩 및 사업장 정보 */}
       <Navbar
         companyName={activeCompanyName}
+        evaluatorName={session?.company?.evaluator_name || ""}
         industry={activeIndustry}
         hasCompanyConfigured={hasCompanyConfigured}
         hasAssessmentResult={hasAssessmentResult}
-        onOpenOnboarding={() => setIsOnboardingOpen(true)}
+        onOpenOnboarding={openEditSessionModal}
         onToggleSidebar={() => {
           if (typeof window !== "undefined" && window.innerWidth >= 1024) {
             setIsDesktopSidebarOpen((prev) => !prev);
@@ -156,7 +214,12 @@ export default function Home() {
             <DashboardView
               onNavigate={setCurrentTab}
               session={session}
-              onOpenOnboarding={() => setIsOnboardingOpen(true)}
+              sessions={availableSessions}
+              sessionsLoading={sessionsLoading}
+              onSelectSession={handleSelectSession}
+              onRefreshSessions={refreshSessions}
+              onCreateNewSession={openNewSessionModal}
+              onOpenOnboarding={openEditSessionModal}
               completedChecklistModules={completedChecklistModules}
             />
           )}
@@ -165,7 +228,7 @@ export default function Home() {
               session={session}
               onSessionUpdate={handleSessionUpdate}
               onComplete={handleAssessmentComplete}
-              onOpenOnboarding={() => setIsOnboardingOpen(true)}
+              onOpenOnboarding={openNewSessionModal}
               onNavigate={setCurrentTab}
             />
           )}
@@ -237,8 +300,8 @@ export default function Home() {
       {/* 온보딩 모달 */}
       <OnboardingModal
         isOpen={isOnboardingOpen}
-        defaultCompanyName={session?.company?.company_name || ""}
-        defaultEvaluatorName={session?.company?.evaluator_name || ""}
+        defaultCompanyName={onboardingMode === "edit" ? session?.company?.company_name || "" : ""}
+        defaultEvaluatorName={onboardingMode === "edit" ? session?.company?.evaluator_name || "" : ""}
         onClose={() => setIsOnboardingOpen(false)}
         onSessionStarted={handleSessionStarted}
       />

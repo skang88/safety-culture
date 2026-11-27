@@ -16,7 +16,11 @@ import {
   FileBarChart,
   Scale,
   Building2,
-  HardHat
+  HardHat,
+  RefreshCw,
+  Plus,
+  Search,
+  UserCheck
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -33,6 +37,11 @@ import TextbookSourceBadge from "./TextbookSourceBadge";
 interface DashboardViewProps {
   onNavigate: (tab: string) => void;
   session?: any;
+  sessions?: any[];
+  sessionsLoading?: boolean;
+  onSelectSession?: (session: any) => void;
+  onRefreshSessions?: () => void;
+  onCreateNewSession?: () => void;
   onOpenOnboarding?: () => void;
   completedChecklistModules?: Record<string, any>;
 }
@@ -40,6 +49,11 @@ interface DashboardViewProps {
 export default function DashboardView({
   onNavigate,
   session,
+  sessions = [],
+  sessionsLoading = false,
+  onSelectSession,
+  onRefreshSessions,
+  onCreateNewSession,
   onOpenOnboarding,
   completedChecklistModules = {},
 }: DashboardViewProps) {
@@ -48,6 +62,7 @@ export default function DashboardView({
   const [report, setReport] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
+  const [sessionSearch, setSessionSearch] = useState("");
 
   useEffect(() => {
     setIsMounted(true);
@@ -89,7 +104,13 @@ export default function DashboardView({
   const lead = activeResult?.leadership_scores;
   const dim = activeResult?.dimension_scores;
 
-  const progressPct = session?.progress_percentage ?? session?.progress_pct ?? 0;
+  const answeredCount = session?.answers ? Object.keys(session.answers).length : 0;
+  const totalQuestions = session?.total_questions || 26;
+  const progressPct =
+    session?.progress_percent ??
+    session?.progress_percentage ??
+    session?.progress_pct ??
+    (answeredCount > 0 ? Math.min(100, Math.round((answeredCount / totalQuestions) * 100)) : 0);
   const companyName = session?.company?.company_name || "우리 기관/회사";
   const industryLabels: Record<string, string> = {
     manufacturing: "제조업",
@@ -99,9 +120,23 @@ export default function DashboardView({
     public_safety: "공공·소방",
     service_other: "서비스·기타",
   };
+  const roleLabels: Record<string, string> = {
+    executive: "경영진/임원",
+    manager: "중간관리자",
+    worker: "현장작업자",
+  };
   const industryName = session?.company?.industry
     ? industryLabels[session.company.industry] || session.company.industry
     : "업종 미설정";
+  const evaluatorName = session?.company?.evaluator_name || "";
+
+  const filteredSessions = sessions.filter((item) => {
+    if (!sessionSearch.trim()) return true;
+    const q = sessionSearch.trim().toLowerCase();
+    const cName = (item?.company?.company_name || "").toLowerCase();
+    const eName = (item?.company?.evaluator_name || "").toLowerCase();
+    return cName.includes(q) || eName.includes(q);
+  });
 
   // 부록 8개 모듈 완료 수
   const completedChecklistCount = Object.keys(completedChecklistModules).length;
@@ -175,6 +210,11 @@ export default function DashboardView({
             <span className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wide uppercase">
               [{companyName}] 안전문화 진단 현황
             </span>
+            {evaluatorName && (
+              <span className="px-2.5 py-0.5 rounded-full bg-slate-800/80 border border-slate-600 text-slate-200 text-[11px] font-semibold">
+                담당자: {evaluatorName}
+              </span>
+            )}
             <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 text-[11px] font-bold">
               업종: {industryName}
             </span>
@@ -247,6 +287,189 @@ export default function DashboardView({
             </button>
           </div>
         </div>
+      </div>
+
+      {/* 1-1. 진행 중인 진단 세션 선택기 (회사명 · 담당자명 기반 다중 세션 전환) */}
+      <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-blue-600" />
+              <h2 className="text-sm sm:text-base font-extrabold text-slate-900">
+                진행 중인 진단 세션 선택
+              </h2>
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                {sessions.length}개 세션
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">
+              회사명·담당자를 클릭하면 해당 세션의 진단 진행 현황과 보고서로 즉시 전환됩니다.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {sessions.length >= 4 && (
+              <div className="relative">
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={sessionSearch}
+                  onChange={(e) => setSessionSearch(e.target.value)}
+                  placeholder="회사명 또는 담당자 검색..."
+                  className="pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs text-slate-800 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                />
+              </div>
+            )}
+            {onRefreshSessions && (
+              <button
+                type="button"
+                onClick={onRefreshSessions}
+                disabled={sessionsLoading}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 transition-colors disabled:opacity-60"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${sessionsLoading ? "animate-spin" : ""}`} />
+                <span>새로고침</span>
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onCreateNewSession || onOpenOnboarding}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-xs transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>새 세션 만들기</span>
+            </button>
+          </div>
+        </div>
+
+        {sessions.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/70 p-6 text-center space-y-2.5">
+            <p className="text-xs text-slate-500">
+              아직 생성된 진단 세션이 없습니다. 회사명과 담당자를 입력해 첫 세션을 시작하거나 여러 기관 사례를 체험해 보세요.
+            </p>
+            <button
+              type="button"
+              onClick={onCreateNewSession || onOpenOnboarding}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-xs transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>새 진단 세션 만들기</span>
+            </button>
+          </div>
+        ) : filteredSessions.length === 0 ? (
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-center text-xs text-slate-500">
+            &ldquo;{sessionSearch}&rdquo;와 일치하는 세션(회사명/담당자)이 없습니다.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[320px] overflow-y-auto pr-1">
+            {filteredSessions.map((item) => {
+              const isSelected = Boolean(session?.session_id && item.session_id === session.session_id);
+              const itemCompany = item?.company?.company_name || "기관명 미입력";
+              const itemEvaluator = item?.company?.evaluator_name || "담당자 미지정";
+              const itemRole = item?.company?.evaluator_role
+                ? roleLabels[item.company.evaluator_role] || item.company.evaluator_role
+                : "";
+              const itemIndustry = item?.company?.industry
+                ? industryLabels[item.company.industry] || item.company.industry
+                : "업종 미설정";
+              const itemAnswersCount = item?.answers ? Object.keys(item.answers).length : 0;
+              const itemTotalQ = item?.total_questions || 26;
+              const itemResult = item?.assessment_result || item?.result || item?.results;
+              const itemCompleted = Boolean(item?.is_completed || itemResult);
+              const itemPct = itemCompleted
+                ? 100
+                : item?.progress_percent ??
+                  item?.progress_percentage ??
+                  item?.progress_pct ??
+                  Math.min(100, Math.round((itemAnswersCount / itemTotalQ) * 100));
+              const itemScore = itemResult?.overall_index;
+
+              let updatedLabel = "";
+              if (item?.updated_at) {
+                try {
+                  updatedLabel = new Date(item.updated_at).toLocaleDateString("ko-KR", {
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  });
+                } catch {
+                  updatedLabel = "";
+                }
+              }
+
+              return (
+                <button
+                  key={item.session_id}
+                  type="button"
+                  onClick={() => onSelectSession?.(item)}
+                  className={`text-left p-3.5 rounded-xl border transition-all flex flex-col justify-between gap-2.5 ${
+                    isSelected
+                      ? "border-blue-600 bg-blue-50/60 ring-2 ring-blue-100 shadow-xs"
+                      : "border-slate-200 bg-slate-50/50 hover:border-blue-300 hover:bg-white"
+                  }`}
+                >
+                  <div className="space-y-1.5">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="font-extrabold text-sm text-slate-900 line-clamp-1">
+                        {itemCompany}
+                      </span>
+                      {isSelected && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white shrink-0">
+                          현재 선택
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-600">
+                      <span className="inline-flex items-center gap-1 font-semibold text-slate-700">
+                        <UserCheck className="w-3 h-3 text-blue-600" />
+                        {itemEvaluator}
+                      </span>
+                      {itemRole && <span className="text-slate-400">({itemRole})</span>}
+                      <span className="px-1.5 py-0.5 rounded bg-slate-200/70 text-slate-700 text-[10px] font-bold">
+                        {itemIndustry}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between gap-2 text-[11px]">
+                      {itemCompleted ? (
+                        <span className="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                          <CheckCircle2 className="w-3 h-3" />
+                          진단 완료{typeof itemScore === "number" ? ` · ${itemScore}점` : ""}
+                        </span>
+                      ) : itemAnswersCount > 0 ? (
+                        <span className="inline-flex items-center gap-1 font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
+                          <Clock className="w-3 h-3" />
+                          진행 중 {itemPct}% ({itemAnswersCount}/{itemTotalQ})
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 font-semibold text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">
+                          시작 전
+                        </span>
+                      )}
+
+                      {updatedLabel && (
+                        <span className="text-[10px] text-slate-400 truncate">{updatedLabel}</span>
+                      )}
+                    </div>
+
+                    <div className="w-full h-1.5 rounded-full bg-slate-200/80 overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all ${
+                          itemCompleted ? "bg-emerald-500" : "bg-blue-600"
+                        }`}
+                        style={{ width: `${Math.max(itemCompleted ? 100 : itemPct, itemAnswersCount > 0 ? 6 : 0)}%` }}
+                      />
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* 2. 4대 핵심 지표 카드 */}

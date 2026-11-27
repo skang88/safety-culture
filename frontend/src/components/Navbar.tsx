@@ -5,6 +5,7 @@ import { Building2, Menu } from "lucide-react";
 
 interface NavbarProps {
   companyName?: string;
+  evaluatorName?: string;
   industry?: string;
   hasCompanyConfigured?: boolean;
   onOpenOnboarding: () => void;
@@ -14,6 +15,7 @@ interface NavbarProps {
 
 export default function Navbar({
   companyName = "기관/회사 미설정 (오픈 체험)",
+  evaluatorName = "",
   industry = "",
   hasCompanyConfigured = false,
   onOpenOnboarding,
@@ -77,9 +79,14 @@ export default function Navbar({
         <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200">
           <Building2 className="w-4 h-4 text-blue-600 shrink-0" />
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-bold text-slate-900 max-w-[160px] lg:max-w-[220px] truncate">
+            <span className="text-xs font-bold text-slate-900 max-w-[160px] lg:max-w-[200px] truncate">
               {companyName}
             </span>
+            {evaluatorName && (
+              <span className="text-[11px] font-medium text-slate-500 max-w-[90px] truncate">
+                · {evaluatorName}
+              </span>
+            )}
             <span className="text-[10px] px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold shrink-0 whitespace-nowrap">
               {currentIndustryLabel}
             </span>
