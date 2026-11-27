@@ -155,62 +155,56 @@ html:not(.dark) ::-webkit-scrollbar-thumb {
 <body class="min-h-screen flex flex-col">
 
     <!-- Top Sticky Header -->
-    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 shadow-xl">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-                <a href="index.html" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-400 transition" title="서브노트 목차로 이동">
-                    <i class="fa-solid fa-arrow-left"></i>
+    <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur border-b border-slate-800 shadow-md">
+        <div class="max-w-[1600px] mx-auto px-3 sm:px-5 h-16 flex items-center justify-between gap-2">
+            <!-- Left: Portal Home, Sidebar Toggle, Badge & Chapter Title -->
+            <div class="flex items-center gap-2 min-w-0">
+                <a href="index.html" title="포털 메인으로 돌아가기" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-bold transition shrink-0 whitespace-nowrap">
+                    🏠 <span class="hidden sm:inline">포털 메인</span>
                 </a>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30">Chapter 6</span>
-                        <h1 class="text-sm md:text-base font-bold text-white tracking-tight">Developing the Safety Management System: Creating the Safety Process</h1>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0 whitespace-nowrap">CHAPTER 6</span>
+                        <span class="text-[11px] text-sky-400 font-mono hidden md:inline whitespace-nowrap">1:1 대조 리더</span>
                     </div>
-                    <p class="text-xs text-slate-400 hidden sm:block">제6장: 안전보건경영시스템 구축: 안전 프로세스 창출 (100% 무축약 1:1 대조 리더)</p>
+                    <h1 class="text-xs sm:text-sm font-bold text-white tracking-tight truncate max-w-[180px] sm:max-w-xs lg:max-w-md">
+                        Developing the Safety Management System: Creating the Safety Process
+                    </h1>
                 </div>
             </div>
 
-            <!-- Global Controls -->
-            <div class="flex items-center gap-2">
-                <!-- Search -->
-                <div class="relative hidden md:block">
-                    <input type="text" id="search-input" placeholder="본문 검색 (한/영)..." 
-                           class="w-44 lg:w-60 bg-slate-800/90 text-sm text-slate-200 pl-8 pr-3 py-1.5 rounded-lg border border-slate-700 focus:outline-none focus:border-sky-500 transition">
-                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-xs text-slate-400"></i>
+            <!-- Right: Search, View Mode, Font Size, Chapter Pager, Subnote & Theme -->
+            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <div class="relative hidden xl:block">
+                    <input type="text" id="search-input" placeholder="영문/한글 검색..." class="w-40 2xl:w-52 px-2.5 py-1.5 pl-7 text-xs rounded-lg bg-slate-800 text-slate-200 border border-slate-700 focus:outline-none focus:border-sky-500 transition" />
+                    <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <!-- View Mode Switcher -->
+                <div class="hidden md:inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
+                    <button onclick="setViewMode('split')" id="btn-mode-split" title="나란히 보기 (기본 5:5)" class="px-2 py-1 text-xs font-medium rounded-md bg-sky-600 text-white shadow-sm transition whitespace-nowrap">5:5</button>
+                    <button onclick="setViewMode('en')" id="btn-mode-en" title="영문 원문만 보기" class="px-2 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition whitespace-nowrap">EN</button>
+                    <button onclick="setViewMode('ko')" id="btn-mode-ko" title="한글 번역만 보기" class="px-2 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition whitespace-nowrap">KO</button>
                 </div>
 
-                <!-- View Mode Controls -->
-                <div class="bg-slate-800/80 p-0.5 rounded-lg border border-slate-700 flex items-center">
-                    <button onclick="setViewMode('split')" id="btn-mode-split" class="px-2.5 py-1 text-xs font-medium rounded-md bg-sky-600 text-white shadow-sm transition" title="1:1 한영대조">
-                        <i class="fa-solid fa-columns mr-1"></i> 대조
-                    </button>
-                    <button onclick="setViewMode('en')" id="btn-mode-en" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition" title="영어 원문만 보기">
-                        EN
-                    </button>
-                    <button onclick="setViewMode('ko')" id="btn-mode-ko" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition" title="한국어 번역만 보기">
-                        KO
-                    </button>
+                <!-- Font Size Controls -->
+                <div class="hidden sm:inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
+                    <button onclick="changeFontSize(-1)" title="글자 축소" class="px-2 py-1 text-xs font-bold text-slate-300 hover:text-white transition">A-</button>
+                    <button onclick="changeFontSize(1)" title="글자 확대" class="px-2 py-1 text-xs font-bold text-slate-300 hover:text-white transition">A+</button>
                 </div>
 
-                <!-- Font Resizer -->
-                <div class="bg-slate-800/80 p-0.5 rounded-lg border border-slate-700 flex items-center">
-                    <button onclick="changeFontSize(-1)" class="w-7 h-7 flex items-center justify-center text-xs text-slate-300 hover:text-white hover:bg-slate-700 rounded transition" title="글자 축소">A-</button>
-                    <button onclick="changeFontSize(1)" class="w-7 h-7 flex items-center justify-center text-xs text-slate-300 hover:text-white hover:bg-slate-700 rounded transition" title="글자 확대">A+</button>
+                <!-- Chapter Prev/Next Pager & Subnote Link -->
+                <div class="flex items-center gap-1 border-l border-slate-700 pl-1.5 sm:pl-2">
+                    <a href="chapter5_bilingual.html" class="px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold transition whitespace-nowrap" title="이전 장 (Chapter 5)">◀ Ch5</a>
+                    <a href="chapter7_bilingual.html" class="px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold transition whitespace-nowrap" title="다음 장 (Chapter 7)">Ch7 ▶</a>
+                    <a href="chapter6_subnote.html" class="px-2.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-sm transition whitespace-nowrap" title="제6장 서브노트 열기">
+                        📘 <span class="hidden sm:inline">서브노트</span>
+                    </a>
                 </div>
+
                 <!-- Theme Toggle -->
-                <button onclick="toggleTheme()" title="다크/일반 모드 전환" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                <button onclick="toggleTheme()" title="다크/일반 모드 전환" class="p-1.5 sm:p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition shrink-0">
                     <span id="themeIcon">☀️</span>
                 </button>
-
-                <!-- Navigation between Chapters -->
-                <div class="flex items-center gap-1 border-l border-slate-700 pl-2">
-                    <a href="chapter5_bilingual.html" class="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition text-xs" title="5장으로">
-                        <i class="fa-solid fa-chevron-left"></i> Ch5
-                    </a>
-                    <a href="chapter7_bilingual.html" class="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition text-xs" title="7장으로">
-                        Ch7 <i class="fa-solid fa-chevron-right"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </header>

@@ -155,53 +155,50 @@ html:not(.dark) ::-webkit-scrollbar-thumb {
 <body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
 
     <!-- Top Sticky Header -->
-    <header class="sticky top-0 z-40 bg-slate-925/90 backdrop-blur-md border-b border-slate-800 shadow-md">
-        <div class="max-w-[1700px] mx-auto px-4 lg:px-8 h-14 flex items-center justify-between gap-4">
-            <!-- Left: Title & Chapter Navigation -->
-            <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="lg:hidden p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white" title="목차 열기">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </button>
-                <div class="flex items-center gap-2">
-                    <a href="index.html" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="홈으로">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    </a>
-                    <span class="px-2 py-0.5 rounded text-xs font-semibold bg-sky-500/20 text-sky-400 border border-sky-500/30">Ch 5</span>
-                    <h1 class="text-sm lg:text-base font-bold text-white truncate max-w-[280px] sm:max-w-md lg:max-w-none">
+    <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur border-b border-slate-800 shadow-md">
+        <div class="max-w-[1600px] mx-auto px-3 sm:px-5 h-16 flex items-center justify-between gap-2">
+            <!-- Left: Portal Home, Sidebar Toggle, Badge & Chapter Title -->
+            <div class="flex items-center gap-2 min-w-0">
+                <a href="index.html" title="포털 메인으로 돌아가기" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-bold transition shrink-0 whitespace-nowrap">
+                    🏠 <span class="hidden sm:inline">포털 메인</span>
+                </a>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0 whitespace-nowrap">CHAPTER 5</span>
+                        <span class="text-[11px] text-sky-400 font-mono hidden md:inline whitespace-nowrap">1:1 대조 리더</span>
+                    </div>
+                    <h1 class="text-xs sm:text-sm font-bold text-white tracking-tight truncate max-w-[180px] sm:max-w-xs lg:max-w-md">
                         Overview of Basic Safety Management Systems
                     </h1>
                 </div>
             </div>
 
-            <!-- Chapter Navigation Selector -->
-            <div class="hidden md:flex items-center gap-1.5 text-xs text-slate-400">
-                <a href="chapter4_bilingual.html" class="px-2 py-1 rounded bg-slate-800/80 hover:bg-slate-700 hover:text-white transition flex items-center gap-1">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                    4장
-                </a>
-                <span class="px-2 py-1 rounded bg-sky-600/30 text-sky-300 font-semibold border border-sky-500/40">5장</span>
-                <a href="chapter6_bilingual.html" class="px-2 py-1 rounded bg-slate-800/80 hover:bg-slate-700 hover:text-white transition flex items-center gap-1">
-                    6장
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-
-            <!-- Right Controls: View Mode & Font Size -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <!-- View Mode Segmented Controls -->
-                <div class="flex items-center bg-slate-800/80 p-0.5 rounded-lg border border-slate-700/60">
-                    <button id="btn-mode-split" onclick="setViewMode('split')" class="px-2.5 py-1 text-xs font-medium rounded-md bg-sky-600 text-white shadow-sm transition">대조</button>
-                    <button id="btn-mode-en" onclick="setViewMode('en-only')" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition">EN</button>
-                    <button id="btn-mode-ko" onclick="setViewMode('ko-only')" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition">KO</button>
+            <!-- Right: Search, View Mode, Font Size, Chapter Pager, Subnote & Theme -->
+            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <!-- View Mode Switcher -->
+                <div class="hidden md:inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
+                    <button onclick="setViewMode('split')" id="btn-mode-split" title="나란히 보기 (기본 5:5)" class="px-2 py-1 text-xs font-medium rounded-md bg-sky-600 text-white shadow-sm transition whitespace-nowrap">5:5</button>
+                    <button onclick="setViewMode('en-only')" id="btn-mode-en" title="영문 원문만 보기" class="px-2 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition whitespace-nowrap">EN</button>
+                    <button onclick="setViewMode('ko-only')" id="btn-mode-ko" title="한글 번역만 보기" class="px-2 py-1 text-xs font-medium rounded-md text-slate-400 hover:text-white transition whitespace-nowrap">KO</button>
                 </div>
 
-                <!-- Font Zoom -->
-                <div class="flex items-center bg-slate-800/80 rounded-lg border border-slate-700/60 p-0.5">
-                    <button onclick="changeFontSize(-1)" class="px-2 py-1 text-xs font-medium text-slate-400 hover:text-white transition" title="글꼴 축소">A-</button>
-                    <button onclick="changeFontSize(1)" class="px-2 py-1 text-xs font-medium text-slate-400 hover:text-white transition" title="글꼴 확대">A+</button>
+                <!-- Font Size Controls -->
+                <div class="hidden sm:inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
+                    <button onclick="changeFontSize(-1)" title="글자 축소" class="px-2 py-1 text-xs font-bold text-slate-300 hover:text-white transition">A-</button>
+                    <button onclick="changeFontSize(1)" title="글자 확대" class="px-2 py-1 text-xs font-bold text-slate-300 hover:text-white transition">A+</button>
                 </div>
+
+                <!-- Chapter Prev/Next Pager & Subnote Link -->
+                <div class="flex items-center gap-1 border-l border-slate-700 pl-1.5 sm:pl-2">
+                    <a href="chapter4_bilingual.html" class="px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold transition whitespace-nowrap" title="이전 장 (Chapter 4)">◀ Ch4</a>
+                    <a href="chapter6_bilingual.html" class="px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold transition whitespace-nowrap" title="다음 장 (Chapter 6)">Ch6 ▶</a>
+                    <a href="chapter5_subnote.html" class="px-2.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-sm transition whitespace-nowrap" title="제5장 서브노트 열기">
+                        📘 <span class="hidden sm:inline">서브노트</span>
+                    </a>
+                </div>
+
                 <!-- Theme Toggle -->
-                <button onclick="toggleTheme()" title="다크/일반 모드 전환" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                <button onclick="toggleTheme()" title="다크/일반 모드 전환" class="p-1.5 sm:p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition shrink-0">
                     <span id="themeIcon">☀️</span>
                 </button>
             </div>
