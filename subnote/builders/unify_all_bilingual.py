@@ -278,25 +278,48 @@ def extract_heading_for_toc(md_text: str) -> tuple[int, str] | None:
 
 
 def align_figure_block(en_md: str, ko_md: str) -> tuple[str, str]:
-    """Ensure heading/caption and image order matches between EN and KO (heading first)."""
+    """Mirror any missing images across EN/KO and ensure heading precedes image."""
+    def strip_comments(md: str) -> str:
+        return re.sub(r"<!--.*?-->", "", md or "", flags=re.S).strip()
+
+    def get_real_imgs(md: str) -> list[tuple[str, str]]:
+        return [
+            (alt, src.strip())
+            for alt, src in re.findall(r"!\[(.*?)\]\(([^)]+)\)", md)
+            if "image-xxx" not in src
+        ]
+
+    en_c = strip_comments(en_md)
+    ko_c = strip_comments(ko_md)
+    en_imgs = get_real_imgs(en_c)
+    ko_imgs = get_real_imgs(ko_c)
+
+    en_srcs = {src for _, src in en_imgs}
+    ko_srcs = {src for _, src in ko_imgs}
+
+    for alt, src in en_imgs:
+        if src not in ko_srcs:
+            ko_c = (ko_c + f"\n\n![{alt}]({src})").strip()
+            ko_srcs.add(src)
+    for alt, src in ko_imgs:
+        if src not in en_srcs:
+            en_c = (en_c + f"\n\n![{alt}]({src})").strip()
+            en_srcs.add(src)
+
     def reorder_if_img_first(md: str) -> str:
-        cleaned = re.sub(r"<!--.*?-->", "", md, flags=re.S).strip()
-        lines = [l for l in cleaned.splitlines() if l.strip()]
+        lines = [l for l in md.splitlines() if l.strip()]
         img_lines = [l for l in lines if re.match(r"^!\[.*?\]\(([^)]+)\)$", l.strip()) and "image-xxx" not in l]
         other_lines = [l for l in lines if l not in img_lines]
         if len(img_lines) == 1 and other_lines and lines[0].strip().startswith("!["):
-            # Only reorder compact figure/table blocks (not long multi-paragraph articles)
             if len(other_lines) <= 4 and any(l.strip().startswith("#") for l in other_lines):
                 return "\n\n".join(other_lines + img_lines)
         return md
 
-    en_clean = re.sub(r"<!--.*?-->", "", en_md or "", flags=re.S).strip()
-    ko_clean = re.sub(r"<!--.*?-->", "", ko_md or "", flags=re.S).strip()
-    en_first = en_clean.splitlines()[0].strip() if en_clean.splitlines() else ""
-    ko_first = ko_clean.splitlines()[0].strip() if ko_clean.splitlines() else ""
+    en_first = en_c.splitlines()[0].strip() if en_c.splitlines() else ""
+    ko_first = ko_c.splitlines()[0].strip() if ko_c.splitlines() else ""
     if en_first.startswith("![") != ko_first.startswith("!["):
-        return reorder_if_img_first(en_md), reorder_if_img_first(ko_md)
-    return en_md, ko_md
+        return reorder_if_img_first(en_c), reorder_if_img_first(ko_c)
+    return en_c, ko_c
 
 
 def build_chapter_html(subnote_dir: str, n: int) -> tuple[int, int, float]:
